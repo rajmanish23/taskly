@@ -1,0 +1,69 @@
+                          To-do Application
+
+
+Details::
+
+Features:
+
+1) Create tasks/to-do's
+2) Ability to create sub tasks for each task
+3) Sync to account
+4) Group tasks by tags
+5) Obviously ability to tag tasks
+6) Each task can have multiple tags
+7) Can add colour to a tag
+
+8) (Optional) SSO via Google, Facebook, etc
+
+=====
+
+Schema stuff:
+
+User table - username, password, user id
+
+Tasks table - task id, user id, task details, 
+                     date created, due date, status,
+                     has sub tasks?
+
+Sub Tasks table - sub task id, user id, parent task id, task details,
+                  date created, due date, status, parent task id
+
+Tags table - tag id, tag name, tag colour
+
+Task-tag table (many-to-many relation) - FK task id, FK tag id
+
+=====
+
+API/page Stuff:
+
+1) View a specific task item (/tasks/:taskId)
+2) View tasks in a group (/tags/:tagId)
+3) View a list of groups (/groups)
+4) View today's agenda (/today)
+5) View upcoming tasks (/upcoming)
+
+6) Add a task
+7) Add a sub task
+8) Create tags
+9) Update a task
+10) Update a sub task
+
+11) Delete a task
+12) Delete a sub task
+13) Delete a tag (also have to remove that tag from tasks)
+
+14) Create the user
+15) Update user details
+16) Delete user (including all data associated with user)
+
+------------------------------------------------
+
+Tech::
+
+> Backend - Django 
+	(Why? To learn a more production ready framework than express)
+> Database - MySQL 
+	(Why? Need relations in data. PostgreSQL is too advanced for this)
+> Frontend - React JS (Using hooks)
+	(Why? Still need to learn React Hooks cause I learned class based stuff)
+
