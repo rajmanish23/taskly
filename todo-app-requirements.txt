@@ -66,4 +66,5 @@ Tech::
 	(Why? Need relations in data. PostgreSQL is too advanced for this)
 > Frontend - React JS (Using hooks)
 	(Why? Still need to learn React Hooks cause I learned class based stuff)
-
+> Hosting (Optional) - Azure
+	(Why? Cause that's the only CSP I really know well)
