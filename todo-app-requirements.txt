@@ -14,6 +14,7 @@ Features:
 7) Can add colour to a tag
 
 8) (Optional) SSO via Google, Facebook, etc
+9) (Optional) A task can be repeated (like todoist)
 
 =====
 
@@ -26,7 +27,7 @@ Tasks table - task id, user id, task details,
                      has sub tasks?
 
 Sub Tasks table - sub task id, user id, parent task id, task details,
-                  date created, due date, status, parent task id
+                  date created, due date, status
 
 Tags table - tag id, tag name, tag colour
 
