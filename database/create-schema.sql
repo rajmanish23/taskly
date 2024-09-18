@@ -45,7 +45,9 @@ create table if not exists tags (
 	tag_id int not null auto_increment,
     tag_name varchar(20) not null,       -- Limited to 20ish characters as I don't want people to enter an entire sentence for this
     tag_colour char(6) not null,
-    primary key (tag_id)
+    primary key (tag_id),
+    user_id int,                           -- To relate to the user
+    foreign key (user_id) references users(user_id)
 );
 
 -- Junction table to relate tasks and tags (many-to-many)
