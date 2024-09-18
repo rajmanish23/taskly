@@ -17,11 +17,14 @@ create table if not exists tasks (
     task_description text,                 -- Decided to have a functionality to add a description
     created_date datetime not null,
     due_date datetime not null,
-    task_status varchar(10) not null,      -- "INPROGRESS", "COMPLETED", "OVERDUE"
+    
+    -- task_status varchar(10) not null,      -- "INPROGRESS", "COMPLETED" ("OVERDUE" - not gonna have this status cuz it means i have to constantly check for due dates for every task)
+    -- now that i think about it, why do you still need to store the task when it is completed?
+    
     has_sub_tasks boolean not null,
     primary key (task_id),
     
-    user_id int,                           -- To relate the task to the user
+    user_id int not null,                           -- To relate the task to the user
     foreign key (user_id) references users(user_id)
 );
 
@@ -31,12 +34,15 @@ create table if not exists sub_tasks (
     sub_task_name varchar(255) not null,   -- Sub tasks are not gonna have details because why would you?
     created_date datetime not null,
     due_date datetime not null,
-    sub_task_status varchar(10) not null,  -- Same statuses as main task status
+    
+    -- sub_task_status varchar(10) not null,  -- Same statuses as main task status
+    -- same here too...
+    
     primary key (sub_task_id),
     
-    parent_task_id int,                    -- To relate to main task
+    parent_task_id int not null,                    -- To relate to main task
     foreign key (parent_task_id) references tasks(task_id),
-    user_id int,                           -- To relate to the user
+    user_id int not null,                           -- To relate to the user
     foreign key (user_id) references users(user_id)
 );
 
@@ -46,7 +52,7 @@ create table if not exists tags (
     tag_name varchar(20) not null,       -- Limited to 20ish characters as I don't want people to enter an entire sentence for this
     tag_colour char(6) not null,
     primary key (tag_id),
-    user_id int,                           -- To relate to the user
+    user_id int not null,                           -- To relate to the user
     foreign key (user_id) references users(user_id)
 );
 
