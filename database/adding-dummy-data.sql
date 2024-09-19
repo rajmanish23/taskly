@@ -1,3 +1,5 @@
+use tasks_app;
+
 -- inserting a dummy user (hashing will be done while writing the backend)
 insert into users (
 	user_email, user_password
