@@ -115,3 +115,11 @@ from
 where
 	tasks.user_id = 1
     and tags.tag_id = 1;
+
+
+-- get the user details (/user)
+select 
+	user_email as email,
+    user_password as password,
+    user_id as userId
+from users where user_id = 1;
