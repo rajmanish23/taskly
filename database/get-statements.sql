@@ -72,7 +72,7 @@ from
     left join tags on tags.tag_id = tasks_tags.tag_id
 where
 	tasks.user_id = 1
-    and due_date > "2024-09-19 00:00:00";
+    and due_date > "2024-09-19 23:59:59";
     
     
 -- getting a specific task (/tasks/:taskId)
