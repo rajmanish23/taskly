@@ -15,6 +15,7 @@ Features:
 
 8) (Optional) SSO via Google, Facebook, etc
 9) (Optional) A task can be repeated (like todoist)
+10) (Optional) Add a scoring system
 
 =====
 
