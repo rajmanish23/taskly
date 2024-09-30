@@ -23,3 +23,13 @@ class GetUserView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        username = request.user.get_username()
+        queryset = self.get_queryset()
+        serializer = UserSerializer(queryset.get(username=username))
+        return Response(serializer.data)
+
+
+# NOTE: print(User.check_password(request.user, "thisiswrongpass"))
+# That checks if the password is correct or wrong.
