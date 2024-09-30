@@ -15,3 +15,10 @@ class CreateUserView(generics.CreateAPIView):
 
   # allows anyone to use this API since we want anyone to create an account
   permission_classes = [AllowAny] 
+
+
+# This is for GET API
+class GetUserView(generics.RetrieveAPIView):
+  queryset = User.objects.all()
+  serializer_class = UserSerializer
+  permission_classes = [IsAuthenticated]
