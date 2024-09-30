@@ -7,15 +7,29 @@ from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):
+    # extra_kwargs are like kwargs used here
+    # password = serializers.CharField(
+    #     write_only=True, required=True, validators=[validate_password]
+    # )
+
     class Meta:
         model = User
         fields = ["id", "username", "password", "first_name", "last_name"]
 
         # This provides additional functionality
-        # Here, we are making password write only. So can't send password in response
-        extra_kwargs = {"password": {"write_only": True}}
+        # Here, making first and last name required
+        extra_kwargs = {
+            "first_name": {"required": True},
+            "last_name": {"required": True},
+            "password": {
+                "write_only": True,
+                "required": True,
+                "validators": [validate_password]
+            }
+        }
 
     def create(self, validated_data):
+        # validate_password(validated_data["password"])
         user = User.objects.create_user(**validated_data)
         return user
 
