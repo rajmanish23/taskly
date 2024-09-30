@@ -6,17 +6,14 @@ from api.views import CreateUserView, GetUserView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path(
-        "api/user/register/", CreateUserView.as_view(), name="Register"
-    ),  # URL for registering user
-    path(
-        "api/user/get/<int:pk>/", GetUserView.as_view(), name="Get User"
-    ),  # URL for getting user details
+    # URL for registering user
+    path("api/user/register/", CreateUserView.as_view(), name="Register"),
+    # URL for getting user details
+    path("api/user/get/<int:pk>/", GetUserView.as_view(), name="Get User"),
     # Below URLs are for SimpleJWT so it can generate tokens and refresh tokens
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path(
-        "api-auth/", include("rest_framework.urls", namespace="rest_framework")
-    ),  # this enables auth stuff in the rest_framework ig
+    # this enables auth stuff in the rest_framework ig
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
 
