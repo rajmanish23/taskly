@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
+from .models import Task
+
 
 class UserSerializer(serializers.ModelSerializer):
     # extra_kwargs are like kwargs used here
@@ -24,12 +26,11 @@ class UserSerializer(serializers.ModelSerializer):
             "password": {
                 "write_only": True,
                 "required": True,
-                "validators": [validate_password]
-            }
+                "validators": [validate_password],
+            },
         }
 
     def create(self, validated_data):
-        # validate_password(validated_data["password"])
         user = User.objects.create_user(**validated_data)
         return user
 
@@ -41,3 +42,23 @@ class ChangePasswordSerializer(serializers.Serializer):
     def validate_new_password(self, value):
         validate_password(value)
         return value
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = [
+            "id",
+            "name",
+            "description",
+            "created_at",
+            "due_at",
+            "has_sub_tasks",
+            "author",
+        ]
+        extra_kwargs = {
+            "author": {"read_only": True},
+            "created_at": {"read_only": True},
+            "name": {"required": True},
+            "due_at": {"required": True},
+        }

@@ -21,4 +21,5 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # this enables auth stuff in the rest_framework ig
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("api/", include("api.urls")),
 ]

@@ -4,13 +4,37 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, ChangePasswordSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-# Create your views here.
+from .models import Task
+from .serializers import UserSerializer, ChangePasswordSerializer, TaskSerializer
 
 
-# This declared the CREATE API
+class TaskListCreateView(generics.ListCreateAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(author=user)
+
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            serializer.save(author=self.request.user)
+        else:
+            print(serializer.errors)
+
+
+class TaskDeleteView(generics.DestroyAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(author=user)
+
+
+# This declared the CREATE API for USER
 class CreateUserView(generics.CreateAPIView):
     # gives list of all users in the database to check if new user already exists
     queryset = User.objects.all()
@@ -21,7 +45,7 @@ class CreateUserView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
 
-# This is for GET API
+# This is for GET API for USER
 class GetUserView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -34,10 +58,11 @@ class GetUserView(generics.RetrieveAPIView):
         return Response(serializer.data)
 
 
+# Change password for USER
 class UpdatePasswordView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def put(self, request, *args, **kwargs):
+    def put(self, request):
         user_obj = request.user
         serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
