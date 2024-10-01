@@ -20,6 +20,7 @@ class TaskListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         if serializer.is_valid():
+            # .save() creates the object from the JSON data
             serializer.save(author=self.request.user)
         else:
             print(serializer.errors)
