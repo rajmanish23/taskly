@@ -26,7 +26,7 @@ class TaskListCreateView(generics.ListCreateAPIView):
             print(serializer.errors)
 
 
-class TaskDeleteView(generics.DestroyAPIView):
+class TaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
 
