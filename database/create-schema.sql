@@ -33,7 +33,7 @@ create table if not exists sub_tasks (
 	sub_task_id int not null auto_increment,
     sub_task_name varchar(255) not null,   -- Sub tasks are not gonna have details because why would you?
     created_date datetime not null,
-    due_date datetime not null,
+    -- due_date datetime not null,         -- Not gonna add due date for sub tasks since these would mainly be made to divide a task.
     
     -- sub_task_status varchar(10) not null,  -- Same statuses as main task status
     -- same here too...
@@ -42,8 +42,12 @@ create table if not exists sub_tasks (
     
     parent_task_id int not null,                    -- To relate to main task
     foreign key (parent_task_id) references tasks(task_id),
-    user_id int not null,                           -- To relate to the user
-    foreign key (user_id) references users(user_id)
+
+    -- I don't think defining this relation is necessary as
+    -- each sub task is related, which is then related to the user
+    -- so effectively each sub task is pretty much related to the user indirectly
+    -- user_id int not null,                           -- To relate to the user
+    -- foreign key (user_id) references users(user_id)
 );
 
 -- Creating the tags table.
