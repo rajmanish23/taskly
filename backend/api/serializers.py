@@ -54,10 +54,8 @@ class TaskSerializer(serializers.ModelSerializer):
             "created_at",
             "due_at",
             "has_sub_tasks",
-            "author",
         ]
         extra_kwargs = {
-            "author": {"read_only": True},
             "created_at": {"read_only": True},
             "name": {"required": True},
             "due_at": {"required": True},
