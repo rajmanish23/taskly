@@ -22,4 +22,15 @@ class SubTask(models.Model):
     # and they don't want to give any due dates for each sub tasks
     due_at = models.DateTimeField()
     parent_task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="sub_tasks")
-    
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=20, blank=False, null=False)
+    color_hex = models.CharField(max_length=7, blank=False, null=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tags")
+
+    def __str__(self) -> str:
+        return self.name
