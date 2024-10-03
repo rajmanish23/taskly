@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
-from .models import Task
+from .models import Task, SubTask, Tag
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -44,19 +44,28 @@ class ChangePasswordSerializer(serializers.Serializer):
         return value
 
 
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ["id", "name", "color_hex"]
+        extra_kwargs = {"name": {"required": True}, "color_hex": {"required": True}}
+
+
+class SubTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubTask
+        fields = ["id", "name", "due_at"]
+        extra_kwargs = {"name": {"required": True}, "due_at": {"required": True}}
+
+
 class TaskSerializer(serializers.ModelSerializer):
+    sub_tasks = SubTaskSerializer(many=True)
+    tags = TagSerializer(many=True, read_only=True)
+
     class Meta:
         model = Task
-        fields = [
-            "id",
-            "name",
-            "description",
-            "created_at",
-            "due_at",
-            "has_sub_tasks",
-        ]
+        fields = ["id", "name", "description", "due_at", "sub_tasks", "tags"]
         extra_kwargs = {
-            "created_at": {"read_only": True},
             "name": {"required": True},
             "due_at": {"required": True},
         }
