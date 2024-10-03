@@ -7,7 +7,6 @@ class Task(models.Model):
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     due_at = models.DateTimeField(blank=False, null=False)
-    has_sub_tasks = models.BooleanField(default=False)
 
     # related_name gives a name from User obj to get this Task data.
     # So it will be user.tasks here
@@ -40,7 +39,7 @@ class Tag(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tags")
 
     # defines the many-to-many relationship between tags and tasks
-    task_set = models.ManyToManyField(Task, blank=True, null=True, related_name="task_list")
+    task_set = models.ManyToManyField(Task, blank=True, related_name="task_list")
 
     def __str__(self) -> str:
         return self.name
