@@ -39,7 +39,7 @@ class Tag(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tags")
 
     # defines the many-to-many relationship between tags and tasks
-    task_set = models.ManyToManyField(Task, blank=True, related_name="task_list")
+    task_set = models.ManyToManyField(Task, blank=True, related_name="tags")
 
     def __str__(self) -> str:
         return self.name

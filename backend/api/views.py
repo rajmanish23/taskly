@@ -6,8 +6,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-from .models import Task
-from .serializers import UserSerializer, ChangePasswordSerializer, TaskSerializer
+from .models import Task, Tag
+from .serializers import (
+    UserSerializer,
+    ChangePasswordSerializer,
+    TaskSerializer,
+    TagSerializer,
+    SubTaskSerializer,
+)
 
 
 class TaskListCreateView(generics.ListCreateAPIView):
@@ -78,6 +84,15 @@ class UpdatePasswordView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class TagListCreateView(generics.ListCreateAPIView):
+    serializer_class = TagSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Tag.objects.filter(author=user)
 
 
 # NOTE: print(User.check_password(request.user, "thisiswrongpass"))

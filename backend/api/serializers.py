@@ -45,10 +45,15 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 
 class TagSerializer(serializers.ModelSerializer):
+    task_set = serializers.SerializerMethodField()
+
     class Meta:
         model = Tag
-        fields = ["id", "name", "color_hex"]
+        fields = ["id", "name", "color_hex", "task_set"]
         extra_kwargs = {"name": {"required": True}, "color_hex": {"required": True}}
+
+    def get_task_set(self, obj):
+        return list(obj.task_set.all().values("id", "name", "due_at"))
 
 
 class SubTaskSerializer(serializers.ModelSerializer):
@@ -60,7 +65,7 @@ class SubTaskSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     sub_tasks = SubTaskSerializer(many=True)
-    tags = TagSerializer(many=True, read_only=True)
+    tags = serializers.SerializerMethodField()
 
     class Meta:
         model = Task
@@ -69,3 +74,6 @@ class TaskSerializer(serializers.ModelSerializer):
             "name": {"required": True},
             "due_at": {"required": True},
         }
+
+    def get_tags(self, obj):
+        return obj.tags.all().values("id", "name", "color_hex")
