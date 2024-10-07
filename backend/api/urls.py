@@ -10,4 +10,9 @@ urlpatterns = [
         name="task-single-retrieve",
     ),
     path("tags/", views.TagListCreateView.as_view(), name="tag-list-create"),
+    path(
+        "tags/<int:pk>/",
+        views.TagRetrieveUpdateDeleteView.as_view(),
+        name="tag-single-retrieve",
+    ),
 ]

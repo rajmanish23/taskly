@@ -93,6 +93,15 @@ class TagListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         return Tag.objects.filter(author=user)
+    
+
+class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = TagSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Tag.objects.filter(author=user)
 
 
 # NOTE: print(User.check_password(request.user, "thisiswrongpass"))
