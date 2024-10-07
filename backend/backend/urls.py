@@ -2,14 +2,15 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from api.views import CreateUserView, GetUserView, UpdatePasswordView
+from api.views import CreateUserView, GetUserView, UpdatePasswordView, UpdateUserView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     # URL for registering user
-    path("api/user/register/", CreateUserView.as_view(), name="Register"),
+    path("api/user/register/", CreateUserView.as_view(), name="register"),
     # URL for getting user details
-    path("api/user/get/", GetUserView.as_view(), name="Get User"),
+    path("api/user/get/", GetUserView.as_view(), name="get-user"),
+    path("api/user/update/", UpdateUserView.as_view(), name="update-user"),
     # URL for changing password
     path(
         "api/user/change-password/",
