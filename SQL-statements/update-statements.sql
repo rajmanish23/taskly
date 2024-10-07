@@ -1,10 +1,10 @@
 use tasks_app;
 
 
--- updating user password
-update users
-set user_password = "new password"
-where user_id = "existing user id";
+-- -- updating user password
+-- update users
+-- set user_password = "new password"
+-- where user_id = "existing user id";
 
 -- updating user email
 update users
@@ -12,18 +12,18 @@ set user_email = "new email"
 where user_id = "existing user id";
 
 
--- updating task details
+-- -- updating task details
 
--- the backend logic will first get existing details,
--- then the new details given by user will be inserted here.
--- rest will be old details again.
-update tasks
-set 
-	task_name = "new task name",
-	task_description = "new task description",
-    due_date = "new due date",
-    has_sub_tasks = "if it has sub tasks"
-where task_id = "specific task id";
+-- -- the backend logic will first get existing details,
+-- -- then the new details given by user will be inserted here.
+-- -- rest will be old details again.
+-- update tasks
+-- set 
+-- 	task_name = "new task name",
+-- 	task_description = "new task description",
+--     due_date = "new due date",
+--     has_sub_tasks = "if it has sub tasks"
+-- where task_id = "specific task id";
 
 -- same logic with sub tasks
 update sub_tasks
