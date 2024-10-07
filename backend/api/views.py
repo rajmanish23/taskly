@@ -133,6 +133,13 @@ class TagListCreateView(generics.ListCreateAPIView):
         user = self.request.user
         return Tag.objects.filter(author=user)
 
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            # .save() creates the object from the JSON data
+            serializer.save(author=self.request.user)
+        else:
+            print(serializer.errors)
+
 
 class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TagSerializer
