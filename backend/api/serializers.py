@@ -64,8 +64,8 @@ class SubTaskSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    sub_tasks = SubTaskSerializer(many=True)
-    tags = serializers.SerializerMethodField()
+    sub_tasks = SubTaskSerializer(many=True, required=False)
+    tags = serializers.SerializerMethodField(required=False)
 
     class Meta:
         model = Task
