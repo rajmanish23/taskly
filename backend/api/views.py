@@ -1,5 +1,7 @@
-# from django.shortcuts import render
+import datetime
+
 from django.contrib.auth.models import User
+
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.views import APIView
@@ -41,13 +43,50 @@ class TaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         return Task.objects.filter(author=user)
 
 
+class TaskTodayListView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        date = self.request.query_params.get("date")
+        if date is None:
+            return Task.objects.none()
+        start_datetime = datetime.datetime.strptime(
+            (date + "T00:00:00"), "%Y-%m-%dT%H:%M:%S"
+        )
+        end_datetime = datetime.datetime.strptime(
+            (date + "T23:59:59"), "%Y-%m-%dT%H:%M:%S"
+        )
+        user = self.request.user
+        queryset = Task.objects.filter(author=user) & Task.objects.filter(
+            due_at__range=(start_datetime, end_datetime)
+        )
+        return queryset
+
+
+class TaskUpcomingListView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        date = self.request.query_params.get("date")
+        if date is None:
+            return Task.objects.none()
+        filter_datetime = datetime.datetime.strptime(
+            (date + "T23:59:59"), "%Y-%m-%dT%H:%M:%S"
+        )
+        user = self.request.user
+        queryset = Task.objects.filter(author=user) & Task.objects.filter(
+            due_at__gt=filter_datetime
+        )
+        return queryset
+
+
 # This declared the CREATE API for USER
 class CreateUserView(generics.CreateAPIView):
     # gives list of all users in the database to check if new user already exists
     queryset = User.objects.all()
-
     serializer_class = UserSerializer
-
     # allows anyone to use this API since we want anyone to create an account
     permission_classes = [AllowAny]
 
@@ -93,7 +132,7 @@ class TagListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         return Tag.objects.filter(author=user)
-    
+
 
 class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TagSerializer
