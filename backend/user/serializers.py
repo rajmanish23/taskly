@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
+from django.core.validators import validate_slug
 
 from .models import User
 
@@ -33,17 +34,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
-
-    def validate_new_password(self, value):
-        validate_password(value)
-        return value
+    new_password = serializers.CharField(required=True, validators=[validate_password])
 
 
 class UpdateEmailSerializer(serializers.Serializer):
     new_email = serializers.EmailField(required=True)
-    password = serializers.CharField(required=True)
-
-    def validate_password(self, value):
-        validate_password(value) # django validator
-        return value
+    password = serializers.CharField(required=True, validators=[validate_password])
