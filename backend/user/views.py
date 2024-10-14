@@ -8,7 +8,8 @@ from .models import User
 from .serializers import (
     UserSerializer,
     ChangePasswordSerializer,
-    UpdateEmailSerializer
+    UpdateEmailSerializer,
+    UpdateNameSerializer
 )
 
 
@@ -45,7 +46,7 @@ class UpdatePasswordView(APIView):
             old_password = serializer.data.get("old_password")
             if not user_obj.check_password(old_password):
                 return Response(
-                    {"old password": ["Wrong password"]},
+                    {"old password": "Wrong password"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
             user_obj.set_password(serializer.data.get("new_password"))
@@ -65,11 +66,34 @@ class UpdateUserView(APIView):
             password = serializer.data.get("password")
             if not user.check_password(password):
                 return Response(
-                    {"password": ["Wrong password"]},
+                    {"password": "Wrong password"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
             new_email = serializer.data.get("new_email")
             user.email = new_email
+            user.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateNameView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        user = request.user
+        serializer = UpdateNameSerializer(data=request.data)
+        if serializer.is_valid():
+            password = serializer.data.get("password")
+            if not user.check_password(password):
+                return Response(
+                    {"password": "Wrong password"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            first_name = serializer.data.get("first_name")
+            last_name = serializer.data.get("last_name")
+            user.first_name = first_name
+            user.last_name = last_name
             user.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
 

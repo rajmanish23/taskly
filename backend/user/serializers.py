@@ -43,5 +43,10 @@ class UpdateEmailSerializer(serializers.Serializer):
 
 
 class UpdateNameSerializer(serializers.Serializer):
-    first_name = serializers.CharField(required=True, max_length=30, validators=[validate_slug])
-    last_name = serializers.CharField(required=True, max_length=30, validators=[validate_slug])
+    first_name = serializers.CharField(
+        required=True, max_length=30, validators=[validate_slug]
+    )
+    last_name = serializers.CharField(
+        required=True, max_length=30, validators=[validate_slug]
+    )
+    password = serializers.CharField(required=True, validators=[validate_password])
