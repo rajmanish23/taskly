@@ -27,9 +27,9 @@ class GetUserView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        username = request.user.get_username()
+        email = request.user.email
         queryset = self.get_queryset()
-        serializer = UserSerializer(queryset.get(username=username))
+        serializer = UserSerializer(queryset.get(email=email))
         return Response(serializer.data)
 
 
