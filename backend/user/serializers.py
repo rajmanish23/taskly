@@ -40,3 +40,8 @@ class ChangePasswordSerializer(serializers.Serializer):
 class UpdateEmailSerializer(serializers.Serializer):
     new_email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True, validators=[validate_password])
+
+
+class UpdateNameSerializer(serializers.Serializer):
+    first_name = serializers.CharField(required=True, max_length=30, validators=[validate_slug])
+    last_name = serializers.CharField(required=True, max_length=30, validators=[validate_slug])
