@@ -6,10 +6,10 @@ use tasks_app;
 -- set user_password = "new password"
 -- where user_id = "existing user id";
 
--- updating user email
-update users
-set user_email = "new email"
-where user_id = "existing user id";
+-- -- updating user email
+-- update users
+-- set user_email = "new email"
+-- where user_id = "existing user id";
 
 
 -- -- updating task details

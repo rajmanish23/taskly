@@ -7,7 +7,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import User
 from .serializers import (
     UserSerializer,
-    ChangePasswordSerializer
+    ChangePasswordSerializer,
+    UpdateEmailSerializer
 )
 
 
@@ -59,9 +60,16 @@ class UpdateUserView(APIView):
 
     def put(self, request):
         user = request.user
-        serializer = UserSerializer(data=request.data)
+        serializer = UpdateEmailSerializer(data=request.data)
         if serializer.is_valid():
-            user.update(serializer.data)
+            password = serializer.data.get("password")
+            if not user.check_password(password):
+                return Response(
+                    {"password": ["Wrong password"]},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            new_email = serializer.data.get("new_email")
+            user.email = new_email
             user.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
 

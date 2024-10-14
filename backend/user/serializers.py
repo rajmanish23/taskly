@@ -38,3 +38,12 @@ class ChangePasswordSerializer(serializers.Serializer):
     def validate_new_password(self, value):
         validate_password(value)
         return value
+
+
+class UpdateEmailSerializer(serializers.Serializer):
+    new_email = serializers.EmailField(required=True)
+    password = serializers.CharField(required=True)
+
+    def validate_password(self, value):
+        validate_password(value) # django validator
+        return value

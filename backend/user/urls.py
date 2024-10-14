@@ -7,7 +7,7 @@ urlpatterns = [
     path("register/", CreateUserView.as_view(), name="register"),
     # URL for getting user details
     path("get/", GetUserView.as_view(), name="get-user"),
-    path("update/", UpdateUserView.as_view(), name="update-user"),
+    path("update-email/", UpdateUserView.as_view(), name="update-user"),
     # URL for changing password
     path(
         "change-password/",
