@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "api",
-    "user"
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -126,6 +126,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# Specifying Django to use the custom User model
+
+AUTH_USER_MODEL = "user.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
