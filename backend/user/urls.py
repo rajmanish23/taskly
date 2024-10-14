@@ -4,13 +4,13 @@ from .views import CreateUserView, GetUserView, UpdatePasswordView, UpdateUserVi
 
 urlpatterns = [
     # URL for registering user
-    path("api/user/register/", CreateUserView.as_view(), name="register"),
+    path("register/", CreateUserView.as_view(), name="register"),
     # URL for getting user details
-    path("api/user/get/", GetUserView.as_view(), name="get-user"),
-    path("api/user/update/", UpdateUserView.as_view(), name="update-user"),
+    path("get/", GetUserView.as_view(), name="get-user"),
+    path("update/", UpdateUserView.as_view(), name="update-user"),
     # URL for changing password
     path(
-        "api/user/change-password/",
+        "change-password/",
         UpdatePasswordView.as_view(),
         name="Change-password",
     ),
