@@ -33,12 +33,12 @@ use tasks_app;
 -- where sub_task_id = "specific sub task id";
 
 
--- more or less the same logic with updating tags too
-update tags
-set
-	tag_name = "new tag name",
-    tag_colour = "new tag colour"
-where tag_id = "specific tag id";
+-- -- more or less the same logic with updating tags too
+-- update tags
+-- set
+-- 	tag_name = "new tag name",
+--     tag_colour = "new tag colour"
+-- where tag_id = "specific tag id";
 
 
 -- no need to update the tasks-tags junction table
