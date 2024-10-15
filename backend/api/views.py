@@ -1,6 +1,7 @@
 import datetime
 
 from rest_framework import generics, status
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -9,6 +10,7 @@ from .serializers import (
     TaskSerializer,
     TagSerializer,
     SubTaskSerializer,
+    AddTagSerializer
 )
 
 
@@ -144,3 +146,29 @@ class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Tag.objects.filter(author=user)
+
+
+class AddTagsToTaskView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, task_id):
+        serializer = AddTagSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        print(serializer.data)
+        tag_ids = serializer.data.get("tag_ids")
+        task = None
+        tags = []
+        try:
+            task = Task.objects.get(id=task_id)
+        except:
+            return Response(
+                {"detail": "Task not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        for tag_id in tag_ids:
+            tagObj = Tag.objects.get(id=tag_id)
+            tags.append(tagObj)
+        task.tags.set(tags)
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -41,3 +41,10 @@ class TaskSerializer(serializers.ModelSerializer):
 
     def get_tags(self, obj):
         return obj.tags.all().values("id", "name", "color_hex")
+
+
+class AddTagSerializer(serializers.Serializer):
+    tag_ids = serializers.ListField(
+        child=serializers.IntegerField(),
+        required=True
+    )
