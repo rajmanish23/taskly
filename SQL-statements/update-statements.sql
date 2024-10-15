@@ -25,12 +25,12 @@ use tasks_app;
 --     has_sub_tasks = "if it has sub tasks"
 -- where task_id = "specific task id";
 
--- same logic with sub tasks
-update sub_tasks
-set
-	sub_task_name = "new sub task name",
-    due_date = "new due date"
-where sub_task_id = "specific sub task id";
+-- -- same logic with sub tasks
+-- update sub_tasks
+-- set
+-- 	sub_task_name = "new sub task name",
+--     due_date = "new due date"
+-- where sub_task_id = "specific sub task id";
 
 
 -- more or less the same logic with updating tags too
