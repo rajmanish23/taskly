@@ -26,6 +26,11 @@ urlpatterns = [
         name="task-add-tags",
     ),
     path(
+        "tasks/<int:task_id>/remove-tag/<int:tag_id>/",
+        views.RemoveTagFromTaskView.as_view(),
+        name="task-remove-tag",
+    ),
+    path(
         "tasks/<int:p_task>/sub-tasks/<int:pk>/",
         views.SubTaskRetrieveUpdateDeleteView.as_view(),
         name="sub-task-single-retrieve-update-delete",

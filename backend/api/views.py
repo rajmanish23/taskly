@@ -172,3 +172,20 @@ class AddTagsToTaskView(APIView):
             tags.append(tagObj)
         task.tags.set(tags)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class RemoveTagFromTaskView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, task_id, tag_id):
+        task = None
+        try:
+            task = Task.objects.get(id=task_id)
+        except:
+            return Response(
+                {"detail": "Task not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        tagObj = Tag.objects.get(id=tag_id)
+        task.tags.remove(tagObj)
+        return Response(status=status.HTTP_204_NO_CONTENT)
