@@ -24,7 +24,7 @@ class SubTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubTask
         fields = ["id", "name", "due_at"]
-        extra_kwargs = {"name": {"required": True}, "due_at": {"required": True}}
+        extra_kwargs = {"name": {"required": True}}
 
 
 class TaskSerializer(serializers.ModelSerializer):

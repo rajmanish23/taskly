@@ -24,7 +24,7 @@ class SubTask(models.Model):
     # A Sub task may or may not have a due date
     # maybe user want to just have a bunch of sub tasks under one main task
     # and they don't want to give any due dates for each sub tasks
-    due_at = models.DateTimeField()
+    due_at = models.DateTimeField(blank=True, null=True)
 
     parent_task = models.ForeignKey(
         Task, on_delete=models.CASCADE, related_name="sub_tasks"
