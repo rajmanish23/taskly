@@ -3,9 +3,9 @@ use tasks_app;
 -- each table get's their own delete statement
 -- in the backend logic, i'll call them whenever necessary
 
--- deleting user
-delete from users
-where user_id = "given user id";
+-- -- deleting user
+-- delete from users
+-- where user_id = "given user id";
 
 -- deleting a task
 delete from tasks
