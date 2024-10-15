@@ -98,3 +98,12 @@ class UpdateNameView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, *args, **kwargs):
+        user = self.request.user
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

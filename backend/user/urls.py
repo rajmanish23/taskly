@@ -5,7 +5,8 @@ from .views import (
     GetUserView,
     UpdatePasswordView,
     UpdateUserView,
-    UpdateNameView
+    UpdateNameView,
+    DeleteUserView,
 )
 
 urlpatterns = [
@@ -22,4 +23,6 @@ urlpatterns = [
         UpdatePasswordView.as_view(),
         name="Change-password",
     ),
+    # URL for deleting user
+    path("delete/", DeleteUserView.as_view(), name="delete-user"),
 ]
