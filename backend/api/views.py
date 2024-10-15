@@ -1,9 +1,10 @@
 import datetime
 
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
-from .models import Task, Tag
+from .models import Task, Tag, SubTask
 from .serializers import (
     TaskSerializer,
     TagSerializer,
@@ -34,6 +35,51 @@ class TaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Task.objects.filter(author=user)
+
+
+class SubTaskListCreateView(generics.ListCreateAPIView):
+    serializer_class = SubTaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        kwargs = self.request.parser_context.get("kwargs")
+        p_task = kwargs["p_task"]
+        return SubTask.objects.filter(parent_task=p_task)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        kwargs = self.request.parser_context.get("kwargs")
+        p_task = kwargs["p_task"]
+        task = None
+        try:
+            task = Task.objects.get(id=p_task)
+        except:
+            return Response(
+                {"detail": "Task not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        self.perform_create(serializer, task)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
+    def perform_create(self, serializer, task):
+        if serializer.is_valid():
+            serializer.save(parent_task=task)
+        else:
+            print(serializer.errors)
+
+
+class SubTaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = SubTaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        kwargs = self.request.parser_context.get("kwargs")
+        p_task = kwargs["p_task"]
+        return SubTask.objects.filter(parent_task=p_task)
 
 
 class TaskTodayListView(generics.ListAPIView):
@@ -98,5 +144,3 @@ class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Tag.objects.filter(author=user)
-
-
