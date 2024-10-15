@@ -18,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
         # This provides additional functionality
         # Here, making first and last name required
         extra_kwargs = {
+            "email": {"required": True},
             "first_name": {"required": True},
             "last_name": {"required": True},
             "password": {
