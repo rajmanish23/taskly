@@ -56,11 +56,11 @@ use tasks_app;
 -- );
 
 
--- adding relation between a tag and a task when assigning a tag to a task
-insert into tasks_tags (
-	task_id,
-    tag_id
-) values (
-	"task id here as number", 
-    "tag id here as number"
-);
+-- -- adding relation between a tag and a task when assigning a tag to a task
+-- insert into tasks_tags (
+-- 	task_id,
+--     tag_id
+-- ) values (
+-- 	"task id here as number", 
+--     "tag id here as number"
+-- );
