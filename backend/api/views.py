@@ -56,7 +56,7 @@ class SubTaskListCreateView(generics.ListCreateAPIView):
         task = None
         try:
             task = Task.objects.get(id=p_task)
-        except:
+        except Task.DoesNotExist:
             return Response(
                 {"detail": "Task not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -156,20 +156,25 @@ class AddTagsToTaskView(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        print(serializer.data)
         tag_ids = serializer.data.get("tag_ids")
         task = None
         tags = []
         try:
             task = Task.objects.get(id=task_id)
-        except:
+        except Task.DoesNotExist:
             return Response(
                 {"detail": "Task not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        for tag_id in tag_ids:
-            tagObj = Tag.objects.get(id=tag_id)
-            tags.append(tagObj)
+        try:
+            for tag_id in tag_ids:
+                tagObj = Tag.objects.get(id=tag_id)
+                tags.append(tagObj)
+        except Tag.DoesNotExist:
+            return Response(
+                {"detail": "Tag not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         task.tags.set(tags)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -181,11 +186,17 @@ class RemoveTagFromTaskView(APIView):
         task = None
         try:
             task = Task.objects.get(id=task_id)
-        except:
+        except Task.DoesNotExist:
             return Response(
                 {"detail": "Task not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        tagObj = Tag.objects.get(id=tag_id)
+        try:
+            tagObj = Tag.objects.get(id=tag_id)
+        except Tag.DoesNotExist:
+            return Response(
+                {"detail": "Tag not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         task.tags.remove(tagObj)
         return Response(status=status.HTTP_204_NO_CONTENT)
