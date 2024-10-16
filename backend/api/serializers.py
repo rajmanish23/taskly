@@ -13,17 +13,17 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = ["id", "name", "color_hex", "task_set"]
+        fields = ["s_id", "name", "color_hex", "task_set"]
         extra_kwargs = {"name": {"required": True}, "color_hex": {"required": True}}
 
     def get_task_set(self, obj):
-        return list(obj.task_set.all().values("id", "name", "due_at"))
+        return list(obj.task_set.all().values("s_id", "name", "due_at"))
 
 
 class SubTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubTask
-        fields = ["id", "name", "due_at"]
+        fields = ["s_id", "name", "due_at"]
         extra_kwargs = {"name": {"required": True}}
 
 
@@ -33,18 +33,18 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ["id", "name", "description", "due_at", "sub_tasks", "tags"]
+        fields = ["s_id", "name", "description", "due_at", "sub_tasks", "tags"]
         extra_kwargs = {
             "name": {"required": True},
             "due_at": {"required": True},
         }
 
     def get_tags(self, obj):
-        return obj.tags.all().values("id", "name", "color_hex")
+        return obj.tags.all().values("s_id", "name", "color_hex")
 
 
 class AddTagSerializer(serializers.Serializer):
     tag_ids = serializers.ListField(
-        child=serializers.IntegerField(),
+        child=serializers.CharField(),
         required=True
     )

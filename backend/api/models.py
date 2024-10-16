@@ -1,9 +1,25 @@
+from sqids import Sqids
 from django.db import models
+import os
+from dotenv import load_dotenv
 
 from user.models import User
 
+load_dotenv()
+sqids = Sqids(
+    min_length=16,
+    alphabet=os.getenv("SQIDS_ALPHABET"),
+    blocklist=os.getenv("SQIDS_BLOCKLIST"),
+)
+
+# Here, the "s_id" is the hashed/jumbledified string
+# that decodes to the actual id which is an int.
+# Added this mainly to allow sharing and stuff since
+# it will be visible in URLs on browser from frontend.
+
 
 class Task(models.Model):
+    s_id = models.CharField(max_length=16, blank=True, null=True)
     name = models.CharField(max_length=100, blank=False, null=False)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,8 +32,15 @@ class Task(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        print(self.id)
+        self.s_id = sqids.encode([self.id])
+        super().save(**kwargs)
+
 
 class SubTask(models.Model):
+    s_id = models.CharField(max_length=16, blank=True, null=True)
     name = models.CharField(max_length=100, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -33,8 +56,15 @@ class SubTask(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        print(self.id)
+        self.s_id = sqids.encode([self.id])
+        super().save(**kwargs)
+
 
 class Tag(models.Model):
+    s_id = models.CharField(max_length=16, blank=True, null=True)
     name = models.CharField(max_length=20, blank=False, null=False)
     color_hex = models.CharField(max_length=7, blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tags")
@@ -44,3 +74,9 @@ class Tag(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        print(self.id)
+        self.s_id = sqids.encode([self.id])
+        super().save(**kwargs)
