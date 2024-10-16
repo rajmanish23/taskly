@@ -13,6 +13,7 @@ from .serializers import (
     AddTagSerializer
 )
 
+# TODO: Update views to work with Sqids changes in models
 
 class TaskListCreateView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
