@@ -26,6 +26,10 @@ class SubTaskSerializer(serializers.ModelSerializer):
         fields = ["s_id", "name", "due_at"]
         extra_kwargs = {"name": {"required": True}}
 
+    def create(self, validated_data):
+        print(validated_data)
+        return super().create(validated_data)
+
 
 class TaskSerializer(serializers.ModelSerializer):
     sub_tasks = SubTaskSerializer(many=True, required=False)

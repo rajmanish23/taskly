@@ -35,9 +35,8 @@ class Task(models.Model):
 
     def save(self, **kwargs):
         super().save(**kwargs)
-        print(self.id)
         self.s_id = sqids.encode([self.id])
-        super().save(**kwargs)
+        super().save(update_fields=["s_id"])
 
 
 class SubTask(models.Model):
@@ -59,9 +58,8 @@ class SubTask(models.Model):
 
     def save(self, **kwargs):
         super().save(**kwargs)
-        print(self.id)
         self.s_id = sqids.encode([self.id])
-        super().save(**kwargs)
+        super().save(update_fields=['s_id'])
 
 
 class Tag(models.Model):
@@ -78,6 +76,5 @@ class Tag(models.Model):
 
     def save(self, **kwargs):
         super().save(**kwargs)
-        print(self.id)
         self.s_id = sqids.encode([self.id])
-        super().save(**kwargs)
+        super().save(update_fields=["s_id"])

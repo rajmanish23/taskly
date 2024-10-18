@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     path("tasks/all/", views.TaskListCreateView.as_view(), name="task-list-create"),
     path(
-        "tasks/<int:pk>/",
+        "tasks/<slug:pk>/",
         views.TaskRetrieveUpdateDeleteView.as_view(),
         name="task-single-retrieve-update-delete",
     ),
@@ -19,28 +19,28 @@ urlpatterns = [
         name="task-list-upcoming",
     ),
     path(
-        "tasks/<int:p_task>/sub-tasks/",
+        "tasks/<slug:p_task>/sub-tasks/",
         views.SubTaskListCreateView.as_view(),
         name="sub-task-list-create",
     ),
     path(
-        "tasks/<int:task_id>/add-tag/",
+        "tasks/<slug:task_id>/add-tag/",
         views.AddTagsToTaskView.as_view(),
         name="task-add-tags",
     ),
     path(
-        "tasks/<int:task_id>/remove-tag/<int:tag_id>/",
+        "tasks/<slug:task_id>/remove-tag/<slug:tag_id>/",
         views.RemoveTagFromTaskView.as_view(),
         name="task-remove-tag",
     ),
     path(
-        "tasks/<int:p_task>/sub-tasks/<int:pk>/",
+        "tasks/<slug:p_task>/sub-tasks/<slug:pk>/",
         views.SubTaskRetrieveUpdateDeleteView.as_view(),
         name="sub-task-single-retrieve-update-delete",
     ),
     path("tags/", views.TagListCreateView.as_view(), name="tag-list-create"),
     path(
-        "tags/<int:pk>/",
+        "tags/<slug:pk>/",
         views.TagRetrieveUpdateDeleteView.as_view(),
         name="tag-single-retrieve-update-delete",
     ),

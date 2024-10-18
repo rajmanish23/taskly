@@ -5,12 +5,23 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from sqids import Sqids
+import os
+from dotenv import load_dotenv
+
 from .models import Task, Tag, SubTask
 from .serializers import (
     TaskSerializer,
     TagSerializer,
     SubTaskSerializer,
     AddTagSerializer
+)
+
+load_dotenv()
+sqids = Sqids(
+    min_length=16,
+    alphabet=os.getenv("SQIDS_ALPHABET"),
+    blocklist=os.getenv("SQIDS_BLOCKLIST"),
 )
 
 # TODO: Update views to work with Sqids changes in models
@@ -38,6 +49,11 @@ class TaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Task.objects.filter(author=user)
+    
+    def get_object(self):
+        s_id = self.kwargs['pk']
+        self.kwargs['pk'] = sqids.decode(s_id)[0]
+        return super().get_object()
 
 
 class SubTaskListCreateView(generics.ListCreateAPIView):
@@ -52,8 +68,8 @@ class SubTaskListCreateView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        kwargs = self.request.parser_context.get("kwargs")
-        p_task = kwargs["p_task"]
+        s_p_task = self.kwargs['p_task']
+        p_task = sqids.decode(s_p_task)[0]
         task = None
         try:
             task = Task.objects.get(id=p_task)
@@ -80,9 +96,14 @@ class SubTaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        kwargs = self.request.parser_context.get("kwargs")
-        p_task = kwargs["p_task"]
+        s_p_task = self.kwargs['p_task']
+        p_task = sqids.decode(s_p_task)[0]
         return SubTask.objects.filter(parent_task=p_task)
+
+    def get_object(self):
+        s_id = self.kwargs["pk"]
+        self.kwargs["pk"] = sqids.decode(s_id)[0]
+        return super().get_object()
 
 
 class TaskTodayListView(generics.ListAPIView):
@@ -148,6 +169,11 @@ class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         return Tag.objects.filter(author=user)
 
+    def get_object(self):
+        s_id = self.kwargs["pk"]
+        self.kwargs["pk"] = sqids.decode(s_id)[0]
+        return super().get_object()
+
 
 class AddTagsToTaskView(APIView):
     permission_classes = [IsAuthenticated]
@@ -156,6 +182,8 @@ class AddTagsToTaskView(APIView):
         serializer = AddTagSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        task_id = sqids.decode(task_id)[0]
 
         tag_ids = serializer.data.get("tag_ids")
         task = None
@@ -167,8 +195,10 @@ class AddTagsToTaskView(APIView):
                 {"detail": "Task not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+        
         try:
             for tag_id in tag_ids:
+                tag_id = sqids.decode(tag_id)[0]
                 tagObj = Tag.objects.get(id=tag_id)
                 tags.append(tagObj)
         except Tag.DoesNotExist:
@@ -176,6 +206,7 @@ class AddTagsToTaskView(APIView):
                 {"detail": "Tag not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+        
         task.tags.set(tags)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -184,6 +215,9 @@ class RemoveTagFromTaskView(APIView):
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, task_id, tag_id):
+        task_id = sqids.decode(task_id)[0]
+        tag_id = sqids.decode(tag_id)[0]
+
         task = None
         try:
             task = Task.objects.get(id=task_id)
@@ -192,6 +226,7 @@ class RemoveTagFromTaskView(APIView):
                 {"detail": "Task not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+        
         try:
             tagObj = Tag.objects.get(id=tag_id)
         except Tag.DoesNotExist:
@@ -199,5 +234,6 @@ class RemoveTagFromTaskView(APIView):
                 {"detail": "Tag not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+        
         task.tags.remove(tagObj)
         return Response(status=status.HTTP_204_NO_CONTENT)
