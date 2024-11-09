@@ -19,7 +19,7 @@ const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
         refresh: refreshToken,
       });
       if (res.status === 200) {
-        Cookies.set(REFRESH_KEY, res.data.access);
+        Cookies.set(REFRESH_KEY, res.data.access, {sameSite: "Strict", secure: true});
         setIsAuth(true);
       } else {
         setIsAuth(false);
