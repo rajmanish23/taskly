@@ -1,4 +1,4 @@
-import useDocumentTitle from "../useDocumentTitle"
+import useDocumentTitle from "../hooks/useDocumentTitle"
 
 const NotFound = () => {
   useDocumentTitle("Not Found")
