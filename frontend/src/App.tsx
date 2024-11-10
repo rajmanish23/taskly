@@ -15,12 +15,6 @@ function Logout() {
   return <Navigate to="/login" />
 }
 
-function RegisterAndLogout() {
-  Cookies.remove(ACCESS_KEY);
-  Cookies.remove(REFRESH_KEY);
-  return <Register />
-}
-
 function App() {
   return (
     <div>
@@ -32,7 +26,7 @@ function App() {
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<RegisterAndLogout />} />
+        <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
