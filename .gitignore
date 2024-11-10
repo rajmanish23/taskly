@@ -1,4 +1,5 @@
 todo-env/
+**/.env
 
 # If you are using Visual Studio Code # 
 .vscode/* 
