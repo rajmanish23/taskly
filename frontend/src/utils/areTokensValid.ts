@@ -20,8 +20,9 @@ export default function areTokensValid () : boolean {
       refreshTokenExpiration === undefined ||
       accessTokenExpiration < now ||
       refreshTokenExpiration < now
-    )
-    return false;
+    ) {
+      return false;
+    }
     return true;
   } catch (error) {
     console.error(error)
