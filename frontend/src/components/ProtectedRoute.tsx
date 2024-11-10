@@ -8,7 +8,7 @@ import api from "../api";
 const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
 
-  const refreshToken = useCallback(async () => {
+  const refreshSession = useCallback(async () => {
     const refreshToken = Cookies.get(REFRESH_KEY);
     if (refreshToken === undefined) {
       setIsAuth(false);
@@ -19,32 +19,46 @@ const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
         refresh: refreshToken,
       });
       if (res.status === 200) {
-        Cookies.set(REFRESH_KEY, res.data.access, {sameSite: "Strict", secure: true});
+        Cookies.set(ACCESS_KEY, res.data.access, {
+          sameSite: "Strict",
+          secure: true,
+        });
         setIsAuth(true);
       } else {
         setIsAuth(false);
       }
     } catch (error) {
       setIsAuth(false);
-      console.log(error);
+      console.error(error);
     }
   }, [setIsAuth]);
 
   const authorize = useCallback(async () => {
     const accessToken = Cookies.get(ACCESS_KEY);
-    if (accessToken === undefined) {
+    const refreshToken = Cookies.get(REFRESH_KEY);
+    if (accessToken === undefined || refreshToken === undefined) {
       setIsAuth(false);
       return;
     }
     try {
       const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
+      const decodedRefreshToken = jwtDecode<JwtPayload>(refreshToken);
       const accessTokenExpiration = decodedAccessToken.exp; // this will be in seconds
+      const refreshTokenExpiration = decodedRefreshToken.exp;
       const now = Date.now() / 1000; // this ensures the "now" is in seconds, not milliseconds
-      if (accessTokenExpiration === undefined) {
+      if (
+        accessTokenExpiration === undefined ||
+        refreshTokenExpiration === undefined
+      ) {
         setIsAuth(false);
+        return;
       } else if (accessTokenExpiration < now) {
         // if current expiration is less than current time so essentially already expired
-        await refreshToken();
+        if (refreshTokenExpiration < now) {
+          setIsAuth(false);
+          return;
+        }
+        await refreshSession();
       } else {
         setIsAuth(true);
       }
@@ -52,7 +66,7 @@ const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
       setIsAuth(false);
       console.error(error);
     }
-  }, [setIsAuth, refreshToken]);
+  }, [refreshSession]);
 
   useEffect(() => {
     authorize().catch(() => setIsAuth(false));
