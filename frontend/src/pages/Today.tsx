@@ -1,11 +1,9 @@
-import useDocumentTitle from "../hooks/useDocumentTitle"
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Today = () => {
-  useDocumentTitle("Today")
+  useDocumentTitle("Today");
 
-  return (
-    <div>Today</div>
-  )
-}
+  return <div>Today</div>;
+};
 
-export default Today
+export default Today;

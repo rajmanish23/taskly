@@ -3,11 +3,11 @@ import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { ACCESS_KEY, REFRESH_KEY } from "../constants";
 
-export default function areTokensValid () : boolean {
+export default function areTokensValid(): boolean {
   const accessToken = Cookies.get(ACCESS_KEY);
   const refreshToken = Cookies.get(REFRESH_KEY);
   if (accessToken === undefined || refreshToken === undefined) {
-    return false
+    return false;
   }
   try {
     const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
@@ -25,7 +25,7 @@ export default function areTokensValid () : boolean {
     }
     return true;
   } catch (error) {
-    console.error(error)
-    return false
+    console.error(error);
+    return false;
   }
 }

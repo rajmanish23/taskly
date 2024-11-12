@@ -25,36 +25,37 @@ export default function validateUserFormInputs(
     rePasswordValidityError: "",
   };
 
-  const {email, password, rePassword, firstName, lastName} = formInputs
+  const { email, password, rePassword, firstName, lastName } = formInputs;
 
   if (email === "") {
-    errorMessages.emailValidityError = "Please enter your Email"
+    errorMessages.emailValidityError = "Please enter your Email";
   } else {
     // eslint-disable-next-line no-useless-escape
     const emailRegex: RegExp = /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm;
     if (!emailRegex.test(email)) {
-      errorMessages.emailValidityError = "Please enter a valid Email"
+      errorMessages.emailValidityError = "Please enter a valid Email";
     }
   }
 
   if (password === "") {
-    errorMessages.passwordValidityError = "Please enter a password"
+    errorMessages.passwordValidityError = "Please enter a password";
   }
 
   if (rePassword === "") {
-    errorMessages.rePasswordValidityError = "Please re-enter your password"
+    errorMessages.rePasswordValidityError = "Please re-enter your password";
   } else if (password !== "") {
     if (password !== rePassword) {
-      errorMessages.rePasswordValidityError = "Re-entered password does not match"
+      errorMessages.rePasswordValidityError =
+        "Re-entered password does not match";
     }
   }
 
   if (firstName === "") {
-    errorMessages.firstNameValidityError = "Please enter your first name"
+    errorMessages.firstNameValidityError = "Please enter your first name";
   } else {
     const nameRegex: RegExp = /^([A-Za-z][A-Za-z,.'`-]{1,})$/gm;
     if (!nameRegex.test(firstName)) {
-      errorMessages.firstNameValidityError = "Please enter a valid name"
+      errorMessages.firstNameValidityError = "Please enter a valid name";
     }
   }
 

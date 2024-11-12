@@ -2,7 +2,12 @@ import Cookies from "js-cookie";
 import { AxiosError } from "axios";
 
 import api from "../api";
-import { ACCESS_KEY, LOGIN_API_URL, REFRESH_KEY, REGISTER_API_URL } from "../constants";
+import {
+  ACCESS_KEY,
+  LOGIN_API_URL,
+  REFRESH_KEY,
+  REGISTER_API_URL,
+} from "../constants";
 
 export async function loginAPI(
   email: string,

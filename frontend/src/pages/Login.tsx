@@ -8,11 +8,11 @@ import { TODAY_PAGE_URL } from "../constants";
 const Login = () => {
   useDocumentTitle("Login");
 
-  const isTokenValid = areTokensValid()
-  
+  const isTokenValid = areTokensValid();
+
   if (isTokenValid) {
     return <Navigate to={TODAY_PAGE_URL} />;
-  } 
+  }
   return <UserForm method="LOGIN" />;
 };
 
