@@ -61,8 +61,8 @@ export async function registerAPI(
     const res = await api.post(REGISTER_API_URL, {
       email,
       password,
-      first_name: firstName,
-      last_name: lastName,
+      firstName,
+      lastName,
     });
     if (res.status === 201) {
       return [true, ""];
