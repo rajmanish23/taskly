@@ -1,8 +1,9 @@
 import { Navigate } from "react-router-dom";
 
-import Form from "../components/Form";
+import UserForm from "../components/UserForm";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import areTokensValid from "../utils/areTokensValid";
+import { TODAY_PAGE_URL } from "../constants";
 
 const Login = () => {
   useDocumentTitle("Login");
@@ -10,9 +11,9 @@ const Login = () => {
   const isTokenValid = areTokensValid()
   
   if (isTokenValid) {
-    return <Navigate to="/" />;
+    return <Navigate to={TODAY_PAGE_URL} />;
   } 
-  return <Form method="LOGIN" />;
+  return <UserForm method="LOGIN" />;
 };
 
 export default Login;

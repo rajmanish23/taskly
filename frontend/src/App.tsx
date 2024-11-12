@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Cookies from 'js-cookie'
 
-import { ACCESS_KEY, REFRESH_KEY } from "./constants";
+import { ACCESS_KEY, LOGIN_PAGE_URL, REFRESH_KEY, REGISTER_PAGE_URL, TODAY_PAGE_URL } from "./constants";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,14 +19,14 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={
+        <Route path={TODAY_PAGE_URL} element={
           <ProtectedRoute>
             <Today />
           </ProtectedRoute>
         } />
-        <Route path="/login" element={<Login />} />
+        <Route path={LOGIN_PAGE_URL} element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<Register />} />
+        <Route path={REGISTER_PAGE_URL} element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

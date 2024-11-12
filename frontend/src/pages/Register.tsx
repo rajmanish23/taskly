@@ -1,8 +1,9 @@
 import { Navigate } from "react-router-dom";
 
 import useDocumentTitle from "../hooks/useDocumentTitle"
-import Form from "../components/Form";
+import UserForm from "../components/UserForm";
 import areTokensValid from "../utils/areTokensValid";
+import { TODAY_PAGE_URL } from "../constants";
 
 const Register = () => {
   useDocumentTitle("Register")
@@ -10,9 +11,9 @@ const Register = () => {
   const isTokenValid = areTokensValid();
 
   if (isTokenValid) {
-    return <Navigate to="/" />;
+    return <Navigate to={TODAY_PAGE_URL} />;
   }
-  return <Form method="REGISTER" />;
+  return <UserForm method="REGISTER" />;
 }
 
 export default Register
