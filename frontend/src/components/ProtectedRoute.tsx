@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { ACCESS_KEY, REFRESH_KEY } from "../constants";
 import { jwtDecode, JwtPayload } from "jwt-decode";
+
+import { ACCESS_KEY, LOGIN_PAGE_URL, REFRESH_KEY, TOKEN_REFRESH_API_URL } from "../constants";
 import api from "../api";
 
 const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
@@ -15,7 +16,7 @@ const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
       return;
     }
     try {
-      const res = await api.post("/api/token/refresh/", {
+      const res = await api.post(TOKEN_REFRESH_API_URL, {
         refresh: refreshToken,
       });
       if (res.status === 200) {
@@ -76,7 +77,7 @@ const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
     return <div>Loading...</div>;
   }
 
-  return isAuth ? children : <Navigate to="/login" />;
+  return isAuth ? children : <Navigate to={LOGIN_PAGE_URL} />;
 };
 
 export default ProtectedRoute;
