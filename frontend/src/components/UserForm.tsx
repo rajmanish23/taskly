@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import logoImg from "../assets/taskly-logo-big.png";
-import { loginAPI, registerAPI } from "../API/userAPI";
+import { getUserAPI, loginAPI, registerAPI } from "../API/userAPI";
 import {
   LOGIN_PAGE_URL,
   REGISTER_PAGE_URL,
@@ -82,6 +82,8 @@ const UserForm = ({ method }: FormProps) => {
         }
         const [isSuccess, error] = await loginAPI(email, password);
         if (isSuccess) {
+          // This is called just to save user info in localStorage so other comps can get that data wihout another API call
+          await getUserAPI()
           navigate(TODAY_PAGE_URL);
         } else if (error) {
           setErrorMsg(error);

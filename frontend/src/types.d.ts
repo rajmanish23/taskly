@@ -25,3 +25,10 @@ type Tag = {
   name: string;
   colorHex: string;
 };
+
+type User = {
+  email: string,
+  firstName: string,
+  lastName: string,
+  fullName: string
+}

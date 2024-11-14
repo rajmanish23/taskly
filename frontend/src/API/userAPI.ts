@@ -4,6 +4,8 @@ import { AxiosError } from "axios";
 import api from "../api";
 import {
   ACCESS_KEY,
+  GET_USER_API_URL,
+  LOCAL_USER_KEY,
   LOGIN_API_URL,
   REFRESH_KEY,
   REGISTER_API_URL,
@@ -96,4 +98,20 @@ export async function registerAPI(
     }
   }
   return [false, "!!Some edge case has occured that needs resolving!!"];
+}
+
+export async function getUserAPI(): Promise<User> {
+  const localUserData = localStorage.getItem(LOCAL_USER_KEY)
+  if (localUserData !== null) {
+    return JSON.parse(localUserData)
+  }
+  const res = await api.get(GET_USER_API_URL)
+  const apiUserData: User = {
+    email: res.data.email,
+    firstName: res.data.first_name,
+    lastName: res.data.last_name,
+    fullName: res.data.first_name + " " + res.data.last_name,
+  }
+  localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(apiUserData))
+  return apiUserData
 }
