@@ -63,10 +63,19 @@ const UserForm = ({ method }: FormProps) => {
       rePassword,
     });
 
+    const isLoginFormInvalid =
+      emailValidityError !== "" || passwordValidityError !== "";
+    const isRegisterFormInvalid =
+      emailValidityError !== "" ||
+      passwordValidityError !== "" ||
+      rePasswordValidityError !== "" ||
+      firstNameValidityError !== "" ||
+      lastNameValidityError !== "";
+
     setIsLoading(true);
     try {
       if (method === "LOGIN") {
-        if (emailValidityError !== "" || passwordValidityError !== "") {
+        if (isLoginFormInvalid) {
           setEmailErrorMsg(emailValidityError);
           setPasswordErrorMsg(passwordValidityError);
           return;
@@ -78,13 +87,7 @@ const UserForm = ({ method }: FormProps) => {
           setErrorMsg(error);
         }
       } else {
-        if (
-          emailValidityError !== "" ||
-          passwordValidityError !== "" ||
-          rePasswordValidityError !== "" ||
-          firstNameValidityError !== "" ||
-          lastNameValidityError !== ""
-        ) {
+        if (isRegisterFormInvalid) {
           setEmailErrorMsg(emailValidityError);
           setPasswordErrorMsg(passwordValidityError);
           setRePasswordErrorMsg(rePasswordValidityError);
