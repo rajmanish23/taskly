@@ -1,14 +1,14 @@
 import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import logoImg from "../assets/taskly-logo-big.png";
-import { getUserAPI, loginAPI, registerAPI } from "../API/userAPI";
+import logoImg from "../../assets/taskly-logo-big.png";
+import { getUserAPI, loginAPI, registerAPI } from "../../API/userAPI";
 import {
   LOGIN_PAGE_URL,
   REGISTER_PAGE_URL,
   TODAY_PAGE_URL,
-} from "../constants";
-import validateUserFormInputs from "../utils/validateUserFormInputs";
+} from "../../constants";
+import validateUserFormInputs from "../../utils/validateUserFormInputs";
 
 type FormProps = React.PropsWithChildren & {
   method: "LOGIN" | "REGISTER";
