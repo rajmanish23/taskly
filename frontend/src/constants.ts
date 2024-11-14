@@ -1,5 +1,6 @@
 export const ACCESS_KEY = "access";
 export const REFRESH_KEY = "refresh";
+export const LOCAL_TAGS_KEY = "tag-data";
 
 export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 export const LOGIN_API_URL = import.meta.env.VITE_LOGIN_API_URL;
