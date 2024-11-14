@@ -83,7 +83,7 @@ const UserForm = ({ method }: FormProps) => {
         const [isSuccess, error] = await loginAPI(email, password);
         if (isSuccess) {
           // This is called just to save user info in localStorage so other comps can get that data wihout another API call
-          await getUserAPI()
+          await getUserAPI();
           navigate(TODAY_PAGE_URL);
         } else if (error) {
           setErrorMsg(error);
@@ -127,66 +127,68 @@ const UserForm = ({ method }: FormProps) => {
 
   return (
     <div>
-      <img src={logoImg} />
-      {errorMsg === "" ? null : <p>{errorMsg}</p>}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {emailErrorMsg === "" ? null : <p>{emailErrorMsg}</p>}
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {passwordErrorMsg === "" ? null : <p>{passwordErrorMsg}</p>}
-        {method === "REGISTER" ? (
-          <>
-            <label htmlFor="re-password">Re-Type password</label>
-            <input
-              type="password"
-              name="re-password"
-              id="re-password"
-              value={rePassword}
-              onChange={(e) => setRePassword(e.target.value)}
-            />
-            {rePasswordErrorMsg === "" ? null : <p>{rePasswordErrorMsg}</p>}
-            <label htmlFor="first-name">First Name</label>
-            <input
-              type="text"
-              name="first-name"
-              id="first-name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            {firstNameErrorMsg === "" ? null : <p>{firstNameErrorMsg}</p>}
-            <label htmlFor="last-name">Last Name</label>
-            <input
-              type="text"
-              name="last-name"
-              id="last-name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            {lastNameErrorMsg === "" ? null : <p>{lastNameErrorMsg}</p>}
-          </>
-        ) : (
-          <></>
-        )}
-        <button type="submit">{isLoading ? "Loading..." : method}</button>
-      </form>
-      <label htmlFor="cta-button">{ctaLabelText}</label>
-      <button id="cta-button" onClick={changePage}>
-        {ctaButtonText}
-      </button>
+      <div>
+        <img src={logoImg} />
+        {errorMsg === "" ? null : <p>{errorMsg}</p>}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {emailErrorMsg === "" ? null : <p>{emailErrorMsg}</p>}
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {passwordErrorMsg === "" ? null : <p>{passwordErrorMsg}</p>}
+          {method === "REGISTER" ? (
+            <>
+              <label htmlFor="re-password">Re-Type password</label>
+              <input
+                type="password"
+                name="re-password"
+                id="re-password"
+                value={rePassword}
+                onChange={(e) => setRePassword(e.target.value)}
+              />
+              {rePasswordErrorMsg === "" ? null : <p>{rePasswordErrorMsg}</p>}
+              <label htmlFor="first-name">First Name</label>
+              <input
+                type="text"
+                name="first-name"
+                id="first-name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              {firstNameErrorMsg === "" ? null : <p>{firstNameErrorMsg}</p>}
+              <label htmlFor="last-name">Last Name</label>
+              <input
+                type="text"
+                name="last-name"
+                id="last-name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              {lastNameErrorMsg === "" ? null : <p>{lastNameErrorMsg}</p>}
+            </>
+          ) : (
+            <></>
+          )}
+          <button type="submit">{isLoading ? "Loading..." : method}</button>
+        </form>
+        <label htmlFor="cta-button">{ctaLabelText}</label>
+        <button id="cta-button" onClick={changePage}>
+          {ctaButtonText}
+        </button>
+      </div>
     </div>
   );
 };
