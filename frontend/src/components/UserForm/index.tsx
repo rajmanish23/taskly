@@ -9,6 +9,7 @@ import {
   TODAY_PAGE_URL,
 } from "../../constants";
 import validateUserFormInputs from "../../utils/validateUserFormInputs";
+import { BackgroundContainer, FormCardContainer, LogoImg } from "./styles";
 
 type FormProps = React.PropsWithChildren & {
   method: "LOGIN" | "REGISTER";
@@ -126,9 +127,9 @@ const UserForm = ({ method }: FormProps) => {
   };
 
   return (
-    <div>
-      <div>
-        <img src={logoImg} />
+    <BackgroundContainer>
+      <FormCardContainer>
+        <LogoImg src={logoImg} />
         {errorMsg === "" ? null : <p>{errorMsg}</p>}
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
@@ -188,8 +189,8 @@ const UserForm = ({ method }: FormProps) => {
         <button id="cta-button" onClick={changePage}>
           {ctaButtonText}
         </button>
-      </div>
-    </div>
+      </FormCardContainer>
+    </BackgroundContainer>
   );
 };
 
