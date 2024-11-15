@@ -23,22 +23,20 @@ function Logout() {
 
 function App() {
   return (
-    <div>
-      <Routes>
-        <Route
-          path={TODAY_PAGE_URL}
-          element={
-            <ProtectedRoute>
-              <Today />
-            </ProtectedRoute>
-          }
-        />
-        <Route path={LOGIN_PAGE_URL} element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path={REGISTER_PAGE_URL} element={<Register />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route
+        path={TODAY_PAGE_URL}
+        element={
+          <ProtectedRoute>
+            <Today />
+          </ProtectedRoute>
+        }
+      />
+      <Route path={LOGIN_PAGE_URL} element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
+      <Route path={REGISTER_PAGE_URL} element={<Register />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 

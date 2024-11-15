@@ -3,6 +3,8 @@ export const REFRESH_KEY = "refresh";
 export const LOCAL_TAGS_KEY = "tag-data";
 export const LOCAL_USER_KEY = "user-data";
 
+export const STYLE_TEXT_COLOR = "#ec8e8e";
+
 export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 export const LOGIN_API_URL = import.meta.env.VITE_LOGIN_API_URL;
 export const TOKEN_REFRESH_API_URL = import.meta.env.VITE_TOKEN_REFRESH_URL;

@@ -9,7 +9,19 @@ import {
   TODAY_PAGE_URL,
 } from "../../constants";
 import validateUserFormInputs from "../../utils/validateUserFormInputs";
-import { BackgroundContainer, FormCardContainer, LogoImg } from "./styles";
+import {
+  BackgroundContainer,
+  CTAButton,
+  CTALabel,
+  FormCardContainer,
+  FormInputContainer,
+  FormSubmitButton,
+  FormInputLabel,
+  LogoImg,
+  FormInput,
+  ErrorText,
+  CTAContainer,
+} from "./styles";
 
 type FormProps = React.PropsWithChildren & {
   method: "LOGIN" | "REGISTER";
@@ -131,64 +143,85 @@ const UserForm = ({ method }: FormProps) => {
       <FormCardContainer>
         <LogoImg src={logoImg} />
         {errorMsg === "" ? null : <p>{errorMsg}</p>}
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
+        <FormInputContainer onSubmit={handleSubmit}>
+          <FormInputLabel htmlFor="email">Email</FormInputLabel>
+          <FormInput
             type="text"
             name="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            $isError={emailErrorMsg !== ""}
           />
-          {emailErrorMsg === "" ? null : <p>{emailErrorMsg}</p>}
-          <label htmlFor="password">Password</label>
-          <input
+          {emailErrorMsg === "" ? null : (
+            <ErrorText>{"* " + emailErrorMsg}</ErrorText>
+          )}
+          <FormInputLabel htmlFor="password">Password</FormInputLabel>
+          <FormInput
             type="password"
             name="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            $isError={passwordErrorMsg !== ""}
           />
-          {passwordErrorMsg === "" ? null : <p>{passwordErrorMsg}</p>}
+          {passwordErrorMsg === "" ? null : (
+            <ErrorText>{"* " + passwordErrorMsg}</ErrorText>
+          )}
           {method === "REGISTER" ? (
             <>
-              <label htmlFor="re-password">Re-Type password</label>
-              <input
+              <FormInputLabel htmlFor="re-password">
+                Confirm password
+              </FormInputLabel>
+              <FormInput
                 type="password"
                 name="re-password"
                 id="re-password"
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
+                $isError={rePasswordErrorMsg !== ""}
               />
-              {rePasswordErrorMsg === "" ? null : <p>{rePasswordErrorMsg}</p>}
-              <label htmlFor="first-name">First Name</label>
-              <input
+              {rePasswordErrorMsg === "" ? null : (
+                <ErrorText>{"* " + rePasswordErrorMsg}</ErrorText>
+              )}
+              <FormInputLabel htmlFor="first-name">First Name</FormInputLabel>
+              <FormInput
                 type="text"
                 name="first-name"
                 id="first-name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
+                $isError={firstNameErrorMsg !== ""}
               />
-              {firstNameErrorMsg === "" ? null : <p>{firstNameErrorMsg}</p>}
-              <label htmlFor="last-name">Last Name</label>
-              <input
+              {firstNameErrorMsg === "" ? null : (
+                <ErrorText>{"* " + firstNameErrorMsg}</ErrorText>
+              )}
+              <FormInputLabel htmlFor="last-name">Last Name</FormInputLabel>
+              <FormInput
                 type="text"
                 name="last-name"
                 id="last-name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+                $isError={lastNameErrorMsg !== ""}
               />
-              {lastNameErrorMsg === "" ? null : <p>{lastNameErrorMsg}</p>}
+              {lastNameErrorMsg === "" ? null : (
+                <ErrorText>{"* " + lastNameErrorMsg}</ErrorText>
+              )}
             </>
           ) : (
             <></>
           )}
-          <button type="submit">{isLoading ? "Loading..." : method}</button>
-        </form>
-        <label htmlFor="cta-button">{ctaLabelText}</label>
-        <button id="cta-button" onClick={changePage}>
-          {ctaButtonText}
-        </button>
+          <FormSubmitButton type="submit">
+            {isLoading ? "Loading..." : method}
+          </FormSubmitButton>
+        </FormInputContainer>
+        <CTAContainer>
+          <CTALabel htmlFor="cta-button">{ctaLabelText}</CTALabel>
+          <CTAButton id="cta-button" onClick={changePage}>
+            {ctaButtonText}
+          </CTAButton>
+        </CTAContainer>
       </FormCardContainer>
     </BackgroundContainer>
   );
