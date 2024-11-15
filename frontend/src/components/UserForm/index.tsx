@@ -144,7 +144,9 @@ const UserForm = ({ method }: FormProps) => {
         <LogoImg src={logoImg} />
         {errorMsg === "" ? null : <p>{errorMsg}</p>}
         <FormInputContainer onSubmit={handleSubmit}>
-          <FormInputLabel htmlFor="email">Email</FormInputLabel>
+          <FormInputLabel htmlFor="email" $isError={emailErrorMsg !== ""}>
+            Email
+          </FormInputLabel>
           <FormInput
             type="text"
             name="email"
@@ -156,7 +158,9 @@ const UserForm = ({ method }: FormProps) => {
           {emailErrorMsg === "" ? null : (
             <ErrorText>{"* " + emailErrorMsg}</ErrorText>
           )}
-          <FormInputLabel htmlFor="password">Password</FormInputLabel>
+          <FormInputLabel htmlFor="password" $isError={passwordErrorMsg !== ""}>
+            Password
+          </FormInputLabel>
           <FormInput
             type="password"
             name="password"
@@ -170,7 +174,10 @@ const UserForm = ({ method }: FormProps) => {
           )}
           {method === "REGISTER" ? (
             <>
-              <FormInputLabel htmlFor="re-password">
+              <FormInputLabel
+                htmlFor="re-password"
+                $isError={rePasswordErrorMsg !== ""}
+              >
                 Confirm password
               </FormInputLabel>
               <FormInput
@@ -184,7 +191,12 @@ const UserForm = ({ method }: FormProps) => {
               {rePasswordErrorMsg === "" ? null : (
                 <ErrorText>{"* " + rePasswordErrorMsg}</ErrorText>
               )}
-              <FormInputLabel htmlFor="first-name">First Name</FormInputLabel>
+              <FormInputLabel
+                htmlFor="first-name"
+                $isError={firstNameErrorMsg !== ""}
+              >
+                First Name
+              </FormInputLabel>
               <FormInput
                 type="text"
                 name="first-name"
@@ -196,7 +208,12 @@ const UserForm = ({ method }: FormProps) => {
               {firstNameErrorMsg === "" ? null : (
                 <ErrorText>{"* " + firstNameErrorMsg}</ErrorText>
               )}
-              <FormInputLabel htmlFor="last-name">Last Name</FormInputLabel>
+              <FormInputLabel
+                htmlFor="last-name"
+                $isError={lastNameErrorMsg !== ""}
+              >
+                Last Name
+              </FormInputLabel>
               <FormInput
                 type="text"
                 name="last-name"

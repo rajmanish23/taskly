@@ -40,8 +40,8 @@ export const FormInputContainer = styled.form`
   margin-bottom: 20px;
 `;
 
-export const FormInputLabel = styled.label`
-  color: ${STYLE_TEXT_COLOR};
+export const FormInputLabel = styled.label<{ $isError: boolean }>`
+  color: ${(props) => (props.$isError ? "red" : STYLE_TEXT_COLOR)};
   font-size: 20px;
   font-weight: 500;
   margin-top: 10px;
@@ -82,7 +82,11 @@ export const CTAContainer = styled.div`
   align-items: center;
 `;
 
-export const CTALabel = styled(FormInputLabel)`
+export const CTALabel = styled.label`
+  color: ${STYLE_TEXT_COLOR};
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 10px;
   font-size: 16px;
   font-weight: 500;
   margin-right: 10px;
