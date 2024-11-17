@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { STYLE_TEXT_COLOR } from "../../constants";
+import { STYLE_TEXT_COLOR, DEVICE_WIDTH } from "../../constants";
 
 export const BackgroundContainer = styled.div`
   background: linear-gradient(
@@ -16,22 +16,32 @@ export const BackgroundContainer = styled.div`
 `;
 
 export const FormCardContainer = styled.div`
-  background-color: #2c2929;
-  border-radius: 20px;
-  padding: 35px;
-  margin: 50px;
-  box-shadow: 10px 15px 100px 20px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-family: "Roboto";
   box-sizing: border-box;
+  @media ${DEVICE_WIDTH.PC} {
+    background-color: #2c2929;
+    border-radius: 20px;
+    padding: 35px;
+    margin: 50px;
+    box-shadow: 10px 15px 100px 20px rgba(0, 0, 0, 0.5);
+  }
+  @media ${DEVICE_WIDTH.MOBILE} {
+    margin: 50px 25px 50px 25px;
+  }
 `;
 
 export const LogoImg = styled.img`
   margin: 0 0 10px 0;
-  width: 65%;
   align-self: center;
+  @media ${DEVICE_WIDTH.PC} {
+    width: 65%;
+  }
+  @media ${DEVICE_WIDTH.MOBILE} {
+    width: 100%;
+  }
 `;
 
 export const FormInputContainer = styled.form`
@@ -60,7 +70,6 @@ export const FormInput = styled.input<{ $isError: boolean }>`
 `;
 
 export const FormSubmitButton = styled.button`
-  margin-top: 16px;
   background-color: #8c2d2d;
   border-style: none;
   border-radius: 10px;
@@ -69,6 +78,12 @@ export const FormSubmitButton = styled.button`
   font-weight: 700;
   font-size: 16px;
   cursor: pointer;
+  @media ${DEVICE_WIDTH.PC} {
+    margin-top: 16px;
+  }
+  @media ${DEVICE_WIDTH.MOBILE} {
+    margin: 35px 0 20px 0;
+  }
 `;
 
 export const ErrorText = styled.p`
@@ -77,9 +92,12 @@ export const ErrorText = styled.p`
 `;
 
 export const CTAContainer = styled.div`
-  display: "flex";
-  flex-direction: "row";
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  @media ${DEVICE_WIDTH.MOBILE} {
+    justify-content: center;
+  }
 `;
 
 export const CTALabel = styled.label`
