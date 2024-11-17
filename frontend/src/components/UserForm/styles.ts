@@ -122,7 +122,7 @@ export const CTAButton = styled.button`
   );
   color: ${STYLE_TEXT_COLOR};
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   padding: 6px 14px 6px 14px;
   cursor: pointer;
 `;
