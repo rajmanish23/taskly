@@ -29,8 +29,8 @@ export const FormCardContainer = styled.div`
 `;
 
 export const LogoImg = styled.img`
-  margin: 20px 0 20px 0;
-  width: 80%;
+  margin: 0 0 10px 0;
+  width: 65%;
   align-self: center;
 `;
 
@@ -42,32 +42,32 @@ export const FormInputContainer = styled.form`
 
 export const FormInputLabel = styled.label<{ $isError: boolean }>`
   color: ${(props) => (props.$isError ? "red" : STYLE_TEXT_COLOR)};
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 8px;
 `;
 
 export const FormInput = styled.input<{ $isError: boolean }>`
   border-style: solid;
   border-width: 2px;
-  border-color: ${props => props.$isError ? "red" : "#d67373"};
-  border-radius: 15px;
-  padding: 12px;
-  font-size: 18px;
+  border-color: ${(props) => (props.$isError ? "red" : "#d67373")};
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
   background-color: #111111;
   color: #ecc4c4;
   margin: 10px 0 10px 0;
 `;
 
 export const FormSubmitButton = styled.button`
-  margin-top: 25px;
+  margin-top: 16px;
   background-color: #8c2d2d;
   border-style: none;
-  border-radius: 15px;
-  padding: 18px;
+  border-radius: 10px;
+  padding: 12px;
   color: ${STYLE_TEXT_COLOR};
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
 `;
 
@@ -84,9 +84,8 @@ export const CTAContainer = styled.div`
 
 export const CTALabel = styled.label`
   color: ${STYLE_TEXT_COLOR};
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
-  margin-top: 10px;
   font-size: 16px;
   font-weight: 500;
   margin-right: 10px;
@@ -94,7 +93,7 @@ export const CTALabel = styled.label`
 
 export const CTAButton = styled.button`
   border-style: solid;
-  border-radius: 10px;
+  border-radius: 8px;
   border-width: 2px;
   border-color: #d67373;
   background: linear-gradient(
@@ -104,7 +103,7 @@ export const CTAButton = styled.button`
   );
   color: ${STYLE_TEXT_COLOR};
   font-weight: 500;
-  font-size: 16px;
-  padding: 8px 16px 8px 16px;
+  font-size: 14px;
+  padding: 6px 14px 6px 14px;
   cursor: pointer;
 `;
