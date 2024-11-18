@@ -2,9 +2,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { decamelizeKeys } from "humps";
 
-import { ACCESS_KEY, BASE_API_URL } from "./constants";
+import { ACCESS_KEY, BASE_API_URL } from "../constants";
 
-const api = axios.create({
+const baseAPI = axios.create({
   baseURL: BASE_API_URL,
   transformRequest: [
     (data, headers) => {
@@ -14,7 +14,7 @@ const api = axios.create({
   ]
 });
 
-api.interceptors.request.use(
+baseAPI.interceptors.request.use(
   (config) => {
     const token = Cookies.get(ACCESS_KEY);
     if (token) {
@@ -27,4 +27,4 @@ api.interceptors.request.use(
   }
 );
 
-export default api;
+export default baseAPI;

@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { AxiosError } from "axios";
 
-import api from "../api";
+import baseAPI from "./baseAPI";
 import {
   ACCESS_KEY,
   GET_USER_API_URL,
@@ -16,7 +16,7 @@ export async function loginAPI(
   password: string
 ): Promise<[isSuccess: boolean, errorMsg: string]> {
   try {
-    const res = await api.post(LOGIN_API_URL, { email, password });
+    const res = await baseAPI.post(LOGIN_API_URL, { email, password });
     if (res.data.access === undefined && res.data.refresh === undefined) {
       throw Error("API Response does not have access and refresh tokens");
     }
@@ -65,7 +65,7 @@ export async function registerAPI(
   lastName: string
 ): Promise<[isSuccess: boolean, errorMsg: string]> {
   try {
-    const res = await api.post(REGISTER_API_URL, {
+    const res = await baseAPI.post(REGISTER_API_URL, {
       email,
       password,
       firstName,
@@ -105,7 +105,7 @@ export async function getUserAPI(): Promise<User> {
   if (localUserData !== null) {
     return JSON.parse(localUserData)
   }
-  const res = await api.get(GET_USER_API_URL)
+  const res = await baseAPI.get(GET_USER_API_URL)
   const apiUserData: User = {
     email: res.data.email,
     firstName: res.data.first_name,

@@ -9,7 +9,7 @@ import {
   REFRESH_KEY,
   TOKEN_REFRESH_API_URL,
 } from "../constants";
-import api from "../api";
+import baseAPI from "../API/baseAPI";
 
 const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
       return;
     }
     try {
-      const res = await api.post(TOKEN_REFRESH_API_URL, {
+      const res = await baseAPI.post(TOKEN_REFRESH_API_URL, {
         refresh: refreshToken,
       });
       if (res.status === 200) {
