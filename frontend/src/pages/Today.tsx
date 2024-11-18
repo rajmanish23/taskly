@@ -1,4 +1,5 @@
-import SideBar from "../components/SideBar";
+// import SideBar from "../components/SideBar";
+import TasksListView from "../components/TasksListView";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Today = () => {
@@ -7,7 +8,8 @@ const Today = () => {
   return (
     <>
       <div>Today</div>
-      <SideBar mode="NORMAL" />
+      {/* <SideBar mode="NORMAL" /> */}
+      <TasksListView mode="TODAY"/>
     </>
 );
 };
