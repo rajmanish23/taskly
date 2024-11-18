@@ -26,9 +26,24 @@ type Tag = {
   colorHex: string;
 };
 
+type SubTask = {
+  sId: string;
+  name: string;
+  dueAt: string;
+};
+
+type Task = {
+  sId: string;
+  name: string;
+  description: string;
+  dueAt: string;
+  subTasks: SubTask[];
+  tags: Tag[];
+};
+
 type User = {
-  email: string,
-  firstName: string,
-  lastName: string,
-  fullName: string
-}
+  email: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+};
