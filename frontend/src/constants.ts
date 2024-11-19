@@ -20,4 +20,6 @@ export const GET_USER_API_URL = "/api/user/get/";
 export const LOGIN_PAGE_URL = "/login";
 export const REGISTER_PAGE_URL = "/register";
 export const TODAY_PAGE_URL = "/";
+export const PREVIOUS_PAGE_URL = "/previous";
 export const UPCOMING_PAGE_URL = "/upcoming";
+export const TAG_PAGE_URL = "/tag/:tagId";

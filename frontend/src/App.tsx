@@ -4,9 +4,12 @@ import Cookies from "js-cookie";
 import {
   ACCESS_KEY,
   LOGIN_PAGE_URL,
+  PREVIOUS_PAGE_URL,
   REFRESH_KEY,
   REGISTER_PAGE_URL,
+  TAG_PAGE_URL,
   TODAY_PAGE_URL,
+  UPCOMING_PAGE_URL,
 } from "./constants";
 
 import Login from "./pages/Login";
@@ -16,6 +19,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 import pingAPI from "./API/pingAPI";
 import { useCallback, useEffect, useState } from "react";
+import Upcoming from "./pages/upcoming";
+import Previous from "./pages/previous";
+import TagListTask from "./pages/TagListTask";
 
 function Logout() {
   Cookies.remove(ACCESS_KEY);
@@ -54,6 +60,30 @@ function App() {
         element={
           <ProtectedRoute>
             <Today />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={UPCOMING_PAGE_URL}
+        element={
+          <ProtectedRoute>
+            <Upcoming />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={PREVIOUS_PAGE_URL}
+        element={
+          <ProtectedRoute>
+            <Previous />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={TAG_PAGE_URL}
+        element={
+          <ProtectedRoute>
+            <TagListTask />
           </ProtectedRoute>
         }
       />
