@@ -7,19 +7,6 @@ from rest_framework import serializers
 
 from .models import Task, SubTask, Tag
 
-
-class TagSerializer(serializers.ModelSerializer):
-    task_set = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Tag
-        fields = ["s_id", "name", "color_hex", "task_set"]
-        extra_kwargs = {"name": {"required": True}, "color_hex": {"required": True}}
-
-    def get_task_set(self, obj):
-        return list(obj.task_set.all().values("s_id", "name", "due_at"))
-
-
 class SubTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubTask
@@ -45,6 +32,15 @@ class TaskSerializer(serializers.ModelSerializer):
 
     def get_tags(self, obj):
         return obj.tags.all().values("s_id", "name", "color_hex")
+
+
+class TagSerializer(serializers.ModelSerializer):
+    task_set = TaskSerializer(many=True, required=False)
+
+    class Meta:
+        model = Tag
+        fields = ["s_id", "name", "color_hex", "task_set"]
+        extra_kwargs = {"name": {"required": True}, "color_hex": {"required": True}}
 
 
 class AddTagSerializer(serializers.Serializer):
