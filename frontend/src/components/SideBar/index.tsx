@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import logoImg from "../../assets/taskly-logo-big.png";
 import profileImg from "../../assets/default-profile.jpg";
-import { getTagsAPI } from "../../API/TagsAPI";
+import { getTagsAPI } from "../../API/tagsAPI";
 import { getUserAPI } from "../../API/userAPI";
 
 type SideBarProps = {

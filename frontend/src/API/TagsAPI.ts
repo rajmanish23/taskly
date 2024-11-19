@@ -17,4 +17,4 @@ export const getTagsAPI = async (): Promise<Tag[]> => {
   });
   localStorage.setItem(LOCAL_TAGS_KEY, JSON.stringify(apiTagsData));
   return apiTagsData;
-}
+};
