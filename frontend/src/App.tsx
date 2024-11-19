@@ -14,6 +14,8 @@ import Register from "./pages/Register";
 import Today from "./pages/Today";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
+import pingAPI from "./API/pingAPI";
+import { useCallback, useEffect, useState } from "react";
 
 function Logout() {
   Cookies.remove(ACCESS_KEY);
@@ -22,6 +24,29 @@ function Logout() {
 }
 
 function App() {
+  const [isAPIAlive, setIsAPIAlive] = useState<null | boolean>(null);
+
+  const checkAPIStatus = useCallback(async () => {
+    const res = await pingAPI();
+    setIsAPIAlive(res);
+  }, [setIsAPIAlive]);
+
+  useEffect(() => {
+    checkAPIStatus().catch((e) => {
+      console.error(e);
+      setIsAPIAlive(false);
+    });
+  }, [checkAPIStatus]);
+
+  if (isAPIAlive === null) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAPIAlive) {
+    // TODO: Replace this with a nicer looking page
+    return <div>Backend is dead!!!</div>;
+  }
+  
   return (
     <Routes>
       <Route
