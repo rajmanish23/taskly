@@ -2,7 +2,7 @@ import datetime
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from sqids import Sqids
@@ -23,6 +23,14 @@ sqids = Sqids(
     alphabet=os.getenv("SQIDS_ALPHABET"),
     blocklist=os.getenv("SQIDS_BLOCKLIST"),
 )
+
+
+class PingerView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class TaskListCreateView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
