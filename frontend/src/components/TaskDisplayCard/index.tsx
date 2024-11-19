@@ -1,13 +1,42 @@
-import React from 'react'
+import React from "react";
 
 type TaskDisplayCardProps = {
-  data: Task
-}
+  data: Task;
+};
 
-const TaskDisplayCard = ({data}: TaskDisplayCardProps) => {
+const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
   return (
-    <div>TaskDisplayCard</div>
-  )
-}
+    <li>
+      <button>complete</button>
+      <div>
+        <div>
+          <p>{data.name}</p>
+          <div>
+            <p>Due: {data.dueAt}</p>
+          </div>
+        </div>
 
-export default TaskDisplayCard
+        <ul>
+          {data.tags.map((each) => (
+            <li key={each.sId}>{each.name}</li>
+          ))}
+        </ul>
+
+        <p>{data.description}</p>
+
+        <ul>
+          {data.subTasks.map((each) => (
+            <li key={each.sId}>
+              <p>{each.name}</p>
+              <div>
+                <p>Due: {each.dueAt}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
+  );
+};
+
+export default TaskDisplayCard;
