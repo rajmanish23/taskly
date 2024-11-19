@@ -1,9 +1,9 @@
 import axios from "axios";
-import baseAPI from "./baseAPI";
+import { BASE_API_URL } from "../constants";
 
 const pingAPI = async (): Promise<boolean> => {
   try {
-    await baseAPI.get("");
+    await axios.get(BASE_API_URL);
     return true;
   } catch (error) {
     if (axios.isAxiosError(error)) {
