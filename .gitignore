@@ -1,6 +1,8 @@
 todo-env/
 **/.env
 
+.VSCodeCounter
+
 # If you are using Visual Studio Code # 
 .vscode/* 
 !.vscode/settings.json 
