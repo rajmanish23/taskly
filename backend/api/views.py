@@ -24,8 +24,6 @@ sqids = Sqids(
     blocklist=os.getenv("SQIDS_BLOCKLIST"),
 )
 
-# TODO: Update views to work with Sqids changes in models
-
 class TaskListCreateView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]

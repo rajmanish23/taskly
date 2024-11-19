@@ -2,9 +2,6 @@ from django.urls import path
 
 from . import views
 
-
-# TODO: Change path params to support Sqids id string things
-
 urlpatterns = [
     path("tasks/all/", views.TaskListCreateView.as_view(), name="task-list-create"),
     path(

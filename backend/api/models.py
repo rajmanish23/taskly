@@ -17,8 +17,6 @@ sqids = Sqids(
 # Added this mainly to allow sharing and stuff since
 # it will be visible in URLs on browser from frontend.
 
-# TODO: Migrate
-
 class Task(models.Model):
     s_id = models.CharField(max_length=16, blank=True, null=True)
     name = models.CharField(max_length=100, blank=False, null=False)
