@@ -1,4 +1,4 @@
-// import SideBar from "../components/SideBar";
+import SideBar from "../components/SideBar";
 import { useCallback, useEffect, useState } from "react";
 import { getTodayTasksAPI } from "../API/tasksAPI";
 import TasksListView from "../components/TasksListView";
@@ -8,7 +8,7 @@ import { isAPIErrorMessage } from "../utils/objectTypeCheckers";
 const Today = () => {
   useDocumentTitle("Today");
 
-  const [tasks, setTasks] = useState<Task[]>();
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getTasks = useCallback(async () => {
@@ -16,10 +16,10 @@ const Today = () => {
     try {
       const data = await getTodayTasksAPI();
       if (isAPIErrorMessage(data)) {
-        setTasks([])
-        console.log(data.detail)
+        setTasks([]);
+        console.log(data.detail);
       } else {
-        setTasks(data)
+        setTasks(data);
       }
     } catch (error) {
       console.log(error);
@@ -33,12 +33,15 @@ const Today = () => {
   }, [getTasks]);
 
   return (
-    <>
-      <div>Today</div>
-      {/* <SideBar mode="NORMAL" /> */}
-      <TasksListView mode="TODAY"/>
-    </>
-);
+    <div>
+      <SideBar mode="NORMAL" />
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <TasksListView mode="TODAY" data={tasks} />
+      )}
+    </div>
+  );
 };
 
 export default Today;
