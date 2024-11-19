@@ -2,7 +2,7 @@ import TaskDisplayCard from "../TaskDisplayCard";
 
 type TaskListViewProps = {
   mode: "TODAY" | "UPCOMING" | "PREVIOUS" | "TAG";
-  data?: Task[];
+  data: Task[];
 };
 
 const TasksListView = ({ mode, data }: TaskListViewProps) => {
@@ -18,21 +18,24 @@ const TasksListView = ({ mode, data }: TaskListViewProps) => {
             })})`}</h2>
           </div>
         );
-      case "UPCOMING":return (
-        <div>
-          <h1>Upcoming</h1>
-        </div>
-      );
-      case "TAG":return (
-        <div>
-          <h1>!! TEMP TAG HEADER !!</h1>
-        </div>
-      );
-      case "PREVIOUS": return (
-        <div>
-          <h1>Previous</h1>
-        </div>
-      );
+      case "UPCOMING":
+        return (
+          <div>
+            <h1>Upcoming</h1>
+          </div>
+        );
+      case "TAG":
+        return (
+          <div>
+            <h1>!! TEMP TAG HEADER !!</h1>
+          </div>
+        );
+      case "PREVIOUS":
+        return (
+          <div>
+            <h1>Previous</h1>
+          </div>
+        );
     }
   };
 
@@ -42,12 +45,15 @@ const TasksListView = ({ mode, data }: TaskListViewProps) => {
         {getListViewHeading()}
         <button>Create a new task +</button>
       </div>
-
-      <ul>
-        {data?.map(each => (
-          <TaskDisplayCard key={each.sId} data={each} />
-        ))}
-      </ul>
+      {data.length === 0 ? (
+        <h1>No tasks to complete today! Enjoy a peaceful day!</h1>
+      ) : (
+        <ul>
+          {data?.map((each) => (
+            <TaskDisplayCard key={each.sId} data={each} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
