@@ -1,8 +1,7 @@
-import React from "react";
 import TaskDisplayCard from "../TaskDisplayCard";
 
 type TaskListViewProps = {
-  mode: "TODAY" | "UPCOMING" | "TAG";
+  mode: "TODAY" | "UPCOMING" | "PREVIOUS" | "TAG";
   data?: Task[];
 };
 
@@ -27,6 +26,11 @@ const TasksListView = ({ mode, data }: TaskListViewProps) => {
       case "TAG":return (
         <div>
           <h1>!! TEMP TAG HEADER !!</h1>
+        </div>
+      );
+      case "PREVIOUS": return (
+        <div>
+          <h1>Previous</h1>
         </div>
       );
     }
