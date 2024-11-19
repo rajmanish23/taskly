@@ -4,16 +4,16 @@ from . import views
 
 urlpatterns = [
     path("tasks/all/", views.TaskListCreateView.as_view(), name="task-list-create"),
-    path(
-        "tasks/<slug:pk>/",
-        views.TaskRetrieveUpdateDeleteView.as_view(),
-        name="task-single-retrieve-update-delete",
-    ),
     path("tasks/today/", views.TaskTodayListView.as_view(), name="task-list-today"),
     path(
         "tasks/upcoming/",
         views.TaskUpcomingListView.as_view(),
         name="task-list-upcoming",
+    ),
+    path(
+        "tasks/<slug:pk>/",
+        views.TaskRetrieveUpdateDeleteView.as_view(),
+        name="task-single-retrieve-update-delete",
     ),
     path(
         "tasks/<slug:p_task>/sub-tasks/",
