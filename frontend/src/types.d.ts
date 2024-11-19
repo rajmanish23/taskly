@@ -4,6 +4,10 @@ type SubTaskAPIData = {
   due_at: string;
 };
 
+type APIErrorMessage = {
+  detail: string;
+};
+
 type TaskAPIData = {
   s_id: string;
   name: string;
