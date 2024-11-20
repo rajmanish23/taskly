@@ -30,6 +30,7 @@ export const SC_ProfileContainer = styled.div`
 `;
 
 export const SC_ProfileImage = styled.img`
-  width: 60px;
+  width: 42px;
   border-radius: 100px;
+  margin-right: 15px;
 `;
