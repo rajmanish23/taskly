@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import { STYLE_TEXT_COLOR, DEVICE_WIDTH } from "../../constants";
 
-export const BackgroundContainer = styled.div`
-  background: linear-gradient(
-    160deg,
-    rgba(23, 23, 23, 1) 70%,
-    rgba(65, 3, 3, 1) 100%
-  );
+export const SC_BackgroundContainer = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
