@@ -38,10 +38,10 @@ export const LogoImg = styled.img`
   margin: 0 0 10px 0;
   align-self: center;
   @media ${DEVICE_WIDTH.PC} {
-    width: 65%;
+    width: 200px;
   }
   @media ${DEVICE_WIDTH.MOBILE} {
-    width: 100%;
+    width: 175px;
   }
 `;
 
