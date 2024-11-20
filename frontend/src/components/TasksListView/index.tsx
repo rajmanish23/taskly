@@ -1,4 +1,5 @@
 import TaskDisplayCard from "../TaskDisplayCard";
+import { SC_BackgroundListContainer } from "./styles";
 
 type TaskListViewProps = {
   mode: "TODAY" | "UPCOMING" | "PREVIOUS" | "TAG";
@@ -53,7 +54,7 @@ const TasksListView = ({ mode, data }: TaskListViewProps) => {
   };
 
   return (
-    <div>
+    <SC_BackgroundListContainer>
       <div>
         {getListViewHeading()}
         <button>Create a new task +</button>
@@ -70,7 +71,7 @@ const TasksListView = ({ mode, data }: TaskListViewProps) => {
           ))}
         </ul>
       )}
-    </div>
+    </SC_BackgroundListContainer>
   );
 };
 
