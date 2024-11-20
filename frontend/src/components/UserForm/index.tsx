@@ -10,17 +10,17 @@ import {
 } from "../../constants";
 import validateUserFormInputs from "../../utils/validateUserFormInputs";
 import {
-  BackgroundContainer,
-  CTAButton,
-  CTALabel,
-  FormCardContainer,
-  FormInputContainer,
-  FormSubmitButton,
-  FormInputLabel,
-  LogoImg,
-  FormInput,
-  ErrorText,
-  CTAContainer,
+  SC_BackgroundContainer,
+  SC_CTAButton,
+  SC_CTALabel,
+  SC_FormCardContainer,
+  SC_FormInputContainer,
+  SC_FormSubmitButton,
+  SC_FormInputLabel,
+  SC_LogoImg,
+  SC_FormInput,
+  SC_ErrorText,
+  SC_CTAContainer,
 } from "./styles";
 
 type FormProps = React.PropsWithChildren & {
@@ -139,15 +139,15 @@ const UserForm = ({ method }: FormProps) => {
   };
 
   return (
-    <BackgroundContainer>
-      <FormCardContainer>
-        <LogoImg src={logoImg} />
+    <SC_BackgroundContainer>
+      <SC_FormCardContainer>
+        <SC_LogoImg src={logoImg} />
         {errorMsg === "" ? null : <p>{errorMsg}</p>}
-        <FormInputContainer onSubmit={handleSubmit}>
-          <FormInputLabel htmlFor="email" $isError={emailErrorMsg !== ""}>
+        <SC_FormInputContainer onSubmit={handleSubmit}>
+          <SC_FormInputLabel htmlFor="email" $isError={emailErrorMsg !== ""}>
             Email
-          </FormInputLabel>
-          <FormInput
+          </SC_FormInputLabel>
+          <SC_FormInput
             type="text"
             name="email"
             id="email"
@@ -156,12 +156,12 @@ const UserForm = ({ method }: FormProps) => {
             $isError={emailErrorMsg !== ""}
           />
           {emailErrorMsg === "" ? null : (
-            <ErrorText>{"* " + emailErrorMsg}</ErrorText>
+            <SC_ErrorText>{"* " + emailErrorMsg}</SC_ErrorText>
           )}
-          <FormInputLabel htmlFor="password" $isError={passwordErrorMsg !== ""}>
+          <SC_FormInputLabel htmlFor="password" $isError={passwordErrorMsg !== ""}>
             Password
-          </FormInputLabel>
-          <FormInput
+          </SC_FormInputLabel>
+          <SC_FormInput
             type="password"
             name="password"
             id="password"
@@ -170,17 +170,17 @@ const UserForm = ({ method }: FormProps) => {
             $isError={passwordErrorMsg !== ""}
           />
           {passwordErrorMsg === "" ? null : (
-            <ErrorText>{"* " + passwordErrorMsg}</ErrorText>
+            <SC_ErrorText>{"* " + passwordErrorMsg}</SC_ErrorText>
           )}
           {method === "REGISTER" ? (
             <>
-              <FormInputLabel
+              <SC_FormInputLabel
                 htmlFor="re-password"
                 $isError={rePasswordErrorMsg !== ""}
               >
                 Confirm password
-              </FormInputLabel>
-              <FormInput
+              </SC_FormInputLabel>
+              <SC_FormInput
                 type="password"
                 name="re-password"
                 id="re-password"
@@ -189,15 +189,15 @@ const UserForm = ({ method }: FormProps) => {
                 $isError={rePasswordErrorMsg !== ""}
               />
               {rePasswordErrorMsg === "" ? null : (
-                <ErrorText>{"* " + rePasswordErrorMsg}</ErrorText>
+                <SC_ErrorText>{"* " + rePasswordErrorMsg}</SC_ErrorText>
               )}
-              <FormInputLabel
+              <SC_FormInputLabel
                 htmlFor="first-name"
                 $isError={firstNameErrorMsg !== ""}
               >
                 First Name
-              </FormInputLabel>
-              <FormInput
+              </SC_FormInputLabel>
+              <SC_FormInput
                 type="text"
                 name="first-name"
                 id="first-name"
@@ -206,15 +206,15 @@ const UserForm = ({ method }: FormProps) => {
                 $isError={firstNameErrorMsg !== ""}
               />
               {firstNameErrorMsg === "" ? null : (
-                <ErrorText>{"* " + firstNameErrorMsg}</ErrorText>
+                <SC_ErrorText>{"* " + firstNameErrorMsg}</SC_ErrorText>
               )}
-              <FormInputLabel
+              <SC_FormInputLabel
                 htmlFor="last-name"
                 $isError={lastNameErrorMsg !== ""}
               >
                 Last Name
-              </FormInputLabel>
-              <FormInput
+              </SC_FormInputLabel>
+              <SC_FormInput
                 type="text"
                 name="last-name"
                 id="last-name"
@@ -223,24 +223,24 @@ const UserForm = ({ method }: FormProps) => {
                 $isError={lastNameErrorMsg !== ""}
               />
               {lastNameErrorMsg === "" ? null : (
-                <ErrorText>{"* " + lastNameErrorMsg}</ErrorText>
+                <SC_ErrorText>{"* " + lastNameErrorMsg}</SC_ErrorText>
               )}
             </>
           ) : (
             <></>
           )}
-          <FormSubmitButton type="submit">
+          <SC_FormSubmitButton type="submit">
             {isLoading ? "Loading..." : method}
-          </FormSubmitButton>
-        </FormInputContainer>
-        <CTAContainer>
-          <CTALabel htmlFor="cta-button">{ctaLabelText}</CTALabel>
-          <CTAButton id="cta-button" onClick={changePage}>
+          </SC_FormSubmitButton>
+        </SC_FormInputContainer>
+        <SC_CTAContainer>
+          <SC_CTALabel htmlFor="cta-button">{ctaLabelText}</SC_CTALabel>
+          <SC_CTAButton id="cta-button" onClick={changePage}>
             {ctaButtonText}
-          </CTAButton>
-        </CTAContainer>
-      </FormCardContainer>
-    </BackgroundContainer>
+          </SC_CTAButton>
+        </SC_CTAContainer>
+      </SC_FormCardContainer>
+    </SC_BackgroundContainer>
   );
 };
 

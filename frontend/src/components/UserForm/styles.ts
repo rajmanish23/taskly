@@ -11,7 +11,7 @@ export const SC_BackgroundContainer = styled.div`
   overflow: auto;
 `;
 
-export const FormCardContainer = styled.div`
+export const SC_FormCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,7 +31,7 @@ export const FormCardContainer = styled.div`
   }
 `;
 
-export const LogoImg = styled.img`
+export const SC_LogoImg = styled.img`
   margin: 0 0 10px 0;
   align-self: center;
   @media ${DEVICE_WIDTH.PC} {
@@ -42,20 +42,20 @@ export const LogoImg = styled.img`
   }
 `;
 
-export const FormInputContainer = styled.form`
+export const SC_FormInputContainer = styled.form`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 `;
 
-export const FormInputLabel = styled.label<{ $isError: boolean }>`
+export const SC_FormInputLabel = styled.label<{ $isError: boolean }>`
   color: ${(props) => (props.$isError ? "red" : STYLE_TEXT_COLOR)};
   font-size: 18px;
   font-weight: 500;
   margin-top: 8px;
 `;
 
-export const FormInput = styled.input<{ $isError: boolean }>`
+export const SC_FormInput = styled.input<{ $isError: boolean }>`
   border-style: solid;
   border-width: 2px;
   border-color: ${(props) => (props.$isError ? "red" : "#d67373")};
@@ -67,7 +67,7 @@ export const FormInput = styled.input<{ $isError: boolean }>`
   margin: 10px 0 10px 0;
 `;
 
-export const FormSubmitButton = styled.button`
+export const SC_FormSubmitButton = styled.button`
   background-color: #8c2d2d;
   border-style: none;
   border-radius: 10px;
@@ -84,12 +84,12 @@ export const FormSubmitButton = styled.button`
   }
 `;
 
-export const ErrorText = styled.p`
+export const SC_ErrorText = styled.p`
   margin: 0;
   color: red;
 `;
 
-export const CTAContainer = styled.div`
+export const SC_CTAContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -98,7 +98,7 @@ export const CTAContainer = styled.div`
   }
 `;
 
-export const CTALabel = styled.label`
+export const SC_CTALabel = styled.label`
   color: ${STYLE_TEXT_COLOR};
   font-size: 16px;
   font-weight: 500;
@@ -107,7 +107,7 @@ export const CTALabel = styled.label`
   margin-right: 10px;
 `;
 
-export const CTAButton = styled.button`
+export const SC_CTAButton = styled.button`
   border-style: solid;
   border-radius: 8px;
   border-width: 2px;
