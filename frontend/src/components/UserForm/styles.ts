@@ -28,9 +28,11 @@ export const FormCardContainer = styled.div`
     padding: 35px;
     margin: 50px;
     box-shadow: 10px 15px 100px 20px rgba(0, 0, 0, 0.5);
+    width: 500px
   }
   @media ${DEVICE_WIDTH.MOBILE} {
-    margin: 50px 25px 50px 25px;
+    margin: 50px 30px 50px 30px;
+    width: 500px;
   }
 `;
 
