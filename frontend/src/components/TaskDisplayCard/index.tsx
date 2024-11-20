@@ -1,4 +1,5 @@
 import React from "react";
+import {} from "./styles"
 
 type TaskDisplayCardProps = {
   data: Task;
