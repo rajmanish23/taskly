@@ -1,8 +1,8 @@
-import SideBar from "../components/SideBar";
 import { useCallback, useEffect, useState } from "react";
-import { getTodayTasksAPI } from "../API/tasksAPI";
-import TasksListView from "../components/TasksListView";
+
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import MainView from "../components/MainView";
+import { getTodayTasksAPI } from "../API/tasksAPI";
 import { isAPIErrorMessage } from "../utils/objectTypeCheckers";
 
 const Today = () => {
@@ -32,16 +32,7 @@ const Today = () => {
     getTasks().catch((e) => console.log(e));
   }, [getTasks]);
 
-  return (
-    <div>
-      <SideBar mode="NORMAL" />
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <TasksListView mode="TODAY" data={tasks} />
-      )}
-    </div>
-  );
+  return <MainView data={tasks} isLoading={isLoading} />
 };
 
 export default Today;
