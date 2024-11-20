@@ -7,7 +7,7 @@ export const STYLE_TEXT_COLOR = "#ec8e8e";
 
 export const DEVICE_WIDTH = {
   MOBILE: "(max-width: 767px)",
-  PC: "(min-width: 768px)",
+  PC: "(min-width: 767px)",
 };
 
 export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
