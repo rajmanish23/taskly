@@ -1,12 +1,19 @@
+import { BarLoader } from "react-spinners";
 import TaskDisplayCard from "../TaskDisplayCard";
 import { SC_BackgroundListContainer } from "./styles";
+import {
+  BAR_LOADER_HEIGHT,
+  BAR_LOADER_WIDTH,
+  STYLE_TEXT_COLOR,
+} from "../../constants";
 
 type TaskListViewProps = {
-  mode: "TODAY" | "UPCOMING" | "PREVIOUS" | "TAG";
+  mode: SelectedView;
   data: Task[];
+  isLoading: boolean;
 };
 
-const TasksListView = ({ mode, data }: TaskListViewProps) => {
+const TasksListView = ({ mode, data, isLoading }: TaskListViewProps) => {
   const getEmptyDisplayText = () => {
     switch (mode) {
       case "TODAY":
@@ -59,7 +66,13 @@ const TasksListView = ({ mode, data }: TaskListViewProps) => {
         {getListViewHeading()}
         <button>Create a new task +</button>
       </div>
-      {data.length === 0 ? (
+      {isLoading ? (
+        <BarLoader
+          color={STYLE_TEXT_COLOR}
+          height={BAR_LOADER_HEIGHT}
+          width={BAR_LOADER_WIDTH}
+        />
+      ) : data.length === 0 ? (
         <>
           <h1>{getEmptyDisplayText()}</h1>
           <button>Create a new task +</button>

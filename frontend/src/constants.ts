@@ -4,6 +4,8 @@ export const LOCAL_TAGS_KEY = "tag-data";
 export const LOCAL_USER_KEY = "user-data";
 
 export const STYLE_TEXT_COLOR = "#ec8e8e";
+export const BAR_LOADER_HEIGHT = 3;
+export const BAR_LOADER_WIDTH = 150;
 
 export const DEVICE_WIDTH = {
   MOBILE: "(max-width: 767px)",

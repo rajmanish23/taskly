@@ -1,12 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Cookies from "js-cookie";
+import { BarLoader } from "react-spinners";
 
 import {
   ACCESS_KEY,
+  BAR_LOADER_HEIGHT,
+  BAR_LOADER_WIDTH,
   LOGIN_PAGE_URL,
   PREVIOUS_PAGE_URL,
   REFRESH_KEY,
   REGISTER_PAGE_URL,
+  STYLE_TEXT_COLOR,
   TAG_PAGE_URL,
   TODAY_PAGE_URL,
   UPCOMING_PAGE_URL,
@@ -45,14 +49,28 @@ function App() {
   }, [checkAPIStatus]);
 
   if (isAPIAlive === null) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <BarLoader
+          color={STYLE_TEXT_COLOR}
+          width={BAR_LOADER_WIDTH}
+          height={BAR_LOADER_HEIGHT}
+        />
+      </div>
+    );
   }
 
   if (!isAPIAlive) {
     // TODO: Replace this with a nicer looking page
     return <div>Backend is dead!!!</div>;
   }
-  
+
   return (
     <Routes>
       <Route
