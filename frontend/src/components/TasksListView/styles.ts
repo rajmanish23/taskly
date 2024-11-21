@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { STYLE_BORDER_COLOR } from '../../constants';
+import styled from "styled-components";
+import { STYLE_BORDER_COLOR } from "../../constants";
 
 export const SC_BackgroundListContainer = styled.div`
   flex-grow: 1;
@@ -22,17 +22,20 @@ export const SC_HeaderContainer = styled.div`
 export const SC_HeaderTextContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
 `;
 
 export const SC_TopHeader1 = styled.h1`
   margin: 0 10px 0 0;
   padding: 0;
+  font-weight: 500;
 `;
 
 export const SC_TopHeader2 = styled.h2`
-  margin: 0 10px 0 0;
+  margin: 0 10px 3px 0;
   padding: 0;
+  font-family: "Caveat", cursive;
+  font-weight: normal;
 `;
 
 export const SC_CentralNoDataContainer = styled.div`
@@ -41,4 +44,10 @@ export const SC_CentralNoDataContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+`;
+
+export const SC_EmptyDisplayHeader = styled.h1`
+  font-family: "Caveat", cursive;
+  font-size: 40px;
+  font-weight: normal;
 `;

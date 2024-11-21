@@ -1,6 +1,14 @@
 import { BarLoader } from "react-spinners";
 import TaskDisplayCard from "../TaskDisplayCard";
-import { SC_BackgroundListContainer, SC_CentralNoDataContainer, SC_HeaderContainer, SC_HeaderTextContainer, SC_TopHeader1, SC_TopHeader2 } from "./styles";
+import {
+  SC_BackgroundListContainer,
+  SC_CentralNoDataContainer,
+  SC_EmptyDisplayHeader,
+  SC_HeaderContainer,
+  SC_HeaderTextContainer,
+  SC_TopHeader1,
+  SC_TopHeader2,
+} from "./styles";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
@@ -77,7 +85,7 @@ const TasksListView = ({ mode, data, isLoading }: TaskListViewProps) => {
         </SC_CentralNoDataContainer>
       ) : data.length === 0 ? (
         <SC_CentralNoDataContainer>
-          <h1>{getEmptyDisplayText()}</h1>
+          <SC_EmptyDisplayHeader>{getEmptyDisplayText()}</SC_EmptyDisplayHeader>
           <AddButton text="Create a new Task" />
         </SC_CentralNoDataContainer>
       ) : (
