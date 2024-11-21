@@ -1,16 +1,12 @@
 // import SideBar from "../components/SideBar";
-import TasksListView from "../components/TasksListView";
+import MainView from "../components/MainView";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const Upcoming = () => {
   useDocumentTitle("Upcoming");
 
   return (
-    <>
-      <div>Upcoming</div>
-      {/* <SideBar mode="NORMAL" /> */}
-      <TasksListView mode="UPCOMING" />
-    </>
+    <MainView data={[]} selectedView="UPCOMING" isLoading={true} />
   );
 };
 

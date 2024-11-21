@@ -19,8 +19,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 import pingAPI from "./API/pingAPI";
 import { useCallback, useEffect, useState } from "react";
-import Upcoming from "./pages/upcoming";
-import Previous from "./pages/previous";
+import Upcoming from "./pages/Upcoming";
+import Previous from "./pages/Previous";
 import TagListTask from "./pages/TagListTask";
 
 function Logout() {

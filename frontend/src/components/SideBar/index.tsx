@@ -10,13 +10,19 @@ import {
   SC_ProfileImage,
   SC_SidebarContainer,
   SC_LogoImage,
+  SC_OptionsContainer,
+  SC_OptionsHeader,
+  SC_Button,
+  SC_AddTagButton,
 } from "./styles";
 
 type SideBarProps = {
   mode: "SETTINGS" | "NORMAL";
+  selectedView: SelectedView;
+  selectedTag: string | undefined;
 };
 
-const SideBar = ({ mode }: SideBarProps) => {
+const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   const [tags, setTags] = useState<Tag[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
@@ -36,6 +42,27 @@ const SideBar = ({ mode }: SideBarProps) => {
     }
   }, [mode]);
 
+  const getSelectedTagId = () => {
+    if (selectedView === "TAG" && selectedTag !== undefined) {
+      return selectedTag;
+    }
+    return "";
+  };
+
+  const getSelectedNormalView = () => {
+    if (mode === "NORMAL") {
+      return selectedView;
+    }
+    return "";
+  };
+
+  const getSelectedSettingsView = () => {
+    if (mode === "SETTINGS") {
+      return selectedView;
+    }
+    return "";
+  };
+
   useEffect(() => {
     getTags().catch((e) => console.log(e));
   }, [getTags]);
@@ -46,34 +73,56 @@ const SideBar = ({ mode }: SideBarProps) => {
         <SC_LogoImage src={logoImg} />
         {mode === "NORMAL" ? (
           <>
-            <div>
-              <p>Views</p>
-              <button>Today</button>
-              <button>Upcoming</button>
-            </div>
-            <div>
-              <p>Tags</p>
+            <SC_OptionsContainer>
+              <SC_OptionsHeader>Views</SC_OptionsHeader>
+              <SC_Button $isActive={getSelectedNormalView() === "TODAY"}>
+                Today
+              </SC_Button>
+              <SC_Button $isActive={getSelectedNormalView() === "UPCOMING"}>
+                Upcoming
+              </SC_Button>
+              <SC_Button $isActive={getSelectedNormalView() === "PREVIOUS"}>
+                Previous
+              </SC_Button>
+            </SC_OptionsContainer>
+            <SC_OptionsContainer>
+              <SC_OptionsHeader>Tags</SC_OptionsHeader>
               {isLoading ? (
                 <>Loading...</>
               ) : (
                 <>
                   {tags?.map((each) => (
-                    <button key={each.sId}>{each.name}</button>
+                    <SC_Button
+                      $isActive={each.sId === getSelectedTagId()}
+                      key={each.sId}
+                    >
+                      {each.name}
+                    </SC_Button>
                   ))}
-                  <button>Add a new Tag</button>
+                  <SC_AddTagButton>Add a new Tag</SC_AddTagButton>
                 </>
               )}
-            </div>
+            </SC_OptionsContainer>
           </>
         ) : (
-          <div>
-            <p>Settings</p>
-            <button>Edit Name</button>
-            <button>Edit Email</button>
-            <button>Change Password</button>
-            <button>Logout</button>
-            <button>Delete Account</button>
-          </div>
+          <SC_OptionsContainer>
+            <SC_OptionsHeader>Settings</SC_OptionsHeader>
+            <SC_Button $isActive={getSelectedSettingsView() === "NAME_EDIT"}>
+              Edit Name
+            </SC_Button>
+            <SC_Button $isActive={getSelectedSettingsView() === "EMAIL_EDIT"}>
+              Edit Email
+            </SC_Button>
+            <SC_Button $isActive={getSelectedSettingsView() === "PASS_EDIT"}>
+              Change Password
+            </SC_Button>
+            <SC_Button $isActive={getSelectedSettingsView() === "LOGOUT"}>
+              Logout
+            </SC_Button>
+            <SC_Button $isActive={getSelectedSettingsView() === "DEL_ACC"}>
+              Delete Account
+            </SC_Button>
+          </SC_OptionsContainer>
         )}
       </SC_ContentContainer>
       <SC_ProfileContainer>

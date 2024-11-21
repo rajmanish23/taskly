@@ -32,7 +32,7 @@ const Today = () => {
     getTasks().catch((e) => console.log(e));
   }, [getTasks]);
 
-  return <MainView data={tasks} isLoading={isLoading} />
+  return <MainView data={tasks} isLoading={isLoading} selectedView="TODAY" />
 };
 
 export default Today;

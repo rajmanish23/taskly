@@ -51,3 +51,14 @@ type User = {
   lastName: string;
   fullName: string;
 };
+
+type SelectedView =
+  | "TODAY"
+  | "UPCOMING"
+  | "PREVIOUS"
+  | "TAG"
+  | "NAME_EDIT"
+  | "EMAIL_EDIT"
+  | "PASS_EDIT"
+  | "LOGOUT"
+  | "DEL_ACC";

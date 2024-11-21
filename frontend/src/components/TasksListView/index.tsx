@@ -18,7 +18,7 @@ const TasksListView = ({ mode, data }: TaskListViewProps) => {
       case "TAG":
         return "There are no tasks in with this tag";
     }
-  }
+  };
 
   const getListViewHeading = () => {
     const now = new Date();
