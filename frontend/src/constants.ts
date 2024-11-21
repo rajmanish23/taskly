@@ -4,6 +4,10 @@ export const LOCAL_TAGS_KEY = "tag-data";
 export const LOCAL_USER_KEY = "user-data";
 
 export const STYLE_TEXT_COLOR = "#ec8e8e";
+export const STYLE_BUTTON_HIGHLIGHT_COLOR = "#854a4a";
+export const STYLE_HOVER_HIGHLIGHT_COLOR = "#5e5555";
+export const STYLE_BORDER_COLOR = "#787070";
+export const STYLE_TRANSITION_TIME = "0.15s";
 export const BAR_LOADER_HEIGHT = 3;
 export const BAR_LOADER_WIDTH = 150;
 
