@@ -55,6 +55,7 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          height: "100%"
         }}
       >
         <BarLoader
