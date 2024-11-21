@@ -31,6 +31,7 @@ export const SC_LogoImage = styled.img`
   width: 150px;
   align-self: center;
   padding: 10px 50px 10px 50px;
+  margin-bottom: 10px;
   border-bottom: 1px solid ${STYLE_BORDER_COLOR};
   transition: background-color ${STYLE_TRANSITION_TIME};
   cursor: pointer;
@@ -44,7 +45,7 @@ export const SC_OptionsContainer = styled.div`
 
 export const SC_OptionsHeader = styled.p`
   margin: 0 0 10px 0;
-  padding-bottom: 7px;
+  padding: 0 5px 8px 5px;
   border-bottom: 2px solid ${STYLE_TEXT_COLOR};
   font-size: 20px;
 `;
