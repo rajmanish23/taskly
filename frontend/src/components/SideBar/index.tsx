@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
+import { BarLoader } from "react-spinners";
+import { FaHashtag } from "react-icons/fa6";
 
 import logoImg from "../../assets/taskly-logo-big.png";
 import profileImg from "../../assets/default-profile.jpg";
@@ -13,8 +15,13 @@ import {
   SC_OptionsContainer,
   SC_OptionsHeader,
   SC_Button,
-  SC_AddTagButton,
 } from "./styles";
+import {
+  BAR_LOADER_HEIGHT,
+  BAR_LOADER_WIDTH,
+  STYLE_TEXT_COLOR,
+} from "../../constants";
+import { AddButton } from "../AddButton";
 
 type SideBarProps = {
   mode: "SETTINGS" | "NORMAL";
@@ -70,36 +77,50 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   return (
     <SC_SidebarContainer>
       <SC_ContentContainer>
-        <SC_LogoImage src={logoImg} />
+        <SC_LogoImage title="Home" src={logoImg} />
         {mode === "NORMAL" ? (
           <>
             <SC_OptionsContainer>
               <SC_OptionsHeader>Views</SC_OptionsHeader>
-              <SC_Button $isActive={getSelectedNormalView() === "TODAY"}>
+              <SC_Button
+                $isActive={getSelectedNormalView() === "TODAY"}
+                title="View Today"
+              >
                 Today
               </SC_Button>
-              <SC_Button $isActive={getSelectedNormalView() === "UPCOMING"}>
+              <SC_Button
+                $isActive={getSelectedNormalView() === "UPCOMING"}
+                title="View Upcoming"
+              >
                 Upcoming
               </SC_Button>
-              <SC_Button $isActive={getSelectedNormalView() === "PREVIOUS"}>
+              <SC_Button
+                $isActive={getSelectedNormalView() === "PREVIOUS"}
+                title="View Previous"
+              >
                 Previous
               </SC_Button>
             </SC_OptionsContainer>
             <SC_OptionsContainer>
               <SC_OptionsHeader>Tags</SC_OptionsHeader>
               {isLoading ? (
-                <>Loading...</>
+                <BarLoader
+                  color={STYLE_TEXT_COLOR}
+                  height={BAR_LOADER_HEIGHT}
+                  width={BAR_LOADER_WIDTH + 64}
+                />
               ) : (
                 <>
                   {tags?.map((each) => (
                     <SC_Button
                       $isActive={each.sId === getSelectedTagId()}
                       key={each.sId}
+                      title={`View Tag ${each.name}`}
                     >
-                      {each.name}
+                      <FaHashtag style={{ marginRight: 5 }} /> {each.name}
                     </SC_Button>
                   ))}
-                  <SC_AddTagButton>Add a new Tag</SC_AddTagButton>
+                  <AddButton text="Add a new Tag" />
                 </>
               )}
             </SC_OptionsContainer>
@@ -125,7 +146,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
           </SC_OptionsContainer>
         )}
       </SC_ContentContainer>
-      <SC_ProfileContainer>
+      <SC_ProfileContainer title="Profile Settings">
         <SC_ProfileImage src={profileImg} />
         <p>{userName}</p>
       </SC_ProfileContainer>
