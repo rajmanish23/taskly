@@ -66,14 +66,14 @@ const SideBar = ({ mode }: SideBarProps) => {
             </div>
           </>
         ) : (
-          <>
-            <div>Settings</div>
+          <div>
+            <p>Settings</p>
             <button>Edit Name</button>
             <button>Edit Email</button>
             <button>Change Password</button>
             <button>Logout</button>
             <button>Delete Account</button>
-          </>
+          </div>
         )}
       </SC_ContentContainer>
       <SC_ProfileContainer>
