@@ -1,11 +1,12 @@
 import { BarLoader } from "react-spinners";
 import TaskDisplayCard from "../TaskDisplayCard";
-import { SC_BackgroundListContainer } from "./styles";
+import { SC_BackgroundListContainer, SC_CentralNoDataContainer, SC_HeaderContainer, SC_HeaderTextContainer, SC_TopHeader1, SC_TopHeader2 } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
   STYLE_TEXT_COLOR,
 } from "../../constants";
+import { AddButton } from "../AddButton";
 
 type TaskListViewProps = {
   mode: SelectedView;
@@ -32,51 +33,53 @@ const TasksListView = ({ mode, data, isLoading }: TaskListViewProps) => {
     switch (mode) {
       case "TODAY":
         return (
-          <div>
-            <h1>Today</h1>
-            <h2>{`(${now.toLocaleDateString(undefined, {
+          <SC_HeaderTextContainer>
+            <SC_TopHeader1>Today</SC_TopHeader1>
+            <SC_TopHeader2>{`(${now.toLocaleDateString(undefined, {
               dateStyle: "full",
-            })})`}</h2>
-          </div>
+            })})`}</SC_TopHeader2>
+          </SC_HeaderTextContainer>
         );
       case "UPCOMING":
         return (
-          <div>
-            <h1>Upcoming</h1>
-          </div>
+          <SC_HeaderTextContainer>
+            <SC_TopHeader1>Upcoming</SC_TopHeader1>
+          </SC_HeaderTextContainer>
         );
       case "TAG":
         return (
-          <div>
-            <h1>!! TEMP TAG HEADER !!</h1>
-          </div>
+          <SC_HeaderTextContainer>
+            <SC_TopHeader1>!! TEMP TAG HEADER !!</SC_TopHeader1>
+          </SC_HeaderTextContainer>
         );
       case "PREVIOUS":
         return (
-          <div>
-            <h1>Previous</h1>
-          </div>
+          <SC_HeaderTextContainer>
+            <SC_TopHeader1>Previous</SC_TopHeader1>
+          </SC_HeaderTextContainer>
         );
     }
   };
 
   return (
     <SC_BackgroundListContainer>
-      <div>
+      <SC_HeaderContainer>
         {getListViewHeading()}
-        <button>Create a new task +</button>
-      </div>
+        <AddButton text="Create a new Task" />
+      </SC_HeaderContainer>
       {isLoading ? (
-        <BarLoader
-          color={STYLE_TEXT_COLOR}
-          height={BAR_LOADER_HEIGHT}
-          width={BAR_LOADER_WIDTH}
-        />
+        <SC_CentralNoDataContainer>
+          <BarLoader
+            color={STYLE_TEXT_COLOR}
+            height={BAR_LOADER_HEIGHT}
+            width={BAR_LOADER_WIDTH}
+          />
+        </SC_CentralNoDataContainer>
       ) : data.length === 0 ? (
-        <>
+        <SC_CentralNoDataContainer>
           <h1>{getEmptyDisplayText()}</h1>
-          <button>Create a new task +</button>
-        </>
+          <AddButton text="Create a new Task" />
+        </SC_CentralNoDataContainer>
       ) : (
         <ul>
           {data?.map((each) => (
