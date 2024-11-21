@@ -49,7 +49,7 @@ export const SC_OptionsHeader = styled.p`
   font-size: 20px;
 `;
 
-export const SC_Button = styled.button<{ $isActive: boolean }>`
+export const SC_Button = styled.button<{ $isActive: boolean, $color?: string }>`
   &:hover {
     background-color: ${(props) =>
       props.$isActive
@@ -64,7 +64,7 @@ export const SC_Button = styled.button<{ $isActive: boolean }>`
   border-style: none;
   background-color: ${(props) =>
     props.$isActive ? STYLE_BUTTON_HIGHLIGHT_COLOR : "transparent"};
-  color: white;
+  color: ${(props) => props.$color === undefined ? "white" : props.$color};
   transition: background-color ${STYLE_TRANSITION_TIME};
   cursor: pointer;
   display: flex;

@@ -114,6 +114,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                   {tags?.map((each) => (
                     <SC_Button
                       $isActive={each.sId === getSelectedTagId()}
+                      $color={each.colorHex}
                       key={each.sId}
                       title={`View Tag ${each.name}`}
                     >
