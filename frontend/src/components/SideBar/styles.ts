@@ -58,7 +58,7 @@ export const SC_Button = styled.button<{ $isActive: boolean, $color?: string }>`
   }
   padding: 8px 16px 8px 16px;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 16px;
   text-align: start;
   border-radius: 10px;
   border-style: none;
