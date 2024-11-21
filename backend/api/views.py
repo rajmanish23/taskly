@@ -1,5 +1,6 @@
 import datetime
 
+from django.utils.timezone import make_aware
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -126,6 +127,8 @@ class TaskTodayListView(generics.ListAPIView):
         end_datetime = datetime.datetime.strptime(
             (date + "T23:59:59"), "%Y-%m-%dT%H:%M:%S"
         )
+        start_datetime = make_aware(start_datetime)
+        end_datetime = make_aware(end_datetime)
         user = self.request.user
         queryset = Task.objects.filter(author=user) & Task.objects.filter(
             due_at__range=(start_datetime, end_datetime)
@@ -144,6 +147,7 @@ class TaskUpcomingListView(generics.ListAPIView):
         filter_datetime = datetime.datetime.strptime(
             (date + "T23:59:59"), "%Y-%m-%dT%H:%M:%S"
         )
+        filter_datetime = make_aware(filter_datetime)
         user = self.request.user
         queryset = Task.objects.filter(author=user) & Task.objects.filter(
             due_at__gt=filter_datetime
