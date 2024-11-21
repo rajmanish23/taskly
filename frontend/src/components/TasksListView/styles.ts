@@ -1,11 +1,12 @@
 import styled from 'styled-components'
+import { STYLE_BORDER_COLOR } from '../../constants';
 
 export const SC_BackgroundListContainer = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 50px 0 50px;
+  padding: 30px 50px 0 50px;
 `;
 
 export const SC_HeaderContainer = styled.div`
@@ -14,6 +15,8 @@ export const SC_HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  border-bottom: 3px solid ${STYLE_BORDER_COLOR};
+  padding: 0 10px 15px 10px;
 `;
 
 export const SC_HeaderTextContainer = styled.div`
