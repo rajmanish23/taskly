@@ -15,7 +15,6 @@ export const SC_FormCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-family: "Roboto";
   box-sizing: border-box;
   @media ${DEVICE_WIDTH.PC} {
     background-color: #2c2929;
