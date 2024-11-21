@@ -6,6 +6,7 @@ import {
   SC_EmptyDisplayHeader,
   SC_HeaderContainer,
   SC_HeaderTextContainer,
+  SC_TaskListContainer,
   SC_TopHeader1,
   SC_TopHeader2,
 } from "./styles";
@@ -89,11 +90,11 @@ const TasksListView = ({ mode, data, isLoading }: TaskListViewProps) => {
           <AddButton text="Create a new Task" />
         </SC_CentralNoDataContainer>
       ) : (
-        <ul>
+        <SC_TaskListContainer>
           {data?.map((each) => (
             <TaskDisplayCard key={each.sId} data={each} />
           ))}
-        </ul>
+        </SC_TaskListContainer>
       )}
     </SC_BackgroundListContainer>
   );
