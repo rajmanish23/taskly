@@ -121,7 +121,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                       <FaHashtag style={{ marginRight: 5 }} /> {each.name}
                     </SC_Button>
                   ))}
-                  <AddButton text="Add a new Tag" />
+                  <AddButton text="Create a new Tag" />
                 </>
               )}
             </SC_OptionsContainer>
