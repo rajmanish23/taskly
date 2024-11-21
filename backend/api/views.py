@@ -155,6 +155,25 @@ class TaskUpcomingListView(generics.ListAPIView):
         return queryset
 
 
+class TaskPreviousListView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        date = self.request.query_params.get("date")
+        if date is None:
+            return Task.objects.none()
+        filter_datetime = datetime.datetime.strptime(
+            (date + "T00:00:00"), "%Y-%m-%dT%H:%M:%S"
+        )
+        filter_datetime = make_aware(filter_datetime)
+        user = self.request.user
+        queryset = Task.objects.filter(author=user) & Task.objects.filter(
+            due_at__lt=filter_datetime
+        )
+        return queryset
+
+
 class TagListCreateView(generics.ListCreateAPIView):
     serializer_class = TagSerializer
     permission_classes = [IsAuthenticated]

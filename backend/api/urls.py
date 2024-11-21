@@ -10,6 +10,7 @@ urlpatterns = [
         views.TaskUpcomingListView.as_view(),
         name="task-list-upcoming",
     ),
+    path("tasks/previous/", views.TaskPreviousListView.as_view(), name="task-list-previous"),
     path(
         "tasks/<slug:pk>/",
         views.TaskRetrieveUpdateDeleteView.as_view(),
