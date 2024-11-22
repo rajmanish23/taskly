@@ -24,9 +24,10 @@ import { STYLE_ICON_MARGINS } from "../../constants";
 
 type TaskDisplayCardProps = {
   data: Task | SubTask;
+  mode: SelectedView;
 };
 
-const displayDate = (date: Date | null) => {
+const displayDate = (date: Date | null, view: SelectedView) => {
   if (date === null) {
     return (
       <SC_DateContainer $isOverDue={false} $isNull={true}>
@@ -43,14 +44,14 @@ const displayDate = (date: Date | null) => {
       ) : (
         <MdAccessTimeFilled style={STYLE_ICON_MARGINS} />
       )}
-      <SC_BaseParagraph>{`${
-        isOverDue ? "Overdue" : "Due"
-      }: ${date.toLocaleString()}`}</SC_BaseParagraph>
+      <SC_BaseParagraph>{`${isOverDue ? "Overdue" : "Due"}: ${
+        view === "TODAY" ? date.toLocaleTimeString() : date.toLocaleString()
+      }`}</SC_BaseParagraph>
     </SC_DateContainer>
   );
 };
 
-const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
+const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
   if (isTask(data)) {
     return (
       <SC_TaskListItemContainer>
@@ -60,7 +61,7 @@ const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
         <SC_DataContainer>
           <SC_TaskItemHeaderContainer>
             <SC_TaskNameHeading>{data.name}</SC_TaskNameHeading>
-            {displayDate(data.dueAt)}
+            {displayDate(data.dueAt, mode)}
           </SC_TaskItemHeaderContainer>
 
           {data.tags.length !== 0 ? (
@@ -92,7 +93,7 @@ const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
                 return (
                   <SC_TaskItemHeaderContainer key={each.sId}>
                     <SC_BaseParagraph>{each.name}</SC_BaseParagraph>
-                    {displayDate(each.dueAt)}
+                    {displayDate(each.dueAt, mode)}
                   </SC_TaskItemHeaderContainer>
                 );
               })}

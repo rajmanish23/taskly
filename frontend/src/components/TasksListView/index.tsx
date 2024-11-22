@@ -147,7 +147,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       ) : (
         <SC_TaskListContainer>
           {tasks?.map((each) => (
-            <TaskDisplayCard key={each.sId} data={each} />
+            <TaskDisplayCard key={each.sId} data={each} mode={mode} />
           ))}
         </SC_TaskListContainer>
       )}
