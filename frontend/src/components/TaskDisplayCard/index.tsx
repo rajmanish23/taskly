@@ -16,6 +16,8 @@ import {
   SC_DescriptionSpanHeader,
   SC_SubTaskListContainer,
   SC_TaskNameHeading,
+  SC_MoreSubTasksInfo,
+  SC_MoreSubTasksNumber,
 } from "./styles";
 import { isTask } from "../../utils/objectTypeCheckers";
 import { STYLE_ICON_MARGINS } from "../../constants";
@@ -85,12 +87,25 @@ const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
 
           {data.subTasks.length !== 0 ? (
             <SC_SubTaskListContainer>
-              {data.subTasks.map((each) => (
-                <SC_TaskItemHeaderContainer key={each.sId}>
-                  <SC_BaseParagraph>{each.name}</SC_BaseParagraph>
-                  {displayDate(each.dueAt)}
-                </SC_TaskItemHeaderContainer>
-              ))}
+              {data.subTasks.map((each, index) => {
+                if (index >= 3) return;
+                return (
+                  <SC_TaskItemHeaderContainer key={each.sId}>
+                    <SC_BaseParagraph>{each.name}</SC_BaseParagraph>
+                    {displayDate(each.dueAt)}
+                  </SC_TaskItemHeaderContainer>
+                );
+              })}
+              {data.subTasks.length > 3 ? (
+                <SC_MoreSubTasksInfo>
+                  <SC_MoreSubTasksNumber>
+                    {data.subTasks.length - 3}+
+                  </SC_MoreSubTasksNumber>{" "}
+                  Sub Tasks
+                </SC_MoreSubTasksInfo>
+              ) : (
+                <></>
+              )}
             </SC_SubTaskListContainer>
           ) : (
             <></>

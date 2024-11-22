@@ -113,3 +113,24 @@ export const SC_SubTaskListContainer = styled.ul`
   padding: 5px 0 0 20px;
   border-top: 1px solid ${STYLE_BORDER_COLOR};
 `;
+
+export const SC_MoreSubTasksInfo = styled(SC_BaseParagraph)`
+  margin: 5px 0 5px 0;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: 500;
+  color: #918787;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SC_MoreSubTasksNumber = styled.span`
+  font-weight: 700;
+  font-size: 16px;
+  color: #f6dddd;
+  margin-right: 5px;
+  padding: 4px 8px 4px 8px;
+  border-radius: 10px;
+  background-color: ${STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR};
+`;
