@@ -1,5 +1,9 @@
 import baseAPI from "./baseAPI";
-import { GET_TODAY_LIST_API_URL } from "../constants";
+import {
+  GET_PREVIOUS_LIST_API_URL,
+  GET_TODAY_LIST_API_URL,
+  GET_UPCOMING_LIST_API_URL,
+} from "../constants";
 import { isAxiosError } from "axios";
 
 const convertAPIData = (data: TaskAPIData[]) => {
@@ -33,6 +37,52 @@ export const getTodayTasksAPI = async (): Promise<Task[] | APIErrorMessage> => {
     const now = new Date();
     const { data } = await baseAPI.get<GetTaskResponse>(
       GET_TODAY_LIST_API_URL,
+      { params: { date: now.toISOString().slice(0, 10) } }
+    );
+    return convertAPIData(data);
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      const err: APIErrorMessage = {
+        detail: error.response.data.detail,
+      };
+      return err;
+    }
+    throw error;
+  }
+};
+
+export const getPreviousTasksAPI = async (): Promise<
+  Task[] | APIErrorMessage
+> => {
+  try {
+    const now = new Date();
+    const { data } = await baseAPI.get<GetTaskResponse>(
+      GET_PREVIOUS_LIST_API_URL,
+      { params: { date: now.toISOString().slice(0, 10) } }
+    );
+    return convertAPIData(data);
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      const err: APIErrorMessage = {
+        detail: error.response.data.detail,
+      };
+      return err;
+    }
+    throw error;
+  }
+};
+
+export const getUpcomingTasksAPI = async (): Promise<
+  Task[] | APIErrorMessage
+> => {
+  try {
+    const now = new Date();
+    const { data } = await baseAPI.get<GetTaskResponse>(
+      GET_UPCOMING_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
     );
     return convertAPIData(data);
