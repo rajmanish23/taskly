@@ -20,35 +20,51 @@ import {
 import { AddButton } from "../AddButton";
 import {
   getPreviousTasksAPI,
+  getTagTasksAPI,
   getTodayTasksAPI,
   getUpcomingTasksAPI,
 } from "../../API/tasksAPI";
-import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
+import {
+  isAPIErrorMessage,
+  isTagAPIConvertedData,
+} from "../../utils/objectTypeCheckers";
 
 type TaskListViewProps = {
   mode: SelectedView;
+  tagId?: string;
 };
 
-const TasksListView = ({ mode }: TaskListViewProps) => {
+const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [tag, setTag] = useState<Tag>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getTasks = useCallback(async () => {
     setIsLoading(true);
     try {
-      let data: Task[] | APIErrorMessage;
+      let data: Task[] | TagAPIConvertedData | APIErrorMessage;
       if (mode === "TODAY") {
         data = await getTodayTasksAPI();
       } else if (mode === "UPCOMING") {
         data = await getUpcomingTasksAPI();
       } else if (mode === "PREVIOUS") {
         data = await getPreviousTasksAPI();
+      } else if (mode === "TAG") {
+        if (tagId === undefined) throw Error("Tag ID not passed!");
+        data = await getTagTasksAPI(tagId);
       } else {
         throw Error("Settings View is used for Task listing component!");
       }
       if (isAPIErrorMessage(data)) {
         setTasks([]);
         console.log(data.detail);
+      } else if (isTagAPIConvertedData(data)) {
+        setTasks(data.taskSet);
+        setTag({
+          name: data.name,
+          colorHex: data.colorHex,
+          sId: data.sId,
+        });
       } else {
         setTasks(data);
       }
@@ -57,7 +73,7 @@ const TasksListView = ({ mode }: TaskListViewProps) => {
     } finally {
       setIsLoading(false);
     }
-  }, [mode]);
+  }, [mode, tagId]);
 
   useEffect(() => {
     getTasks().catch((e) => console.log(e));
@@ -97,7 +113,7 @@ const TasksListView = ({ mode }: TaskListViewProps) => {
       case "TAG":
         return (
           <SC_HeaderTextContainer>
-            <SC_TopHeader1>!! TEMP TAG HEADER !!</SC_TopHeader1>
+            <SC_TopHeader1>{tag?.name}</SC_TopHeader1>
           </SC_HeaderTextContainer>
         );
       case "PREVIOUS":

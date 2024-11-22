@@ -56,20 +56,28 @@ export const SC_OptionsHeader = styled.p`
 export const SC_Button = styled.button<{ $isActive: boolean; $color?: string }>`
   &:hover {
     background-color: ${(props) =>
-      props.$isActive
-        ? STYLE_BUTTON_HIGHLIGHT_COLOR
-        : STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR};
+      !props.$isActive
+        ? STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR
+        : props.$color !== undefined
+        ? props.$color
+        : STYLE_BUTTON_HIGHLIGHT_COLOR};
+    border: 3px solid ${(props) => (props.$isActive ? "#ab5f5f" : "transparent")};
   }
   padding: 8px 16px 8px 16px;
   margin-bottom: 10px;
   font-size: 16px;
   text-align: start;
   border-radius: 10px;
-  border-style: none;
+  border: 3px solid transparent;
   background-color: ${(props) =>
-    props.$isActive ? STYLE_BUTTON_HIGHLIGHT_COLOR : "transparent"};
-  color: ${(props) => (props.$color === undefined ? "white" : props.$color)};
-  transition: background-color ${STYLE_TRANSITION_TIME};
+    !props.$isActive
+      ? "transparent"
+      : props.$color !== undefined
+      ? props.$color
+      : STYLE_BUTTON_HIGHLIGHT_COLOR};
+  color: white;
+  transition: background-color ${STYLE_TRANSITION_TIME},
+    border ${STYLE_TRANSITION_TIME};
   cursor: pointer;
   display: flex;
   flex-direction: row;

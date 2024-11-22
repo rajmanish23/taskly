@@ -23,8 +23,12 @@ import {
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
+  PREVIOUS_PAGE_URL,
   STYLE_ICON_MARGINS,
   STYLE_TEXT_COLOR,
+  TAG_PAGE_URL_NO_PARAM,
+  TODAY_PAGE_URL,
+  UPCOMING_PAGE_URL,
 } from "../../constants";
 import { AddButton } from "../AddButton";
 
@@ -33,8 +37,6 @@ type SideBarProps = {
   selectedView: SelectedView;
   selectedTag: string | undefined;
 };
-
-type PagesTypes = "TODAY" | "UPCOMING" | "PREVIOUS";
 
 const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   const [tags, setTags] = useState<Tag[]>();
@@ -78,17 +80,21 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
     return "";
   };
 
-  const navigateToViewsPage = (page: PagesTypes) => {
+  const navigateToViewsPage = (page: SelectedView, tagId?: string) => {
     switch (page) {
       case "TODAY":
-        navigate("/");
+        navigate(TODAY_PAGE_URL);
         return;
       case "UPCOMING":
-        navigate("/upcoming");
+        navigate(UPCOMING_PAGE_URL);
         return;
       case "PREVIOUS":
-        navigate("/previous");
+        navigate(PREVIOUS_PAGE_URL);
         return;
+      case "TAG":
+        if (tagId === undefined)
+          throw Error("Pass the tag ID for the side bar button function!");
+        navigate(TAG_PAGE_URL_NO_PARAM + tagId)
     }
   };
 
@@ -142,6 +148,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                       $color={each.colorHex}
                       key={each.sId}
                       title={`View Tag ${each.name}`}
+                      onClick={() => navigateToViewsPage("TAG", each.sId)}
                     >
                       <FaHashtag style={STYLE_ICON_MARGINS} /> {each.name}
                     </SC_Button>

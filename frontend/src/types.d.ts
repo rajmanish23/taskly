@@ -30,6 +30,13 @@ type Tag = {
   colorHex: string;
 };
 
+type TagAPIConvertedData = {
+  sId: string;
+  name: string;
+  colorHex: string;
+  taskSet: Task[];
+};
+
 type SubTask = {
   sId: string;
   name: string;

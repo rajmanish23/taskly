@@ -11,7 +11,7 @@ import {
   REFRESH_KEY,
   REGISTER_PAGE_URL,
   STYLE_TEXT_COLOR,
-  TAG_PAGE_URL,
+  TAG_PAGE_URL_WITH_PARAM,
   TODAY_PAGE_URL,
   UPCOMING_PAGE_URL,
 } from "./constants";
@@ -99,7 +99,7 @@ function App() {
         }
       />
       <Route
-        path={TAG_PAGE_URL}
+        path={TAG_PAGE_URL_WITH_PARAM}
         element={
           <ProtectedRoute>
             <TagListTask />
