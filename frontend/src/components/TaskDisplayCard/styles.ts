@@ -7,8 +7,8 @@ import {
 export const SC_TaskListItemContainer = styled.li`
   display: flex;
   flex-direction: row;
-  width: clamp(560px, 80%, 800px);
-  margin-bottom: 10px;
+  width: clamp(530px, 80%, 800px);
+  margin-bottom: 15px;
 `;
 
 export const SC_TaskCompleteButton = styled.button`
@@ -41,3 +41,8 @@ export const SC_TaskItemHeaderContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const SC_BaseParagraph = styled.p`
+  margin: 0;
+  padding: 0;
+`

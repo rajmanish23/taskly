@@ -5,7 +5,9 @@ import {
   SC_TaskListItemContainer,
   SC_DataContainer,
   SC_TaskItemHeaderContainer,
+  SC_BaseParagraph,
 } from "./styles";
+import { isTask } from "../../utils/objectTypeCheckers";
 
 type TaskDisplayCardProps = {
   data: Task | SubTask;
@@ -14,40 +16,42 @@ type TaskDisplayCardProps = {
 const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
   const taskDueAt = new Date(data.dueAt);
   if (isTask(data)) {
-  return (
-    <SC_TaskListItemContainer>
-      <SC_TaskCompleteButton>
-        <FaCheckCircle />
-      </SC_TaskCompleteButton>
-      <SC_DataContainer>
-        <SC_TaskItemHeaderContainer>
-          <p>{data.name}</p>
-          <div>
-            <p>Due: {taskDueAt.toLocaleString()}</p>
-          </div>
-        </SC_TaskItemHeaderContainer>
+    return (
+      <SC_TaskListItemContainer>
+        <SC_TaskCompleteButton>
+          <FaCheckCircle />
+        </SC_TaskCompleteButton>
+        <SC_DataContainer>
+          <SC_TaskItemHeaderContainer>
+            <SC_BaseParagraph>{data.name}</SC_BaseParagraph>
+            <div>
+              <SC_BaseParagraph>
+                Due: {taskDueAt.toLocaleString()}
+              </SC_BaseParagraph>
+            </div>
+          </SC_TaskItemHeaderContainer>
 
-        <ul>
-          {data.tags.map((each) => (
-            <li key={each.sId}>{each.name}</li>
-          ))}
-        </ul>
+          <ul>
+            {data.tags.map((each) => (
+              <li key={each.sId}>{each.name}</li>
+            ))}
+          </ul>
 
-        <p>{data.description}</p>
+          <SC_BaseParagraph>{data.description}</SC_BaseParagraph>
 
-        <ul>
-          {data.subTasks.map((each) => (
-            <li key={each.sId}>
-              <p>{each.name}</p>
-              <div>
-                <p>Due: {each.dueAt}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </SC_DataContainer>
-    </SC_TaskListItemContainer>
-  );
+          <ul>
+            {data.subTasks.map((each) => (
+              <li key={each.sId}>
+                <SC_BaseParagraph>{each.name}</SC_BaseParagraph>
+                <div>
+                  <SC_BaseParagraph>Due: {each.dueAt}</SC_BaseParagraph>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </SC_DataContainer>
+      </SC_TaskListItemContainer>
+    );
   } else {
     return <></>;
   }
