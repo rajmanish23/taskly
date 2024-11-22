@@ -158,7 +158,10 @@ const UserForm = ({ method }: FormProps) => {
           {emailErrorMsg === "" ? null : (
             <SC_ErrorText>{"* " + emailErrorMsg}</SC_ErrorText>
           )}
-          <SC_FormInputLabel htmlFor="password" $isError={passwordErrorMsg !== ""}>
+          <SC_FormInputLabel
+            htmlFor="password"
+            $isError={passwordErrorMsg !== ""}
+          >
             Password
           </SC_FormInputLabel>
           <SC_FormInput

@@ -33,7 +33,6 @@ export const SC_DataContainer = styled.div`
   background-color: ${STYLE_CARD_BACKGROUND_COLOR};
   transition: background-color ${STYLE_TRANSITION_TIME};
   border-radius: 0 30px 30px 0;
-  /* TODO: Still in work */
   padding: 20px;
   width: 100%;
   font-size: 18px;

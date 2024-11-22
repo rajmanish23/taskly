@@ -18,7 +18,11 @@ import {
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import { AddButton } from "../AddButton";
-import { getPreviousTasksAPI, getTodayTasksAPI, getUpcomingTasksAPI } from "../../API/tasksAPI";
+import {
+  getPreviousTasksAPI,
+  getTodayTasksAPI,
+  getUpcomingTasksAPI,
+} from "../../API/tasksAPI";
 import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
 
 type TaskListViewProps = {

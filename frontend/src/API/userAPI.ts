@@ -101,17 +101,17 @@ export async function registerAPI(
 }
 
 export async function getUserAPI(): Promise<User> {
-  const localUserData = localStorage.getItem(LOCAL_USER_KEY)
+  const localUserData = localStorage.getItem(LOCAL_USER_KEY);
   if (localUserData !== null) {
-    return JSON.parse(localUserData)
+    return JSON.parse(localUserData);
   }
-  const res = await baseAPI.get(GET_USER_API_URL)
+  const res = await baseAPI.get(GET_USER_API_URL);
   const apiUserData: User = {
     email: res.data.email,
     firstName: res.data.first_name,
     lastName: res.data.last_name,
     fullName: res.data.first_name + " " + res.data.last_name,
-  }
-  localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(apiUserData))
-  return apiUserData
+  };
+  localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(apiUserData));
+  return apiUserData;
 }
