@@ -33,7 +33,7 @@ const displayDate = (date: Date | null) => {
       </SC_DateContainer>
     );
   }
-  const isOverDue = date.getMilliseconds() < Date.now();
+  const isOverDue = date.getTime() < Date.now();
   return (
     <SC_DateContainer $isOverDue={isOverDue} $isNull={false}>
       {isOverDue ? (
