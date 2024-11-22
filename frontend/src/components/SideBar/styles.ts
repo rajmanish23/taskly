@@ -2,9 +2,11 @@ import styled from "styled-components";
 import {
   STYLE_BORDER_COLOR,
   STYLE_BUTTON_HIGHLIGHT_COLOR,
-  STYLE_HOVER_HIGHLIGHT_COLOR,
+  STYLE_CARD_BACKGROUND_COLOR,
+  STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR,
   STYLE_TEXT_COLOR,
   STYLE_TRANSITION_TIME,
+  STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR,
 } from "../../constants";
 
 export const SC_SidebarContainer = styled.div`
@@ -14,7 +16,7 @@ export const SC_SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #2c2929;
+  background-color: ${STYLE_CARD_BACKGROUND_COLOR};
   color: white;
   border-right: 1px solid ${STYLE_BORDER_COLOR};
 `;
@@ -26,7 +28,7 @@ export const SC_ContentContainer = styled.div`
 
 export const SC_LogoImage = styled.img`
   &:hover {
-    background-color: ${STYLE_HOVER_HIGHLIGHT_COLOR};
+    background-color: ${STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR};
   }
   width: 150px;
   align-self: center;
@@ -55,7 +57,7 @@ export const SC_Button = styled.button<{ $isActive: boolean, $color?: string }>`
     background-color: ${(props) =>
       props.$isActive
         ? STYLE_BUTTON_HIGHLIGHT_COLOR
-        : STYLE_HOVER_HIGHLIGHT_COLOR};
+        : STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR};
   }
   padding: 8px 16px 8px 16px;
   margin-bottom: 10px;
@@ -76,7 +78,7 @@ export const SC_Button = styled.button<{ $isActive: boolean, $color?: string }>`
 
 export const SC_ProfileContainer = styled.div`
   &:hover {
-    background-color: ${STYLE_HOVER_HIGHLIGHT_COLOR};
+    background-color: ${STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR};
   }
   display: flex;
   flex-direction: row;

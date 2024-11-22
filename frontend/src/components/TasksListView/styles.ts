@@ -59,4 +59,5 @@ export const SC_TaskListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px 0 0 0;
 `;

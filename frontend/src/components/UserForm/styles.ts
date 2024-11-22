@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { STYLE_TEXT_COLOR, DEVICE_WIDTH } from "../../constants";
+import {
+  STYLE_TEXT_COLOR,
+  DEVICE_WIDTH,
+  STYLE_CARD_BACKGROUND_COLOR,
+} from "../../constants";
 
 export const SC_BackgroundContainer = styled.div`
   height: 100%;
@@ -17,12 +21,12 @@ export const SC_FormCardContainer = styled.div`
   justify-content: center;
   box-sizing: border-box;
   @media ${DEVICE_WIDTH.PC} {
-    background-color: #2c2929;
+    background-color: ${STYLE_CARD_BACKGROUND_COLOR};
     border-radius: 20px;
     padding: 35px;
     margin: 50px;
     box-shadow: 10px 15px 100px 20px rgba(0, 0, 0, 0.5);
-    width: 500px
+    width: 500px;
   }
   @media ${DEVICE_WIDTH.MOBILE} {
     margin: 50px 30px 50px 30px;
