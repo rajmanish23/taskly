@@ -54,6 +54,7 @@ export const SC_BaseParagraph = styled.p`
 
 export const SC_TaskNameHeading = styled(SC_BaseParagraph)`
   font-size: 24px;
+  font-weight: 600;
 `;
 
 export const SC_DateContainer = styled.div<{
