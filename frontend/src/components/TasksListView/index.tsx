@@ -1,4 +1,6 @@
+import { useCallback, useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
+
 import TaskDisplayCard from "../TaskDisplayCard";
 import {
   SC_BackgroundListContainer,
@@ -16,14 +18,47 @@ import {
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import { AddButton } from "../AddButton";
+import { getPreviousTasksAPI, getTodayTasksAPI, getUpcomingTasksAPI } from "../../API/tasksAPI";
+import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
 
 type TaskListViewProps = {
   mode: SelectedView;
-  data: Task[];
-  isLoading: boolean;
 };
 
-const TasksListView = ({ mode, data, isLoading }: TaskListViewProps) => {
+const TasksListView = ({ mode }: TaskListViewProps) => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const getTasks = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      let data: Task[] | APIErrorMessage;
+      if (mode === "TODAY") {
+        data = await getTodayTasksAPI();
+      } else if (mode === "UPCOMING") {
+        data = await getUpcomingTasksAPI();
+      } else if (mode === "PREVIOUS") {
+        data = await getPreviousTasksAPI();
+      } else {
+        throw Error("Settings View is used for Task listing component!");
+      }
+      if (isAPIErrorMessage(data)) {
+        setTasks([]);
+        console.log(data.detail);
+      } else {
+        setTasks(data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [mode]);
+
+  useEffect(() => {
+    getTasks().catch((e) => console.log(e));
+  }, [getTasks]);
+
   const getEmptyDisplayText = () => {
     switch (mode) {
       case "TODAY":
@@ -84,14 +119,14 @@ const TasksListView = ({ mode, data, isLoading }: TaskListViewProps) => {
             width={BAR_LOADER_WIDTH}
           />
         </SC_CentralNoDataContainer>
-      ) : data.length === 0 ? (
+      ) : tasks.length === 0 ? (
         <SC_CentralNoDataContainer>
           <SC_EmptyDisplayHeader>{getEmptyDisplayText()}</SC_EmptyDisplayHeader>
           <AddButton text="Create a new Task" />
         </SC_CentralNoDataContainer>
       ) : (
         <SC_TaskListContainer>
-          {data?.map((each) => (
+          {tasks?.map((each) => (
             <TaskDisplayCard key={each.sId} data={each} />
           ))}
         </SC_TaskListContainer>

@@ -1,38 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
-
 import useDocumentTitle from "../hooks/useDocumentTitle";
-import MainView from "../components/MainView";
-import { getTodayTasksAPI } from "../API/tasksAPI";
-import { isAPIErrorMessage } from "../utils/objectTypeCheckers";
+import SideBar from "../components/SideBar";
+import TasksListView from "../components/TasksListView";
+import { SC_MainViewContainer } from "./styles";
 
 const Today = () => {
   useDocumentTitle("Today");
 
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const getTasks = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const data = await getTodayTasksAPI();
-      if (isAPIErrorMessage(data)) {
-        setTasks([]);
-        console.log(data.detail);
-      } else {
-        setTasks(data);
-      }
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    getTasks().catch((e) => console.log(e));
-  }, [getTasks]);
-
-  return <MainView data={tasks} isLoading={isLoading} selectedView="TODAY" />
+  return (
+    <SC_MainViewContainer>
+      <SideBar mode="NORMAL" selectedView="TODAY" selectedTag="" />
+      <TasksListView mode="TODAY" />
+    </SC_MainViewContainer>
+  );
 };
 
 export default Today;
