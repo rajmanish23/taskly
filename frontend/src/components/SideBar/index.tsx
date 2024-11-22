@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 import { FaHashtag } from "react-icons/fa6";
+import { MdToday } from "react-icons/md";
+import { PiRewindFill } from "react-icons/pi";
+import { MdUpcoming } from "react-icons/md";
 
 import logoImg from "../../assets/taskly-logo-big.png";
 import profileImg from "../../assets/default-profile.jpg";
@@ -86,19 +89,19 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 $isActive={getSelectedNormalView() === "TODAY"}
                 title="View Today"
               >
-                Today
+                <MdToday style={{ marginRight: 5 }} /> Today
               </SC_Button>
               <SC_Button
                 $isActive={getSelectedNormalView() === "UPCOMING"}
                 title="View Upcoming"
               >
-                Upcoming
+                <MdUpcoming style={{ marginRight: 5 }} /> Upcoming
               </SC_Button>
               <SC_Button
                 $isActive={getSelectedNormalView() === "PREVIOUS"}
                 title="View Previous"
               >
-                Previous
+                <PiRewindFill style={{ marginRight: 5 }} /> Previous
               </SC_Button>
             </SC_OptionsContainer>
             <SC_OptionsContainer>
