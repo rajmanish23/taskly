@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 import { FaHashtag } from "react-icons/fa6";
 import { MdToday } from "react-icons/md";
@@ -33,10 +34,13 @@ type SideBarProps = {
   selectedTag: string | undefined;
 };
 
+type PagesTypes = "TODAY" | "UPCOMING" | "PREVIOUS";
+
 const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   const [tags, setTags] = useState<Tag[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
+  const navigate = useNavigate();
 
   const getTags = useCallback(async () => {
     if (mode === "SETTINGS") return;
@@ -74,6 +78,20 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
     return "";
   };
 
+  const navigateToViewsPage = (page: PagesTypes) => {
+    switch (page) {
+      case "TODAY":
+        navigate("/");
+        return;
+      case "UPCOMING":
+        navigate("/upcoming");
+        return;
+      case "PREVIOUS":
+        navigate("/previous");
+        return;
+    }
+  };
+
   useEffect(() => {
     getTags().catch((e) => console.log(e));
   }, [getTags]);
@@ -89,18 +107,21 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
               <SC_Button
                 $isActive={getSelectedNormalView() === "TODAY"}
                 title="View Today"
+                onClick={() => navigateToViewsPage("TODAY")}
               >
                 <MdToday style={STYLE_ICON_MARGINS} /> Today
               </SC_Button>
               <SC_Button
                 $isActive={getSelectedNormalView() === "UPCOMING"}
                 title="View Upcoming"
+                onClick={() => navigateToViewsPage("UPCOMING")}
               >
                 <MdUpcoming style={STYLE_ICON_MARGINS} /> Upcoming
               </SC_Button>
               <SC_Button
                 $isActive={getSelectedNormalView() === "PREVIOUS"}
                 title="View Previous"
+                onClick={() => navigateToViewsPage("PREVIOUS")}
               >
                 <PiRewindFill style={STYLE_ICON_MARGINS} /> Previous
               </SC_Button>
