@@ -1,21 +1,30 @@
-import React from "react";
-import {} from "./styles"
+import { FaCheckCircle } from "react-icons/fa";
+
+import {
+  SC_TaskCompleteButton,
+  SC_TaskListItemContainer,
+  SC_DataContainer,
+  SC_TaskItemHeaderContainer,
+} from "./styles";
 
 type TaskDisplayCardProps = {
   data: Task;
 };
 
 const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
+  const taskDueAt = new Date(data.dueAt)
   return (
-    <li>
-      <button>complete</button>
-      <div>
-        <div>
+    <SC_TaskListItemContainer>
+      <SC_TaskCompleteButton>
+        <FaCheckCircle />
+      </SC_TaskCompleteButton>
+      <SC_DataContainer>
+        <SC_TaskItemHeaderContainer>
           <p>{data.name}</p>
           <div>
-            <p>Due: {data.dueAt}</p>
+            <p>Due: {taskDueAt.toLocaleString()}</p>
           </div>
-        </div>
+        </SC_TaskItemHeaderContainer>
 
         <ul>
           {data.tags.map((each) => (
@@ -35,8 +44,8 @@ const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
             </li>
           ))}
         </ul>
-      </div>
-    </li>
+      </SC_DataContainer>
+    </SC_TaskListItemContainer>
   );
 };
 
