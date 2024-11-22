@@ -8,11 +8,12 @@ import {
 } from "./styles";
 
 type TaskDisplayCardProps = {
-  data: Task;
+  data: Task | SubTask;
 };
 
 const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
-  const taskDueAt = new Date(data.dueAt)
+  const taskDueAt = new Date(data.dueAt);
+  if (isTask(data)) {
   return (
     <SC_TaskListItemContainer>
       <SC_TaskCompleteButton>
@@ -47,6 +48,9 @@ const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
       </SC_DataContainer>
     </SC_TaskListItemContainer>
   );
+  } else {
+    return <></>;
+  }
 };
 
 export default TaskDisplayCard;
