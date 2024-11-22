@@ -33,7 +33,7 @@ type Tag = {
 type SubTask = {
   sId: string;
   name: string;
-  dueAt: Date;
+  dueAt: Date | null;
 };
 
 type Task = {

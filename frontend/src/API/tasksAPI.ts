@@ -10,7 +10,8 @@ const convertAPIData = (data: TaskAPIData[]) => {
       description: each.description,
       dueAt: new Date(each.due_at),
       subTasks: each.sub_tasks.map((eachSubTask: SubTaskAPIData) => ({
-        dueAt: new Date(eachSubTask.due_at),
+        dueAt:
+          eachSubTask.due_at === null ? null : new Date(eachSubTask.due_at),
         name: eachSubTask.name,
         sId: eachSubTask.s_id,
       })),
