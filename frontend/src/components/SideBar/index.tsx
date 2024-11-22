@@ -22,6 +22,7 @@ import {
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
+  STYLE_ICON_MARGINS,
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import { AddButton } from "../AddButton";
@@ -89,19 +90,19 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 $isActive={getSelectedNormalView() === "TODAY"}
                 title="View Today"
               >
-                <MdToday style={{ marginRight: 5 }} /> Today
+                <MdToday style={STYLE_ICON_MARGINS} /> Today
               </SC_Button>
               <SC_Button
                 $isActive={getSelectedNormalView() === "UPCOMING"}
                 title="View Upcoming"
               >
-                <MdUpcoming style={{ marginRight: 5 }} /> Upcoming
+                <MdUpcoming style={STYLE_ICON_MARGINS} /> Upcoming
               </SC_Button>
               <SC_Button
                 $isActive={getSelectedNormalView() === "PREVIOUS"}
                 title="View Previous"
               >
-                <PiRewindFill style={{ marginRight: 5 }} /> Previous
+                <PiRewindFill style={STYLE_ICON_MARGINS} /> Previous
               </SC_Button>
             </SC_OptionsContainer>
             <SC_OptionsContainer>
@@ -121,7 +122,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                       key={each.sId}
                       title={`View Tag ${each.name}`}
                     >
-                      <FaHashtag style={{ marginRight: 5 }} /> {each.name}
+                      <FaHashtag style={STYLE_ICON_MARGINS} /> {each.name}
                     </SC_Button>
                   ))}
                   <AddButton text="Create a new Tag" />

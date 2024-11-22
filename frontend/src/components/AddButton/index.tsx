@@ -1,5 +1,6 @@
 import { AiFillPlusCircle } from "react-icons/ai";
 import { SC_AddTagButton } from "./styles";
+import { STYLE_ICON_MARGINS } from "../../constants";
 
 type AddButtonProp = {
   text: string;
@@ -8,7 +9,7 @@ type AddButtonProp = {
 export const AddButton = ({ text }: AddButtonProp) => {
   return (
     <SC_AddTagButton title={text}>
-      <AiFillPlusCircle style={{ marginRight: 5 }} />
+      <AiFillPlusCircle style={STYLE_ICON_MARGINS} />
       {text}
     </SC_AddTagButton>
   );
