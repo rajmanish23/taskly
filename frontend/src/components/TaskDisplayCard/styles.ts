@@ -24,6 +24,9 @@ export const SC_TaskCompleteButton = styled.button`
   background-color: #3cb371;
   transition: background-color ${STYLE_TRANSITION_TIME};
   color: #013220;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const SC_DataContainer = styled.div`
