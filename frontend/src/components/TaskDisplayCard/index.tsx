@@ -1,4 +1,5 @@
 import { FaCheckCircle } from "react-icons/fa";
+import { MdAccessTimeFilled } from "react-icons/md";
 
 import {
   SC_TaskCompleteButton,
@@ -14,7 +15,6 @@ type TaskDisplayCardProps = {
 };
 
 const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
-  const taskDueAt = new Date(data.dueAt);
   if (isTask(data)) {
     return (
       <SC_TaskListItemContainer>
@@ -25,8 +25,9 @@ const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
           <SC_TaskItemHeaderContainer>
             <SC_BaseParagraph>{data.name}</SC_BaseParagraph>
             <div>
+              <MdAccessTimeFilled />
               <SC_BaseParagraph>
-                Due: {taskDueAt.toLocaleString()}
+                Due: {data.dueAt.toLocaleString()}
               </SC_BaseParagraph>
             </div>
           </SC_TaskItemHeaderContainer>
@@ -44,7 +45,10 @@ const TaskDisplayCard = ({ data }: TaskDisplayCardProps) => {
               <li key={each.sId}>
                 <SC_BaseParagraph>{each.name}</SC_BaseParagraph>
                 <div>
-                  <SC_BaseParagraph>Due: {each.dueAt}</SC_BaseParagraph>
+                  <MdAccessTimeFilled />
+                  <SC_BaseParagraph>
+                    Due: {each.dueAt.toLocaleString()}
+                  </SC_BaseParagraph>
                 </div>
               </li>
             ))}

@@ -2,15 +2,15 @@ import baseAPI from "./baseAPI";
 import { GET_TODAY_LIST_API_URL } from "../constants";
 import { isAxiosError } from "axios";
 
-const convertAPIDataToCamelCase = (data: TaskAPIData[]) => {
+const convertAPIData = (data: TaskAPIData[]) => {
   const apiTasksData: Task[] = data.map((each: TaskAPIData) => {
     const newTag: Task = {
       sId: each.s_id,
       name: each.name,
       description: each.description,
-      dueAt: each.due_at,
+      dueAt: new Date(each.due_at),
       subTasks: each.sub_tasks.map((eachSubTask: SubTaskAPIData) => ({
-        dueAt: eachSubTask.due_at,
+        dueAt: new Date(eachSubTask.due_at),
         name: eachSubTask.name,
         sId: eachSubTask.s_id,
       })),
@@ -34,7 +34,7 @@ export const getTodayTasksAPI = async (): Promise<Task[] | APIErrorMessage> => {
       GET_TODAY_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
     );
-    return convertAPIDataToCamelCase(data);
+    return convertAPIData(data);
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
