@@ -11,7 +11,7 @@ import {
 
 export const SC_SidebarContainer = styled.div`
   height: 100%;
-  width: 250px;
+  width: 220px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -32,9 +32,10 @@ export const SC_LogoImage = styled.img`
   }
   width: 150px;
   align-self: center;
-  padding: 10px 50px 10px 50px;
+  padding: 10px 35px 10px 35px;
   margin-bottom: 10px;
   border-bottom: 1px solid ${STYLE_BORDER_COLOR};
+  border-right: 1px solid ${STYLE_BORDER_COLOR};
   transition: background-color ${STYLE_TRANSITION_TIME};
   cursor: pointer;
 `;
