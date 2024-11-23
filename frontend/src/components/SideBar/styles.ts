@@ -74,7 +74,8 @@ export const SC_Button = styled.button<{ $isActive: boolean; $color?: string }>`
         : props.$color !== undefined
         ? props.$color
         : STYLE_BUTTON_HIGHLIGHT_COLOR};
-    border: 3px solid ${(props) => (props.$isActive ? "#ab5f5f" : "transparent")};
+    border: 3px solid
+      ${(props) => (props.$isActive ? "#ab5f5f" : "transparent")};
   }
   padding: 8px 16px 8px 16px;
   margin-bottom: 10px;
@@ -98,16 +99,35 @@ export const SC_Button = styled.button<{ $isActive: boolean; $color?: string }>`
   align-items: center;
 `;
 
-export const SC_ProfileContainer = styled.div`
+export const SC_DeleteButton = styled(SC_Button)`
   &:hover {
-    background-color: ${STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR};
+    background-color: ${(props) =>
+      props.$isActive ? "#b20000" : STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR};
+    border: 3px solid
+      ${(props) => (props.$isActive ? "#fe0000" : "transparent")};
+  }
+  color: ${(props) => (props.$isActive ? "white" : "red")};
+  background-color: ${(props) => (props.$isActive ? "#b20000" : "transparent")};
+`;
+
+export const SC_ProfileContainer = styled.div<{ $isActive: boolean }>`
+  &:hover {
+    background-color: ${(props) =>
+      props.$isActive
+        ? STYLE_BUTTON_HIGHLIGHT_COLOR
+        : STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR};
+    box-shadow: ${(props) =>
+      props.$isActive ? `inset 0 0 10px ${STYLE_TEXT_COLOR}` : "none"};
   }
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px 20px 10px 20px;
   border-top: 1px solid ${STYLE_BORDER_COLOR};
-  transition: background-color ${STYLE_TRANSITION_TIME};
+  background-color: ${(props) =>
+    props.$isActive ? STYLE_BUTTON_HIGHLIGHT_COLOR : "transparent"};
+  transition: background-color ${STYLE_TRANSITION_TIME},
+    box-shadow ${STYLE_TRANSITION_TIME};
   cursor: pointer;
 `;
 

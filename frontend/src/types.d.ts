@@ -65,6 +65,7 @@ type SelectedView =
   | "PREVIOUS"
   | "TAG"
   | "TASK"
+  | "PROFILE"
   | "NAME_EDIT"
   | "EMAIL_EDIT"
   | "PASS_EDIT"
