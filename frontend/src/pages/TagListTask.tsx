@@ -9,7 +9,6 @@ const TagListTask = () => {
   useDocumentTitle("Tag List task thing");
 
   const { tagId } = useParams();
-  console.log(tagId);
 
   return (
     <SC_MainViewContainer>
