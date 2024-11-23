@@ -102,7 +102,7 @@ export async function registerAPI(
 }
 
 export async function getUserAPI(): Promise<User> {
-  const localUserData = localStorage.getItem(LOCAL_USER_KEY);
+  const localUserData = sessionStorage.getItem(LOCAL_USER_KEY);
   if (localUserData !== null) {
     return JSON.parse(localUserData);
   }
@@ -113,6 +113,6 @@ export async function getUserAPI(): Promise<User> {
     lastName: res.data.last_name,
     fullName: res.data.first_name + " " + res.data.last_name,
   };
-  localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(apiUserData));
+  sessionStorage.setItem(LOCAL_USER_KEY, JSON.stringify(apiUserData));
   return apiUserData;
 }

@@ -2,7 +2,7 @@ import baseTokenfulAPI from "./baseAPI";
 import { TAGS_LIST_API_URL, LOCAL_TAGS_KEY } from "../constants";
 
 export const getTagsAPI = async (): Promise<Tag[]> => {
-  const localTagsData = localStorage.getItem(LOCAL_TAGS_KEY);
+  const localTagsData = sessionStorage.getItem(LOCAL_TAGS_KEY);
   if (localTagsData !== null) {
     return JSON.parse(localTagsData);
   }
@@ -15,6 +15,6 @@ export const getTagsAPI = async (): Promise<Tag[]> => {
     };
     return newTag;
   });
-  localStorage.setItem(LOCAL_TAGS_KEY, JSON.stringify(apiTagsData));
+  sessionStorage.setItem(LOCAL_TAGS_KEY, JSON.stringify(apiTagsData));
   return apiTagsData;
 };

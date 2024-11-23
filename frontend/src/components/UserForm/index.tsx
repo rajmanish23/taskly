@@ -95,7 +95,7 @@ const UserForm = ({ method }: FormProps) => {
         }
         const [isSuccess, error] = await loginAPI(email, password);
         if (isSuccess) {
-          // This is called just to save user info in localStorage so other comps can get that data wihout another API call
+          // This is called just to save user info in sessionStorage so other comps can get that data wihout another API call
           await getUserAPI();
           navigate(TODAY_PAGE_URL);
         } else if (error) {
