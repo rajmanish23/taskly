@@ -10,6 +10,12 @@ import {
   PREVIOUS_PAGE_URL,
   REFRESH_KEY,
   REGISTER_PAGE_URL,
+  SETTING_CHANGE_PASSWORD_URL,
+  SETTING_DELETE_ACCOUNT_URL,
+  SETTING_EDIT_EMAIL_URL,
+  SETTING_EDIT_NAME_URL,
+  SETTING_LOGOUT_URL,
+  SETTING_PROFILE_URL,
   STYLE_TEXT_COLOR,
   TAG_PAGE_URL_WITH_PARAM,
   TODAY_PAGE_URL,
@@ -26,8 +32,14 @@ import { useCallback, useEffect, useState } from "react";
 import Upcoming from "./pages/Upcoming";
 import Previous from "./pages/Previous";
 import TagListTask from "./pages/TagListTask";
+import ChangePassword from "./pages/settings/ChangePassword";
+import DeleteAccount from "./pages/settings/DeleteAccount";
+import EditEmail from "./pages/settings/EditEmail";
+import EditName from "./pages/settings/EditName";
+import Profile from "./pages/settings/Profile";
+import Logout from "./pages/settings/Logout";
 
-function Logout() {
+function LogoutHandler() {
   Cookies.remove(ACCESS_KEY);
   Cookies.remove(REFRESH_KEY);
   return <Navigate to="/login" />;
@@ -106,8 +118,56 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path={SETTING_CHANGE_PASSWORD_URL}
+        element={
+          <ProtectedRoute>
+            <ChangePassword />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={SETTING_DELETE_ACCOUNT_URL}
+        element={
+          <ProtectedRoute>
+            <DeleteAccount />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={SETTING_EDIT_EMAIL_URL}
+        element={
+          <ProtectedRoute>
+            <EditEmail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={SETTING_EDIT_NAME_URL}
+        element={
+          <ProtectedRoute>
+            <EditName />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={SETTING_LOGOUT_URL}
+        element={
+          <ProtectedRoute>
+            <Logout />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={SETTING_PROFILE_URL}
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
       <Route path={LOGIN_PAGE_URL} element={<Login />} />
-      <Route path="/logout" element={<Logout />} />
+      <Route path="/logout" element={<LogoutHandler />} />
       <Route path={REGISTER_PAGE_URL} element={<Register />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
