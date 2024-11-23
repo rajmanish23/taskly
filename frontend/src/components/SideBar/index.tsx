@@ -107,7 +107,11 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   return (
     <SC_SidebarContainer>
       <SC_ContentContainer>
-        <SC_LogoImage title="Home" src={logoImg} />
+        <SC_LogoImage
+          title="Home"
+          src={logoImg}
+          onClick={() => navigateToViewsPage("TODAY")}
+        />
         {mode === "NORMAL" ? (
           <>
             {selectedView === "TASK" ? (
