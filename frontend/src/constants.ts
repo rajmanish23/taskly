@@ -26,11 +26,12 @@ export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 export const LOGIN_API_URL = "/api/token/";
 export const TOKEN_REFRESH_API_URL = "/api/token/refresh/";
 export const REGISTER_API_URL = "/api/user/register/";
-export const GET_TAGS_LIST_API_URL = (tagId: string) => `/api/tags/${tagId}/`;
-export const GET_TODAY_LIST_API_URL = "/api/tasks/today/";
-export const GET_UPCOMING_LIST_API_URL = "/api/tasks/upcoming/";
-export const GET_PREVIOUS_LIST_API_URL = "/api/tasks/previous/";
-export const GET_USER_API_URL = "/api/user/get/";
+export const TAGS_LIST_API_URL = "/api/tags/";
+export const TAGS_TASK_LIST_API_URL = (tagId: string) => `/api/tags/${tagId}/`;
+export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
+export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
+export const PREVIOUS_TASKS_LIST_API_URL = "/api/tasks/previous/";
+export const USER_API_URL = "/api/user/get/";
 
 export const LOGIN_PAGE_URL = "/login";
 export const REGISTER_PAGE_URL = "/register";

@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import baseTokenfulAPI from "./baseAPI";
 import {
   ACCESS_KEY,
-  GET_USER_API_URL,
+  USER_API_URL,
   LOCAL_USER_KEY,
   LOGIN_API_URL,
   REFRESH_KEY,
@@ -106,7 +106,7 @@ export async function getUserAPI(): Promise<User> {
   if (localUserData !== null) {
     return JSON.parse(localUserData);
   }
-  const res = await baseTokenfulAPI.get(GET_USER_API_URL);
+  const res = await baseTokenfulAPI.get(USER_API_URL);
   const apiUserData: User = {
     email: res.data.email,
     firstName: res.data.first_name,
