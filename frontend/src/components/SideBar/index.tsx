@@ -5,6 +5,7 @@ import { FaHashtag } from "react-icons/fa6";
 import { MdToday } from "react-icons/md";
 import { PiRewindFill } from "react-icons/pi";
 import { MdUpcoming } from "react-icons/md";
+import { FaCircleInfo } from "react-icons/fa6";
 
 import logoImg from "../../assets/taskly-logo-big.png";
 import profileImg from "../../assets/default-profile.jpg";
@@ -19,6 +20,7 @@ import {
   SC_OptionsContainer,
   SC_OptionsHeader,
   SC_Button,
+  SC_InfoContainer,
 } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
@@ -94,7 +96,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
       case "TAG":
         if (tagId === undefined)
           throw Error("Pass the tag ID for the side bar button function!");
-        navigate(TAG_PAGE_URL_NO_PARAM + tagId)
+        navigate(TAG_PAGE_URL_NO_PARAM + tagId);
     }
   };
 
@@ -108,26 +110,33 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
         <SC_LogoImage title="Home" src={logoImg} />
         {mode === "NORMAL" ? (
           <>
+            {selectedView === "TASK" ? (
+              <SC_InfoContainer title="Viewing Task">
+                <FaCircleInfo style={STYLE_ICON_MARGINS} /> Viewing a Task
+              </SC_InfoContainer>
+            ) : (
+              <></>
+            )}
             <SC_OptionsContainer>
               <SC_OptionsHeader>Views</SC_OptionsHeader>
               <SC_Button
-                $isActive={getSelectedNormalView() === "TODAY"}
                 title="View Today"
                 onClick={() => navigateToViewsPage("TODAY")}
+                $isActive={getSelectedNormalView() === "TODAY"}
               >
                 <MdToday style={STYLE_ICON_MARGINS} /> Today
               </SC_Button>
               <SC_Button
-                $isActive={getSelectedNormalView() === "UPCOMING"}
                 title="View Upcoming"
                 onClick={() => navigateToViewsPage("UPCOMING")}
+                $isActive={getSelectedNormalView() === "UPCOMING"}
               >
                 <MdUpcoming style={STYLE_ICON_MARGINS} /> Upcoming
               </SC_Button>
               <SC_Button
-                $isActive={getSelectedNormalView() === "PREVIOUS"}
                 title="View Previous"
                 onClick={() => navigateToViewsPage("PREVIOUS")}
+                $isActive={getSelectedNormalView() === "PREVIOUS"}
               >
                 <PiRewindFill style={STYLE_ICON_MARGINS} /> Previous
               </SC_Button>
@@ -144,11 +153,11 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 <>
                   {tags?.map((each) => (
                     <SC_Button
-                      $isActive={each.sId === getSelectedTagId()}
-                      $color={each.colorHex}
                       key={each.sId}
                       title={`View Tag ${each.name}`}
                       onClick={() => navigateToViewsPage("TAG", each.sId)}
+                      $isActive={each.sId === getSelectedTagId()}
+                      $color={each.colorHex}
                     >
                       <FaHashtag style={STYLE_ICON_MARGINS} /> {each.name}
                     </SC_Button>
@@ -161,19 +170,34 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
         ) : (
           <SC_OptionsContainer>
             <SC_OptionsHeader>Settings</SC_OptionsHeader>
-            <SC_Button $isActive={getSelectedSettingsView() === "NAME_EDIT"}>
+            <SC_Button
+              title="Edit Name"
+              $isActive={getSelectedSettingsView() === "NAME_EDIT"}
+            >
               Edit Name
             </SC_Button>
-            <SC_Button $isActive={getSelectedSettingsView() === "EMAIL_EDIT"}>
+            <SC_Button
+              title="Edit Email"
+              $isActive={getSelectedSettingsView() === "EMAIL_EDIT"}
+            >
               Edit Email
             </SC_Button>
-            <SC_Button $isActive={getSelectedSettingsView() === "PASS_EDIT"}>
+            <SC_Button
+              title="Change Password"
+              $isActive={getSelectedSettingsView() === "PASS_EDIT"}
+            >
               Change Password
             </SC_Button>
-            <SC_Button $isActive={getSelectedSettingsView() === "LOGOUT"}>
+            <SC_Button
+              title="Logout"
+              $isActive={getSelectedSettingsView() === "LOGOUT"}
+            >
               Logout
             </SC_Button>
-            <SC_Button $isActive={getSelectedSettingsView() === "DEL_ACC"}>
+            <SC_Button
+              title="Delete Account"
+              $isActive={getSelectedSettingsView() === "DEL_ACC"}
+            >
               Delete Account
             </SC_Button>
           </SC_OptionsContainer>

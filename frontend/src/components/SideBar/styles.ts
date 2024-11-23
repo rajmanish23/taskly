@@ -40,10 +40,23 @@ export const SC_LogoImage = styled.img`
   cursor: pointer;
 `;
 
+export const SC_InfoContainer = styled.div`
+  background-color: ${STYLE_BUTTON_HIGHLIGHT_COLOR};
+  cursor: default;
+  padding: 8px 16px 8px 16px;
+  font-size: 16px;
+  margin: 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffd3d3;
+`;
+
 export const SC_OptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 15px 20px 0 15px;
+  padding: 15px 15px 0 15px;
 `;
 
 export const SC_OptionsHeader = styled.p`
