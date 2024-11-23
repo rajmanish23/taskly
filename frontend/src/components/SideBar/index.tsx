@@ -141,11 +141,14 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   };
 
   useEffect(() => {
+    getTags().catch((e) => console.log(e));
+  }, [getTags]);
+
+  useEffect(() => {
     if (mode !== "SETTINGS") {
       setPreviousPage(location.pathname);
     }
-    getTags().catch((e) => console.log(e));
-  }, [getTags, location, setPreviousPage, mode]);
+  }, [location, mode, setPreviousPage]);
 
   return (
     <SC_SidebarContainer>
