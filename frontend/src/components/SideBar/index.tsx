@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 import { FaHashtag } from "react-icons/fa6";
 import { MdToday } from "react-icons/md";
@@ -48,6 +48,7 @@ import {
   UPCOMING_PAGE_URL,
 } from "../../constants";
 import { AddButton } from "../AddButton";
+import { PageContext, PageContextType } from "../../context";
 
 type SideBarProps = {
   mode: "SETTINGS" | "NORMAL";
@@ -59,6 +60,10 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   const [tags, setTags] = useState<Tag[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
+  const { previousPage, setPreviousPage } = useContext(
+    PageContext
+  ) as PageContextType;
+  const location = useLocation();
   const navigate = useNavigate();
 
   const getTags = useCallback(async () => {
@@ -138,6 +143,10 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
     getTags().catch((e) => console.log(e));
   }, [getTags]);
 
+  if (mode !== "SETTINGS") {
+    setPreviousPage(location.pathname);
+  }
+
   return (
     <SC_SidebarContainer>
       <SC_ContentContainer>
@@ -207,7 +216,10 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
           </>
         ) : (
           <>
-            <SC_BackButton $isActive={false}>
+            <SC_BackButton
+              $isActive={false}
+              onClick={() => navigate(previousPage)}
+            >
               <IoCaretBackCircle style={STYLE_ICON_MARGINS} />
               Back
             </SC_BackButton>
