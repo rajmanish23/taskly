@@ -1,4 +1,4 @@
-import baseAPI from "./baseAPI";
+import baseTokenfulAPI from "./baseAPI";
 import {
   GET_PREVIOUS_LIST_API_URL,
   GET_TAGS_LIST_API_URL,
@@ -36,7 +36,7 @@ type GetTaskResponse = TaskAPIData[];
 export const getTodayTasksAPI = async (): Promise<Task[] | APIErrorMessage> => {
   try {
     const now = new Date();
-    const { data } = await baseAPI.get<GetTaskResponse>(
+    const { data } = await baseTokenfulAPI.get<GetTaskResponse>(
       GET_TODAY_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
     );
@@ -59,7 +59,7 @@ export const getPreviousTasksAPI = async (): Promise<
 > => {
   try {
     const now = new Date();
-    const { data } = await baseAPI.get<GetTaskResponse>(
+    const { data } = await baseTokenfulAPI.get<GetTaskResponse>(
       GET_PREVIOUS_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
     );
@@ -82,7 +82,7 @@ export const getUpcomingTasksAPI = async (): Promise<
 > => {
   try {
     const now = new Date();
-    const { data } = await baseAPI.get<GetTaskResponse>(
+    const { data } = await baseTokenfulAPI.get<GetTaskResponse>(
       GET_UPCOMING_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
     );
@@ -116,7 +116,7 @@ export const getTagTasksAPI = async (
   tagId: string
 ): Promise<TagAPIConvertedData | APIErrorMessage> => {
   try {
-    const { data } = await baseAPI.get<GetTagTasksResponse>(
+    const { data } = await baseTokenfulAPI.get<GetTagTasksResponse>(
       GET_TAGS_LIST_API_URL(tagId)
     );
     return convertTagTasksAPIData(data);

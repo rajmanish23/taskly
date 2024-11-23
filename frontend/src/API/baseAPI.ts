@@ -10,7 +10,7 @@ import {
 } from "../utils/tokenValidator";
 import { refreshSession } from "./isAuthorizedAPI";
 
-const baseAPI = axios.create({
+const baseTokenfulAPI = axios.create({
   baseURL: BASE_API_URL,
   transformRequest: [
     (data, headers) => {
@@ -20,7 +20,7 @@ const baseAPI = axios.create({
   ],
 });
 
-baseAPI.interceptors.request.use(
+baseTokenfulAPI.interceptors.request.use(
   async (config) => {
     if (!areTokensValid()) throw Error("Tokens are not valid");
     if (isAccessTokenExpired()) {
@@ -40,4 +40,4 @@ baseAPI.interceptors.request.use(
   }
 );
 
-export default baseAPI;
+export default baseTokenfulAPI;

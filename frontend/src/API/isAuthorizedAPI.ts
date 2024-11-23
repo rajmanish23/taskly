@@ -8,7 +8,7 @@ import {
 } from "../constants";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
-const baseRefreshAPI = axios.create({
+export const baseTokenlessAPI = axios.create({
   baseURL: BASE_API_URL,
   headers: {
     "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const refreshSession = async () => {
   if (refreshToken === undefined) {
     throw new Error("Refresh Token is undefined!");
   }
-  const res = await baseRefreshAPI.post(TOKEN_REFRESH_API_URL, {
+  const res = await baseTokenlessAPI.post(TOKEN_REFRESH_API_URL, {
     refresh: refreshToken,
   });
   if (res.status === 200) {
