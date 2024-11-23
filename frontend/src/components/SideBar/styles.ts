@@ -25,6 +25,7 @@ export const SC_SidebarContainer = styled.div`
 export const SC_ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
+  overflow: auto;
 `;
 
 export const SC_LogoImage = styled.img`
@@ -36,7 +37,6 @@ export const SC_LogoImage = styled.img`
   padding: 10px 35px 10px 35px;
   margin-bottom: 10px;
   border-bottom: 1px solid ${STYLE_BORDER_COLOR};
-  border-right: 1px solid ${STYLE_BORDER_COLOR};
   transition: background-color ${STYLE_TRANSITION_TIME};
   cursor: pointer;
 `;
@@ -54,10 +54,19 @@ export const SC_InfoContainer = styled.div`
   color: #ffd3d3;
 `;
 
-export const SC_OptionsContainer = styled.div`
+export const SC_OptionsContainer = styled.div<{ $isTagContainer: boolean }>`
   display: flex;
   flex-direction: column;
   padding: 15px 15px 0 15px;
+  overflow : ${(props) => (props.$isTagContainer ? "auto" : "initial")};
+`;
+
+export const SC_TagListContaier = styled.div`
+  height: 100%;
+  overflow: auto;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const SC_OptionsHeader = styled.p`
@@ -131,6 +140,7 @@ export const SC_ProfileContainer = styled.div<{ $isActive: boolean }>`
     props.$isActive ? STYLE_BUTTON_HIGHLIGHT_COLOR : "transparent"};
   transition: background-color ${STYLE_TRANSITION_TIME};
   cursor: pointer;
+
 `;
 
 export const SC_ProfileImage = styled.img`

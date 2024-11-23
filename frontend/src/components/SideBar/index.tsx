@@ -30,6 +30,7 @@ import {
   SC_InfoContainer,
   SC_DeleteButton,
   SC_BackButton,
+  SC_TagListContaier,
 } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
@@ -163,7 +164,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
             ) : (
               <></>
             )}
-            <SC_OptionsContainer>
+            <SC_OptionsContainer $isTagContainer={false}>
               <SC_OptionsHeader>Views</SC_OptionsHeader>
               <SC_Button
                 title="View Today"
@@ -187,7 +188,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 <PiRewindFill style={STYLE_ICON_MARGINS} /> Previous
               </SC_Button>
             </SC_OptionsContainer>
-            <SC_OptionsContainer>
+            <SC_OptionsContainer $isTagContainer={true}>
               <SC_OptionsHeader>Tags</SC_OptionsHeader>
               {isLoading ? (
                 <BarLoader
@@ -196,7 +197,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                   width={BAR_LOADER_WIDTH + 64}
                 />
               ) : (
-                <>
+                <SC_TagListContaier>
                   {tags?.map((each) => (
                     <SC_Button
                       key={each.sId}
@@ -209,20 +210,21 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                     </SC_Button>
                   ))}
                   <AddButton text="Create a new Tag" />
-                </>
+                </SC_TagListContaier>
               )}
             </SC_OptionsContainer>
           </>
         ) : (
           <>
             <SC_BackButton
-              $isActive={false}
+              title="Back button"
               onClick={() => navigate(previousPage)}
+              $isActive={false}
             >
               <IoCaretBackCircle style={STYLE_ICON_MARGINS} />
               Back
             </SC_BackButton>
-            <SC_OptionsContainer>
+            <SC_OptionsContainer $isTagContainer={false}>
               <SC_OptionsHeader>Settings</SC_OptionsHeader>
               <SC_Button
                 title="View profile"
