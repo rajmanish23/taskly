@@ -152,7 +152,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
         {mode === "NORMAL" ? (
           <>
             <SC_LogoImage
-              title="Home"
+              title="View Today"
               src={logoImg}
               onClick={() => navigateToViewsPage("TODAY")}
             />
