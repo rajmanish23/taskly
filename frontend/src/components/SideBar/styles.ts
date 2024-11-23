@@ -7,6 +7,7 @@ import {
   STYLE_TEXT_COLOR,
   STYLE_TRANSITION_TIME,
   STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR,
+  STYLE_ACTIVE_BUTTON_HOVER_HIGHLIGHT_COLOR,
 } from "../../constants";
 
 export const SC_SidebarContainer = styled.div`
@@ -110,14 +111,16 @@ export const SC_DeleteButton = styled(SC_Button)`
   background-color: ${(props) => (props.$isActive ? "#b20000" : "transparent")};
 `;
 
+export const SC_BackButton = styled(SC_Button)`
+  margin: 15px 15px 0 15px;
+`;
+
 export const SC_ProfileContainer = styled.div<{ $isActive: boolean }>`
   &:hover {
     background-color: ${(props) =>
       props.$isActive
-        ? STYLE_BUTTON_HIGHLIGHT_COLOR
+        ? STYLE_ACTIVE_BUTTON_HOVER_HIGHLIGHT_COLOR
         : STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR};
-    box-shadow: ${(props) =>
-      props.$isActive ? `inset 0 0 10px ${STYLE_TEXT_COLOR}` : "none"};
   }
   display: flex;
   flex-direction: row;
@@ -126,8 +129,7 @@ export const SC_ProfileContainer = styled.div<{ $isActive: boolean }>`
   border-top: 1px solid ${STYLE_BORDER_COLOR};
   background-color: ${(props) =>
     props.$isActive ? STYLE_BUTTON_HIGHLIGHT_COLOR : "transparent"};
-  transition: background-color ${STYLE_TRANSITION_TIME},
-    box-shadow ${STYLE_TRANSITION_TIME};
+  transition: background-color ${STYLE_TRANSITION_TIME};
   cursor: pointer;
 `;
 

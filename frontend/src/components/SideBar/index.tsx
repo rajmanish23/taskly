@@ -11,6 +11,8 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { PiPasswordFill } from "react-icons/pi";
 import { RiLogoutCircleRFill } from "react-icons/ri";
+import { IoCaretBackCircle } from "react-icons/io5";
+import { FaUserCircle } from "react-icons/fa";
 
 import logoImg from "../../assets/taskly-logo-big.png";
 import profileImg from "../../assets/default-profile.jpg";
@@ -27,6 +29,7 @@ import {
   SC_Button,
   SC_InfoContainer,
   SC_DeleteButton,
+  SC_BackButton,
 } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
@@ -109,25 +112,25 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
         if (tagId === undefined)
           throw Error("Pass the tag ID for the side bar button function!");
         navigate(TAG_PAGE_URL_NO_PARAM + tagId);
-        return
+        return;
       case "PROFILE":
         navigate(SETTING_PROFILE_URL);
-        return
+        return;
       case "NAME_EDIT":
-        navigate(SETTING_EDIT_NAME_URL)
-        return
+        navigate(SETTING_EDIT_NAME_URL);
+        return;
       case "EMAIL_EDIT":
-        navigate(SETTING_EDIT_EMAIL_URL)
-        return
+        navigate(SETTING_EDIT_EMAIL_URL);
+        return;
       case "PASS_EDIT":
-        navigate(SETTING_CHANGE_PASSWORD_URL)
-        return
+        navigate(SETTING_CHANGE_PASSWORD_URL);
+        return;
       case "LOGOUT":
-        navigate(SETTING_LOGOUT_URL)
-        return
+        navigate(SETTING_LOGOUT_URL);
+        return;
       case "DEL_ACC":
-        navigate(SETTING_DELETE_ACCOUNT_URL)
-        return
+        navigate(SETTING_DELETE_ACCOUNT_URL);
+        return;
     }
   };
 
@@ -138,13 +141,13 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   return (
     <SC_SidebarContainer>
       <SC_ContentContainer>
-        <SC_LogoImage
-          title="Home"
-          src={logoImg}
-          onClick={() => navigateToViewsPage("TODAY")}
-        />
         {mode === "NORMAL" ? (
           <>
+            <SC_LogoImage
+              title="Home"
+              src={logoImg}
+              onClick={() => navigateToViewsPage("TODAY")}
+            />
             {selectedView === "TASK" ? (
               <SC_InfoContainer title="Viewing Task">
                 <FaCircleInfo style={STYLE_ICON_MARGINS} /> Viewing a Task
@@ -203,49 +206,63 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
             </SC_OptionsContainer>
           </>
         ) : (
-          <SC_OptionsContainer>
-            <SC_OptionsHeader>Settings</SC_OptionsHeader>
-            <SC_Button
-              title="Edit Name"
-              onClick={() => navigateToViewsPage("NAME_EDIT")}
-              $isActive={getSelectedSettingsView() === "NAME_EDIT"}
-            >
-              <FaUserEdit style={STYLE_ICON_MARGINS} />
-              Edit Name
-            </SC_Button>
-            <SC_Button
-              title="Edit Email"
-              onClick={() => navigateToViewsPage("EMAIL_EDIT")}
-              $isActive={getSelectedSettingsView() === "EMAIL_EDIT"}
-            >
-              <MdEmail style={STYLE_ICON_MARGINS} />
-              Edit Email
-            </SC_Button>
-            <SC_Button
-              title="Change Password"
-              onClick={() => navigateToViewsPage("PASS_EDIT")}
-              $isActive={getSelectedSettingsView() === "PASS_EDIT"}
-            >
-              <PiPasswordFill style={STYLE_ICON_MARGINS} />
-              Change Password
-            </SC_Button>
-            <SC_Button
-              title="Logout"
-              onClick={() => navigateToViewsPage("LOGOUT")}
-              $isActive={getSelectedSettingsView() === "LOGOUT"}
-            >
-              <RiLogoutCircleRFill style={STYLE_ICON_MARGINS} />
-              Logout
-            </SC_Button>
-            <SC_DeleteButton
-              title="Delete Account"
-              onClick={() => navigateToViewsPage("DEL_ACC")}
-              $isActive={getSelectedSettingsView() === "DEL_ACC"}
-            >
-              <MdDelete style={STYLE_ICON_MARGINS} />
-              Delete Account
-            </SC_DeleteButton>
-          </SC_OptionsContainer>
+          <>
+            <SC_BackButton $isActive={false}>
+              <IoCaretBackCircle style={STYLE_ICON_MARGINS} />
+              Back
+            </SC_BackButton>
+            <SC_OptionsContainer>
+              <SC_OptionsHeader>Settings</SC_OptionsHeader>
+              <SC_Button
+                title="View profile"
+                onClick={() => navigateToViewsPage("PROFILE")}
+                $isActive={getSelectedSettingsView() === "PROFILE"}
+              >
+                <FaUserCircle style={STYLE_ICON_MARGINS} />
+                View Profile
+              </SC_Button>
+              <SC_Button
+                title="Edit Name"
+                onClick={() => navigateToViewsPage("NAME_EDIT")}
+                $isActive={getSelectedSettingsView() === "NAME_EDIT"}
+              >
+                <FaUserEdit style={STYLE_ICON_MARGINS} />
+                Edit Name
+              </SC_Button>
+              <SC_Button
+                title="Edit Email"
+                onClick={() => navigateToViewsPage("EMAIL_EDIT")}
+                $isActive={getSelectedSettingsView() === "EMAIL_EDIT"}
+              >
+                <MdEmail style={STYLE_ICON_MARGINS} />
+                Edit Email
+              </SC_Button>
+              <SC_Button
+                title="Change Password"
+                onClick={() => navigateToViewsPage("PASS_EDIT")}
+                $isActive={getSelectedSettingsView() === "PASS_EDIT"}
+              >
+                <PiPasswordFill style={STYLE_ICON_MARGINS} />
+                Change Password
+              </SC_Button>
+              <SC_Button
+                title="Logout"
+                onClick={() => navigateToViewsPage("LOGOUT")}
+                $isActive={getSelectedSettingsView() === "LOGOUT"}
+              >
+                <RiLogoutCircleRFill style={STYLE_ICON_MARGINS} />
+                Logout
+              </SC_Button>
+              <SC_DeleteButton
+                title="Delete Account"
+                onClick={() => navigateToViewsPage("DEL_ACC")}
+                $isActive={getSelectedSettingsView() === "DEL_ACC"}
+              >
+                <MdDelete style={STYLE_ICON_MARGINS} />
+                Delete Account
+              </SC_DeleteButton>
+            </SC_OptionsContainer>
+          </>
         )}
       </SC_ContentContainer>
       <SC_ProfileContainer
