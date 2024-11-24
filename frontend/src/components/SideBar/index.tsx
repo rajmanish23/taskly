@@ -13,6 +13,7 @@ import { PiPasswordFill } from "react-icons/pi";
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import { IoCaretBackCircle } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
+import { FaTrashRestoreAlt } from "react-icons/fa";
 
 import logoImg from "../../assets/taskly-logo-big.png";
 import profileImg from "../../assets/default-profile.jpg";
@@ -43,6 +44,7 @@ import {
   SETTING_EDIT_NAME_URL,
   SETTING_LOGOUT_URL,
   SETTING_PROFILE_URL,
+  SETTING_RESTORE_URL,
   STYLE_ICON_MARGINS,
   STYLE_TEXT_COLOR,
   TAG_PAGE_URL_NO_PARAM,
@@ -137,6 +139,9 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
         return;
       case "DEL_ACC":
         navigate(SETTING_DELETE_ACCOUNT_URL);
+        return;
+      case "RESTORE":
+        navigate(SETTING_RESTORE_URL)
         return;
     }
   };
@@ -239,6 +244,14 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
               >
                 <FaUserCircle style={STYLE_ICON_MARGINS} />
                 View Profile
+              </SC_Button>
+              <SC_Button
+                title="Restore Deleted Tasks"
+                onClick={() => navigateToViewsPage("RESTORE")}
+                $isActive={getSelectedSettingsView() === "RESTORE"}
+              >
+                <FaTrashRestoreAlt style={STYLE_ICON_MARGINS} />
+                Restore
               </SC_Button>
               <SC_Button
                 title="Edit Name"

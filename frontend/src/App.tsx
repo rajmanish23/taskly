@@ -17,6 +17,7 @@ import {
   SETTING_EDIT_NAME_URL,
   SETTING_LOGOUT_URL,
   SETTING_PROFILE_URL,
+  SETTING_RESTORE_URL,
   STYLE_TEXT_COLOR,
   TAG_PAGE_URL_WITH_PARAM,
   TODAY_PAGE_URL,
@@ -39,6 +40,7 @@ import EditName from "./pages/settings/EditName";
 import Profile from "./pages/settings/Profile";
 import Logout from "./pages/settings/Logout";
 import PageContextProvider from "./context";
+import RestoreDeleted from "./pages/settings/RestoreDeleted";
 
 function LogoutHandler() {
   Cookies.remove(ACCESS_KEY);
@@ -165,6 +167,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={SETTING_RESTORE_URL}
+          element={
+            <ProtectedRoute>
+              <RestoreDeleted />
             </ProtectedRoute>
           }
         />
