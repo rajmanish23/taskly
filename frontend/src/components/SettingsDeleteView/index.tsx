@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { BarLoader } from "react-spinners";
+import Cookies from "js-cookie";
 
 import {
   SC_BackgroundContainer,
@@ -7,10 +8,12 @@ import {
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import {
+  ACCESS_KEY,
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
   DELETE_CHALLENGE_TEXT,
   LOGIN_PAGE_URL,
+  REFRESH_KEY,
   STYLE_ICON_MARGINS,
   STYLE_TEXT_COLOR,
 } from "../../constants";
@@ -48,6 +51,9 @@ const SettingsDeleteView = () => {
     try {
       const status = await deleteUserAPI();
       if (status === "") {
+        sessionStorage.clear();
+        Cookies.remove(ACCESS_KEY);
+        Cookies.remove(REFRESH_KEY);
         navigate(LOGIN_PAGE_URL);
         return;
       }

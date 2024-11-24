@@ -122,9 +122,6 @@ export async function deleteUserAPI(): Promise<string> {
   try {
     const res = await baseTokenfulAPI.delete(USER_DELETE_API);
     console.log(res)
-    sessionStorage.clear()
-    Cookies.remove(ACCESS_KEY)
-    Cookies.remove(REFRESH_KEY)
     return ""
   } catch (err) {
     if (err instanceof AxiosError) {
