@@ -17,7 +17,12 @@ import {
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import ErrorMessage from "../ErrorMessage";
-import { SC_ProfileImage, SC_ProfileName } from "./styles";
+import {
+  SC_ProfileEmailLabel,
+  SC_ProfileEmailTextContainer,
+  SC_ProfileImage,
+  SC_ProfileName,
+} from "./styles";
 
 const SettingsProfileView = () => {
   const [userDetails, setUserDetails] = useState<User>();
@@ -60,10 +65,12 @@ const SettingsProfileView = () => {
             <SC_ProfileImage src={profileImg} />
             <SC_ProfileName>{userDetails.fullName}</SC_ProfileName>
           </SC_FlexRowStartContainer>
-          <div>
-            <p>Email</p>
-            <p>{userDetails.email}</p>
-          </div>
+          <SC_FlexRowStartContainer>
+            <SC_ProfileEmailLabel>Email</SC_ProfileEmailLabel>
+            <SC_ProfileEmailTextContainer>
+              {userDetails.email}
+            </SC_ProfileEmailTextContainer>
+          </SC_FlexRowStartContainer>
         </SC_SettingsViewBackgroundContainer>
       )}
     </SC_BackgroundContainer>
