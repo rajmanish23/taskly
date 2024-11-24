@@ -16,6 +16,7 @@ import { FaUserCircle } from "react-icons/fa";
 
 import logoImg from "../../assets/taskly-logo-big.png";
 import profileImg from "../../assets/default-profile.jpg";
+
 import { getTagsAPI } from "../../API/tagsAPI";
 import { getUserAPI } from "../../API/userAPI";
 import {
