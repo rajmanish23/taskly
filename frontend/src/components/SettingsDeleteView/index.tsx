@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { BarLoader } from "react-spinners";
 
 import {
@@ -9,23 +9,62 @@ import ViewHeader from "../ViewHeader";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
+  DELETE_CHALLENGE_TEXT,
+  LOGIN_PAGE_URL,
   STYLE_ICON_MARGINS,
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import ErrorMessage from "../ErrorMessage";
-import { SC_DeleteButton, SC_DeleteViewPara } from "./styles";
+import {
+  SC_DeleteButton,
+  SC_DeleteTextChallenge,
+  SC_DeleteViewPara,
+} from "./styles";
 import { MdDelete } from "react-icons/md";
+import { deleteUserAPI } from "../../API/userAPI";
+import { useNavigate } from "react-router-dom";
 
 const SettingsDeleteView = () => {
+  const [deleteText, setDeleteText] = useState<string>("");
+  const [isDeleteButtonDisabled, setIsDeleteButtonDisabled] =
+    useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleDeleteChallenge = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target !== null) {
+      setDeleteText(e.target.value);
+      if (e.target.value === DELETE_CHALLENGE_TEXT) {
+        setIsDeleteButtonDisabled(false);
+      } else {
+        setIsDeleteButtonDisabled(true);
+      }
+    }
+  };
+
+  const handleDelete = async () => {
+    setIsLoading(true);
+    try {
+      const status = await deleteUserAPI();
+      if (status === "") {
+        navigate(LOGIN_PAGE_URL);
+        return;
+      }
+      setErrorMessage(status);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <SC_BackgroundContainer>
       <ViewHeader h1Text="Delete your account?" />
       <SC_SettingsViewBackgroundContainer>
-        {isError ? (
-          <ErrorMessage errorMessage="It seems we are encountering some issues while deleting your account. Please try again later." />
+        {errorMessage !== "" ? (
+          <ErrorMessage errorMessage={errorMessage} />
         ) : (
           <></>
         )}
@@ -37,10 +76,20 @@ const SettingsDeleteView = () => {
           wiped from our servers to respect your privacy.
         </SC_DeleteViewPara>
         <SC_DeleteViewPara>
-          Please proceed with your account deletion only if you accept the facts
-          stated above.
+          Please type "{DELETE_CHALLENGE_TEXT}" if you wish to permanently
+          delete your account.
         </SC_DeleteViewPara>
-        <SC_DeleteButton>
+        <SC_DeleteTextChallenge
+          type="text"
+          value={deleteText}
+          onChange={handleDeleteChallenge}
+          placeholder={`Type "${DELETE_CHALLENGE_TEXT}" here to continue.`}
+        />
+        <SC_DeleteButton
+          $isDisabled={isDeleteButtonDisabled}
+          disabled={isDeleteButtonDisabled}
+          onClick={handleDelete}
+        >
           {isLoading ? (
             <BarLoader
               height={BAR_LOADER_HEIGHT}
