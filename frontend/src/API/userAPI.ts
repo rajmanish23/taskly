@@ -37,7 +37,7 @@ export async function loginAPI(
         if (Math.floor(error.response.status / 100) === 4) {
           return [
             false,
-            "Either your Email or Password is incorrect. Please type again.",
+            error.response.data.detail,
           ];
         } else if (Math.floor(error.response.status / 100) === 5) {
           return [
