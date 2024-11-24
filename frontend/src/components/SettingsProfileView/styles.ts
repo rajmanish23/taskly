@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-export const SC_ProfileHeaderContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
 export const SC_ProfileImage = styled.img`
   width: 120px;
   border-radius: 10px;

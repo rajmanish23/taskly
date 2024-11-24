@@ -24,4 +24,10 @@ export const SC_SettingsViewBackgroundContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-`; 
+`;
+
+export const SC_FlexRowStartContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
