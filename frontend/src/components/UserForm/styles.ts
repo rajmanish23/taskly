@@ -35,7 +35,7 @@ export const SC_FormCardContainer = styled.div`
 `;
 
 export const SC_LogoImg = styled.img`
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   align-self: center;
   @media ${DEVICE_WIDTH.PC} {
     width: 200px;
@@ -55,7 +55,7 @@ export const SC_FormInputLabel = styled.label<{ $isError: boolean }>`
   color: ${(props) => (props.$isError ? "red" : STYLE_TEXT_COLOR)};
   font-size: 18px;
   font-weight: 500;
-  margin-top: 8px;
+  /* margin-top: 8px; */
 `;
 
 export const SC_FormInput = styled.input<{ $isError: boolean }>`
@@ -67,7 +67,7 @@ export const SC_FormInput = styled.input<{ $isError: boolean }>`
   font-size: 16px;
   background-color: #111111;
   color: #ecc4c4;
-  margin: 10px 0 10px 0;
+  margin: 10px 0 15px 0;
 `;
 
 export const SC_FormSubmitButton = styled.button`
@@ -78,12 +78,13 @@ export const SC_FormSubmitButton = styled.button`
   color: ${STYLE_TEXT_COLOR};
   font-weight: 700;
   font-size: 16px;
+  height: 45px;
   cursor: pointer;
   @media ${DEVICE_WIDTH.PC} {
-    margin-top: 16px;
+    margin-top: 10px;
   }
   @media ${DEVICE_WIDTH.MOBILE} {
-    margin: 35px 0 20px 0;
+    margin: 30px 0 20px 0;
   }
   display: flex;
   justify-content: center;
