@@ -67,7 +67,7 @@ export async function registerAPI(
   lastName: string
 ): Promise<[isSuccess: boolean, errorMsg: string]> {
   try {
-    const res = await baseTokenfulAPI.post(REGISTER_API_URL, {
+    const res = await baseTokenlessAPI.post(REGISTER_API_URL, {
       email,
       password,
       firstName,
