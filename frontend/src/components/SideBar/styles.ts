@@ -90,7 +90,6 @@ export const SC_Button = styled.button<{ $isActive: boolean; $color?: string }>`
   padding: 8px 16px 8px 16px;
   margin-bottom: 10px;
   font-size: 16px;
-  text-align: start;
   border-radius: 10px;
   border: 3px solid transparent;
   background-color: ${(props) =>
@@ -120,8 +119,12 @@ export const SC_DeleteButton = styled(SC_Button)`
   background-color: ${(props) => (props.$isActive ? "#b20000" : "transparent")};
 `;
 
-export const SC_BackButton = styled(SC_Button)`
-  margin: 15px 15px 0 15px;
+export const SC_BackButtonContainer = styled.div`
+  padding: 15px 15px 5px 15px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid ${STYLE_BORDER_COLOR};
 `;
 
 export const SC_ProfileContainer = styled.div<{ $isActive: boolean }>`

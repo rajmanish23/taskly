@@ -30,8 +30,8 @@ import {
   SC_Button,
   SC_InfoContainer,
   SC_DeleteButton,
-  SC_BackButton,
   SC_TagListContaier,
+  SC_BackButtonContainer,
 } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
@@ -220,14 +220,16 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
           </>
         ) : (
           <>
-            <SC_BackButton
-              title="Back button"
-              onClick={() => navigate(previousPage)}
-              $isActive={false}
-            >
-              <IoCaretBackCircle style={STYLE_ICON_MARGINS} />
-              Back
-            </SC_BackButton>
+            <SC_BackButtonContainer>
+              <SC_Button
+                title="Back button"
+                onClick={() => navigate(previousPage)}
+                $isActive={false}
+              >
+                <IoCaretBackCircle style={STYLE_ICON_MARGINS} />
+                Back
+              </SC_Button>
+            </SC_BackButtonContainer>
             <SC_OptionsContainer $isTagContainer={false}>
               <SC_OptionsHeader>Settings</SC_OptionsHeader>
               <SC_Button
