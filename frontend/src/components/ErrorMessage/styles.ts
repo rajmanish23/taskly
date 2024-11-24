@@ -6,6 +6,7 @@ export const SC_ErrorMessageContainer = styled.div`
   align-items: center;
   background-color: #f3b4b4;
   padding: 10px;
+  margin-bottom: 20px;
   border-radius: 10px;
   color: #9e0000;
 `;
