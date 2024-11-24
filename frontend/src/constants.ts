@@ -3,7 +3,7 @@ export const REFRESH_KEY = "refresh";
 export const LOCAL_TAGS_KEY = "tag-data";
 export const LOCAL_USER_KEY = "user-data";
 
-export const STYLE_TEXT_COLOR = "#ec8e8e";
+export const STYLE_TEXT_COLOR = "#f3adad";
 export const STYLE_BUTTON_HIGHLIGHT_COLOR = "#854a4a";
 export const STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR = "#363333";
 export const STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR = "#5e5555";

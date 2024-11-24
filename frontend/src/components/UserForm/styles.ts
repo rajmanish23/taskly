@@ -85,6 +85,9 @@ export const SC_FormSubmitButton = styled.button`
   @media ${DEVICE_WIDTH.MOBILE} {
     margin: 35px 0 20px 0;
   }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const SC_ErrorText = styled.p`

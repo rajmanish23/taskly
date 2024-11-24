@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import logoImg from "../../assets/taskly-logo-big.png";
 import { getUserAPI, loginAPI, registerAPI } from "../../API/userAPI";
 import {
+  BAR_LOADER_HEIGHT,
+  BAR_LOADER_WIDTH,
   LOGIN_PAGE_URL,
   REGISTER_PAGE_URL,
+  STYLE_TEXT_COLOR,
   TODAY_PAGE_URL,
 } from "../../constants";
 import validateUserFormInputs from "../../utils/validateUserFormInputs";
@@ -22,6 +25,8 @@ import {
   SC_ErrorText,
   SC_CTAContainer,
 } from "./styles";
+import ErrorMessage from "../ErrorMessage";
+import { BarLoader } from "react-spinners";
 
 type FormProps = React.PropsWithChildren & {
   method: "LOGIN" | "REGISTER";
@@ -142,7 +147,7 @@ const UserForm = ({ method }: FormProps) => {
     <SC_BackgroundContainer>
       <SC_FormCardContainer>
         <SC_LogoImg src={logoImg} />
-        {errorMsg === "" ? null : <p>{errorMsg}</p>}
+        {errorMsg === "" ? null : <ErrorMessage errorMessage={errorMsg} />}
         <SC_FormInputContainer onSubmit={handleSubmit}>
           <SC_FormInputLabel htmlFor="email" $isError={emailErrorMsg !== ""}>
             Email
@@ -233,7 +238,15 @@ const UserForm = ({ method }: FormProps) => {
             <></>
           )}
           <SC_FormSubmitButton type="submit">
-            {isLoading ? "Loading..." : method}
+            {isLoading ? (
+              <BarLoader
+                color={STYLE_TEXT_COLOR}
+                height={BAR_LOADER_HEIGHT}
+                width={BAR_LOADER_WIDTH}
+              />
+            ) : (
+              method
+            )}
           </SC_FormSubmitButton>
         </SC_FormInputContainer>
         <SC_CTAContainer>
