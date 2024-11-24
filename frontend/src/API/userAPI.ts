@@ -9,6 +9,7 @@ import {
   LOGIN_API_URL,
   REFRESH_KEY,
   REGISTER_API_URL,
+  USER_DELETE_API,
 } from "../constants";
 import { baseTokenlessAPI } from "./isAuthorizedAPI";
 
@@ -115,4 +116,23 @@ export async function getUserAPI(): Promise<User> {
   };
   sessionStorage.setItem(LOCAL_USER_KEY, JSON.stringify(apiUserData));
   return apiUserData;
+}
+
+export async function deleteUserAPI(): Promise<string> {
+  try {
+    const res = await baseTokenfulAPI.get(USER_DELETE_API);
+    console.log(res)
+    sessionStorage.clear()
+    Cookies.remove(ACCESS_KEY)
+    Cookies.remove(REFRESH_KEY)
+    return ""
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      console.error(err)
+      return err.response?.data.detail
+    } else {
+      console.error(err)
+      return "Unknown error occured"
+    }
+  }
 }
