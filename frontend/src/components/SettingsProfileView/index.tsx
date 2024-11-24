@@ -7,6 +7,7 @@ import { getUserAPI } from "../../API/userAPI";
 import {
   SC_BackgroundContainer,
   SC_CentralNoDataContainer,
+  SC_SettingsViewBackgroundContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import {
@@ -15,6 +16,7 @@ import {
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import ErrorMessage from "../ErrorMessage";
+import { SC_ProfileHeaderContainer, SC_ProfileImage, SC_ProfileName } from "./styles";
 
 const SettingsProfileView = () => {
   const [userDetails, setUserDetails] = useState<User>();
@@ -52,16 +54,16 @@ const SettingsProfileView = () => {
           <ErrorMessage errorMessage="We could not fetch your profile details. Please try again later." />
         </SC_CentralNoDataContainer>
       ) : (
-        <div>
-          <div>
-            <img src={profileImg} />
-            <h1>{userDetails.fullName}</h1>
-          </div>
+        <SC_SettingsViewBackgroundContainer>
+          <SC_ProfileHeaderContainer>
+            <SC_ProfileImage src={profileImg} />
+            <SC_ProfileName>{userDetails.fullName}</SC_ProfileName>
+          </SC_ProfileHeaderContainer>
           <div>
             <p>Email</p>
             <p>{userDetails.email}</p>
           </div>
-        </div>
+        </SC_SettingsViewBackgroundContainer>
       )}
     </SC_BackgroundContainer>
   );
