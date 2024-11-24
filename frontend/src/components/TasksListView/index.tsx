@@ -6,11 +6,7 @@ import {
   SC_BackgroundListContainer,
   SC_CentralNoDataContainer,
   SC_EmptyDisplayHeader,
-  SC_HeaderContainer,
-  SC_HeaderTextContainer,
   SC_TaskListContainer,
-  SC_TopHeader1,
-  SC_TopHeader2,
 } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
@@ -28,6 +24,7 @@ import {
   isAPIErrorMessage,
   isTagAPIConvertedData,
 } from "../../utils/objectTypeCheckers";
+import ViewHeader from "../ViewHeader";
 
 type TaskListViewProps = {
   mode: SelectedView;
@@ -97,40 +94,45 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
     switch (mode) {
       case "TODAY":
         return (
-          <SC_HeaderTextContainer>
-            <SC_TopHeader1>Today</SC_TopHeader1>
-            <SC_TopHeader2>{`(${now.toLocaleDateString(undefined, {
+          <ViewHeader
+            h1Text="Today"
+            h2Text={`(${now.toLocaleDateString(undefined, {
               dateStyle: "full",
-            })})`}</SC_TopHeader2>
-          </SC_HeaderTextContainer>
+            })})`}
+            addButtonText="Create a new Task"
+          />
         );
       case "UPCOMING":
         return (
-          <SC_HeaderTextContainer>
-            <SC_TopHeader1>Upcoming</SC_TopHeader1>
-          </SC_HeaderTextContainer>
+          <ViewHeader h1Text="Upcoming" addButtonText="Create a new Task" />
         );
       case "TAG":
         return (
-          <SC_HeaderTextContainer>
-            <SC_TopHeader1>{tag?.name}</SC_TopHeader1>
-          </SC_HeaderTextContainer>
+          <ViewHeader
+            h1Text={
+              tag === undefined ? (
+                <BarLoader
+                  color={STYLE_TEXT_COLOR}
+                  height={BAR_LOADER_HEIGHT}
+                  width={BAR_LOADER_WIDTH}
+                />
+              ) : (
+                tag.name
+              )
+            }
+            addButtonText="Create a new Task"
+          />
         );
       case "PREVIOUS":
         return (
-          <SC_HeaderTextContainer>
-            <SC_TopHeader1>Previous</SC_TopHeader1>
-          </SC_HeaderTextContainer>
+          <ViewHeader h1Text="Previous" addButtonText="Create a new Task" />
         );
     }
   };
 
   return (
     <SC_BackgroundListContainer>
-      <SC_HeaderContainer>
-        {getListViewHeading()}
-        <AddButton text="Create a new Task" />
-      </SC_HeaderContainer>
+      {getListViewHeading()}
       {isLoading ? (
         <SC_CentralNoDataContainer>
           <BarLoader
