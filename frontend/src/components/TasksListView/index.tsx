@@ -33,7 +33,7 @@ type TaskListViewProps = {
 const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [tag, setTag] = useState<Tag>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getTasks = useCallback(async () => {
     setIsLoading(true);

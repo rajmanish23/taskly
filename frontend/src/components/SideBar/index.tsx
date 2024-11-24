@@ -60,7 +60,7 @@ type SideBarProps = {
 
 const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   const [tags, setTags] = useState<Tag[]>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [userName, setUserName] = useState<string>("");
   const { previousPage, setPreviousPage } = useContext(
     PageContext

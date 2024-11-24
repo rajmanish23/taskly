@@ -18,7 +18,7 @@ import ErrorMessage from "../ErrorMessage";
 
 const SettingsProfileView = () => {
   const [userDetails, setUserDetails] = useState<User>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getUserDetails = useCallback(async () => {
     setIsLoading(true);
