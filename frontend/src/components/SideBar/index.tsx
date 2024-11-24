@@ -10,7 +10,7 @@ import { MdDelete } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { PiPasswordFill } from "react-icons/pi";
-import { RiLogoutCircleRFill } from "react-icons/ri";
+import { RiLogoutBoxRFill } from "react-icons/ri";
 import { IoCaretBackCircle } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { FaTrashRestoreAlt } from "react-icons/fa";
@@ -282,7 +282,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 onClick={() => navigateToViewsPage("LOGOUT")}
                 $isActive={getSelectedSettingsView() === "LOGOUT"}
               >
-                <RiLogoutCircleRFill style={STYLE_ICON_MARGINS} />
+                <RiLogoutBoxRFill style={STYLE_ICON_MARGINS} />
                 Logout
               </SC_Button>
               <SC_DeleteButton
