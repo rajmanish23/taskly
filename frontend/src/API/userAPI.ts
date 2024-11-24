@@ -120,7 +120,7 @@ export async function getUserAPI(): Promise<User> {
 
 export async function deleteUserAPI(): Promise<string> {
   try {
-    const res = await baseTokenfulAPI.get(USER_DELETE_API);
+    const res = await baseTokenfulAPI.delete(USER_DELETE_API);
     console.log(res)
     sessionStorage.clear()
     Cookies.remove(ACCESS_KEY)
