@@ -3,8 +3,6 @@ import { BarLoader } from "react-spinners";
 
 import TaskDisplayCard from "../TaskDisplayCard";
 import {
-  SC_BackgroundListContainer,
-  SC_CentralNoDataContainer,
   SC_EmptyDisplayHeader,
   SC_TaskListContainer,
 } from "./styles";
@@ -25,6 +23,7 @@ import {
   isTagAPIConvertedData,
 } from "../../utils/objectTypeCheckers";
 import ViewHeader from "../ViewHeader";
+import { SC_BackgroundContainer, SC_CentralNoDataContainer } from "../commonStyles";
 
 type TaskListViewProps = {
   mode: SelectedView;
@@ -131,7 +130,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   };
 
   return (
-    <SC_BackgroundListContainer>
+    <SC_BackgroundContainer>
       {getListViewHeading()}
       {isLoading ? (
         <SC_CentralNoDataContainer>
@@ -153,7 +152,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
           ))}
         </SC_TaskListContainer>
       )}
-    </SC_BackgroundListContainer>
+    </SC_BackgroundContainer>
   );
 };
 
