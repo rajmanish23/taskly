@@ -7,12 +7,16 @@ import {
   TOKEN_REFRESH_API_URL,
 } from "../constants";
 import { jwtDecode, JwtPayload } from "jwt-decode";
+import { decamelizeKeys } from "humps";
 
 export const baseTokenlessAPI = axios.create({
   baseURL: BASE_API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  transformRequest: [
+    (data, headers) => {
+      headers["Content-Type"] = "application/json";
+      return JSON.stringify(decamelizeKeys(data));
+    },
+  ],
 });
 
 export const refreshSession = async () => {
