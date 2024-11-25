@@ -1,16 +1,18 @@
 import { FormEvent, useState } from "react";
+import { BarLoader } from "react-spinners";
+
 import {
   SC_BackgroundContainer,
   SC_SettingsViewBackgroundContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import validateUserFormInputs from "../../utils/validateUserFormInputs";
-import { BarLoader } from "react-spinners";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
   STYLE_TEXT_COLOR,
 } from "../../constants";
+import FormInput from "../FormInput";
 
 type Props = {
   mode: "EDIT_NAME" | "EDIT_EMAIL" | "EDIT_PASSWORD";
@@ -117,21 +119,23 @@ const SettingsForms = ({ mode }: Props) => {
           {mode === "EDIT_NAME" ? (
             <>
               <div>
-                <label htmlFor="firstName">First Name</label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
+                <FormInput
+                  changeEventHandler={(e) => setFirstName(e.target.value)}
                   value={firstName}
+                  errorMessage={firstNameError}
+                  isError={firstNameError !== ""}
+                  name="First Name"
+                  type="text"
                 />
               </div>
               <div>
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
+                <FormInput
+                  changeEventHandler={(e) => setLastName(e.target.value)}
                   value={lastName}
+                  errorMessage={lastNameError}
+                  isError={lastNameError !== ""}
+                  name="Last Name"
+                  type="text"
                 />
               </div>
             </>
@@ -141,45 +145,49 @@ const SettingsForms = ({ mode }: Props) => {
           {mode === "EDIT_EMAIL" ? (
             <>
               <div>
-                <label htmlFor="newEmail">New Email</label>
-                <input
-                  type="text"
-                  id="newEmail"
-                  name="newEmail"
+                <FormInput
+                  changeEventHandler={(e) => setNewEmail(e.target.value)}
                   value={newEmail}
+                  errorMessage={newEmailError}
+                  isError={newEmailError !== ""}
+                  name="New Name"
+                  type="text"
                 />
               </div>
             </>
           ) : (
             <></>
           )}
+          <div>
+            <FormInput
+              changeEventHandler={(e) => setOldPassword(e.target.value)}
+              value={oldPassword}
+              errorMessage={oldPasswordError}
+              isError={oldPasswordError !== ""}
+              name={mode === "EDIT_PASSWORD" ? "Old Password" : "Password"}
+              type="password"
+            />
+          </div>
           {mode === "EDIT_PASSWORD" ? (
             <>
               <div>
-                <label htmlFor="oldPassword">Old Password</label>
-                <input
-                  type="text"
-                  id="oldPassword"
-                  name="oldPassword"
-                  value={oldPassword}
-                />
-              </div>
-              <div>
-                <label htmlFor="newPassword">New Password</label>
-                <input
-                  type="text"
-                  id="newPassword"
-                  name="newPassword"
+                <FormInput
+                  changeEventHandler={(e) => setNewPassword(e.target.value)}
                   value={newPassword}
+                  errorMessage={newPasswordError}
+                  isError={newPasswordError !== ""}
+                  name="New Password"
+                  type="password"
                 />
               </div>
               <div>
-                <label htmlFor="reNewPassword">Confirm New Password</label>
-                <input
-                  type="text"
-                  id="reNewPassword"
-                  name="reNewPassword"
+                <FormInput
+                  changeEventHandler={(e) => setReNewPassword(e.target.value)}
                   value={reNewPassword}
+                  errorMessage={reNewPasswordError}
+                  isError={reNewPasswordError !== ""}
+                  name="Confirm your New Password"
+                  type="password"
                 />
               </div>
             </>
