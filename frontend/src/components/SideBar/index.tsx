@@ -141,7 +141,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
         navigate(SETTING_DELETE_ACCOUNT_URL);
         return;
       case "RESTORE":
-        navigate(SETTING_RESTORE_URL)
+        navigate(SETTING_RESTORE_URL);
         return;
     }
   };
@@ -246,6 +246,14 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 View Profile
               </SC_Button>
               <SC_Button
+                title="Logout"
+                onClick={() => navigateToViewsPage("LOGOUT")}
+                $isActive={getSelectedSettingsView() === "LOGOUT"}
+              >
+                <RiLogoutBoxRFill style={STYLE_ICON_MARGINS} />
+                Logout
+              </SC_Button>
+              <SC_Button
                 title="Restore Deleted Tasks"
                 onClick={() => navigateToViewsPage("RESTORE")}
                 $isActive={getSelectedSettingsView() === "RESTORE"}
@@ -276,14 +284,6 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
               >
                 <PiPasswordFill style={STYLE_ICON_MARGINS} />
                 Change Password
-              </SC_Button>
-              <SC_Button
-                title="Logout"
-                onClick={() => navigateToViewsPage("LOGOUT")}
-                $isActive={getSelectedSettingsView() === "LOGOUT"}
-              >
-                <RiLogoutBoxRFill style={STYLE_ICON_MARGINS} />
-                Logout
               </SC_Button>
               <SC_DeleteButton
                 title="Delete Account"
