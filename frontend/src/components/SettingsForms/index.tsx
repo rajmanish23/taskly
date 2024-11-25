@@ -16,6 +16,7 @@ import {
 import FormInput from "../FormInput";
 import { SC_FormContainer } from "./styles";
 import { getUserAPI } from "../../API/userAPI";
+import ErrorMessage from "../ErrorMessage";
 
 type Props = {
   mode: "EDIT_NAME" | "EDIT_EMAIL" | "EDIT_PASSWORD";
@@ -35,6 +36,7 @@ const SettingsForms = ({ mode }: Props) => {
   const [oldPasswordError, setOldPasswordError] = useState("");
   const [newPasswordError, setNewPasswordError] = useState("");
   const [reNewPasswordError, setReNewPasswordError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -143,6 +145,7 @@ const SettingsForms = ({ mode }: Props) => {
     <SC_BackgroundContainer>
       <ViewHeader h1Text={getHeaderText()} />
       <SC_SettingsViewBackgroundContainer>
+        {apiError === "" ? <></> : <ErrorMessage errorMessage="" />}
         <SC_FormContainer onSubmit={handleSubmit}>
           {mode === "EDIT_NAME" ? (
             <>
