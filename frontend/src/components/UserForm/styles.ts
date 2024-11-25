@@ -62,7 +62,7 @@ export const SC_FormSubmitButton = styled.button`
   height: 45px;
   cursor: pointer;
   @media ${DEVICE_WIDTH.PC} {
-    margin-top: 10px;
+    margin-top: 25px;
   }
   @media ${DEVICE_WIDTH.MOBILE} {
     margin: 30px 0 20px 0;
