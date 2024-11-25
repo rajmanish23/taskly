@@ -49,4 +49,4 @@ export const SETTING_EDIT_NAME_URL = "/settings/edit-name";
 export const SETTING_LOGOUT_URL = "/settings/logout";
 export const SETTING_RESTORE_URL = "/settings/restore";
 
-export const DELETE_CHALLENGE_TEXT = "I want my account to be deleted";
+export const DELETE_CHALLENGE_TEXT = "I want to permanently delete my account";
