@@ -1,15 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import Cookies from "js-cookie";
+import { Route, Routes } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 
 import {
-  ACCESS_KEY,
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
   LOGIN_PAGE_URL,
   PREVIOUS_PAGE_URL,
-  REFRESH_KEY,
   REGISTER_PAGE_URL,
   SETTING_CHANGE_PASSWORD_URL,
   SETTING_DELETE_ACCOUNT_URL,
@@ -41,12 +38,6 @@ import Profile from "./pages/settings/Profile";
 import Logout from "./pages/settings/Logout";
 import PageContextProvider from "./context";
 import RestoreDeleted from "./pages/settings/RestoreDeleted";
-
-function LogoutHandler() {
-  Cookies.remove(ACCESS_KEY);
-  Cookies.remove(REFRESH_KEY);
-  return <Navigate to="/login" />;
-}
 
 function App() {
   const [isAPIAlive, setIsAPIAlive] = useState<null | boolean>(null);
@@ -179,7 +170,6 @@ function App() {
           }
         />
         <Route path={LOGIN_PAGE_URL} element={<Login />} />
-        <Route path="/logout" element={<LogoutHandler />} />
         <Route path={REGISTER_PAGE_URL} element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
