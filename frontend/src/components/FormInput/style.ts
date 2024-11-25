@@ -5,7 +5,7 @@ export const SC_FormInputLabel = styled.label<{ $isError: boolean }>`
   color: ${(props) => (props.$isError ? "red" : STYLE_TEXT_COLOR)};
   font-size: 18px;
   font-weight: 500;
-  margin-top: 15px;
+  margin: 15px 15px 0 0;
 `;
 
 export const SC_FormInput = styled.input<{ $isError: boolean }>`
