@@ -76,13 +76,21 @@ const SettingsForms = ({ mode }: Props) => {
       rePassword: reNewPassword,
     });
     const isNameInvalid =
-      firstNameValidityError !== "" && lastNameValidityError !== "";
-    const isEmailInvalid = emailValidityError === "";
+      firstNameValidityError !== "" || lastNameValidityError !== "";
+    const isEmailInvalid = emailValidityError !== "";
     const isNewPasswordInvalid =
-      passwordValidityError === "" && rePasswordValidityError === "";
+      passwordValidityError !== "" || rePasswordValidityError !== "";
+    const isOldPasswordInvalid = oldPassword === "";
 
     setIsLoading(true);
     try {
+      if (isOldPasswordInvalid) {
+        setOldPasswordError(
+          `Please enter your ${
+            mode === "EDIT_PASSWORD" ? "old password" : "password"
+          }`
+        );
+      }
       switch (mode) {
         case "EDIT_NAME":
           if (isNameInvalid) {
