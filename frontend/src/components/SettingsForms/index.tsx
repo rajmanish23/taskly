@@ -3,6 +3,7 @@ import { BarLoader } from "react-spinners";
 
 import {
   SC_BackgroundContainer,
+  SC_FormSubmitButton,
   SC_SettingsViewBackgroundContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
@@ -183,7 +184,7 @@ const SettingsForms = ({ mode }: Props) => {
           ) : (
             <></>
           )}
-          <button type="submit">
+          <SC_FormSubmitButton type="submit">
             {isLoading ? (
               <BarLoader
                 height={BAR_LOADER_HEIGHT}
@@ -193,7 +194,7 @@ const SettingsForms = ({ mode }: Props) => {
             ) : (
               "Update"
             )}
-          </button>
+          </SC_FormSubmitButton>
         </SC_FormContainer>
       </SC_SettingsViewBackgroundContainer>
     </SC_BackgroundContainer>
