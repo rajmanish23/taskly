@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DEVICE_WIDTH, STYLE_TEXT_COLOR } from "../constants";
+import { DEVICE_WIDTH, STYLE_ACTIVE_BUTTON_HOVER_HIGHLIGHT_COLOR, STYLE_TEXT_COLOR, STYLE_TRANSITION_TIME } from "../constants";
 
 export const SC_BackgroundContainer = styled.div`
   flex-grow: 1;
@@ -35,22 +35,26 @@ export const SC_FlexRowStartContainer = styled.div`
 `;
 
 export const SC_FormSubmitButton = styled.button`
-  background-color: #8c2d2d;
-  border-style: none;
-  border-radius: 10px;
-  padding: 12px;
-  color: ${STYLE_TEXT_COLOR};
-  font-weight: 700;
-  font-size: 16px;
-  height: 45px;
-  cursor: pointer;
   @media ${DEVICE_WIDTH.PC} {
     margin-top: 25px;
   }
   @media ${DEVICE_WIDTH.MOBILE} {
     margin: 30px 0 20px 0;
   }
+  &:hover {
+    border: 3px solid ${STYLE_ACTIVE_BUTTON_HOVER_HIGHLIGHT_COLOR};
+  }
+  cursor: pointer;
+  background-color: #8c2d2d;
+  border:3px solid transparent;
+  border-radius: 10px;
+  padding: 12px;
+  color: ${STYLE_TEXT_COLOR};
+  font-weight: 700;
+  font-size: 16px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: border ${STYLE_TRANSITION_TIME};
 `;
