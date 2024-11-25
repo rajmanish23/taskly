@@ -13,6 +13,7 @@ import {
 export const SC_SidebarContainer = styled.div`
   height: 100%;
   width: 220px;
+  min-width: 220px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
