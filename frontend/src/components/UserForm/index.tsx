@@ -18,13 +18,13 @@ import {
   SC_CTALabel,
   SC_FormCardContainer,
   SC_FormInputContainer,
-  SC_FormSubmitButton,
   SC_LogoImg,
   SC_CTAContainer,
 } from "./styles";
 import ErrorMessage from "../ErrorMessage";
 import { BarLoader } from "react-spinners";
 import FormInput from "../FormInput";
+import { SC_FormSubmitButton } from "../commonStyles";
 
 type FormProps = React.PropsWithChildren & {
   method: "LOGIN" | "REGISTER";

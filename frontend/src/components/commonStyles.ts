@@ -32,3 +32,24 @@ export const SC_FlexRowStartContainer = styled.div`
   align-items: center;
   margin-bottom: 10px;
 `;
+
+export const SC_FormSubmitButton = styled.button`
+  background-color: #8c2d2d;
+  border-style: none;
+  border-radius: 10px;
+  padding: 12px;
+  color: ${STYLE_TEXT_COLOR};
+  font-weight: 700;
+  font-size: 16px;
+  height: 45px;
+  cursor: pointer;
+  @media ${DEVICE_WIDTH.PC} {
+    margin-top: 25px;
+  }
+  @media ${DEVICE_WIDTH.MOBILE} {
+    margin: 30px 0 20px 0;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
