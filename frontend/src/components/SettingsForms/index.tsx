@@ -109,6 +109,7 @@ const SettingsForms = ({ mode }: Props) => {
         );
       }
       let res: APIErrorMessage | number;
+      // TODO: Make the states refresh without reloading the entire page after updation
       switch (mode) {
         case "EDIT_NAME":
           if (isNameInvalid) {
