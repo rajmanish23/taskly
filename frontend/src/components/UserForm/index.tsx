@@ -19,14 +19,12 @@ import {
   SC_FormCardContainer,
   SC_FormInputContainer,
   SC_FormSubmitButton,
-  SC_FormInputLabel,
   SC_LogoImg,
-  SC_FormInput,
-  SC_ErrorText,
   SC_CTAContainer,
 } from "./styles";
 import ErrorMessage from "../ErrorMessage";
 import { BarLoader } from "react-spinners";
+import FormInput from "../FormInput";
 
 type FormProps = React.PropsWithChildren & {
   method: "LOGIN" | "REGISTER";
@@ -149,90 +147,48 @@ const UserForm = ({ method }: FormProps) => {
         <SC_LogoImg src={logoImg} />
         {errorMsg === "" ? null : <ErrorMessage errorMessage={errorMsg} />}
         <SC_FormInputContainer onSubmit={handleSubmit}>
-          <SC_FormInputLabel htmlFor="email" $isError={emailErrorMsg !== ""}>
-            Email
-          </SC_FormInputLabel>
-          <SC_FormInput
+          <FormInput
+            changeEventHandler={(e) => setEmail(e.target.value)}
+            errorMessage={emailErrorMsg}
+            isError={emailErrorMsg !== ""}
+            name="Email"
             type="text"
-            name="email"
-            id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            $isError={emailErrorMsg !== ""}
           />
-          {emailErrorMsg === "" ? null : (
-            <SC_ErrorText>{"* " + emailErrorMsg}</SC_ErrorText>
-          )}
-          <SC_FormInputLabel
-            htmlFor="password"
-            $isError={passwordErrorMsg !== ""}
-          >
-            Password
-          </SC_FormInputLabel>
-          <SC_FormInput
+          <FormInput
+            changeEventHandler={(e) => setPassword(e.target.value)}
+            errorMessage={passwordErrorMsg}
+            isError={passwordErrorMsg !== ""}
+            name="Password"
             type="password"
-            name="password"
-            id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            $isError={passwordErrorMsg !== ""}
           />
-          {passwordErrorMsg === "" ? null : (
-            <SC_ErrorText>{"* " + passwordErrorMsg}</SC_ErrorText>
-          )}
           {method === "REGISTER" ? (
             <>
-              <SC_FormInputLabel
-                htmlFor="re-password"
-                $isError={rePasswordErrorMsg !== ""}
-              >
-                Confirm password
-              </SC_FormInputLabel>
-              <SC_FormInput
+              <FormInput
+                changeEventHandler={(e) => setRePassword(e.target.value)}
+                errorMessage={rePasswordErrorMsg}
+                isError={rePasswordErrorMsg !== ""}
+                name="Confirm Password"
                 type="password"
-                name="re-password"
-                id="re-password"
                 value={rePassword}
-                onChange={(e) => setRePassword(e.target.value)}
-                $isError={rePasswordErrorMsg !== ""}
               />
-              {rePasswordErrorMsg === "" ? null : (
-                <SC_ErrorText>{"* " + rePasswordErrorMsg}</SC_ErrorText>
-              )}
-              <SC_FormInputLabel
-                htmlFor="first-name"
-                $isError={firstNameErrorMsg !== ""}
-              >
-                First Name
-              </SC_FormInputLabel>
-              <SC_FormInput
+              <FormInput
+                changeEventHandler={(e) => setFirstName(e.target.value)}
+                errorMessage={firstNameErrorMsg}
+                isError={firstNameErrorMsg !== ""}
+                name="First Name"
                 type="text"
-                name="first-name"
-                id="first-name"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                $isError={firstNameErrorMsg !== ""}
               />
-              {firstNameErrorMsg === "" ? null : (
-                <SC_ErrorText>{"* " + firstNameErrorMsg}</SC_ErrorText>
-              )}
-              <SC_FormInputLabel
-                htmlFor="last-name"
-                $isError={lastNameErrorMsg !== ""}
-              >
-                Last Name
-              </SC_FormInputLabel>
-              <SC_FormInput
+              <FormInput
+                changeEventHandler={(e) => setLastName(e.target.value)}
+                errorMessage={lastNameErrorMsg}
+                isError={lastNameErrorMsg !== ""}
+                name="Last Name"
                 type="text"
-                name="last-name"
-                id="last-name"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                $isError={lastNameErrorMsg !== ""}
               />
-              {lastNameErrorMsg === "" ? null : (
-                <SC_ErrorText>{"* " + lastNameErrorMsg}</SC_ErrorText>
-              )}
             </>
           ) : (
             <></>
