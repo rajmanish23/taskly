@@ -15,8 +15,14 @@ import {
 } from "../../constants";
 import FormInput from "../FormInput";
 import { SC_FormContainer } from "./styles";
-import { getUserAPI } from "../../API/userAPI";
+import {
+  getUserAPI,
+  updateEmailAPI,
+  updateNameAPI,
+  updatePasswordAPI,
+} from "../../API/userAPI";
 import ErrorMessage from "../ErrorMessage";
+import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
 
 type Props = {
   mode: "EDIT_NAME" | "EDIT_EMAIL" | "EDIT_PASSWORD";
@@ -60,7 +66,16 @@ const SettingsForms = ({ mode }: Props) => {
     setNewPasswordError("");
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const resetInputStates = () => {
+    setFirstName("");
+    setLastName("");
+    setNewEmail("");
+    setOldPassword("");
+    setNewPassword("");
+    setReNewPassword("");
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     resetErrorStates();
 
@@ -93,6 +108,7 @@ const SettingsForms = ({ mode }: Props) => {
           }`
         );
       }
+      let res: APIErrorMessage | number;
       switch (mode) {
         case "EDIT_NAME":
           if (isNameInvalid) {
@@ -100,14 +116,30 @@ const SettingsForms = ({ mode }: Props) => {
             setLastNameError(lastNameValidityError);
             return;
           }
-          // call name change api
+          res = await updateNameAPI(firstName, lastName, oldPassword);
+          if (isAPIErrorMessage(res)) {
+            setApiError(res.detail);
+            return;
+          }
+          alert("Updated your name");
+          sessionStorage.clear();
+          await getUserDetails().catch((e) => console.log(e));
+          resetInputStates();
           break;
         case "EDIT_EMAIL":
           if (isEmailInvalid) {
             setNewEmailError(emailValidityError);
             return;
           }
-          // call email change api
+          res = await updateEmailAPI(newEmail, oldPassword);
+          if (isAPIErrorMessage(res)) {
+            setApiError(res.detail);
+            return;
+          }
+          alert("Updated your email");
+          sessionStorage.clear();
+          await getUserDetails().catch((e) => console.log(e));
+          resetInputStates();
           break;
         case "EDIT_PASSWORD":
           if (isNewPasswordInvalid) {
@@ -115,6 +147,15 @@ const SettingsForms = ({ mode }: Props) => {
             setReNewPasswordError(rePasswordValidityError);
             return;
           }
+          res = await updatePasswordAPI(oldPassword, newPassword);
+          if (isAPIErrorMessage(res)) {
+            setApiError(res.detail);
+            return;
+          }
+          alert("Updated your password");
+          sessionStorage.clear();
+          await getUserDetails().catch((e) => console.log(e));
+          resetInputStates();
           break;
       }
     } catch (error) {

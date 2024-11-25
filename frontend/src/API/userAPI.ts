@@ -10,6 +10,9 @@ import {
   REFRESH_KEY,
   REGISTER_API_URL,
   USER_DELETE_API,
+  UPDATE_NAME_API,
+  UPDATE_EMAIL_API,
+  UPDATE_PASSWORD_API,
 } from "../constants";
 import { baseTokenlessAPI } from "./isAuthorizedAPI";
 
@@ -35,10 +38,7 @@ export async function loginAPI(
     if (error instanceof AxiosError) {
       if (error.response) {
         if (Math.floor(error.response.status / 100) === 4) {
-          return [
-            false,
-            error.response.data.detail,
-          ];
+          return [false, error.response.data.detail];
         } else if (Math.floor(error.response.status / 100) === 5) {
           return [
             false,
@@ -120,16 +120,86 @@ export async function getUserAPI(): Promise<User> {
 
 export async function deleteUserAPI(): Promise<string> {
   try {
-    const res = await baseTokenfulAPI.delete(USER_DELETE_API);
-    console.log(res)
-    return ""
+    await baseTokenfulAPI.delete(USER_DELETE_API);
+    return "";
   } catch (err) {
     if (err instanceof AxiosError) {
-      console.error(err)
-      return err.response?.data.detail
+      console.error(err);
+      return err.response?.data.detail;
     } else {
-      console.error(err)
-      return "Unknown error occured"
+      console.error(err);
+      return "Unknown error occured";
+    }
+  }
+}
+
+export async function updateNameAPI(
+  firstName: string,
+  lastName: string,
+  password: string
+): Promise<APIErrorMessage | number> {
+  try {
+    await baseTokenfulAPI.put(UPDATE_NAME_API, {
+      firstName,
+      lastName,
+      password,
+    });
+    return 0;
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      console.error(err);
+      return err.response?.data.detail;
+    } else {
+      console.error(err);
+      return {
+        detail: "Unkown error occured",
+      };
+    }
+  }
+}
+
+export async function updateEmailAPI(
+  newEmail: string,
+  password: string
+): Promise<APIErrorMessage | number> {
+  try {
+    await baseTokenfulAPI.put(UPDATE_EMAIL_API, {
+      newEmail,
+      password,
+    });
+    return 0;
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      console.error(err);
+      return err.response?.data.detail;
+    } else {
+      console.error(err);
+      return {
+        detail: "Unkown error occured",
+      };
+    }
+  }
+}
+
+export async function updatePasswordAPI(
+  oldPassword: string,
+  newPassword: string
+): Promise<APIErrorMessage | number> {
+  try {
+    await baseTokenfulAPI.put(UPDATE_PASSWORD_API, {
+      oldPassword,
+      newPassword,
+    });
+    return 0;
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      console.error(err);
+      return err.response?.data.detail;
+    } else {
+      console.error(err);
+      return {
+        detail: "Unkown error occured",
+      };
     }
   }
 }
