@@ -24,3 +24,9 @@ export const SC_ErrorText = styled.p`
   margin: 5px 0 0 0;
   color: red;
 `;
+
+export const SC_InputErrorContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+`;

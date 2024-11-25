@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { SC_ErrorText, SC_FormInput, SC_FormInputLabel } from "./style";
+import { SC_ErrorText, SC_FormInput, SC_FormInputLabel, SC_InputErrorContainer } from "./style";
 
 type Props = {
   name: string;
@@ -18,15 +18,17 @@ const FormInput = (props: Props) => {
       <SC_FormInputLabel htmlFor={name} $isError={isError}>
         {name}
       </SC_FormInputLabel>
-      <SC_FormInput
-        type={type}
-        name={name}
-        id={name}
-        value={value}
-        onChange={changeEventHandler}
-        $isError={isError}
-      />
-      {isError ? <SC_ErrorText>{"* " + errorMessage}</SC_ErrorText> : null}
+      <SC_InputErrorContainer>
+        <SC_FormInput
+          type={type}
+          name={name}
+          id={name}
+          value={value}
+          onChange={changeEventHandler}
+          $isError={isError}
+        />
+        {isError ? <SC_ErrorText>{"* " + errorMessage}</SC_ErrorText> : null}
+      </SC_InputErrorContainer>
     </>
   );
 };
