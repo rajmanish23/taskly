@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DEVICE_WIDTH, STYLE_TEXT_COLOR } from "../constants";
 
 export const SC_BackgroundContainer = styled.div`
   flex-grow: 1;
