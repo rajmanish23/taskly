@@ -58,3 +58,8 @@ export const SC_FormSubmitButton = styled.button`
   align-items: center;
   transition: border ${STYLE_TRANSITION_TIME};
 `;
+
+export const SC_SettingsViewPara = styled.p`
+  width: 580px;
+  margin: 0 0 20px 0;
+`;

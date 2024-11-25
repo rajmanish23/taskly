@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import {
   SC_BackgroundContainer,
   SC_SettingsViewBackgroundContainer,
+  SC_SettingsViewPara,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import {
@@ -21,7 +22,6 @@ import ErrorMessage from "../ErrorMessage";
 import {
   SC_DeleteButton,
   SC_DeleteTextChallenge,
-  SC_DeleteViewPara,
 } from "./styles";
 import { MdDelete } from "react-icons/md";
 import { deleteUserAPI } from "../../API/userAPI";
@@ -74,17 +74,17 @@ const SettingsDeleteView = () => {
         ) : (
           <></>
         )}
-        <SC_DeleteViewPara>
+        <SC_SettingsViewPara>
           Please remember that this action is permanent and cannot be reversed.
           Deleting your account will delete all the data you have made. That
           means any Tasks, Sub Tasks, Tags, your profile data, etc. Once
           deleted, there is no way to recover your data as it is immediately
           wiped from our servers to respect your privacy.
-        </SC_DeleteViewPara>
-        <SC_DeleteViewPara>
+        </SC_SettingsViewPara>
+        <SC_SettingsViewPara>
           Please type "{DELETE_CHALLENGE_TEXT}" if you wish to permanently
           delete your account.
-        </SC_DeleteViewPara>
+        </SC_SettingsViewPara>
         <SC_DeleteTextChallenge
           type="text"
           value={deleteText}

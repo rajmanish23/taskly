@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import { STYLE_TRANSITION_TIME } from "../../constants";
 
-export const SC_DeleteViewPara = styled.p`
-  width: 580px;
-  margin: 0 0 20px 0;
-`;
-
 export const SC_DeleteButton = styled.button<{ $isDisabled: boolean }>`
   &:hover {
     border: 3px solid ${(props) => (props.$isDisabled ? "#cbcbce" : "#fe0000")};
