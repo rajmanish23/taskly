@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect, useCallback } from "react";
 import { BarLoader } from "react-spinners";
 
 import {
@@ -15,6 +15,7 @@ import {
 } from "../../constants";
 import FormInput from "../FormInput";
 import { SC_FormContainer } from "./styles";
+import { getUserAPI } from "../../API/userAPI";
 
 type Props = {
   mode: "EDIT_NAME" | "EDIT_EMAIL" | "EDIT_PASSWORD";
@@ -113,6 +114,23 @@ const SettingsForms = ({ mode }: Props) => {
     }
   };
 
+  const getUserDetails = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const user = await getUserAPI();
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getUserDetails().catch((e) => console.log(e));
+  }, [getUserDetails]);
+
   return (
     <SC_BackgroundContainer>
       <ViewHeader h1Text={getHeaderText()} />
@@ -147,7 +165,7 @@ const SettingsForms = ({ mode }: Props) => {
                 value={newEmail}
                 errorMessage={newEmailError}
                 isError={newEmailError !== ""}
-                name="New Name"
+                name="New Email"
                 type="text"
               />
             </>
