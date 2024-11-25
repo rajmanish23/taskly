@@ -13,6 +13,7 @@ import {
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import FormInput from "../FormInput";
+import { SC_FormContainer } from "./styles";
 
 type Props = {
   mode: "EDIT_NAME" | "EDIT_EMAIL" | "EDIT_PASSWORD";
@@ -115,81 +116,69 @@ const SettingsForms = ({ mode }: Props) => {
     <SC_BackgroundContainer>
       <ViewHeader h1Text={getHeaderText()} />
       <SC_SettingsViewBackgroundContainer>
-        <form onSubmit={handleSubmit}>
+        <SC_FormContainer onSubmit={handleSubmit}>
           {mode === "EDIT_NAME" ? (
             <>
-              <div>
-                <FormInput
-                  changeEventHandler={(e) => setFirstName(e.target.value)}
-                  value={firstName}
-                  errorMessage={firstNameError}
-                  isError={firstNameError !== ""}
-                  name="First Name"
-                  type="text"
-                />
-              </div>
-              <div>
-                <FormInput
-                  changeEventHandler={(e) => setLastName(e.target.value)}
-                  value={lastName}
-                  errorMessage={lastNameError}
-                  isError={lastNameError !== ""}
-                  name="Last Name"
-                  type="text"
-                />
-              </div>
+              <FormInput
+                changeEventHandler={(e) => setFirstName(e.target.value)}
+                value={firstName}
+                errorMessage={firstNameError}
+                isError={firstNameError !== ""}
+                name="First Name"
+                type="text"
+              />
+              <FormInput
+                changeEventHandler={(e) => setLastName(e.target.value)}
+                value={lastName}
+                errorMessage={lastNameError}
+                isError={lastNameError !== ""}
+                name="Last Name"
+                type="text"
+              />
             </>
           ) : (
             <></>
           )}
           {mode === "EDIT_EMAIL" ? (
             <>
-              <div>
-                <FormInput
-                  changeEventHandler={(e) => setNewEmail(e.target.value)}
-                  value={newEmail}
-                  errorMessage={newEmailError}
-                  isError={newEmailError !== ""}
-                  name="New Name"
-                  type="text"
-                />
-              </div>
+              <FormInput
+                changeEventHandler={(e) => setNewEmail(e.target.value)}
+                value={newEmail}
+                errorMessage={newEmailError}
+                isError={newEmailError !== ""}
+                name="New Name"
+                type="text"
+              />
             </>
           ) : (
             <></>
           )}
-          <div>
-            <FormInput
-              changeEventHandler={(e) => setOldPassword(e.target.value)}
-              value={oldPassword}
-              errorMessage={oldPasswordError}
-              isError={oldPasswordError !== ""}
-              name={mode === "EDIT_PASSWORD" ? "Old Password" : "Password"}
-              type="password"
-            />
-          </div>
+          <FormInput
+            changeEventHandler={(e) => setOldPassword(e.target.value)}
+            value={oldPassword}
+            errorMessage={oldPasswordError}
+            isError={oldPasswordError !== ""}
+            name={mode === "EDIT_PASSWORD" ? "Old Password" : "Password"}
+            type="password"
+          />
           {mode === "EDIT_PASSWORD" ? (
             <>
-              <div>
-                <FormInput
-                  changeEventHandler={(e) => setNewPassword(e.target.value)}
-                  value={newPassword}
-                  errorMessage={newPasswordError}
-                  isError={newPasswordError !== ""}
-                  name="New Password"
-                  type="password"
-                />
-              </div>
-              <div>
-                <FormInput
-                  changeEventHandler={(e) => setReNewPassword(e.target.value)}
-                  value={reNewPassword}
-                  errorMessage={reNewPasswordError}
-                  isError={reNewPasswordError !== ""}
-                  name="Confirm your New Password"
-                  type="password"
-                />
-              </div>
+              <FormInput
+                changeEventHandler={(e) => setNewPassword(e.target.value)}
+                value={newPassword}
+                errorMessage={newPasswordError}
+                isError={newPasswordError !== ""}
+                name="New Password"
+                type="password"
+              />
+              <FormInput
+                changeEventHandler={(e) => setReNewPassword(e.target.value)}
+                value={reNewPassword}
+                errorMessage={reNewPasswordError}
+                isError={reNewPasswordError !== ""}
+                name="Confirm New Password"
+                type="password"
+              />
             </>
           ) : (
             <></>
@@ -205,7 +194,7 @@ const SettingsForms = ({ mode }: Props) => {
               "Update"
             )}
           </button>
-        </form>
+        </SC_FormContainer>
       </SC_SettingsViewBackgroundContainer>
     </SC_BackgroundContainer>
   );
