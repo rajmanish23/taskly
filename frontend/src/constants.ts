@@ -33,6 +33,7 @@ export const UPDATE_EMAIL_API = "/api/user/update-email/";
 export const UPDATE_PASSWORD_API = "/api/user/change-password/";
 export const TAGS_LIST_API_URL = "/api/tags/";
 export const TAGS_TASK_LIST_API_URL = (tagId: string) => `/api/tags/${tagId}/`;
+export const TASK_DETAILS_API_URL = (taskId: string) => `/api/tasks/${taskId}/`;
 export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
 export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
 export const PREVIOUS_TASKS_LIST_API_URL = "/api/tasks/previous/";

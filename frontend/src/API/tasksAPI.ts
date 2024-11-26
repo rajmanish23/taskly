@@ -2,6 +2,7 @@ import baseTokenfulAPI from "./baseAPI";
 import {
   PREVIOUS_TASKS_LIST_API_URL,
   TAGS_TASK_LIST_API_URL,
+  TASK_DETAILS_API_URL,
   TODAY_TASKS_LIST_API_URL,
   UPCOMING_TASKS_LIST_API_URL,
 } from "../constants";
@@ -116,6 +117,29 @@ export const getTagTasksAPI = async (
       TAGS_TASK_LIST_API_URL(tagId)
     );
     return convertTagTasksAPIData(data);
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      const err: APIErrorMessage = {
+        detail: error.response.data.detail,
+      };
+      return err;
+    }
+    throw error;
+  }
+};
+
+type GetTaskDetailResponse = TaskAPIData;
+
+export const getTaskDetailsAPI = async (
+  taskId: string
+): Promise<Task | APIErrorMessage> => {
+  try {
+    const { data } = await baseTokenfulAPI.get<GetTaskDetailResponse>(
+      TASK_DETAILS_API_URL(taskId)
+    );
+    return convertTaskAPIData(data)
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
