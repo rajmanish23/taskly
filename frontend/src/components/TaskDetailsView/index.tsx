@@ -1,4 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
+import { FaCheckCircle } from "react-icons/fa";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { PiWarningCircleFill } from "react-icons/pi";
+import { MdAccessTimeFilled } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+
 import {
   SC_BackgroundContainer,
   SC_CentralNoDataContainer,
@@ -15,10 +21,6 @@ import {
 import { getTaskDetailsAPI } from "../../API/tasksAPI";
 import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
 import ErrorMessage from "../ErrorMessage";
-import { FaCheckCircle } from "react-icons/fa";
-import { BsFillQuestionCircleFill } from "react-icons/bs";
-import { PiWarningCircleFill } from "react-icons/pi";
-import { MdAccessTimeFilled } from "react-icons/md";
 import { SC_BaseParagraph, SC_DateContainer } from "./styles";
 import { AddEditButton } from "../AddEditButton";
 import TaskDisplayCard from "../TaskDisplayCard";
@@ -108,10 +110,15 @@ const TaskDetailsView = ({ taskId }: Props) => {
       ) : (
         <SC_LeftAlignedViewBackgroundContainer>
           <div>
+            <div>
+              <button>
+                <FaCheckCircle />
+              </button>
+              <h1>{taskData?.name}</h1>
+            </div>
             <button>
-              <FaCheckCircle />
+              <MdDelete />
             </button>
-            <h1>{taskData?.name}</h1>
           </div>
 
           <div>{displayDate(taskData?.dueAt)}</div>
