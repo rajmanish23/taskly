@@ -6,11 +6,12 @@ import { STYLE_ICON_MARGINS } from "../../constants";
 type AddButtonProp = {
   mode: "ADD" | "EDIT";
   text: string;
+  onClick?: () => void
 };
 
-export const AddEditButton = ({ text, mode }: AddButtonProp) => {
+export const AddEditButton = ({ text, mode, onClick }: AddButtonProp) => {
   return (
-    <SC_AddTagButton title={text}>
+    <SC_AddTagButton title={text} onClick={onClick}>
       {mode === "ADD" ? (
         <AiFillPlusCircle style={STYLE_ICON_MARGINS} />
       ) : (

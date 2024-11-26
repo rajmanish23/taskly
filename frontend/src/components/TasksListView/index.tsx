@@ -8,7 +8,7 @@ import {
   BAR_LOADER_WIDTH,
   STYLE_TEXT_COLOR,
 } from "../../constants";
-import { AddEditButton } from "../AddButton";
+import { AddEditButton } from "../AddEditButton";
 import {
   getPreviousTasksAPI,
   getTagTasksAPI,

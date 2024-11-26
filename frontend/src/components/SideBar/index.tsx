@@ -51,7 +51,7 @@ import {
   TODAY_PAGE_URL,
   UPCOMING_PAGE_URL,
 } from "../../constants";
-import { AddEditButton } from "../AddButton";
+import { AddEditButton } from "../AddEditButton";
 import { PageContext, PageContextType } from "../../context/PageContext";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 

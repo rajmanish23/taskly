@@ -20,7 +20,7 @@ import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { SC_BaseParagraph, SC_DateContainer } from "./styles";
-import { AddEditButton } from "../AddButton";
+import { AddEditButton } from "../AddEditButton";
 import TaskDisplayCard from "../TaskDisplayCard";
 
 type Props = {

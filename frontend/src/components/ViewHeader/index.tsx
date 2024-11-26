@@ -5,7 +5,7 @@ import {
   SC_TopHeader1,
   SC_TopHeader2,
 } from "./styles";
-import { AddEditButton } from "../AddButton";
+import { AddEditButton } from "../AddEditButton";
 import { ReactNode } from "react";
 
 type Props = {
