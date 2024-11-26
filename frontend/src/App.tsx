@@ -17,6 +17,7 @@ import {
   SETTING_RESTORE_URL,
   STYLE_TEXT_COLOR,
   TAG_PAGE_URL_WITH_PARAM,
+  TASK_PAGE_URL_WITH_PARAM,
   TODAY_PAGE_URL,
   UPCOMING_PAGE_URL,
 } from "./constants";
@@ -39,6 +40,7 @@ import Logout from "./pages/settings/Logout";
 import { PageContextProvider } from "./context/PageContext";
 import RestoreDeleted from "./pages/settings/RestoreDeleted";
 import { UpdateContextProvider } from "./context/UpdateContext";
+import TaskDetails from "./pages/TaskDetails";
 
 function App() {
   const [isAPIAlive, setIsAPIAlive] = useState<null | boolean>(null);
@@ -112,6 +114,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <TagListTask />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={TASK_PAGE_URL_WITH_PARAM}
+            element={
+              <ProtectedRoute>
+                <TaskDetails />
               </ProtectedRoute>
             }
           />
