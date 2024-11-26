@@ -1,14 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { useState } from "react";
+import { createContext, PropsWithChildren, useState } from "react";
 
 export type PageContextType = {
   previousPage: string,
   setPreviousPage: (currentPageVal: string) => void
 }
 
-export const PageContext = React.createContext<PageContextType | null>(null);
+export const PageContext = createContext<PageContextType | null>(null);
 
-const PageContextProvider = ({children}: React.PropsWithChildren) => {
+export const PageContextProvider = ({children}: PropsWithChildren) => {
   const [previousPageState, setPreviousPageState] = useState("/")
   
   const setPreviousPage = (currentPageVal: string) => {
@@ -24,5 +24,3 @@ const PageContextProvider = ({children}: React.PropsWithChildren) => {
     </PageContext.Provider>
   )
 }
-
-export default PageContextProvider
