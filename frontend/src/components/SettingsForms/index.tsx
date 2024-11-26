@@ -5,7 +5,7 @@ import { GrUpdate } from "react-icons/gr";
 import {
   SC_BackgroundContainer,
   SC_FormSubmitButton,
-  SC_SettingsViewBackgroundContainer,
+  SC_LeftAlignedViewBackgroundContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import validateUserFormInputs from "../../utils/validateUserFormInputs";
@@ -185,7 +185,7 @@ const SettingsForms = ({ mode }: Props) => {
   return (
     <SC_BackgroundContainer>
       <ViewHeader h1Text={getHeaderText()} />
-      <SC_SettingsViewBackgroundContainer>
+      <SC_LeftAlignedViewBackgroundContainer>
         {apiError === "" ? <></> : <ErrorMessage errorMessage="" />}
         <SC_FormContainer onSubmit={handleSubmit}>
           {mode === "EDIT_NAME" ? (
@@ -269,7 +269,7 @@ const SettingsForms = ({ mode }: Props) => {
             )}
           </SC_FormSubmitButton>
         </SC_FormContainer>
-      </SC_SettingsViewBackgroundContainer>
+      </SC_LeftAlignedViewBackgroundContainer>
     </SC_BackgroundContainer>
   );
 };

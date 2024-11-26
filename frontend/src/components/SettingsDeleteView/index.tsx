@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 import {
   SC_BackgroundContainer,
-  SC_SettingsViewBackgroundContainer,
+  SC_LeftAlignedViewBackgroundContainer,
   SC_SettingsViewPara,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
@@ -68,7 +68,7 @@ const SettingsDeleteView = () => {
   return (
     <SC_BackgroundContainer>
       <ViewHeader h1Text="Delete your account?" />
-      <SC_SettingsViewBackgroundContainer>
+      <SC_LeftAlignedViewBackgroundContainer>
         {errorMessage !== "" ? (
           <ErrorMessage errorMessage={errorMessage} />
         ) : (
@@ -109,7 +109,7 @@ const SettingsDeleteView = () => {
             </>
           )}
         </SC_DeleteButton>
-      </SC_SettingsViewBackgroundContainer>
+      </SC_LeftAlignedViewBackgroundContainer>
     </SC_BackgroundContainer>
   );
 };

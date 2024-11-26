@@ -6,7 +6,7 @@ import { ACCESS_KEY, LOGIN_PAGE_URL, REFRESH_KEY, STYLE_ICON_MARGINS } from "../
 import {
   SC_BackgroundContainer,
   SC_FormSubmitButton,
-  SC_SettingsViewBackgroundContainer,
+  SC_LeftAlignedViewBackgroundContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import { SC_LogoutPara } from "./styles";
@@ -24,7 +24,7 @@ const LogoutView = () => {
   return (
     <SC_BackgroundContainer>
       <ViewHeader h1Text="Do you want to Logout?" />
-      <SC_SettingsViewBackgroundContainer>
+      <SC_LeftAlignedViewBackgroundContainer>
         <SC_LogoutPara>
           Please click on the below button to logout of this device.
         </SC_LogoutPara>
@@ -32,7 +32,7 @@ const LogoutView = () => {
           <RiLogoutBoxRFill style={STYLE_ICON_MARGINS} />
           Logout
         </SC_FormSubmitButton>
-      </SC_SettingsViewBackgroundContainer>
+      </SC_LeftAlignedViewBackgroundContainer>
     </SC_BackgroundContainer>
   );
 };

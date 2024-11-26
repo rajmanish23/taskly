@@ -8,7 +8,7 @@ import {
   SC_BackgroundContainer,
   SC_CentralNoDataContainer,
   SC_FlexRowStartContainer,
-  SC_SettingsViewBackgroundContainer,
+  SC_LeftAlignedViewBackgroundContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import {
@@ -60,7 +60,7 @@ const SettingsProfileView = () => {
           <ErrorMessage errorMessage="We could not fetch your profile details. Please try again later." />
         </SC_CentralNoDataContainer>
       ) : (
-        <SC_SettingsViewBackgroundContainer>
+        <SC_LeftAlignedViewBackgroundContainer>
           <SC_FlexRowStartContainer>
             <SC_ProfileImage src={profileImg} />
             <SC_ProfileName>{userDetails.fullName}</SC_ProfileName>
@@ -71,7 +71,7 @@ const SettingsProfileView = () => {
               {userDetails.email}
             </SC_ProfileEmailTextContainer>
           </SC_FlexRowStartContainer>
-        </SC_SettingsViewBackgroundContainer>
+        </SC_LeftAlignedViewBackgroundContainer>
       )}
     </SC_BackgroundContainer>
   );

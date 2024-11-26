@@ -17,7 +17,7 @@ export const SC_CentralNoDataContainer = styled.div`
   height: 100%;
 `;
 
-export const SC_SettingsViewBackgroundContainer = styled.div`
+export const SC_LeftAlignedViewBackgroundContainer = styled.div`
   padding: 20px 0 20px 0;
   box-sizing: border-box;
   display: flex;
