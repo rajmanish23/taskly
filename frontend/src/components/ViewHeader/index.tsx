@@ -1,26 +1,44 @@
 import {
+  SC_ButtonContainer,
   SC_HeaderContainer,
   SC_HeaderTextContainer,
   SC_TopHeader1,
   SC_TopHeader2,
 } from "./styles";
-import { AddButton } from "../AddButton";
+import { AddEditButton } from "../AddButton";
 import { ReactNode } from "react";
 
 type Props = {
   h1Text: string | ReactNode;
   h2Text?: string | ReactNode;
   addButtonText?: string;
+  editButtonText?: string;
 };
 
-const ViewHeader = ({ h1Text, h2Text, addButtonText }: Props) => {
+const ViewHeader = ({
+  h1Text,
+  h2Text,
+  addButtonText,
+  editButtonText,
+}: Props) => {
   return (
     <SC_HeaderContainer>
       <SC_HeaderTextContainer>
         <SC_TopHeader1>{h1Text}</SC_TopHeader1>
         {h2Text === undefined ? <></> : <SC_TopHeader2>{h2Text}</SC_TopHeader2>}
       </SC_HeaderTextContainer>
-      {addButtonText === undefined ? <></> : <AddButton text={addButtonText} />}
+      <SC_ButtonContainer>
+        {addButtonText === undefined ? (
+          <></>
+        ) : (
+          <AddEditButton text={addButtonText} mode="ADD" />
+        )}
+        {editButtonText === undefined ? (
+          <></>
+        ) : (
+          <AddEditButton text={editButtonText} mode="EDIT" />
+        )}
+      </SC_ButtonContainer>
     </SC_HeaderContainer>
   );
 };

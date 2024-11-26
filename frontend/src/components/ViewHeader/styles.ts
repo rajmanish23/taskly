@@ -29,3 +29,11 @@ export const SC_TopHeader2 = styled.h2`
   font-family: "Caveat", cursive;
   font-weight: normal;
 `;
+
+export const SC_ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  button {
+    margin-left: 10px;
+  }
+`;
