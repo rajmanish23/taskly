@@ -10,6 +10,8 @@ import {
   BAR_LOADER_WIDTH,
   STYLE_TEXT_COLOR,
 } from "../../constants";
+import { getTaskDetailsAPI } from "../../API/tasksAPI";
+import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
 
 type Props = {
   taskId?: string;
@@ -17,12 +19,19 @@ type Props = {
 
 const TaskDetailsView = ({ taskId }: Props) => {
   const [taskData, setTaskData] = useState<Task>();
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const getTaskData = useCallback(async () => {
     setIsLoading(true);
+    if (taskId === undefined) throw Error("!! Need to pass task ID to this component !!")
     try {
-      // call the api
+      const data = await getTaskDetailsAPI(taskId)
+      if (isAPIErrorMessage(data)) {
+        setErrorMessage(data.detail)
+      } else {
+        setTaskData(data);
+      }
     } catch (err) {
       console.error(err);
     } finally {
