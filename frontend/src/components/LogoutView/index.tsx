@@ -1,7 +1,8 @@
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { RiLogoutBoxRFill } from "react-icons/ri";
 
-import { ACCESS_KEY, LOGIN_PAGE_URL, REFRESH_KEY } from "../../constants";
+import { ACCESS_KEY, LOGIN_PAGE_URL, REFRESH_KEY, STYLE_ICON_MARGINS } from "../../constants";
 import {
   SC_BackgroundContainer,
   SC_FormSubmitButton,
@@ -28,6 +29,7 @@ const LogoutView = () => {
           Please click on the below button to logout of this device.
         </SC_LogoutPara>
         <SC_FormSubmitButton type="button" onClick={logoutHandler}>
+          <RiLogoutBoxRFill style={STYLE_ICON_MARGINS} />
           Logout
         </SC_FormSubmitButton>
       </SC_SettingsViewBackgroundContainer>

@@ -1,5 +1,6 @@
 import { FormEvent, useState, useEffect, useCallback, useContext } from "react";
 import { BarLoader } from "react-spinners";
+import { GrUpdate } from "react-icons/gr";
 
 import {
   SC_BackgroundContainer,
@@ -11,6 +12,7 @@ import validateUserFormInputs from "../../utils/validateUserFormInputs";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
+  STYLE_ICON_MARGINS,
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import FormInput from "../FormInput";
@@ -260,7 +262,10 @@ const SettingsForms = ({ mode }: Props) => {
                 color={STYLE_TEXT_COLOR}
               />
             ) : (
-              "Update"
+              <>
+                <GrUpdate style={STYLE_ICON_MARGINS} />
+                Update
+              </>
             )}
           </SC_FormSubmitButton>
         </SC_FormContainer>
