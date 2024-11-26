@@ -50,7 +50,8 @@ export const SC_FormSubmitButton = styled.button`
   border-radius: 10px;
   padding: 12px;
   color: ${STYLE_TEXT_COLOR};
-  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
   font-size: 16px;
   height: 45px;
   display: flex;
