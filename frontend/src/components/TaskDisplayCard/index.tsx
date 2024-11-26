@@ -120,7 +120,21 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
       </SC_TaskListItemContainer>
     );
   } else {
-    return <></>;
+    return (
+      <SC_TaskListItemContainer>
+        <SC_TaskCompleteButton>
+          <FaCheckCircle />
+        </SC_TaskCompleteButton>
+        <SC_DataContainer
+          onClick={() => navigate(TASK_PAGE_URL_NO_PARAM + data.sId)}
+        >
+          <SC_TaskItemHeaderContainer>
+            <SC_TaskNameHeading>{data.name}</SC_TaskNameHeading>
+            {displayDate(data.dueAt, mode)}
+          </SC_TaskItemHeaderContainer>
+        </SC_DataContainer>
+      </SC_TaskListItemContainer>
+    );
   }
 };
 
