@@ -8,7 +8,7 @@ const Profile = () => {
 
   return (
     <SC_MainViewContainer>
-      <SideBar mode="SETTINGS" selectedView="PROFILE" selectedTag="" />
+      <SideBar mode="SETTINGS" selectedView="PROFILE" />
       <SettingsProfileView />
     </SC_MainViewContainer>
   );

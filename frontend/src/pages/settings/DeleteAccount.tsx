@@ -8,7 +8,7 @@ const DeleteAccount = () => {
 
   return (
     <SC_MainViewContainer>
-      <SideBar mode="SETTINGS" selectedView="DEL_ACC" selectedTag="" />
+      <SideBar mode="SETTINGS" selectedView="DEL_ACC" />
       <SettingsDeleteView />
     </SC_MainViewContainer>
   );

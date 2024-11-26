@@ -8,7 +8,7 @@ const Today = () => {
 
   return (
     <SC_MainViewContainer>
-      <SideBar mode="NORMAL" selectedView="TODAY" selectedTag="" />
+      <SideBar mode="NORMAL" selectedView="TODAY" />
       <TasksListView mode="TODAY" />
     </SC_MainViewContainer>
   );

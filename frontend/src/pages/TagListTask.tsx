@@ -1,4 +1,3 @@
-// import SideBar from "../components/SideBar";
 import TasksListView from "../components/TasksListView";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import { useParams } from "react-router-dom";

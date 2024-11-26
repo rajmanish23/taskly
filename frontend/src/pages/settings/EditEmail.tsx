@@ -8,7 +8,7 @@ const EditEmail = () => {
 
   return (
     <SC_MainViewContainer>
-      <SideBar mode="SETTINGS" selectedView="EMAIL_EDIT" selectedTag="" />
+      <SideBar mode="SETTINGS" selectedView="EMAIL_EDIT" />
       <SettingsForms mode="EDIT_EMAIL" />
     </SC_MainViewContainer>
   );

@@ -8,7 +8,7 @@ const ChangePassword = () => {
 
   return (
     <SC_MainViewContainer>
-      <SideBar mode="SETTINGS" selectedView="PASS_EDIT" selectedTag="" />
+      <SideBar mode="SETTINGS" selectedView="PASS_EDIT" />
       <SettingsForms mode="EDIT_PASSWORD" />
     </SC_MainViewContainer>
   );

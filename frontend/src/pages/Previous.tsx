@@ -7,7 +7,7 @@ const Previous = () => {
   useDocumentTitle("Previous");
   return (
     <SC_MainViewContainer>
-      <SideBar mode="NORMAL" selectedView="PREVIOUS" selectedTag="" />
+      <SideBar mode="NORMAL" selectedView="PREVIOUS" />
       <TasksListView mode="PREVIOUS" />
     </SC_MainViewContainer>
   );

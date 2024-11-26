@@ -7,7 +7,7 @@ const Upcoming = () => {
   useDocumentTitle("Upcoming");
   return (
     <SC_MainViewContainer>
-      <SideBar mode="NORMAL" selectedView="UPCOMING" selectedTag="" />
+      <SideBar mode="NORMAL" selectedView="UPCOMING" />
       <TasksListView mode="UPCOMING" />
     </SC_MainViewContainer>
   );

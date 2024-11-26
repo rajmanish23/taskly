@@ -7,7 +7,7 @@ const RestoreDeleted = () => {
 
   return (
     <SC_MainViewContainer>
-      <SideBar mode="SETTINGS" selectedView="RESTORE" selectedTag="" />
+      <SideBar mode="SETTINGS" selectedView="RESTORE" />
     </SC_MainViewContainer>
   );
 };

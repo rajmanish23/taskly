@@ -58,7 +58,7 @@ import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 type SideBarProps = {
   mode: "SETTINGS" | "NORMAL";
   selectedView: SelectedView;
-  selectedTag: string | undefined;
+  selectedTag?: string;
 };
 
 const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {

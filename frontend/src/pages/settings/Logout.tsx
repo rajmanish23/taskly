@@ -8,7 +8,7 @@ const Logout = () => {
 
   return (
     <SC_MainViewContainer>
-      <SideBar mode="SETTINGS" selectedView="LOGOUT" selectedTag="" />
+      <SideBar mode="SETTINGS" selectedView="LOGOUT" />
       <LogoutView />
     </SC_MainViewContainer>
   );
