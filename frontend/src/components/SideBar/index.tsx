@@ -52,7 +52,8 @@ import {
   UPCOMING_PAGE_URL,
 } from "../../constants";
 import { AddButton } from "../AddButton";
-import { PageContext, PageContextType } from "../../context";
+import { PageContext, PageContextType } from "../../context/PageContext";
+import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type SideBarProps = {
   mode: "SETTINGS" | "NORMAL";
@@ -67,6 +68,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   const { previousPage, setPreviousPage } = useContext(
     PageContext
   ) as PageContextType;
+  const { updateCounter } = useContext(UpdateContext) as UpdateContextType;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -148,7 +150,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
 
   useEffect(() => {
     getTags().catch((e) => console.log(e));
-  }, [getTags]);
+  }, [getTags, updateCounter]);
 
   useEffect(() => {
     if (mode !== "SETTINGS") {

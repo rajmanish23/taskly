@@ -36,8 +36,9 @@ import EditEmail from "./pages/settings/EditEmail";
 import EditName from "./pages/settings/EditName";
 import Profile from "./pages/settings/Profile";
 import Logout from "./pages/settings/Logout";
-import PageContextProvider from "./context";
+import { PageContextProvider } from "./context/PageContext";
 import RestoreDeleted from "./pages/settings/RestoreDeleted";
+import { UpdateContextProvider } from "./context/UpdateContext";
 
 function App() {
   const [isAPIAlive, setIsAPIAlive] = useState<null | boolean>(null);
@@ -80,99 +81,101 @@ function App() {
 
   return (
     <PageContextProvider>
-      <Routes>
-        <Route
-          path={TODAY_PAGE_URL}
-          element={
-            <ProtectedRoute>
-              <Today />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={UPCOMING_PAGE_URL}
-          element={
-            <ProtectedRoute>
-              <Upcoming />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={PREVIOUS_PAGE_URL}
-          element={
-            <ProtectedRoute>
-              <Previous />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={TAG_PAGE_URL_WITH_PARAM}
-          element={
-            <ProtectedRoute>
-              <TagListTask />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={SETTING_CHANGE_PASSWORD_URL}
-          element={
-            <ProtectedRoute>
-              <ChangePassword />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={SETTING_DELETE_ACCOUNT_URL}
-          element={
-            <ProtectedRoute>
-              <DeleteAccount />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={SETTING_EDIT_EMAIL_URL}
-          element={
-            <ProtectedRoute>
-              <EditEmail />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={SETTING_EDIT_NAME_URL}
-          element={
-            <ProtectedRoute>
-              <EditName />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={SETTING_LOGOUT_URL}
-          element={
-            <ProtectedRoute>
-              <Logout />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={SETTING_PROFILE_URL}
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={SETTING_RESTORE_URL}
-          element={
-            <ProtectedRoute>
-              <RestoreDeleted />
-            </ProtectedRoute>
-          }
-        />
-        <Route path={LOGIN_PAGE_URL} element={<Login />} />
-        <Route path={REGISTER_PAGE_URL} element={<Register />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <UpdateContextProvider>
+        <Routes>
+          <Route
+            path={TODAY_PAGE_URL}
+            element={
+              <ProtectedRoute>
+                <Today />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={UPCOMING_PAGE_URL}
+            element={
+              <ProtectedRoute>
+                <Upcoming />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={PREVIOUS_PAGE_URL}
+            element={
+              <ProtectedRoute>
+                <Previous />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={TAG_PAGE_URL_WITH_PARAM}
+            element={
+              <ProtectedRoute>
+                <TagListTask />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={SETTING_CHANGE_PASSWORD_URL}
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={SETTING_DELETE_ACCOUNT_URL}
+            element={
+              <ProtectedRoute>
+                <DeleteAccount />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={SETTING_EDIT_EMAIL_URL}
+            element={
+              <ProtectedRoute>
+                <EditEmail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={SETTING_EDIT_NAME_URL}
+            element={
+              <ProtectedRoute>
+                <EditName />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={SETTING_LOGOUT_URL}
+            element={
+              <ProtectedRoute>
+                <Logout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={SETTING_PROFILE_URL}
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={SETTING_RESTORE_URL}
+            element={
+              <ProtectedRoute>
+                <RestoreDeleted />
+              </ProtectedRoute>
+            }
+          />
+          <Route path={LOGIN_PAGE_URL} element={<Login />} />
+          <Route path={REGISTER_PAGE_URL} element={<Register />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </UpdateContextProvider>
     </PageContextProvider>
   );
 }

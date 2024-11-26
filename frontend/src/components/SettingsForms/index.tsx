@@ -1,4 +1,4 @@
-import { FormEvent, useState, useEffect, useCallback } from "react";
+import { FormEvent, useState, useEffect, useCallback, useContext } from "react";
 import { BarLoader } from "react-spinners";
 
 import {
@@ -23,6 +23,7 @@ import {
 } from "../../API/userAPI";
 import ErrorMessage from "../ErrorMessage";
 import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
+import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type Props = {
   mode: "EDIT_NAME" | "EDIT_EMAIL" | "EDIT_PASSWORD";
@@ -45,6 +46,8 @@ const SettingsForms = ({ mode }: Props) => {
   const [apiError, setApiError] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const { incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
 
   const getHeaderText = () => {
     switch (mode) {
@@ -123,9 +126,6 @@ const SettingsForms = ({ mode }: Props) => {
             return;
           }
           alert("Updated your name");
-          sessionStorage.clear();
-          await getUserDetails().catch((e) => console.log(e));
-          resetInputStates();
           break;
         case "EDIT_EMAIL":
           if (isEmailInvalid) {
@@ -138,9 +138,6 @@ const SettingsForms = ({ mode }: Props) => {
             return;
           }
           alert("Updated your email");
-          sessionStorage.clear();
-          await getUserDetails().catch((e) => console.log(e));
-          resetInputStates();
           break;
         case "EDIT_PASSWORD":
           if (isNewPasswordInvalid) {
@@ -154,14 +151,14 @@ const SettingsForms = ({ mode }: Props) => {
             return;
           }
           alert("Updated your password");
-          sessionStorage.clear();
-          await getUserDetails().catch((e) => console.log(e));
-          resetInputStates();
           break;
       }
     } catch (error) {
       console.error(error);
     } finally {
+      sessionStorage.clear();
+      resetInputStates();
+      incrementUpdate();
       setIsLoading(false);
     }
   };
