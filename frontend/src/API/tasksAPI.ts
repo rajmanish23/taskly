@@ -7,27 +7,23 @@ import {
 } from "../constants";
 import { isAxiosError } from "axios";
 
-const convertTaskAPIData = (data: TaskAPIData[]) => {
-  const apiTasksData: Task[] = data.map((each: TaskAPIData) => {
-    const newTag: Task = {
-      sId: each.s_id,
-      name: each.name,
-      description: each.description,
-      dueAt: new Date(each.due_at),
-      subTasks: each.sub_tasks.map((eachSubTask: SubTaskAPIData) => ({
-        dueAt:
-          eachSubTask.due_at === null ? null : new Date(eachSubTask.due_at),
-        name: eachSubTask.name,
-        sId: eachSubTask.s_id,
-      })),
-      tags: each.tags.map((eachTag: TagAPIData) => ({
-        colorHex: eachTag.color_hex,
-        name: eachTag.name,
-        sId: eachTag.s_id,
-      })),
-    };
-    return newTag;
-  });
+const convertTaskAPIData = (data: TaskAPIData) => {
+  const apiTasksData: Task = {
+    sId: data.s_id,
+    name: data.name,
+    description: data.description,
+    dueAt: new Date(data.due_at),
+    subTasks: data.sub_tasks.map((eachSubTask: SubTaskAPIData) => ({
+      dueAt: eachSubTask.due_at === null ? null : new Date(eachSubTask.due_at),
+      name: eachSubTask.name,
+      sId: eachSubTask.s_id,
+    })),
+    tags: data.tags.map((eachTag: TagAPIData) => ({
+      colorHex: eachTag.color_hex,
+      name: eachTag.name,
+      sId: eachTag.s_id,
+    })),
+  };
   return apiTasksData;
 };
 
@@ -40,7 +36,7 @@ export const getTodayTasksAPI = async (): Promise<Task[] | APIErrorMessage> => {
       TODAY_TASKS_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
     );
-    return convertTaskAPIData(data);
+    return data.map((each) => convertTaskAPIData(each));
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
@@ -63,7 +59,7 @@ export const getPreviousTasksAPI = async (): Promise<
       PREVIOUS_TASKS_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
     );
-    return convertTaskAPIData(data);
+    return data.map((each) => convertTaskAPIData(each));
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
@@ -86,7 +82,7 @@ export const getUpcomingTasksAPI = async (): Promise<
       UPCOMING_TASKS_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
     );
-    return convertTaskAPIData(data);
+    return data.map((each) => convertTaskAPIData(each));
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
@@ -107,9 +103,9 @@ const convertTagTasksAPIData = (data: TagAPIData) => {
     sId: data.s_id,
     name: data.name,
     colorHex: data.color_hex,
-    taskSet: convertTaskAPIData(data.task_set)
-  }
-  return newData
+    taskSet: data.task_set.map((each) => convertTaskAPIData(each)),
+  };
+  return newData;
 };
 
 export const getTagTasksAPI = async (
