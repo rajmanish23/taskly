@@ -2,6 +2,7 @@ import { FaCheckCircle, FaHashtag } from "react-icons/fa";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 import {
   SC_TaskCompleteButton,
@@ -20,7 +21,7 @@ import {
   SC_MoreSubTasksNumber,
 } from "./styles";
 import { isTask } from "../../utils/objectTypeCheckers";
-import { STYLE_ICON_MARGINS } from "../../constants";
+import { STYLE_ICON_MARGINS, TASK_PAGE_URL_NO_PARAM } from "../../constants";
 
 type TaskDisplayCardProps = {
   data: Task | SubTask;
@@ -52,13 +53,17 @@ const displayDate = (date: Date | null, view: SelectedView) => {
 };
 
 const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
+  const navigate = useNavigate();
+
   if (isTask(data)) {
     return (
       <SC_TaskListItemContainer>
         <SC_TaskCompleteButton>
           <FaCheckCircle />
         </SC_TaskCompleteButton>
-        <SC_DataContainer>
+        <SC_DataContainer
+          onClick={() => navigate(TASK_PAGE_URL_NO_PARAM + data.sId)}
+        >
           <SC_TaskItemHeaderContainer>
             <SC_TaskNameHeading>{data.name}</SC_TaskNameHeading>
             {displayDate(data.dueAt, mode)}
