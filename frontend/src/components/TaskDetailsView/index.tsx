@@ -12,6 +12,7 @@ import {
 } from "../../constants";
 import { getTaskDetailsAPI } from "../../API/tasksAPI";
 import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
+import ErrorMessage from "../ErrorMessage";
 
 type Props = {
   taskId?: string;
@@ -24,11 +25,12 @@ const TaskDetailsView = ({ taskId }: Props) => {
 
   const getTaskData = useCallback(async () => {
     setIsLoading(true);
-    if (taskId === undefined) throw Error("!! Need to pass task ID to this component !!")
+    if (taskId === undefined)
+      throw Error("!! Need to pass task ID to this component !!");
     try {
-      const data = await getTaskDetailsAPI(taskId)
+      const data = await getTaskDetailsAPI(taskId);
       if (isAPIErrorMessage(data)) {
-        setErrorMessage(data.detail)
+        setErrorMessage(data.detail);
       } else {
         setTaskData(data);
       }
@@ -57,8 +59,12 @@ const TaskDetailsView = ({ taskId }: Props) => {
             color={STYLE_TEXT_COLOR}
           />
         </SC_CentralNoDataContainer>
+      ) : errorMessage !== "" ? (
+        <SC_CentralNoDataContainer>
+          <ErrorMessage errorMessage={errorMessage} />
+        </SC_CentralNoDataContainer>
       ) : (
-        <>Work in progress</>
+        <></>
       )}
     </SC_BackgroundContainer>
   );
