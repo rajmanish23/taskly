@@ -2,10 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 
 import TaskDisplayCard from "../TaskDisplayCard";
-import {
-  SC_EmptyDisplayHeader,
-  SC_TaskListContainer,
-} from "./styles";
+import { SC_EmptyDisplayHeader, SC_TaskListContainer } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
@@ -23,7 +20,11 @@ import {
   isTagAPIConvertedData,
 } from "../../utils/objectTypeCheckers";
 import ViewHeader from "../ViewHeader";
-import { SC_BackgroundContainer, SC_CentralNoDataContainer } from "../commonStyles";
+import {
+  SC_BackgroundContainer,
+  SC_CentralNoDataContainer,
+} from "../commonStyles";
+import ErrorMessage from "../ErrorMessage";
 
 type TaskListViewProps = {
   mode: SelectedView;
@@ -33,6 +34,7 @@ type TaskListViewProps = {
 const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [tag, setTag] = useState<Tag>();
+  const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getTasks = useCallback(async () => {
@@ -53,7 +55,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       }
       if (isAPIErrorMessage(data)) {
         setTasks([]);
-        console.log(data.detail);
+        setErrorMessage(data.detail);
       } else if (isTagAPIConvertedData(data)) {
         setTasks(data.taskSet);
         setTag({
@@ -143,8 +145,16 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
         </SC_CentralNoDataContainer>
       ) : tasks.length === 0 ? (
         <SC_CentralNoDataContainer>
-          <SC_EmptyDisplayHeader>{getEmptyDisplayText()}</SC_EmptyDisplayHeader>
-          <AddEditButton text="Create a new Task" mode="ADD" />
+          {errorMessage !== undefined ? (
+            <ErrorMessage errorMessage={errorMessage} />
+          ) : (
+            <>
+              <SC_EmptyDisplayHeader>
+                {getEmptyDisplayText()}
+              </SC_EmptyDisplayHeader>
+              <AddEditButton text="Create a new Task" mode="ADD" />
+            </>
+          )}
         </SC_CentralNoDataContainer>
       ) : (
         <SC_TaskListContainer>
