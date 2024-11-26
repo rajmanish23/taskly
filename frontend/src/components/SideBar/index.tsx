@@ -51,7 +51,7 @@ import {
   TODAY_PAGE_URL,
   UPCOMING_PAGE_URL,
 } from "../../constants";
-import { AddButton } from "../AddButton";
+import { AddEditButton } from "../AddButton";
 import { PageContext, PageContextType } from "../../context/PageContext";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
@@ -220,7 +220,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                       <FaHashtag style={STYLE_ICON_MARGINS} /> {each.name}
                     </SC_Button>
                   ))}
-                  <AddButton text="Create a new Tag" />
+                  <AddEditButton text="Create a new Tag" mode="ADD" />
                 </SC_TagListContaier>
               )}
             </SC_OptionsContainer>

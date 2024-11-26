@@ -143,7 +143,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       ) : tasks.length === 0 ? (
         <SC_CentralNoDataContainer>
           <SC_EmptyDisplayHeader>{getEmptyDisplayText()}</SC_EmptyDisplayHeader>
-          <AddButton text="Create a new Task" />
+          <AddEditButton text="Create a new Task" mode="ADD" />
         </SC_CentralNoDataContainer>
       ) : (
         <SC_TaskListContainer>
