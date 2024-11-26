@@ -8,6 +8,4 @@ export const SC_FormContainer = styled.form`
   label {
     text-align: right;
   }
-  input {
-  }
 `;
