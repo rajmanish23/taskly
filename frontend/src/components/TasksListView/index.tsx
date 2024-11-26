@@ -11,7 +11,7 @@ import {
   BAR_LOADER_WIDTH,
   STYLE_TEXT_COLOR,
 } from "../../constants";
-import { AddButton } from "../AddButton";
+import { AddEditButton } from "../AddButton";
 import {
   getPreviousTasksAPI,
   getTagTasksAPI,
@@ -120,6 +120,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
               )
             }
             addButtonText="Create a new Task"
+            editButtonText="Edit Tag"
           />
         );
       case "PREVIOUS":
