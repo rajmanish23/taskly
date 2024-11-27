@@ -83,17 +83,17 @@ export const SC_TagsContainer = styled.div`
   align-items: center;
   border-top: 1px solid ${STYLE_BORDER_COLOR};
   width: 100%;
-  padding: 10px;
+  padding: 15px 10px 15px 10px;
   box-sizing: border-box;
   button {
-    margin: 10px 0 0 20px;
+    margin: 0 0 0 20px;
   }
 `;
 
 export const SC_SubHeading = styled.h1`
   margin: 0;
   padding: 0;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 24px;
 `;
 
@@ -105,7 +105,7 @@ export const SC_TagsListContainer = styled.ul`
   flex-direction: row;
   li {
     padding: 10px;
-    margin: 10px 0 0 10px;
+    margin: 0 0 0 10px;
     border-radius: 10px;
   }
 `;
@@ -118,6 +118,7 @@ export const SC_SubTaskContainer = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 export const SC_SubTaskHeadingContainer = styled.div`

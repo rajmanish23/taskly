@@ -10,6 +10,7 @@ import {
   SC_BackgroundContainer,
   SC_CentralNoDataContainer,
   SC_DateContainer,
+  SC_EmptyDisplayHeader,
   SC_LeftAlignedViewBackgroundContainer,
   SC_TagItemContainer,
 } from "../commonStyles";
@@ -166,11 +167,23 @@ const TaskDetailsView = ({ taskId }: Props) => {
               <SC_SubHeading>Sub Tasks</SC_SubHeading>
               <AddEditButton mode="ADD" text="Create a Sub task" />
             </SC_SubTaskHeadingContainer>
-            <SC_SubTasksListContainer>
-              {taskData?.subTasks.map((each) => (
-                <TaskDisplayCard data={each} mode="TASK" />
-              ))}
-            </SC_SubTasksListContainer>
+            {taskData?.subTasks.length !== 0 ? (
+              <SC_SubTasksListContainer>
+                {taskData?.subTasks.map((each) => (
+                  <TaskDisplayCard data={each} mode="TASK" />
+                ))}
+              </SC_SubTasksListContainer>
+            ) : (
+              <SC_CentralNoDataContainer>
+                <>
+                  <SC_EmptyDisplayHeader>
+                    Create a sub task to divide your task and be more
+                    productive!
+                  </SC_EmptyDisplayHeader>
+                  <AddEditButton text="Create a Sub Task" mode="ADD" />
+                </>
+              </SC_CentralNoDataContainer>
+            )}
           </SC_SubTaskContainer>
         </SC_LeftAlignedViewBackgroundContainer>
       )}
