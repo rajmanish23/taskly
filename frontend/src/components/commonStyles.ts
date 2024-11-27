@@ -25,6 +25,7 @@ export const SC_LeftAlignedViewBackgroundContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
+  height: 100%;
   overflow: auto;
 `;
 
@@ -64,6 +65,12 @@ export const SC_FormSubmitButton = styled.button`
 export const SC_SettingsViewPara = styled.p`
   width: 580px;
   margin: 0 0 20px 0;
+`;
+
+export const SC_EmptyDisplayHeader = styled.h1`
+  font-family: "Caveat", cursive;
+  font-size: 40px;
+  font-weight: normal;
 `;
 
 export const SC_TagItemContainer = styled.li<{ $color: string }>`

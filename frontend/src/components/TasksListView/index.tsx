@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 
 import TaskDisplayCard from "../TaskDisplayCard";
-import { SC_EmptyDisplayHeader, SC_TaskListContainer } from "./styles";
+import { SC_TaskListContainer } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
@@ -23,6 +23,7 @@ import ViewHeader from "../ViewHeader";
 import {
   SC_BackgroundContainer,
   SC_CentralNoDataContainer,
+  SC_EmptyDisplayHeader,
 } from "../commonStyles";
 import ErrorMessage from "../ErrorMessage";
 
