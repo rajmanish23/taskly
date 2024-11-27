@@ -10,7 +10,6 @@ import {
   SC_DataContainer,
   SC_TaskItemHeaderContainer,
   SC_BaseParagraph,
-  SC_DateContainer,
   SC_TagListContainer,
   SC_TagItemContainer,
   SC_DescriptionPara,
@@ -22,6 +21,7 @@ import {
 } from "./styles";
 import { isTask } from "../../utils/objectTypeCheckers";
 import { STYLE_ICON_MARGINS, TASK_PAGE_URL_NO_PARAM } from "../../constants";
+import { SC_DateContainer } from "../commonStyles";
 
 type TaskDisplayCardProps = {
   data: Task | SubTask;

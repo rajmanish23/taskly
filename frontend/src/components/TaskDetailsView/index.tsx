@@ -8,6 +8,7 @@ import { MdDelete } from "react-icons/md";
 import {
   SC_BackgroundContainer,
   SC_CentralNoDataContainer,
+  SC_DateContainer,
   SC_LeftAlignedViewBackgroundContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DEVICE_WIDTH, STYLE_ACTIVE_BUTTON_HOVER_HIGHLIGHT_COLOR, STYLE_TEXT_COLOR, STYLE_TRANSITION_TIME } from "../constants";
+import { DEVICE_WIDTH, STYLE_ACTIVE_BUTTON_HOVER_HIGHLIGHT_COLOR, STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR, STYLE_TEXT_COLOR, STYLE_TRANSITION_TIME } from "../constants";
 
 export const SC_BackgroundContainer = styled.div`
   flex-grow: 1;
@@ -63,4 +63,23 @@ export const SC_FormSubmitButton = styled.button`
 export const SC_SettingsViewPara = styled.p`
   width: 580px;
   margin: 0 0 20px 0;
+`;
+
+export const SC_DateContainer = styled.div<{
+  $isOverDue: boolean;
+  $isNull: boolean;
+}>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: ${(props) =>
+    props.$isOverDue
+      ? "#a04747"
+      : props.$isNull
+      ? STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR
+      : "#d8a25e"};
+  color: ${(props) =>
+    props.$isOverDue ? "white" : props.$isNull ? "white" : "black"};
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
 `;
