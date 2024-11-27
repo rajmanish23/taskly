@@ -60,7 +60,7 @@ export const SC_DescriptionPara = styled.p`
   padding: 10px;
   width: 100%;
   box-sizing: border-box;
-  margin: 20px 0 20px 0;
+  margin: 20px 0 0 0;
   font-size: 18px;
   color: #d8d8d8;
 `;
@@ -70,8 +70,35 @@ export const SC_DescriptionParaSpan = styled.span`
   color: white;
 `;
 
-export const SC_TagsContainer = styled.div``;
+export const SC_TagsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-top: 1px solid ${STYLE_BORDER_COLOR};
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  button {
+    margin: 10px 0 0 20px;
+  }
+`;
 
-export const SC_TagsHeading = styled.h1``;
+export const SC_TagsHeading = styled.h1`
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 24px;
+`;
 
-export const SC_TagsListContainer = styled.ul``;
+export const SC_TagsListContainer = styled.ul`
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  li {
+    padding: 10px;
+    margin: 10px 0 0 10px;
+    border-radius: 10px;
+  }
+`;
