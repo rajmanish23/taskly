@@ -54,6 +54,7 @@ import {
 import { AddEditButton } from "../AddEditButton";
 import { PageContext, PageContextType } from "../../context/PageContext";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
+import isColorDark from "../../utils/isColorDark";
 
 type SideBarProps = {
   mode: "SETTINGS" | "NORMAL";
@@ -181,6 +182,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="View Today"
                 onClick={() => navigateToViewsPage("TODAY")}
                 $isActive={getSelectedNormalView() === "TODAY"}
+                $isColorDark={true}
               >
                 <MdToday style={STYLE_ICON_MARGINS} /> Today
               </SC_Button>
@@ -188,6 +190,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="View Upcoming"
                 onClick={() => navigateToViewsPage("UPCOMING")}
                 $isActive={getSelectedNormalView() === "UPCOMING"}
+                $isColorDark={true}
               >
                 <MdUpcoming style={STYLE_ICON_MARGINS} /> Upcoming
               </SC_Button>
@@ -195,6 +198,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="View Previous"
                 onClick={() => navigateToViewsPage("PREVIOUS")}
                 $isActive={getSelectedNormalView() === "PREVIOUS"}
+                $isColorDark={true}
               >
                 <PiRewindFill style={STYLE_ICON_MARGINS} /> Previous
               </SC_Button>
@@ -216,6 +220,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                       onClick={() => navigateToViewsPage("TAG", each.sId)}
                       $isActive={each.sId === getSelectedTagId()}
                       $color={each.colorHex}
+                      $isColorDark={isColorDark(each.colorHex)}
                     >
                       <FaHashtag style={STYLE_ICON_MARGINS} /> {each.name}
                     </SC_Button>
@@ -232,6 +237,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="Back button"
                 onClick={() => navigate(previousPage)}
                 $isActive={false}
+                $isColorDark={true}
               >
                 <IoCaretBackCircle style={STYLE_ICON_MARGINS} />
                 Back
@@ -243,6 +249,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="View profile"
                 onClick={() => navigateToViewsPage("PROFILE")}
                 $isActive={getSelectedSettingsView() === "PROFILE"}
+                $isColorDark={true}
               >
                 <FaUserCircle style={STYLE_ICON_MARGINS} />
                 View Profile
@@ -251,6 +258,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="Logout"
                 onClick={() => navigateToViewsPage("LOGOUT")}
                 $isActive={getSelectedSettingsView() === "LOGOUT"}
+                $isColorDark={true}
               >
                 <RiLogoutBoxRFill style={STYLE_ICON_MARGINS} />
                 Logout
@@ -259,6 +267,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="Restore Deleted Tasks"
                 onClick={() => navigateToViewsPage("RESTORE")}
                 $isActive={getSelectedSettingsView() === "RESTORE"}
+                $isColorDark={true}
               >
                 <FaTrashRestoreAlt style={STYLE_ICON_MARGINS} />
                 Restore
@@ -267,6 +276,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="Edit Name"
                 onClick={() => navigateToViewsPage("NAME_EDIT")}
                 $isActive={getSelectedSettingsView() === "NAME_EDIT"}
+                $isColorDark={true}
               >
                 <FaUserEdit style={STYLE_ICON_MARGINS} />
                 Edit Name
@@ -275,6 +285,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="Edit Email"
                 onClick={() => navigateToViewsPage("EMAIL_EDIT")}
                 $isActive={getSelectedSettingsView() === "EMAIL_EDIT"}
+                $isColorDark={true}
               >
                 <MdEmail style={STYLE_ICON_MARGINS} />
                 Edit Email
@@ -283,6 +294,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="Change Password"
                 onClick={() => navigateToViewsPage("PASS_EDIT")}
                 $isActive={getSelectedSettingsView() === "PASS_EDIT"}
+                $isColorDark={true}
               >
                 <PiPasswordFill style={STYLE_ICON_MARGINS} />
                 Change Password
@@ -291,6 +303,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 title="Delete Account"
                 onClick={() => navigateToViewsPage("DEL_ACC")}
                 $isActive={getSelectedSettingsView() === "DEL_ACC"}
+                $isColorDark={true}
               >
                 <MdDelete style={STYLE_ICON_MARGINS} />
                 Delete Account

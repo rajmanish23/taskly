@@ -59,7 +59,7 @@ export const SC_OptionsContainer = styled.div<{ $isTagContainer: boolean }>`
   display: flex;
   flex-direction: column;
   padding: 15px 15px 0 15px;
-  overflow : ${(props) => (props.$isTagContainer ? "auto" : "initial")};
+  overflow: ${(props) => (props.$isTagContainer ? "auto" : "initial")};
 `;
 
 export const SC_TagListContaier = styled.div`
@@ -77,7 +77,11 @@ export const SC_OptionsHeader = styled.p`
   font-size: 20px;
 `;
 
-export const SC_Button = styled.button<{ $isActive: boolean; $color?: string }>`
+export const SC_Button = styled.button<{
+  $isActive: boolean;
+  $color?: string;
+  $isColorDark: boolean;
+}>`
   &:hover {
     background-color: ${(props) =>
       !props.$isActive
@@ -99,7 +103,8 @@ export const SC_Button = styled.button<{ $isActive: boolean; $color?: string }>`
       : props.$color !== undefined
       ? props.$color
       : STYLE_BUTTON_HIGHLIGHT_COLOR};
-  color: white;
+  color: ${(props) =>
+    !props.$isActive ? "white" : props.$isColorDark ? "white" : "black"};
   transition: background-color ${STYLE_TRANSITION_TIME},
     border ${STYLE_TRANSITION_TIME};
   cursor: pointer;
@@ -144,7 +149,6 @@ export const SC_ProfileContainer = styled.div<{ $isActive: boolean }>`
     props.$isActive ? STYLE_BUTTON_HIGHLIGHT_COLOR : "transparent"};
   transition: background-color ${STYLE_TRANSITION_TIME};
   cursor: pointer;
-
 `;
 
 export const SC_ProfileImage = styled.img`
