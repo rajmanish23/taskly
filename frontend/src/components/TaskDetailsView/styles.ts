@@ -107,6 +107,11 @@ export const SC_TagsListContainer = styled.ul`
     padding: 10px;
     margin: 0 0 0 10px;
     border-radius: 10px;
+    cursor: pointer;
+    transition: filter ${STYLE_TRANSITION_TIME};
+  }
+  li:hover {
+    filter: brightness(125%);
   }
 `;
 

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaHashtag } from "react-icons/fa";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { PiWarningCircleFill } from "react-icons/pi";
@@ -20,6 +21,7 @@ import {
   BAR_LOADER_WIDTH,
   STYLE_ICON_MARGINS,
   STYLE_TEXT_COLOR,
+  TAG_PAGE_URL_NO_PARAM,
 } from "../../constants";
 import { getTaskDetailsAPI } from "../../API/tasksAPI";
 import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
@@ -86,6 +88,8 @@ const TaskDetailsView = ({ taskId }: Props) => {
   const [taskData, setTaskData] = useState<Task>();
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   const getTaskData = useCallback(async () => {
     setIsLoading(true);
@@ -162,6 +166,9 @@ const TaskDetailsView = ({ taskId }: Props) => {
                   key={each.sId}
                   $color={each.colorHex}
                   $isColorDark={isColorDark(each.colorHex)}
+                  onClick={() => {
+                    navigate(TAG_PAGE_URL_NO_PARAM + each.sId);
+                  }}
                 >
                   <FaHashtag style={STYLE_ICON_MARGINS} />
                   {each.name}
