@@ -29,7 +29,7 @@ export const SC_TaskCompleteButton = styled.button`
   align-items: center;
 `;
 
-export const SC_DataContainer = styled.div`
+export const SC_DataContainer = styled.div<{$isClickable: boolean}>`
   &:hover {
     background-color: #363333;
   }
@@ -39,6 +39,7 @@ export const SC_DataContainer = styled.div`
   padding: 20px;
   width: 100%;
   font-size: 18px;
+  cursor: ${({$isClickable}) => $isClickable ? "pointer" : "default"};
 `;
 
 export const SC_TaskItemHeaderContainer = styled.div`

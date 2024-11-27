@@ -62,6 +62,7 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
         </SC_TaskCompleteButton>
         <SC_DataContainer
           onClick={() => navigate(TASK_PAGE_URL_NO_PARAM + data.sId)}
+          $isClickable={true}
         >
           <SC_TaskItemHeaderContainer>
             <SC_TaskNameHeading>{data.name}</SC_TaskNameHeading>
@@ -124,9 +125,7 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
         <SC_TaskCompleteButton>
           <FaCheckCircle />
         </SC_TaskCompleteButton>
-        <SC_DataContainer
-          onClick={() => navigate(TASK_PAGE_URL_NO_PARAM + data.sId)}
-        >
+        <SC_DataContainer $isClickable={false}>
           <SC_TaskItemHeaderContainer>
             <SC_TaskNameHeading>{data.name}</SC_TaskNameHeading>
             {displayDate(data.dueAt, mode)}
