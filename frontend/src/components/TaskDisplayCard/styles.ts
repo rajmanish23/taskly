@@ -69,17 +69,6 @@ export const SC_TagListContainer = styled.ul`
   border-top: 1px solid ${STYLE_BORDER_COLOR};
 `;
 
-export const SC_TagItemContainer = styled.li<{ $color: string }>`
-  background-color: ${(props) => props.$color};
-  padding: 5px 10px 5px 10px;
-  border-radius: 7px;
-  margin: 10px 10px 5px 0;
-  font-size: 16px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
 export const SC_DescriptionPara = styled(SC_BaseParagraph)`
   border-top: 1px solid ${STYLE_BORDER_COLOR};
   margin: 5px 0 0 0;

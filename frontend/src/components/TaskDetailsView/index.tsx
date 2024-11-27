@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaHashtag } from "react-icons/fa";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { MdAccessTimeFilled } from "react-icons/md";
@@ -11,6 +11,7 @@ import {
   SC_CentralNoDataContainer,
   SC_DateContainer,
   SC_LeftAlignedViewBackgroundContainer,
+  SC_TagItemContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import {
@@ -145,7 +146,10 @@ const TaskDetailsView = ({ taskId }: Props) => {
             <SC_TagsHeading>Tags:</SC_TagsHeading>
             <SC_TagsListContainer>
               {taskData?.tags.map((each) => (
-                <li key={each.sId}>{each.name}</li>
+                <SC_TagItemContainer key={each.sId} $color={each.colorHex}>
+                  <FaHashtag style={STYLE_ICON_MARGINS} />
+                  {each.name}
+                </SC_TagItemContainer>
               ))}
             </SC_TagsListContainer>
             <AddEditButton mode="ADD" text="Add a tag" />

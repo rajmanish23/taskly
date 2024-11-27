@@ -65,6 +65,17 @@ export const SC_SettingsViewPara = styled.p`
   margin: 0 0 20px 0;
 `;
 
+export const SC_TagItemContainer = styled.li<{ $color: string }>`
+  background-color: ${(props) => props.$color};
+  padding: 5px 10px 5px 10px;
+  border-radius: 7px;
+  margin: 10px 10px 5px 0;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const SC_DateContainer = styled.div<{
   $isOverDue: boolean;
   $isNull: boolean;
