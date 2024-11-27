@@ -25,6 +25,7 @@ export const SC_LeftAlignedViewBackgroundContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
+  overflow: auto;
 `;
 
 export const SC_FlexRowStartContainer = styled.div`
