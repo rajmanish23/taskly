@@ -42,6 +42,10 @@ import {
   SC_TaskNameHeading,
   SC_TopTextContainer,
   SC_SubTasksListContainer,
+  SC_DeleteTooltip,
+  SC_PopupText,
+  SC_PopupButtonContainer,
+  SC_PopupButton,
 } from "./styles";
 import { AddEditButton } from "../AddEditButton";
 import TaskDisplayCard from "../TaskDisplayCard";
@@ -144,9 +148,23 @@ const TaskDetailsView = ({ taskId }: Props) => {
               </SC_Button>
               <SC_TaskNameHeading>{taskData?.name}</SC_TaskNameHeading>
             </SC_TopTextContainer>
-            <SC_DeleteButton>
-              <MdDelete />
-            </SC_DeleteButton>
+            <SC_DeleteTooltip
+              trigger={
+                <SC_DeleteButton>
+                  <MdDelete />
+                </SC_DeleteButton>
+              }
+              position="left top"
+            >
+              <SC_PopupText>Are you sure you want to delete this?</SC_PopupText>
+              <SC_PopupButtonContainer>
+                <SC_PopupButton $isRed={true}>
+                  <MdDelete style={STYLE_ICON_MARGINS} />
+                  Yes
+                </SC_PopupButton>
+                <SC_PopupButton $isRed={false}>No</SC_PopupButton>
+              </SC_PopupButtonContainer>
+            </SC_DeleteTooltip>
           </SC_HeadContainer>
 
           <SC_DateAlignmentContainer>

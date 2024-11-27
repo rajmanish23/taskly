@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import Popup from "reactjs-popup";
 import {
   STYLE_BORDER_COLOR,
+  STYLE_CARD_BACKGROUND_COLOR,
   STYLE_TRANSITION_TIME,
 } from "../../constants";
-
 
 export const SC_BaseParagraph = styled.p`
   margin: 0;
@@ -32,7 +33,8 @@ export const SC_TaskNameHeading = styled.h1`
 
 export const SC_Button = styled.button`
   &:hover {
-    border: 3px solid #48d989;
+    border: 3px solid #54ffb7;
+    filter: brightness(110%);
   }
   padding: 8px 16px 8px 16px;
   font-size: 16px;
@@ -45,7 +47,7 @@ export const SC_Button = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  transition: border ${STYLE_TRANSITION_TIME};
+  transition: border ${STYLE_TRANSITION_TIME}, filter ${STYLE_TRANSITION_TIME};
 `;
 
 export const SC_DeleteButton = styled(SC_Button)`
@@ -143,4 +145,46 @@ export const SC_SubTasksListContainer = styled.ul`
   align-items: center;
   overflow: auto;
   margin: 0;
+`;
+
+export const SC_DeleteTooltip = styled(Popup)`
+  &-content {
+    background-color: ${STYLE_CARD_BACKGROUND_COLOR};
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid ${STYLE_BORDER_COLOR};
+    font-size: 18px;
+  }
+  &-arrow {
+    color: ${STYLE_CARD_BACKGROUND_COLOR};
+    stroke-width: 2px;
+    stroke: ${STYLE_BORDER_COLOR};
+    stroke-dasharray: 30px;
+    stroke-dashoffset: -54px;
+  }
+`;
+
+export const SC_PopupText = styled.p`
+  margin: 0;
+  padding: 0;
+`;
+
+export const SC_PopupButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7px;
+`;
+
+export const SC_PopupButton = styled(SC_Button)<{ $isRed: boolean }>`
+  &:hover {
+    background-color: ${({ $isRed }) => ($isRed ? "#b20000" : "#5d3d3d")};
+    border: 3px solid ${({ $isRed }) => ($isRed ? "#fe0000" : "#ab5f5f")};
+  }
+  color: white;
+  background-color: ${({ $isRed }) => ($isRed ? "#b20000" : "#5d3d3d")};
+  padding: 5px 8px 5px 8px;
+  margin: 0 5px 0 5px;
 `;
