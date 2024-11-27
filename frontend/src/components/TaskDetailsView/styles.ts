@@ -16,6 +16,8 @@ export const SC_HeadContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   margin-bottom: 20px;
+  padding: 0 10px 0 10px;
+  box-sizing: border-box;
 `;
 
 export const SC_TopTextContainer = styled.div`
@@ -55,6 +57,11 @@ export const SC_DeleteButton = styled(SC_Button)`
   background-color: #b20000;
 `;
 
+export const SC_DateAlignmentContainer = styled.div`
+  padding-left: 10px;
+  box-sizing: border-box;
+`;
+
 export const SC_DescriptionPara = styled.p`
   border-top: 1px solid ${STYLE_BORDER_COLOR};
   padding: 10px;
@@ -83,7 +90,7 @@ export const SC_TagsContainer = styled.div`
   }
 `;
 
-export const SC_TagsHeading = styled.h1`
+export const SC_SubHeading = styled.h1`
   margin: 0;
   padding: 0;
   font-weight: 500;
@@ -101,4 +108,33 @@ export const SC_TagsListContainer = styled.ul`
     margin: 10px 0 0 10px;
     border-radius: 10px;
   }
+`;
+
+export const SC_SubTaskContainer = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid ${STYLE_BORDER_COLOR};
+  padding: 10px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SC_SubTaskHeadingContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 15px;
+`;
+
+export const SC_SubTasksListContainer = styled.ul`
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  margin: 0;
 `;

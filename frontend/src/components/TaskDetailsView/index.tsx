@@ -26,15 +26,19 @@ import ErrorMessage from "../ErrorMessage";
 import {
   SC_BaseParagraph,
   SC_Button,
+  SC_DateAlignmentContainer,
   SC_DeleteButton,
   SC_DescriptionPara,
   SC_DescriptionParaSpan,
   SC_HeadContainer,
+  SC_SubTaskContainer,
+  SC_SubTaskHeadingContainer,
   SC_TagsContainer,
-  SC_TagsHeading,
+  SC_SubHeading,
   SC_TagsListContainer,
   SC_TaskNameHeading,
   SC_TopTextContainer,
+  SC_SubTasksListContainer,
 } from "./styles";
 import { AddEditButton } from "../AddEditButton";
 import TaskDisplayCard from "../TaskDisplayCard";
@@ -135,7 +139,9 @@ const TaskDetailsView = ({ taskId }: Props) => {
             </SC_DeleteButton>
           </SC_HeadContainer>
 
-          {displayDate(taskData?.dueAt)}
+          <SC_DateAlignmentContainer>
+            {displayDate(taskData?.dueAt)}
+          </SC_DateAlignmentContainer>
 
           <SC_DescriptionPara>
             <SC_DescriptionParaSpan>Description: </SC_DescriptionParaSpan>
@@ -143,7 +149,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
           </SC_DescriptionPara>
 
           <SC_TagsContainer>
-            <SC_TagsHeading>Tags:</SC_TagsHeading>
+            <SC_SubHeading>Tags:</SC_SubHeading>
             <SC_TagsListContainer>
               {taskData?.tags.map((each) => (
                 <SC_TagItemContainer key={each.sId} $color={each.colorHex}>
@@ -155,17 +161,17 @@ const TaskDetailsView = ({ taskId }: Props) => {
             <AddEditButton mode="ADD" text="Add a tag" />
           </SC_TagsContainer>
 
-          <div>
-            <div>
-              <h1>Sub Tasks</h1>
+          <SC_SubTaskContainer>
+            <SC_SubTaskHeadingContainer>
+              <SC_SubHeading>Sub Tasks</SC_SubHeading>
               <AddEditButton mode="ADD" text="Create a Sub task" />
-            </div>
-            <ul>
+            </SC_SubTaskHeadingContainer>
+            <SC_SubTasksListContainer>
               {taskData?.subTasks.map((each) => (
                 <TaskDisplayCard data={each} mode="TASK" />
               ))}
-            </ul>
-          </div>
+            </SC_SubTasksListContainer>
+          </SC_SubTaskContainer>
         </SC_LeftAlignedViewBackgroundContainer>
       )}
     </SC_BackgroundContainer>
