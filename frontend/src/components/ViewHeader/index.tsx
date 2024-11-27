@@ -1,4 +1,9 @@
+import { IoArrowBackSharp } from "react-icons/io5";
+import { ReactNode, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
+  SC_BackButton,
   SC_ButtonContainer,
   SC_HeaderContainer,
   SC_HeaderTextContainer,
@@ -6,13 +11,14 @@ import {
   SC_TopHeader2,
 } from "./styles";
 import { AddEditButton } from "../AddEditButton";
-import { ReactNode } from "react";
+import { PageContext, PageContextType } from "../../context/PageContext";
 
 type Props = {
   h1Text: string | ReactNode;
   h2Text?: string | ReactNode;
   addButtonText?: string;
   editButtonText?: string;
+  hasBackButton?: boolean;
 };
 
 const ViewHeader = ({
@@ -20,10 +26,22 @@ const ViewHeader = ({
   h2Text,
   addButtonText,
   editButtonText,
+  hasBackButton,
 }: Props) => {
+  const { previousPage } = useContext(
+    PageContext
+  ) as PageContextType;
+  const navigate = useNavigate();
   return (
     <SC_HeaderContainer>
       <SC_HeaderTextContainer>
+        {hasBackButton ? (
+          <SC_BackButton onClick={() => navigate(previousPage)}>
+            <IoArrowBackSharp />
+          </SC_BackButton>
+        ) : (
+          <></>
+        )}
         <SC_TopHeader1>{h1Text}</SC_TopHeader1>
         {h2Text === undefined ? <></> : <SC_TopHeader2>{h2Text}</SC_TopHeader2>}
       </SC_HeaderTextContainer>

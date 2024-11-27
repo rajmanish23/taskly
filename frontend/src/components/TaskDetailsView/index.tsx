@@ -113,7 +113,11 @@ const TaskDetailsView = ({ taskId }: Props) => {
 
   return (
     <SC_BackgroundContainer>
-      <ViewHeader h1Text="Viewing Task" editButtonText="Edit Task" />
+      <ViewHeader
+        h1Text="Viewing Task"
+        editButtonText="Edit Task"
+        hasBackButton
+      />
       {isLoading ? (
         <SC_CentralNoDataContainer>
           <BarLoader
