@@ -4,6 +4,7 @@ import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { BarLoader } from "react-spinners";
 
 import {
   SC_BackgroundContainer,
@@ -12,7 +13,6 @@ import {
   SC_LeftAlignedViewBackgroundContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
-import { BarLoader } from "react-spinners";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
@@ -22,7 +22,19 @@ import {
 import { getTaskDetailsAPI } from "../../API/tasksAPI";
 import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
 import ErrorMessage from "../ErrorMessage";
-import { SC_BaseParagraph, SC_DateContainer } from "./styles";
+import {
+  SC_BaseParagraph,
+  SC_Button,
+  SC_DeleteButton,
+  SC_DescriptionPara,
+  SC_DescriptionParaSpan,
+  SC_HeadContainer,
+  SC_TagsContainer,
+  SC_TagsHeading,
+  SC_TagsListContainer,
+  SC_TaskNameHeading,
+  SC_TopTextContainer,
+} from "./styles";
 import { AddEditButton } from "../AddEditButton";
 import TaskDisplayCard from "../TaskDisplayCard";
 
@@ -110,31 +122,34 @@ const TaskDetailsView = ({ taskId }: Props) => {
         </SC_CentralNoDataContainer>
       ) : (
         <SC_LeftAlignedViewBackgroundContainer>
-          <div>
-            <div>
-              <button>
+          <SC_HeadContainer>
+            <SC_TopTextContainer>
+              <SC_Button>
                 <FaCheckCircle />
-              </button>
-              <h1>{taskData?.name}</h1>
-            </div>
-            <button>
+              </SC_Button>
+              <SC_TaskNameHeading>{taskData?.name}</SC_TaskNameHeading>
+            </SC_TopTextContainer>
+            <SC_DeleteButton>
               <MdDelete />
-            </button>
-          </div>
+            </SC_DeleteButton>
+          </SC_HeadContainer>
 
-          <div>{displayDate(taskData?.dueAt)}</div>
+          {displayDate(taskData?.dueAt)}
 
-          <p>{taskData?.description}</p>
+          <SC_DescriptionPara>
+            <SC_DescriptionParaSpan>Description: </SC_DescriptionParaSpan>
+            {taskData?.description}
+          </SC_DescriptionPara>
 
-          <div>
-            <h1>Tags:</h1>
-            <ul>
+          <SC_TagsContainer>
+            <SC_TagsHeading>Tags:</SC_TagsHeading>
+            <SC_TagsListContainer>
               {taskData?.tags.map((each) => (
                 <li key={each.sId}>{each.name}</li>
               ))}
-            </ul>
+            </SC_TagsListContainer>
             <AddEditButton mode="ADD" text="Add a tag" />
-          </div>
+          </SC_TagsContainer>
 
           <div>
             <div>
