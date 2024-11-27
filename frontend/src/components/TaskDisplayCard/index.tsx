@@ -21,6 +21,7 @@ import {
 import { isTask } from "../../utils/objectTypeCheckers";
 import { STYLE_ICON_MARGINS, TASK_PAGE_URL_NO_PARAM } from "../../constants";
 import { SC_DateContainer, SC_TagItemContainer } from "../commonStyles";
+import isColorDark from "../../utils/isColorDark";
 
 type TaskDisplayCardProps = {
   data: Task | SubTask;
@@ -72,7 +73,11 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
           {data.tags.length !== 0 ? (
             <SC_TagListContainer>
               {data.tags.map((each) => (
-                <SC_TagItemContainer key={each.sId} $color={each.colorHex}>
+                <SC_TagItemContainer
+                  key={each.sId}
+                  $color={each.colorHex}
+                  $isColorDark={isColorDark(each.colorHex)}
+                >
                   <FaHashtag style={STYLE_ICON_MARGINS} />
                   {each.name}
                 </SC_TagItemContainer>

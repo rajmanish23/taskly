@@ -43,6 +43,7 @@ import {
 } from "./styles";
 import { AddEditButton } from "../AddEditButton";
 import TaskDisplayCard from "../TaskDisplayCard";
+import isColorDark from "../../utils/isColorDark";
 
 type Props = {
   taskId?: string;
@@ -157,7 +158,11 @@ const TaskDetailsView = ({ taskId }: Props) => {
             <SC_SubHeading>Tags:</SC_SubHeading>
             <SC_TagsListContainer>
               {taskData?.tags.map((each) => (
-                <SC_TagItemContainer key={each.sId} $color={each.colorHex}>
+                <SC_TagItemContainer
+                  key={each.sId}
+                  $color={each.colorHex}
+                  $isColorDark={isColorDark(each.colorHex)}
+                >
                   <FaHashtag style={STYLE_ICON_MARGINS} />
                   {each.name}
                 </SC_TagItemContainer>
