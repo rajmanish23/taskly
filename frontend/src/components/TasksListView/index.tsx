@@ -8,7 +8,7 @@ import {
   BAR_LOADER_WIDTH,
   STYLE_TEXT_COLOR,
 } from "../../constants";
-import { AddEditButton } from "../AddEditButton";
+import { AddEditModalPopup } from "../AddEditModalPopup";
 import {
   getPreviousTasksAPI,
   getTagTasksAPI,
@@ -153,7 +153,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
               <SC_EmptyDisplayHeader>
                 {getEmptyDisplayText()}
               </SC_EmptyDisplayHeader>
-              <AddEditButton text="Create a new Task" mode="ADD" />
+              <AddEditModalPopup text="Create a new Task" mode="ADD" />
             </>
           )}
         </SC_CentralNoDataContainer>

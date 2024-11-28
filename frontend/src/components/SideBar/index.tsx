@@ -51,7 +51,7 @@ import {
   TODAY_PAGE_URL,
   UPCOMING_PAGE_URL,
 } from "../../constants";
-import { AddEditButton } from "../AddEditButton";
+import { AddEditModalPopup } from "../AddEditModalPopup";
 import { PageContext, PageContextType } from "../../context/PageContext";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 import isColorDark from "../../utils/isColorDark";
@@ -225,7 +225,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                       <FaHashtag style={STYLE_ICON_MARGINS} /> {each.name}
                     </SC_Button>
                   ))}
-                  <AddEditButton text="Create a new Tag" mode="ADD" />
+                  <AddEditModalPopup text="Create a new Tag" mode="ADD" />
                 </SC_TagListContaier>
               )}
             </SC_OptionsContainer>

@@ -10,7 +10,7 @@ import {
   SC_TopHeader1,
   SC_TopHeader2,
 } from "./styles";
-import { AddEditButton } from "../AddEditButton";
+import { AddEditModalPopup } from "../AddEditModalPopup";
 import { PageContext, PageContextType } from "../../context/PageContext";
 
 type Props = {
@@ -49,12 +49,12 @@ const ViewHeader = ({
         {addButtonText === undefined ? (
           <></>
         ) : (
-          <AddEditButton text={addButtonText} mode="ADD" />
+          <AddEditModalPopup text={addButtonText} mode="ADD" />
         )}
         {editButtonText === undefined ? (
           <></>
         ) : (
-          <AddEditButton text={editButtonText} mode="EDIT" />
+          <AddEditModalPopup text={editButtonText} mode="EDIT" />
         )}
       </SC_ButtonContainer>
     </SC_HeaderContainer>

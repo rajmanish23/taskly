@@ -9,7 +9,7 @@ type AddButtonProp = {
   onClick?: () => void
 };
 
-export const AddEditButton = ({ text, mode, onClick }: AddButtonProp) => {
+export const AddEditModalPopup = ({ text, mode, onClick }: AddButtonProp) => {
   return (
     <SC_AddTagButton title={text} onClick={onClick}>
       {mode === "ADD" ? (

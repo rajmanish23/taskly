@@ -43,7 +43,7 @@ import {
   SC_TopTextContainer,
   SC_SubTasksListContainer,
 } from "./styles";
-import { AddEditButton } from "../AddEditButton";
+import { AddEditModalPopup } from "../AddEditModalPopup";
 import TaskDisplayCard from "../TaskDisplayCard";
 import isColorDark from "../../utils/isColorDark";
 
@@ -175,13 +175,13 @@ const TaskDetailsView = ({ taskId }: Props) => {
                 </SC_TagItemContainer>
               ))}
             </SC_TagsListContainer>
-            <AddEditButton mode="ADD" text="Add a tag" />
+            <AddEditModalPopup mode="ADD" text="Add a tag" />
           </SC_TagsContainer>
 
           <SC_SubTaskContainer>
             <SC_SubTaskHeadingContainer>
               <SC_SubHeading>Sub Tasks</SC_SubHeading>
-              <AddEditButton mode="ADD" text="Create a Sub task" />
+              <AddEditModalPopup mode="ADD" text="Create a Sub task" />
             </SC_SubTaskHeadingContainer>
             {taskData?.subTasks.length !== 0 ? (
               <SC_SubTasksListContainer>
@@ -196,7 +196,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                     Create a sub task to divide your task and be more
                     productive!
                   </SC_EmptyDisplayHeader>
-                  <AddEditButton text="Create a Sub Task" mode="ADD" />
+                  <AddEditModalPopup text="Create a Sub Task" mode="ADD" />
                 </>
               </SC_CentralNoDataContainer>
             )}
