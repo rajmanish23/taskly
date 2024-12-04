@@ -86,7 +86,9 @@ const displayDate = (date: Date | undefined) => {
 
 const TaskDetailsView = ({ taskId }: Props) => {
   const [taskData, setTaskData] = useState<Task>();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(
+    "Could not load data of this Task"
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -121,6 +123,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
       <ViewHeader
         h1Text="Viewing Task"
         editButtonText="Edit Task"
+        editWhat="TASK"
         hasBackButton
       />
       {isLoading ? (
@@ -131,7 +134,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
             color={STYLE_TEXT_COLOR}
           />
         </SC_CentralNoDataContainer>
-      ) : errorMessage !== "" ? (
+      ) : taskData === undefined ? (
         <SC_CentralNoDataContainer>
           <ErrorMessage errorMessage={errorMessage} />
         </SC_CentralNoDataContainer>
@@ -142,7 +145,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
               <SC_Button>
                 <FaCheckCircle />
               </SC_Button>
-              <SC_TaskNameHeading>{taskData?.name}</SC_TaskNameHeading>
+              <SC_TaskNameHeading>{taskData.name}</SC_TaskNameHeading>
             </SC_TopTextContainer>
             <SC_DeleteButton>
               <MdDelete />
@@ -150,18 +153,18 @@ const TaskDetailsView = ({ taskId }: Props) => {
           </SC_HeadContainer>
 
           <SC_DateAlignmentContainer>
-            {displayDate(taskData?.dueAt)}
+            {displayDate(taskData.dueAt)}
           </SC_DateAlignmentContainer>
 
           <SC_DescriptionPara>
             <SC_DescriptionParaSpan>Description: </SC_DescriptionParaSpan>
-            {taskData?.description}
+            {taskData.description}
           </SC_DescriptionPara>
 
           <SC_TagsContainer>
             <SC_SubHeading>Tags:</SC_SubHeading>
             <SC_TagsListContainer>
-              {taskData?.tags.map((each) => (
+              {taskData.tags.map((each) => (
                 <SC_TagItemContainer
                   key={each.sId}
                   $color={each.colorHex}
@@ -175,17 +178,23 @@ const TaskDetailsView = ({ taskId }: Props) => {
                 </SC_TagItemContainer>
               ))}
             </SC_TagsListContainer>
-            <AddEditModalPopup mode="ADD" text="Add a tag" />
+            {/* TODO: Add a proper popup for just adding a tag using reactjs-popup */}
+            {/* <AddEditModalPopup mode="CREATE" text="Add a tag" /> */}
           </SC_TagsContainer>
 
           <SC_SubTaskContainer>
             <SC_SubTaskHeadingContainer>
               <SC_SubHeading>Sub Tasks</SC_SubHeading>
-              <AddEditModalPopup mode="ADD" text="Create a Sub task" />
+              <AddEditModalPopup
+                mode="CREATE"
+                text="Create a Sub task"
+                what="SUBTASK"
+                where={taskData}
+              />
             </SC_SubTaskHeadingContainer>
-            {taskData?.subTasks.length !== 0 ? (
+            {taskData.subTasks.length !== 0 ? (
               <SC_SubTasksListContainer>
-                {taskData?.subTasks.map((each) => (
+                {taskData.subTasks.map((each) => (
                   <TaskDisplayCard key={each.sId} data={each} mode="TASK" />
                 ))}
               </SC_SubTasksListContainer>
@@ -196,7 +205,12 @@ const TaskDetailsView = ({ taskId }: Props) => {
                     Create a sub task to divide your task and be more
                     productive!
                   </SC_EmptyDisplayHeader>
-                  <AddEditModalPopup text="Create a Sub Task" mode="ADD" />
+                  <AddEditModalPopup
+                    text="Create a Sub Task"
+                    mode="CREATE"
+                    what="SUBTASK"
+                    where={taskData}
+                  />
                 </>
               </SC_CentralNoDataContainer>
             )}

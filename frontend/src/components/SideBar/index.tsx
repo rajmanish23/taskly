@@ -225,7 +225,11 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                       <FaHashtag style={STYLE_ICON_MARGINS} /> {each.name}
                     </SC_Button>
                   ))}
-                  <AddEditModalPopup text="Create a new Tag" mode="ADD" />
+                  <AddEditModalPopup
+                    text="Create a new Tag"
+                    mode="CREATE"
+                    what="TAG"
+                  />
                 </SC_TagListContaier>
               )}
             </SC_OptionsContainer>

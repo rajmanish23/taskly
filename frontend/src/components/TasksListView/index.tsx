@@ -102,11 +102,12 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
               dateStyle: "full",
             })})`}
             addButtonText="Create a new Task"
+            addWhat="TASK"
           />
         );
       case "UPCOMING":
         return (
-          <ViewHeader h1Text="Upcoming" addButtonText="Create a new Task" />
+          <ViewHeader h1Text="Upcoming" addButtonText="Create a new Task" addWhat="TASK" />
         );
       case "TAG":
         return (
@@ -123,12 +124,15 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
               )
             }
             addButtonText="Create a new Task"
+            addWhat="TASK"
+            addWhere={tag}
             editButtonText="Edit Tag"
+            editWhat="TAG"
           />
         );
       case "PREVIOUS":
         return (
-          <ViewHeader h1Text="Previous" addButtonText="Create a new Task" />
+          <ViewHeader h1Text="Previous" addButtonText="Create a new Task" addWhat="TASK" />
         );
     }
   };
@@ -153,7 +157,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
               <SC_EmptyDisplayHeader>
                 {getEmptyDisplayText()}
               </SC_EmptyDisplayHeader>
-              <AddEditModalPopup text="Create a new Task" mode="ADD" />
+              <AddEditModalPopup text="Create a new Task" mode="CREATE" what="TASK" />
             </>
           )}
         </SC_CentralNoDataContainer>

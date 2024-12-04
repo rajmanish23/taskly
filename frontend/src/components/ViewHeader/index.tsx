@@ -16,9 +16,13 @@ import { PageContext, PageContextType } from "../../context/PageContext";
 type Props = {
   h1Text: string | ReactNode;
   h2Text?: string | ReactNode;
+  mode?: "CREATE" | "EDIT";
   addButtonText?: string;
   editButtonText?: string;
   hasBackButton?: boolean;
+  addWhat?: "TAG" | "TASK" | "SUBTASK";
+  addWhere?: Tag | Task;
+  editWhat?: "TAG" | "TASK" | "SUBTASK";
 };
 
 const ViewHeader = ({
@@ -27,6 +31,9 @@ const ViewHeader = ({
   addButtonText,
   editButtonText,
   hasBackButton,
+  addWhat,
+  addWhere,
+  editWhat,
 }: Props) => {
   const { previousPage } = useContext(
     PageContext
@@ -46,15 +53,15 @@ const ViewHeader = ({
         {h2Text === undefined ? <></> : <SC_TopHeader2>{h2Text}</SC_TopHeader2>}
       </SC_HeaderTextContainer>
       <SC_ButtonContainer>
-        {addButtonText === undefined ? (
+        {addButtonText === undefined || addWhat === undefined ? (
           <></>
         ) : (
-          <AddEditModalPopup text={addButtonText} mode="ADD" />
+          <AddEditModalPopup text={addButtonText} mode="CREATE" what={addWhat} where={addWhere} />
         )}
-        {editButtonText === undefined ? (
+        {editButtonText === undefined || editWhat === undefined ? (
           <></>
         ) : (
-          <AddEditModalPopup text={editButtonText} mode="EDIT" />
+          <AddEditModalPopup text={editButtonText} mode="EDIT" what={editWhat} />
         )}
       </SC_ButtonContainer>
     </SC_HeaderContainer>
