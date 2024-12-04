@@ -186,7 +186,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
             {taskData?.subTasks.length !== 0 ? (
               <SC_SubTasksListContainer>
                 {taskData?.subTasks.map((each) => (
-                  <TaskDisplayCard data={each} mode="TASK" />
+                  <TaskDisplayCard key={each.sId} data={each} mode="TASK" />
                 ))}
               </SC_SubTasksListContainer>
             ) : (
