@@ -3,6 +3,7 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { MdEditSquare } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
 import { FaHashtag } from "react-icons/fa6";
+import { FaSave } from "react-icons/fa";
 
 import {
   SC_AddTagButton,
@@ -26,6 +27,8 @@ type ContentProps = CommonProps & {
 };
 
 const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const contentRef = useRef<HTMLDivElement>(null);
 
   const closeOnBgClick = (e: React.MouseEvent) => {
@@ -77,6 +80,39 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
               <></>
             )}
           </div>
+          <button className="save-button">
+            <>
+              <FaSave />
+              Save
+            </>
+          </button>
+        </div>
+
+        <div className="details-input-container">
+          <input
+            type="text"
+            id="nameInput"
+            name="nameInput"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          {what === "TASK" ? (
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              name="descriptionInput"
+              id="descriptionInput"
+              placeholder="Description"
+            />
+          ) : (
+            <></>
+          )}
+          {what !== "TAG" ? <input type="date" /> : <></>}
+          {/* 
+            The entire tag list representation thing from TaskDetailsView component.
+            Probably better to just turn that into it's own component...
+          */}
         </div>
       </SC_PopupContentContainer>
     </SC_OverlayBGContainer>
