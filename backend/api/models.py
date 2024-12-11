@@ -23,6 +23,8 @@ class Task(models.Model):
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     due_at = models.DateTimeField(blank=False, null=False)
+    deleted_at = models.DateTimeField(blank=True, null=True)
+    completed_at = models.DateTimeField(blank=True, null=True)
 
     # related_name gives a name from User obj to get this Task data.
     # So it will be user.tasks here
@@ -41,6 +43,7 @@ class SubTask(models.Model):
     s_id = models.CharField(max_length=16, blank=True, null=True)
     name = models.CharField(max_length=100, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    completed_at = models.DateTimeField(blank=True, null=True)
 
     # A Sub task may or may not have a due date
     # maybe user want to just have a bunch of sub tasks under one main task
@@ -64,6 +67,7 @@ class Tag(models.Model):
     s_id = models.CharField(max_length=16, blank=True, null=True)
     name = models.CharField(max_length=20, blank=False, null=False)
     color_hex = models.CharField(max_length=7, blank=False, null=False)
+    deleted_at = models.DateTimeField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tags")
 
     # defines the many-to-many relationship between tags and tasks
