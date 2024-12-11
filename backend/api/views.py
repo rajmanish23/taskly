@@ -15,7 +15,7 @@ from .serializers import (
     TaskSerializer,
     TagSerializer,
     SubTaskSerializer,
-    AddTagSerializer
+    AddTagSerializer,
 )
 
 load_dotenv()
@@ -56,10 +56,10 @@ class TaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Task.objects.filter(author=user)
-    
+
     def get_object(self):
-        s_id = self.kwargs['pk']
-        self.kwargs['pk'] = sqids.decode(s_id)[0]
+        s_id = self.kwargs["pk"]
+        self.kwargs["pk"] = sqids.decode(s_id)[0]
         return super().get_object()
 
 
@@ -75,7 +75,7 @@ class SubTaskListCreateView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        s_p_task = self.kwargs['p_task']
+        s_p_task = self.kwargs["p_task"]
         p_task = sqids.decode(s_p_task)[0]
         task = None
         try:
@@ -103,7 +103,7 @@ class SubTaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        s_p_task = self.kwargs['p_task']
+        s_p_task = self.kwargs["p_task"]
         p_task = sqids.decode(s_p_task)[0]
         return SubTask.objects.filter(parent_task=p_task)
 
@@ -130,8 +130,11 @@ class TaskTodayListView(generics.ListAPIView):
         start_datetime = make_aware(start_datetime)
         end_datetime = make_aware(end_datetime)
         user = self.request.user
-        queryset = Task.objects.filter(author=user) & Task.objects.filter(
-            due_at__range=(start_datetime, end_datetime)
+        queryset = (
+            Task.objects.filter(author=user)
+            & Task.objects.filter(due_at__range=(start_datetime, end_datetime))
+            & Task.objects.filter(deleted_at__isnull=True)
+            & Task.objects.filter(completed_at__isnull=True)
         )
         return queryset
 
@@ -149,8 +152,11 @@ class TaskUpcomingListView(generics.ListAPIView):
         )
         filter_datetime = make_aware(filter_datetime)
         user = self.request.user
-        queryset = Task.objects.filter(author=user) & Task.objects.filter(
-            due_at__gt=filter_datetime
+        queryset = (
+            Task.objects.filter(author=user)
+            & Task.objects.filter(due_at__gt=filter_datetime)
+            & Task.objects.filter(deleted_at__isnull=True)
+            & Task.objects.filter(completed_at__isnull=True)
         )
         return queryset
 
@@ -168,8 +174,11 @@ class TaskPreviousListView(generics.ListAPIView):
         )
         filter_datetime = make_aware(filter_datetime)
         user = self.request.user
-        queryset = Task.objects.filter(author=user) & Task.objects.filter(
-            due_at__lt=filter_datetime
+        queryset = (
+            Task.objects.filter(author=user)
+            & Task.objects.filter(due_at__lt=filter_datetime)
+            & Task.objects.filter(deleted_at__isnull=True)
+            & Task.objects.filter(completed_at__isnull=True)
         )
         return queryset
 
@@ -180,7 +189,9 @@ class TagListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Tag.objects.filter(author=user)
+        return Tag.objects.filter(author=user) & Tag.objects.filter(
+            deleted_at__isnull=True
+        )
 
     def perform_create(self, serializer):
         if serializer.is_valid():
@@ -224,7 +235,7 @@ class AddTagsToTaskView(APIView):
                 {"detail": "Task not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        
+
         try:
             for tag_id in tag_ids:
                 tag_id = sqids.decode(tag_id)[0]
@@ -235,7 +246,7 @@ class AddTagsToTaskView(APIView):
                 {"detail": "Tag not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        
+
         task.tags.set(tags)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -255,7 +266,7 @@ class RemoveTagFromTaskView(APIView):
                 {"detail": "Task not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        
+
         try:
             tagObj = Tag.objects.get(id=tag_id)
         except Tag.DoesNotExist:
@@ -263,6 +274,6 @@ class RemoveTagFromTaskView(APIView):
                 {"detail": "Tag not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        
+
         task.tags.remove(tagObj)
         return Response(status=status.HTTP_204_NO_CONTENT)
