@@ -184,6 +184,19 @@ class TaskPreviousListView(generics.ListAPIView):
         return queryset
 
 
+class TaskCompletedListView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(
+            author=user,
+            completed_at__isnull=False,
+            deleted_at__isnull=True,
+        )
+
+
 class TagListCreateView(generics.ListCreateAPIView):
     serializer_class = TagListSerializer
     permission_classes = [IsAuthenticated]
