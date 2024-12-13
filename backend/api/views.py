@@ -12,8 +12,9 @@ from dotenv import load_dotenv
 
 from .models import Task, Tag, SubTask
 from .serializers import (
+    TagWithTaskListSerializer,
     TaskSerializer,
-    TagSerializer,
+    TagListSerializer,
     SubTaskSerializer,
     AddTagSerializer,
 )
@@ -184,7 +185,7 @@ class TaskPreviousListView(generics.ListAPIView):
 
 
 class TagListCreateView(generics.ListCreateAPIView):
-    serializer_class = TagSerializer
+    serializer_class = TagListSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -202,7 +203,7 @@ class TagListCreateView(generics.ListCreateAPIView):
 
 
 class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = TagSerializer
+    serializer_class = TagWithTaskListSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
