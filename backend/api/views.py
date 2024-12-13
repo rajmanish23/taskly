@@ -131,11 +131,11 @@ class TaskTodayListView(generics.ListAPIView):
         start_datetime = make_aware(start_datetime)
         end_datetime = make_aware(end_datetime)
         user = self.request.user
-        queryset = (
-            Task.objects.filter(author=user)
-            & Task.objects.filter(due_at__range=(start_datetime, end_datetime))
-            & Task.objects.filter(deleted_at__isnull=True)
-            & Task.objects.filter(completed_at__isnull=True)
+        queryset = Task.objects.filter(
+            author=user,
+            due_at__range=(start_datetime, end_datetime),
+            deleted_at__isnull=True,
+            completed_at__isnull=True,
         )
         return queryset
 
@@ -153,11 +153,11 @@ class TaskUpcomingListView(generics.ListAPIView):
         )
         filter_datetime = make_aware(filter_datetime)
         user = self.request.user
-        queryset = (
-            Task.objects.filter(author=user)
-            & Task.objects.filter(due_at__gt=filter_datetime)
-            & Task.objects.filter(deleted_at__isnull=True)
-            & Task.objects.filter(completed_at__isnull=True)
+        queryset = Task.objects.filter(
+            author=user,
+            due_at__gt=filter_datetime,
+            deleted_at__isnull=True,
+            completed_at__isnull=True,
         )
         return queryset
 
@@ -175,11 +175,11 @@ class TaskPreviousListView(generics.ListAPIView):
         )
         filter_datetime = make_aware(filter_datetime)
         user = self.request.user
-        queryset = (
-            Task.objects.filter(author=user)
-            & Task.objects.filter(due_at__lt=filter_datetime)
-            & Task.objects.filter(deleted_at__isnull=True)
-            & Task.objects.filter(completed_at__isnull=True)
+        queryset = Task.objects.filter(
+            author=user,
+            due_at__lt=filter_datetime,
+            deleted_at__isnull=True,
+            completed_at__isnull=True,
         )
         return queryset
 
@@ -190,9 +190,7 @@ class TagListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Tag.objects.filter(author=user) & Tag.objects.filter(
-            deleted_at__isnull=True
-        )
+        return Tag.objects.filter(author=user, deleted_at__isnull=True)
 
     def perform_create(self, serializer):
         if serializer.is_valid():
