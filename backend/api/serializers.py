@@ -52,13 +52,16 @@ class TagListSerializer(serializers.ModelSerializer):
 
 
 class TagWithTaskListSerializer(serializers.ModelSerializer):
-    task_set = TaskSerializer(many=True, required=False)
+    task_set = serializers.SerializerMethodField()
 
     class Meta:
         model = Tag
         fields = ["s_id", "name", "color_hex", "task_set", "deleted_at"]
         extra_kwargs = {"name": {"required": True}, "color_hex": {"required": True}}
 
+    def get_task_set(self, obj):
+        non_deleted_tasks = obj.task_set.filter(deleted_at__isnull=True)
+        return TaskSerializer(non_deleted_tasks, many=True).data
 
 class AddTagSerializer(serializers.Serializer):
     tag_ids = serializers.ListField(child=serializers.CharField(), required=True)
