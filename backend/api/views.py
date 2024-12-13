@@ -209,8 +209,6 @@ class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         return Tag.objects.filter(
             author=user,
             deleted_at__isnull=True,
-            task_set__deleted_at__isnull=True,
-            task_set__completed_at__isnull=True,
         )
 
     def get_object(self):
