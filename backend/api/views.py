@@ -203,10 +203,7 @@ class TaskDeletedListView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Task.objects.filter(
-            author=user,
-            deleted_at__isnull=False
-        )
+        return Task.objects.filter(author=user, deleted_at__isnull=False)
 
 
 class TagListCreateView(generics.ListCreateAPIView):
@@ -231,10 +228,7 @@ class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Tag.objects.filter(
-            author=user,
-            deleted_at__isnull=True,
-        )
+        return Tag.objects.filter(author=user)
 
     def get_object(self):
         s_id = self.kwargs["pk"]
