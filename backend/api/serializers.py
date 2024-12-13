@@ -45,8 +45,6 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class TagListSerializer(serializers.ModelSerializer):
-    task_set = TaskSerializer(many=True, required=False)
-
     class Meta:
         model = Tag
         fields = ["s_id", "name", "color_hex", "deleted_at"]
