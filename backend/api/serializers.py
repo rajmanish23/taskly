@@ -41,7 +41,9 @@ class TaskSerializer(serializers.ModelSerializer):
         }
 
     def get_tags(self, obj):
-        return obj.tags.all().values("s_id", "name", "color_hex")
+        return obj.tags.filter(deleted_at__isnull=True).values(
+            "s_id", "name", "color_hex"
+        )
 
 
 class TagListSerializer(serializers.ModelSerializer):
@@ -62,6 +64,7 @@ class TagWithTaskListSerializer(serializers.ModelSerializer):
     def get_task_set(self, obj):
         non_deleted_tasks = obj.task_set.filter(deleted_at__isnull=True)
         return TaskSerializer(non_deleted_tasks, many=True).data
+
 
 class AddTagSerializer(serializers.Serializer):
     tag_ids = serializers.ListField(child=serializers.CharField(), required=True)
