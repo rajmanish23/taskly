@@ -12,7 +12,7 @@ urlpatterns = [
     ),
     path("tasks/previous/", views.TaskPreviousListView.as_view(), name="task-list-previous"),
     path("tasks/completed/", views.TaskCompletedListView.as_view(), name="task-list-completed"),
-    # path("tasks/deleted/"),
+    path("tasks/deleted/", views.TaskDeletedListView.as_view(), name="task-list-deleted"),
     path(
         "tasks/<slug:pk>/",
         views.TaskRetrieveUpdateDeleteView.as_view(),
