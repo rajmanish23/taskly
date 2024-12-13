@@ -44,7 +44,16 @@ class TaskSerializer(serializers.ModelSerializer):
         return obj.tags.all().values("s_id", "name", "color_hex")
 
 
-class TagSerializer(serializers.ModelSerializer):
+class TagListSerializer(serializers.ModelSerializer):
+    task_set = TaskSerializer(many=True, required=False)
+
+    class Meta:
+        model = Tag
+        fields = ["s_id", "name", "color_hex", "deleted_at"]
+        extra_kwargs = {"name": {"required": True}, "color_hex": {"required": True}}
+
+
+class TagWithTaskListSerializer(serializers.ModelSerializer):
     task_set = TaskSerializer(many=True, required=False)
 
     class Meta:
