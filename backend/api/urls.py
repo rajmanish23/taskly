@@ -10,11 +10,33 @@ urlpatterns = [
         views.TaskUpcomingListView.as_view(),
         name="task-list-upcoming",
     ),
-    path("tasks/previous/", views.TaskPreviousListView.as_view(), name="task-list-previous"),
-    path("tasks/completed/", views.TaskCompletedListView.as_view(), name="task-list-completed"),
-    path("tasks/deleted/", views.TaskDeletedListView.as_view(), name="task-list-deleted"),
+    path(
+        "tasks/previous/",
+        views.TaskPreviousListView.as_view(),
+        name="task-list-previous",
+    ),
+    path(
+        "tasks/completed/",
+        views.TaskCompletedListView.as_view(),
+        name="task-list-completed",
+    ),
+    path(
+        "tasks/deleted/", views.TaskDeletedListView.as_view(), name="task-list-deleted"
+    ),
     path(
         "tasks/<slug:pk>/",
+        views.TaskRetrieveUpdateDeleteView.as_view(),
+        name="task-single-retrieve-update-delete",
+    ),
+    # TODO: Implement view for marking tasks as deleted
+    path(
+        "tasks/<slug:pk>/mark-delete/",
+        views.TaskRetrieveUpdateDeleteView.as_view(),
+        name="task-single-retrieve-update-delete",
+    ),
+    # TODO: Implement view for marking tasks as completed
+    path(
+        "tasks/<slug:pk>/mark-complete/",
         views.TaskRetrieveUpdateDeleteView.as_view(),
         name="task-single-retrieve-update-delete",
     ),
@@ -22,6 +44,17 @@ urlpatterns = [
         "tasks/<slug:p_task>/sub-tasks/",
         views.SubTaskListCreateView.as_view(),
         name="sub-task-list-create",
+    ),
+    path(
+        "tasks/<slug:p_task>/sub-tasks/<slug:pk>/",
+        views.SubTaskRetrieveUpdateDeleteView.as_view(),
+        name="sub-task-single-retrieve-update-delete",
+    ),
+    # TODO: Implement view for marking sub tasks as completed
+    path(
+        "tasks/<slug:p_task>/sub-tasks/<slug:pk>/mark-complete/",
+        views.SubTaskRetrieveUpdateDeleteView.as_view(),
+        name="sub-task-single-retrieve-update-delete",
     ),
     path(
         "tasks/<slug:task_id>/add-tag/",
@@ -33,14 +66,15 @@ urlpatterns = [
         views.RemoveTagFromTaskView.as_view(),
         name="task-remove-tag",
     ),
-    path(
-        "tasks/<slug:p_task>/sub-tasks/<slug:pk>/",
-        views.SubTaskRetrieveUpdateDeleteView.as_view(),
-        name="sub-task-single-retrieve-update-delete",
-    ),
     path("tags/", views.TagListCreateView.as_view(), name="tag-list-create"),
     path(
         "tags/<slug:pk>/",
+        views.TagRetrieveUpdateDeleteView.as_view(),
+        name="tag-single-retrieve-update-delete",
+    ),
+    # TODO: Implement view for marking tags as deleted.
+    path(
+        "tags/<slug:pk>/mark-delete/",
         views.TagRetrieveUpdateDeleteView.as_view(),
         name="tag-single-retrieve-update-delete",
     ),
