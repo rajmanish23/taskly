@@ -121,8 +121,8 @@ class SubTaskListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        kwargs = self.request.parser_context.get("kwargs")
-        p_task = kwargs["p_task"]
+        s_p_task = self.kwargs["p_task"]
+        p_task = sqids.decode(s_p_task)[0]
         return SubTask.objects.filter(parent_task=p_task)
 
     def create(self, request, *args, **kwargs):
@@ -164,6 +164,34 @@ class SubTaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         s_id = self.kwargs["pk"]
         self.kwargs["pk"] = sqids.decode(s_id)[0]
         return super().get_object()
+
+
+class SubTaskMarkComplete(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, p_task, pk):
+        sub_task_id = sqids.decode(pk)[0]
+        sub_task = None
+        try:
+            sub_task = SubTask.objects.get(id=sub_task_id)
+        except SubTask.DoesNotExist:
+            return Response(
+                {"detail": "Sub Task not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if sub_task.completed_at is not None:
+            return Response(
+                {"detail": "Sub Task is already marked as deleted"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        sub_task.completed_at = make_aware(datetime.datetime.now())
+        sub_task.save()
+
+        return Response(
+            status=status.HTTP_204_NO_CONTENT,
+        )
 
 
 class TaskTodayListView(generics.ListAPIView):

@@ -36,7 +36,7 @@ urlpatterns = [
     path(
         "tasks/<slug:pk>/mark-complete/",
         views.TaskMarkComplete.as_view(),
-        name="task-single-retrieve-update-delete",
+        name="task-mark-complete",
     ),
     path(
         "tasks/<slug:p_task>/sub-tasks/",
@@ -48,11 +48,10 @@ urlpatterns = [
         views.SubTaskRetrieveUpdateDeleteView.as_view(),
         name="sub-task-single-retrieve-update-delete",
     ),
-    # TODO: Implement view for marking sub tasks as completed
     path(
         "tasks/<slug:p_task>/sub-tasks/<slug:pk>/mark-complete/",
-        views.SubTaskRetrieveUpdateDeleteView.as_view(),
-        name="sub-task-single-retrieve-update-delete",
+        views.SubTaskMarkComplete.as_view(),
+        name="sub-task-mark-complete",
     ),
     path(
         "tasks/<slug:task_id>/add-tag/",
