@@ -28,11 +28,10 @@ urlpatterns = [
         views.TaskRetrieveUpdateDeleteView.as_view(),
         name="task-single-retrieve-update-delete",
     ),
-    # TODO: Implement view for marking tasks as deleted
     path(
         "tasks/<slug:pk>/mark-delete/",
-        views.TaskRetrieveUpdateDeleteView.as_view(),
-        name="task-single-retrieve-update-delete",
+        views.TaskMarkDelete.as_view(),
+        name="task-mark-delete",
     ),
     # TODO: Implement view for marking tasks as completed
     path(

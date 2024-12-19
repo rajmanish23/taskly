@@ -64,6 +64,32 @@ class TaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         return super().get_object()
 
 
+class TaskMarkDelete(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        task_id = sqids.decode(pk)[0]
+        task = None
+        try:
+            task = Task.objects.get(id=task_id)
+        except Task.DoesNotExist:
+            return Response(
+                {"detail": "Task not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if task.deleted_at is not None:
+            return Response(
+                {"detail": "Task is already marked as deleted"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        task.deleted_at = make_aware(datetime.datetime.now())
+        task.save()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class SubTaskListCreateView(generics.ListCreateAPIView):
     serializer_class = SubTaskSerializer
     permission_classes = [IsAuthenticated]
