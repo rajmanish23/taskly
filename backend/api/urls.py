@@ -69,10 +69,9 @@ urlpatterns = [
         views.TagRetrieveUpdateDeleteView.as_view(),
         name="tag-single-retrieve-update-delete",
     ),
-    # TODO: Implement view for marking tags as deleted.
     path(
         "tags/<slug:pk>/mark-delete/",
-        views.TagRetrieveUpdateDeleteView.as_view(),
+        views.TagMarkDelete.as_view(),
         name="tag-single-retrieve-update-delete",
     ),
 ]

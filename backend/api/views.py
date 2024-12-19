@@ -316,6 +316,32 @@ class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         return super().get_object()
 
 
+class TagMarkDelete(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        tag_id = sqids.decode(pk)[0]
+        tag = None
+        try:
+            tag = Tag.objects.get(id=tag_id)
+        except Tag.DoesNotExist:
+            return Response(
+                {"detail": "Tag not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if tag.deleted_at is not None:
+            return Response(
+                {"detail": "Tag is already marked as deleted"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        tag.deleted_at = make_aware(datetime.datetime.now())
+        tag.save()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class AddTagsToTaskView(APIView):
     permission_classes = [IsAuthenticated]
 
