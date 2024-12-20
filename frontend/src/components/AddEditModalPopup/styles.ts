@@ -24,7 +24,6 @@ export const SC_AddTagButton = styled(SC_CommonButton)`
   }
   background-color: #5d3d3d;
   color: #ffd6d3;
-  margin-left: 10px;
 `;
 
 export const SC_OverlayBGContainer = styled.div`
