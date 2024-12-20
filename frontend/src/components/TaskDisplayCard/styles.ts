@@ -24,7 +24,7 @@ export const SC_TaskCompleteButton = styled.button<{ $isCompleted: boolean }>`
   font-size: 26px;
   background-color: ${(props) => (props.$isCompleted ? "#827b7b" : "#3cb371")};
   transition: background-color ${STYLE_TRANSITION_TIME};
-  color: #013220;
+  color: ${(props) => (props.$isCompleted ? "black" : "#013220")};
   display: flex;
   justify-content: center;
   align-items: center;

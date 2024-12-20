@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaHashtag } from "react-icons/fa";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { PiWarningCircleFill } from "react-icons/pi";
-import { MdAccessTimeFilled } from "react-icons/md";
+import {
+  MdAccessTimeFilled,
+  MdOutlineRadioButtonUnchecked,
+} from "react-icons/md";
 import { BarLoader } from "react-spinners";
 
 import {
@@ -51,12 +54,29 @@ type Props = {
   taskId?: string;
 };
 
-const displayDate = (date: Date | undefined) => {
-  if (date === undefined) {
+const displayDate = (date: Date | null, isCompleted?: boolean) => {
+  if (date === null) {
     return (
       <SC_DateContainer $isOverDue={false} $isNull={true}>
         <BsFillQuestionCircleFill style={STYLE_ICON_MARGINS} />
         <SC_BaseParagraph>No due date</SC_BaseParagraph>
+      </SC_DateContainer>
+    );
+  }
+  if (isCompleted) {
+    return (
+      <SC_DateContainer $isOverDue={false} $isNull={true}>
+        <FaCheckCircle style={STYLE_ICON_MARGINS} />
+        <SC_BaseParagraph>{`Done at: ${date.toLocaleString(undefined, {
+          hourCycle: "h12",
+          hour: "numeric",
+          minute: "numeric",
+          dayPeriod: "narrow",
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })}`}</SC_BaseParagraph>
       </SC_DateContainer>
     );
   }
@@ -90,6 +110,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
     "Could not load data of this Task"
   );
   const [isLoading, setIsLoading] = useState(true);
+  const isCompleted = taskData?.completedAt !== null;
 
   const navigate = useNavigate();
 
@@ -142,16 +163,24 @@ const TaskDetailsView = ({ taskId }: Props) => {
         <SC_LeftAlignedViewBackgroundContainer>
           <SC_HeadContainer>
             <SC_TopTextContainer>
-              <SC_Button>
-                <FaCheckCircle />
+              <SC_Button $isCompleted={isCompleted}>
+                {!isCompleted ? (
+                  <FaCheckCircle />
+                ) : (
+                  <MdOutlineRadioButtonUnchecked />
+                )}
               </SC_Button>
-              <SC_TaskNameHeading>{taskData.name}</SC_TaskNameHeading>
+              <SC_TaskNameHeading $isCompleted={isCompleted}>
+                {taskData.name}
+              </SC_TaskNameHeading>
             </SC_TopTextContainer>
             <DeletePopupButton />
           </SC_HeadContainer>
 
           <SC_DateAlignmentContainer>
-            {displayDate(taskData.dueAt)}
+            {isCompleted
+              ? displayDate(taskData.completedAt, isCompleted)
+              : displayDate(taskData.dueAt)}
           </SC_DateAlignmentContainer>
 
           <SC_DescriptionPara>
@@ -193,7 +222,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
             {taskData.subTasks.length !== 0 ? (
               <SC_SubTasksListContainer>
                 {taskData.subTasks.map((each) => (
-                  <SC_SubTaskListItemContainer key={each.sId} >
+                  <SC_SubTaskListItemContainer key={each.sId}>
                     <TaskDisplayCard data={each} mode="TASK" />
                     <AddEditModalPopup
                       mode="EDIT"

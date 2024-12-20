@@ -25,21 +25,24 @@ export const SC_TopTextContainer = styled.div`
   flex-direction: row;
 `;
 
-export const SC_TaskNameHeading = styled.h1`
+export const SC_TaskNameHeading = styled.h1<{ $isCompleted: boolean }>`
   margin: 0 0 0 20px;
-  font-weight: normal;
+  font-weight: ${(props) => (props.$isCompleted ? "normal" : "600")};
+  color: ${(props) => (props.$isCompleted ? "grey" : "inherit")};
+  text-decoration: ${(props) => (props.$isCompleted ? "line-through" : "none")};
 `;
 
-export const SC_Button = styled.button`
+export const SC_Button = styled.button<{ $isCompleted: boolean }>`
   &:hover {
-    border: 3px solid #48d989;
+    border: ${(props) =>
+      props.$isCompleted ? "3px solid #cec3c3" : "3px solid #48d989"};
   }
   padding: 8px 16px 8px 16px;
   font-size: 16px;
   border-radius: 10px;
   border: 3px solid transparent;
-  background-color: #3cb371;
-  color: #013220;
+  background-color: ${(props) => (props.$isCompleted ? "#827b7b" : "#3cb371")};
+  color: ${(props) => (props.$isCompleted ? "black" : "#013220")};
   cursor: pointer;
   display: flex;
   flex-direction: row;
