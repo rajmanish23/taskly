@@ -151,3 +151,23 @@ export const SC_SubTaskListItemContainer = styled.div`
     font-size: 26px;
   }
 `;
+
+export const SC_DeletedInfoContainer = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #b13c25;
+  color: white;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  margin: 0 10px 20px 10px;
+  align-self: stretch;
+  font-size: 18px;
+`;
+
+export const SC_TopButtonsAlignmentContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;

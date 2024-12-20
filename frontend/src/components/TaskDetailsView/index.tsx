@@ -44,6 +44,8 @@ import {
   SC_TopTextContainer,
   SC_SubTasksListContainer,
   SC_SubTaskListItemContainer,
+  SC_DeletedInfoContainer,
+  SC_TopButtonsAlignmentContainer,
 } from "./styles";
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import TaskDisplayCard from "../TaskDisplayCard";
@@ -111,6 +113,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
   );
   const [isLoading, setIsLoading] = useState(true);
   const isCompleted = taskData?.completedAt !== null;
+  const isDeleted = taskData?.deletedAt !== null;
 
   const navigate = useNavigate();
 
@@ -161,6 +164,16 @@ const TaskDetailsView = ({ taskId }: Props) => {
         </SC_CentralNoDataContainer>
       ) : (
         <SC_LeftAlignedViewBackgroundContainer>
+          {isDeleted ? (
+            <SC_DeletedInfoContainer>
+              <PiWarningCircleFill style={STYLE_ICON_MARGINS} />
+              This task is deleted! Please restore this task or delete
+              permanently.
+            </SC_DeletedInfoContainer>
+          ) : (
+            <></>
+          )}
+
           <SC_HeadContainer>
             <SC_TopTextContainer>
               <SC_Button $isCompleted={isCompleted}>
@@ -174,7 +187,11 @@ const TaskDetailsView = ({ taskId }: Props) => {
                 {taskData.name}
               </SC_TaskNameHeading>
             </SC_TopTextContainer>
-            <DeletePopupButton />
+            <SC_TopButtonsAlignmentContainer>
+              {/* The line below is for showing restore button */}
+              {isDeleted ? <DeletePopupButton /> : <></> }
+              <DeletePopupButton />
+            </SC_TopButtonsAlignmentContainer>
           </SC_HeadContainer>
 
           <SC_DateAlignmentContainer>
