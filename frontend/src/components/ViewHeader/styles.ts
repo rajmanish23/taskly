@@ -53,7 +53,4 @@ export const SC_TopHeader2 = styled.h2`
 export const SC_ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
-  button {
-    margin-left: 10px;
-  }
 `;

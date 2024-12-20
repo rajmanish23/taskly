@@ -7,6 +7,7 @@ import { FaSave } from "react-icons/fa";
 
 import {
   SC_AddTagButton,
+  SC_DetailsInputContainer,
   SC_ModalTagItemContainer,
   SC_OverlayBGContainer,
   SC_PopupCloseButton,
@@ -95,7 +96,7 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
           </SC_SaveButton>
         </SC_TopHeaderRowContainer>
 
-        <div className="details-input-container">
+        <SC_DetailsInputContainer className="details-input-container">
           <input
             type="text"
             id="nameInput"
@@ -116,7 +117,14 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
             <></>
           )}
           {what !== "TAG" ? <input type="date" /> : <></>}
-        </div>
+          {what === "TASK" ? (
+            <>
+              <p>Tag: </p>
+            </>
+          ) : (
+            <></>
+          )}
+        </SC_DetailsInputContainer>
       </SC_PopupContentContainer>
     </SC_OverlayBGContainer>
   );

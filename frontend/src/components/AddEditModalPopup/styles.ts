@@ -5,22 +5,26 @@ import {
 } from "../../constants";
 import { SC_TagItemContainer } from "../commonStyles";
 
-export const SC_AddTagButton = styled.button`
-  &:hover {
-    border: 3px solid #ab5f5f;
-  }
+const SC_CommonButton = styled.button`
   padding: 8px 16px 8px 16px;
   font-size: 16px;
   border-radius: 10px;
   border: 3px solid transparent;
-  background-color: #5d3d3d;
-  color: #ffd6d3;
   cursor: pointer;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   transition: border ${STYLE_TRANSITION_TIME};
+`;
+
+export const SC_AddTagButton = styled(SC_CommonButton)`
+  &:hover {
+    border: 3px solid #ab5f5f;
+  }
+  background-color: #5d3d3d;
+  color: #ffd6d3;
+  margin-left: 10px;
 `;
 
 export const SC_OverlayBGContainer = styled.div`
@@ -58,42 +62,24 @@ export const SC_PopupPara = styled.p`
   padding: 0;
 `;
 
-export const SC_PopupCloseButton = styled.button`
+export const SC_PopupCloseButton = styled(SC_CommonButton)`
   &:hover {
     border: 3px solid #fe0000;
   }
   padding: 8px;
   font-size: 20px;
-  border-radius: 10px;
-  border: 3px solid transparent;
   background-color: #b20000;
   color: white;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  transition: border ${STYLE_TRANSITION_TIME};
-  margin-right: 10px;
+  margin: 0 10px 0 0;
   height: 100%;
 `;
 
-export const SC_SaveButton = styled.button`
+export const SC_SaveButton = styled(SC_CommonButton)`
   &:hover {
     border: 3px solid #48d989;
   }
-  padding: 8px 16px 8px 16px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: 3px solid transparent;
   background-color: #3cb371;
   color: #013220;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  transition: border ${STYLE_TRANSITION_TIME};
 `;
 
 export const SC_TopHeaderRowContainer = styled.div`
@@ -126,4 +112,10 @@ export const SC_TopWhatHeader = styled.h1`
 export const SC_ModalTagItemContainer = styled(SC_TagItemContainer)`
   font-size: 24px;
   margin: 0 5px 0 5px;
+`;
+
+export const SC_DetailsInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
