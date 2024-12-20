@@ -25,12 +25,14 @@ type TagAPIData = {
   name: string;
   color_hex: string;
   task_set: TaskAPIData[];
+  deleted_at: string;
 };
 
 type Tag = {
   sId: string;
   name: string;
   colorHex: string;
+  deletedAt?: Date | null
 };
 
 type TagAPIConvertedData = {
