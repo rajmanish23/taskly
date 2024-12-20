@@ -126,7 +126,11 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
         navigate(TAG_PAGE_URL_NO_PARAM + tagId);
         return;
       case "PROFILE":
-        navigate(SETTING_PROFILE_URL);
+        if (mode === "SETTINGS") {
+          navigate(previousPage);
+        } else {
+          navigate(SETTING_PROFILE_URL);
+        }
         return;
       case "NAME_EDIT":
         navigate(SETTING_EDIT_NAME_URL);
