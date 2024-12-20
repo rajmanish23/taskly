@@ -3,6 +3,7 @@ import {
   STYLE_CARD_BACKGROUND_COLOR,
   STYLE_TRANSITION_TIME,
 } from "../../constants";
+import { SC_TagItemContainer } from "../commonStyles";
 
 export const SC_AddTagButton = styled.button`
   &:hover {
@@ -58,5 +59,71 @@ export const SC_PopupPara = styled.p`
 `;
 
 export const SC_PopupCloseButton = styled.button`
-  margin: 10px 0 0 0;
+  &:hover {
+    border: 3px solid #fe0000;
+  }
+  padding: 8px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-color: #b20000;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: border ${STYLE_TRANSITION_TIME};
+  margin-right: 10px;
+  height: 100%;
+`;
+
+export const SC_SaveButton = styled.button`
+  &:hover {
+    border: 3px solid #48d989;
+  }
+  padding: 8px 16px 8px 16px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-color: #3cb371;
+  color: #013220;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: border ${STYLE_TRANSITION_TIME};
+`;
+
+export const SC_TopHeaderRowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+export const SC_TopRowLeftContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const SC_TopModeHeader = styled.h1`
+  margin: 0;
+  font-size: 26px;
+`;
+
+export const SC_TopWhatHeader = styled.h1`
+  margin: 0 5px 0 5px;
+  background-color: #5d3d3d;
+  font-size: 24px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 7px;
+  font-weight: normal;
+`;
+
+export const SC_ModalTagItemContainer = styled(SC_TagItemContainer)`
+  font-size: 24px;
+  margin: 0 5px 0 5px;
 `;

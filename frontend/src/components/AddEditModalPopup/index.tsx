@@ -7,13 +7,18 @@ import { FaSave } from "react-icons/fa";
 
 import {
   SC_AddTagButton,
+  SC_ModalTagItemContainer,
   SC_OverlayBGContainer,
   SC_PopupCloseButton,
   SC_PopupContentContainer,
+  SC_SaveButton,
+  SC_TopHeaderRowContainer,
+  SC_TopModeHeader,
+  SC_TopRowLeftContainer,
+  SC_TopWhatHeader,
 } from "./styles";
 import { STYLE_ICON_MARGINS } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
-import { SC_TagItemContainer } from "../commonStyles";
 import isColorDark from "../../utils/isColorDark";
 
 type CommonProps = {
@@ -40,53 +45,55 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
   return (
     <SC_OverlayBGContainer ref={contentRef} onClick={closeOnBgClick}>
       <SC_PopupContentContainer>
-        <div className="top-header-row">
-          <div className="top-row-left-container">
+        <SC_TopHeaderRowContainer>
+          <SC_TopRowLeftContainer>
             <SC_PopupCloseButton onClick={closeFn}>
               <IoCloseCircle />
             </SC_PopupCloseButton>
-            <h1 className="top-header">
+            <SC_TopModeHeader className="top-header">
               {mode === "CREATE" ? "Creating" : "Editing"}
-            </h1>
-            <h1 className="top-what-header">
+            </SC_TopModeHeader>
+            <SC_TopWhatHeader className="top-what-header">
               {what === "SUBTASK"
                 ? "Sub-Task"
                 : what === "TAG"
                 ? "Tag"
                 : "Task"}
-            </h1>
+            </SC_TopWhatHeader>
             {mode === "CREATE" ? (
               where === undefined ? (
                 <></>
               ) : isTag(where) ? (
                 <>
-                  <h1 className="top-header">in</h1>
-                  <SC_TagItemContainer
+                  <SC_TopModeHeader className="top-header">in</SC_TopModeHeader>
+                  <SC_ModalTagItemContainer
                     key={where.sId}
                     $color={where.colorHex}
                     $isColorDark={isColorDark(where.colorHex)}
                   >
                     <FaHashtag style={STYLE_ICON_MARGINS} />
                     {where.name}
-                  </SC_TagItemContainer>
+                  </SC_ModalTagItemContainer>
                 </>
               ) : (
                 <>
-                  <h1 className="top-header">in</h1>
-                  <h1 className="top-where-header">{where.name}</h1>
+                  <SC_TopModeHeader className="top-header">in</SC_TopModeHeader>
+                  <SC_TopWhatHeader className="top-where-header">
+                    {where.name}
+                  </SC_TopWhatHeader>
                 </>
               )
             ) : (
               <></>
             )}
-          </div>
-          <button className="save-button">
+          </SC_TopRowLeftContainer>
+          <SC_SaveButton className="save-button">
             <>
-              <FaSave />
+              <FaSave style={STYLE_ICON_MARGINS} />
               Save
             </>
-          </button>
-        </div>
+          </SC_SaveButton>
+        </SC_TopHeaderRowContainer>
 
         <div className="details-input-container">
           <input
@@ -109,10 +116,6 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
             <></>
           )}
           {what !== "TAG" ? <input type="date" /> : <></>}
-          {/* 
-            The entire tag list representation thing from TaskDetailsView component.
-            Probably better to just turn that into it's own component...
-          */}
         </div>
       </SC_PopupContentContainer>
     </SC_OverlayBGContainer>
