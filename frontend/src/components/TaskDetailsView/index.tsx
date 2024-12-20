@@ -193,8 +193,8 @@ const TaskDetailsView = ({ taskId }: Props) => {
             {taskData.subTasks.length !== 0 ? (
               <SC_SubTasksListContainer>
                 {taskData.subTasks.map((each) => (
-                  <SC_SubTaskListItemContainer>
-                    <TaskDisplayCard key={each.sId} data={each} mode="TASK" />
+                  <SC_SubTaskListItemContainer key={each.sId} >
+                    <TaskDisplayCard data={each} mode="TASK" />
                     <AddEditModalPopup
                       mode="EDIT"
                       text=""
