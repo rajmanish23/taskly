@@ -50,7 +50,7 @@ import {
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import TaskDisplayCard from "../TaskDisplayCard";
 import isColorDark from "../../utils/isColorDark";
-import DeletePopupButton from "../DeletePopupButton";
+import { DeletePopupButton, RestoreDeletePopupButton } from "../DeleteHandlerButtons";
 
 type Props = {
   taskId?: string;
@@ -189,7 +189,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
             </SC_TopTextContainer>
             <SC_TopButtonsAlignmentContainer>
               {/* The line below is for showing restore button */}
-              {isDeleted ? <DeletePopupButton /> : <></> }
+              {isDeleted ? <RestoreDeletePopupButton /> : <></>}
               <DeletePopupButton />
             </SC_TopButtonsAlignmentContainer>
           </SC_HeadContainer>

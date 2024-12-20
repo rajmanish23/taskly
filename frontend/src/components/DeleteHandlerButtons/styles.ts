@@ -17,6 +17,7 @@ export const SC_Button = styled.button`
   align-items: center;
   justify-content: center;
   transition: border ${STYLE_TRANSITION_TIME};
+  margin-left: 10px;
 `;
 
 export const SC_DeleteButton = styled(SC_Button)`
@@ -26,4 +27,13 @@ export const SC_DeleteButton = styled(SC_Button)`
   }
   color: white;
   background-color: #b20000;
+`;
+
+export const SC_RestoreButton = styled(SC_Button)`
+  &:hover {
+    background-color: #3cb371;
+    border: 3px solid #48d989;
+  }
+  color: #013220;
+  background-color: #3cb371;
 `;
