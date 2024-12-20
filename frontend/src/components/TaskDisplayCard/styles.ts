@@ -27,6 +27,7 @@ export const SC_TaskCompleteButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const SC_DataContainer = styled.div<{$isClickable: boolean}>`
