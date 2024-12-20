@@ -2,6 +2,7 @@ type SubTaskAPIData = {
   s_id: string;
   name: string;
   due_at: string;
+  completed_at: string;
 };
 
 type APIErrorMessage = {
@@ -43,6 +44,7 @@ type SubTask = {
   sId: string;
   name: string;
   dueAt: Date | null;
+  completedAt: Date | null;
 };
 
 type Task = {

@@ -18,6 +18,10 @@ const convertTaskAPIData = (data: TaskAPIData) => {
       dueAt: eachSubTask.due_at === null ? null : new Date(eachSubTask.due_at),
       name: eachSubTask.name,
       sId: eachSubTask.s_id,
+      completedAt:
+        eachSubTask.completed_at === null
+          ? null
+          : new Date(eachSubTask.completed_at),
     })),
     tags: data.tags.map((eachTag: TagAPIData) => ({
       colorHex: eachTag.color_hex,
