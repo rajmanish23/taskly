@@ -21,6 +21,10 @@ import {
 import { STYLE_ICON_MARGINS } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
 import isColorDark from "../../utils/isColorDark";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import { subDays } from "date-fns";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
@@ -35,6 +39,7 @@ type ContentProps = CommonProps & {
 const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
   const contentRef = useRef<HTMLDivElement>(null);
 
   const closeOnBgClick = (e: React.MouseEvent) => {
@@ -116,7 +121,25 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
           ) : (
             <></>
           )}
-          {what !== "TAG" ? <input type="date" /> : <></>}
+          {what !== "TAG" ? (
+            <DatePicker
+              selected={date}
+              onChange={(date) => {
+                if (date === null) {
+                  return;
+                }
+                setDate(date);
+              }}
+              showIcon
+              toggleCalendarOnIconClick
+              timeInputLabel="Time:"
+              dateFormat="Pp"
+              showTimeInput
+              minDate={subDays(new Date(), 0)}
+            />
+          ) : (
+            <></>
+          )}
           {what === "TASK" ? (
             <>
               <p>Tag: </p>
