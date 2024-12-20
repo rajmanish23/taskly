@@ -7,8 +7,12 @@ import { FaSave, FaCalendarCheck } from "react-icons/fa";
 
 import {
   SC_AddTagButton,
+  SC_DateDisplayPickerButton,
+  SC_DatePickerContainer,
+  SC_DescriptionInput,
   SC_DetailsInputContainer,
   SC_ModalTagItemContainer,
+  SC_NameInput,
   SC_OverlayBGContainer,
   SC_PopupCloseButton,
   SC_PopupContentContainer,
@@ -37,9 +41,9 @@ type ContentProps = CommonProps & {
 };
 
 type DateDisplayProps = {
-  value?: string,
-  onClick?: () => void
-}
+  value?: string;
+  onClick?: () => void;
+};
 
 const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
   const [name, setName] = useState("");
@@ -58,10 +62,10 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
       { value, onClick }: DateDisplayProps,
       ref: LegacyRef<HTMLButtonElement>
     ) => (
-      <button onClick={onClick} ref={ref}>
+      <SC_DateDisplayPickerButton onClick={onClick} ref={ref} $isError={false}>
         <FaCalendarCheck style={STYLE_ICON_MARGINS} />
         {value}
-      </button>
+      </SC_DateDisplayPickerButton>
     )
   );
 
@@ -119,41 +123,46 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
         </SC_TopHeaderRowContainer>
 
         <SC_DetailsInputContainer className="details-input-container">
-          <input
+          <SC_NameInput
             type="text"
             id="nameInput"
             name="nameInput"
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            $isError={false}
           />
           {what === "TASK" ? (
-            <textarea
+            <SC_DescriptionInput
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               name="descriptionInput"
               id="descriptionInput"
               placeholder="Description"
+              $isError={false}
+              rows={5}
             />
           ) : (
             <></>
           )}
           {what !== "TAG" ? (
-            <DatePicker
-              selected={date}
-              onChange={(date) => {
-                if (date === null) {
-                  return;
-                }
-                setDate(date);
-              }}
-              toggleCalendarOnIconClick
-              timeInputLabel="Time:"
-              dateFormat="Pp"
-              showTimeInput
-              minDate={subDays(new Date(), 0)}
-              customInput={<DateDisplay />}
-            />
+            <SC_DatePickerContainer>
+              <DatePicker
+                selected={date}
+                onChange={(date) => {
+                  if (date === null) {
+                    return;
+                  }
+                  setDate(date);
+                }}
+                toggleCalendarOnIconClick
+                timeInputLabel="Time:"
+                dateFormat="Pp"
+                showTimeInput
+                minDate={subDays(new Date(), 0)}
+                customInput={<DateDisplay />}
+              />
+            </SC_DatePickerContainer>
           ) : (
             <></>
           )}

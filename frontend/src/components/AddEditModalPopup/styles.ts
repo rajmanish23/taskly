@@ -118,3 +118,53 @@ export const SC_DetailsInputContainer = styled.div`
   flex-direction: column;
   width: 100%;
 `;
+
+export const SC_NameInput = styled.input<{ $isError: boolean }>`
+  border-style: solid;
+  border-width: 2px;
+  border-color: ${(props) => (props.$isError ? "red" : "#d67373")};
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #111111;
+  color: #ecc4c4;
+  margin-top: 20px;
+  font-family: "Noto Sans", sans-serif;
+`;
+
+export const SC_DescriptionInput = styled.textarea<{ $isError: boolean }>`
+  border-style: solid;
+  border-width: 2px;
+  border-color: ${(props) => (props.$isError ? "red" : "#d67373")};
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #111111;
+  color: #ecc4c4;
+  margin-top: 10px;
+  font-family: "Noto Sans", sans-serif;
+  resize: vertical;
+  height: auto;
+`;
+
+export const SC_DateDisplayPickerButton = styled.button<{ $isError: boolean }>`
+  border-style: solid;
+  border-width: 2px;
+  border-color: ${(props) => (props.$isError ? "red" : "#d67373")};
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #111111;
+  color: #ecc4c4;
+  margin-top: 20px;
+  font-family: "Noto Sans", sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const SC_DatePickerContainer = styled.div`
+  align-self: flex-start;
+`;
