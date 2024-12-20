@@ -18,12 +18,16 @@ const SC_CommonButton = styled.button`
   transition: border ${STYLE_TRANSITION_TIME};
 `;
 
-export const SC_AddTagButton = styled(SC_CommonButton)`
+export const SC_ShowAddEditModalButton = styled(SC_CommonButton)`
   &:hover {
     border: 3px solid #ab5f5f;
   }
   background-color: #5d3d3d;
   color: #ffd6d3;
+`;
+
+export const SC_ToggleButtonText = styled.span<{ $isTextEmpty: boolean }>`
+  margin-left: ${(props) => (props.$isTextEmpty ? "0" : "10px")};
 `;
 
 export const SC_OverlayBGContainer = styled.div`

@@ -4,7 +4,6 @@ import { FaCheckCircle, FaHashtag } from "react-icons/fa";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { MdAccessTimeFilled } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
 import { BarLoader } from "react-spinners";
 
 import {
@@ -30,7 +29,6 @@ import {
   SC_BaseParagraph,
   SC_Button,
   SC_DateAlignmentContainer,
-  SC_DeleteButton,
   SC_DescriptionPara,
   SC_DescriptionParaSpan,
   SC_HeadContainer,
@@ -42,10 +40,12 @@ import {
   SC_TaskNameHeading,
   SC_TopTextContainer,
   SC_SubTasksListContainer,
+  SC_SubTaskListItemContainer,
 } from "./styles";
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import TaskDisplayCard from "../TaskDisplayCard";
 import isColorDark from "../../utils/isColorDark";
+import DeletePopupButton from "../DeletePopupButton";
 
 type Props = {
   taskId?: string;
@@ -147,9 +147,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
               </SC_Button>
               <SC_TaskNameHeading>{taskData.name}</SC_TaskNameHeading>
             </SC_TopTextContainer>
-            <SC_DeleteButton>
-              <MdDelete />
-            </SC_DeleteButton>
+            <DeletePopupButton />
           </SC_HeadContainer>
 
           <SC_DateAlignmentContainer>
@@ -195,7 +193,16 @@ const TaskDetailsView = ({ taskId }: Props) => {
             {taskData.subTasks.length !== 0 ? (
               <SC_SubTasksListContainer>
                 {taskData.subTasks.map((each) => (
-                  <TaskDisplayCard key={each.sId} data={each} mode="TASK" />
+                  <SC_SubTaskListItemContainer>
+                    <TaskDisplayCard key={each.sId} data={each} mode="TASK" />
+                    <AddEditModalPopup
+                      mode="EDIT"
+                      text=""
+                      what="SUBTASK"
+                      where={taskData}
+                    />
+                    <DeletePopupButton />
+                  </SC_SubTaskListItemContainer>
                 ))}
               </SC_SubTasksListContainer>
             ) : (

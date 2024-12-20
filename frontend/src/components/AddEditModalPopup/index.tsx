@@ -6,7 +6,7 @@ import { FaHashtag } from "react-icons/fa6";
 import { FaSave, FaCalendarCheck } from "react-icons/fa";
 
 import {
-  SC_AddTagButton,
+  SC_ShowAddEditModalButton,
   SC_DateDisplayPickerButton,
   SC_DatePickerContainer,
   SC_DescriptionInput,
@@ -21,6 +21,7 @@ import {
   SC_TopModeHeader,
   SC_TopRowLeftContainer,
   SC_TopWhatHeader,
+  SC_ToggleButtonText,
 } from "./styles";
 import { STYLE_ICON_MARGINS } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
@@ -190,14 +191,12 @@ export const AddEditModalPopup = ({
 
   return (
     <>
-      <SC_AddTagButton title={text} onClick={onClickToggleModal}>
-        {mode === "CREATE" ? (
-          <AiFillPlusCircle style={STYLE_ICON_MARGINS} />
-        ) : (
-          <MdEditSquare style={STYLE_ICON_MARGINS} />
-        )}
-        {text}
-      </SC_AddTagButton>
+      <SC_ShowAddEditModalButton title={text} onClick={onClickToggleModal}>
+        {mode === "CREATE" ? <AiFillPlusCircle /> : <MdEditSquare />}
+        <SC_ToggleButtonText $isTextEmpty={text.length === 0}>
+          {text}
+        </SC_ToggleButtonText>
+      </SC_ShowAddEditModalButton>
       {showModal && (
         <AddEditForm
           closeFn={onClickToggleModal}

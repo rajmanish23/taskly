@@ -48,15 +48,6 @@ export const SC_Button = styled.button`
   transition: border ${STYLE_TRANSITION_TIME};
 `;
 
-export const SC_DeleteButton = styled(SC_Button)`
-  &:hover {
-    background-color: #b20000;
-    border: 3px solid #fe0000;
-  }
-  color: white;
-  background-color: #b20000;
-`;
-
 export const SC_DateAlignmentContainer = styled.div`
   padding-left: 10px;
   box-sizing: border-box;
@@ -143,4 +134,17 @@ export const SC_SubTasksListContainer = styled.ul`
   align-items: center;
   overflow: auto;
   margin: 0;
+`;
+
+export const SC_SubTaskListItemContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  & > button {
+    margin-bottom: 15px;
+    margin-left: 10px;
+    border-radius: 30px;
+    font-size: 26px;
+  }
 `;
