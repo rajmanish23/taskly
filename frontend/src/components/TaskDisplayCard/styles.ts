@@ -13,15 +13,16 @@ export const SC_TaskListItemContainer = styled.li`
   margin-bottom: 15px;
 `;
 
-export const SC_TaskCompleteButton = styled.button`
+export const SC_TaskCompleteButton = styled.button<{ $isCompleted: boolean }>`
   &:hover {
-    background-color: #48d989;
+    background-color: ${(props) =>
+      props.$isCompleted ? "#cec3c3" : "#48d989"};
   }
   border-radius: 30px 0 0 30px;
   border-style: none;
   padding: 0 15px 0 15px;
   font-size: 26px;
-  background-color: #3cb371;
+  background-color: ${(props) => (props.$isCompleted ? "#827b7b" : "#3cb371")};
   transition: background-color ${STYLE_TRANSITION_TIME};
   color: #013220;
   display: flex;
@@ -56,10 +57,12 @@ export const SC_BaseParagraph = styled.p`
   padding: 0;
 `;
 
-export const SC_TaskNameHeading = styled(SC_BaseParagraph)`
-  font-size: 24px;
-  font-weight: 600;
+export const SC_TaskNameHeading = styled(SC_BaseParagraph)<{$isCompleted: boolean}>`
   width: 60%;
+  font-size: 24px;
+  font-weight: ${(props) => props.$isCompleted ? "normal" : "600"};
+  color: ${(props) => props.$isCompleted ? "grey" : "inherit"};
+  text-decoration: ${(props) => props.$isCompleted ? "line-through" : "none"};
 `;
 
 export const SC_TagListContainer = styled.ul`

@@ -2,6 +2,7 @@ import { FaCheckCircle, FaHashtag } from "react-icons/fa";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { MdOutlineRadioButtonUnchecked } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -28,12 +29,26 @@ type TaskDisplayCardProps = {
   mode: SelectedView;
 };
 
-const displayDate = (date: Date | null, view: SelectedView) => {
+const displayDate = (
+  date: Date | null,
+  view: SelectedView,
+  isCompleted?: boolean
+) => {
   if (date === null) {
     return (
       <SC_DateContainer $isOverDue={false} $isNull={true}>
         <BsFillQuestionCircleFill style={STYLE_ICON_MARGINS} />
         <SC_BaseParagraph>No due date</SC_BaseParagraph>
+      </SC_DateContainer>
+    );
+  }
+  if (isCompleted) {
+    return (
+      <SC_DateContainer $isOverDue={false} $isNull={true}>
+        <FaCheckCircle style={STYLE_ICON_MARGINS} />
+        <SC_BaseParagraph>{`Done at: ${
+          view === "TODAY" ? date.toLocaleTimeString() : date.toLocaleString()
+        }`}</SC_BaseParagraph>
       </SC_DateContainer>
     );
   }
@@ -54,19 +69,22 @@ const displayDate = (date: Date | null, view: SelectedView) => {
 
 const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
   const navigate = useNavigate();
+  const isCompleted = data.completedAt !== null;
 
   if (isTask(data)) {
     return (
       <SC_TaskListItemContainer>
-        <SC_TaskCompleteButton>
-          <FaCheckCircle />
+        <SC_TaskCompleteButton $isCompleted={isCompleted}>
+          {!isCompleted ? <FaCheckCircle /> : <MdOutlineRadioButtonUnchecked />}
         </SC_TaskCompleteButton>
         <SC_DataContainer
           onClick={() => navigate(TASK_PAGE_URL_NO_PARAM + data.sId)}
           $isClickable={true}
         >
           <SC_TaskItemHeaderContainer>
-            <SC_TaskNameHeading>{data.name}</SC_TaskNameHeading>
+            <SC_TaskNameHeading $isCompleted={isCompleted}>
+              {data.name}
+            </SC_TaskNameHeading>
             {displayDate(data.dueAt, mode)}
           </SC_TaskItemHeaderContainer>
 
@@ -127,13 +145,17 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
   } else {
     return (
       <SC_TaskListItemContainer>
-        <SC_TaskCompleteButton>
-          <FaCheckCircle />
+        <SC_TaskCompleteButton $isCompleted={isCompleted}>
+          {!isCompleted ? <FaCheckCircle /> : <MdOutlineRadioButtonUnchecked />}
         </SC_TaskCompleteButton>
         <SC_DataContainer $isClickable={false}>
           <SC_TaskItemHeaderContainer>
-            <SC_TaskNameHeading>{data.name}</SC_TaskNameHeading>
-            {displayDate(data.dueAt, mode)}
+            <SC_TaskNameHeading $isCompleted={isCompleted}>
+              {data.name}
+            </SC_TaskNameHeading>
+            {isCompleted
+              ? displayDate(data.completedAt, mode, isCompleted)
+              : displayDate(data.dueAt, mode)}
           </SC_TaskItemHeaderContainer>
         </SC_DataContainer>
       </SC_TaskListItemContainer>
