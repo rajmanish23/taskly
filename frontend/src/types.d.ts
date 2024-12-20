@@ -15,6 +15,8 @@ type TaskAPIData = {
   due_at: string;
   sub_tasks: SubTaskAPIData[];
   tags: TagAPIData[];
+  deleted_at: string;
+  completed_at: string;
 };
 
 type TagAPIData = {
@@ -50,6 +52,8 @@ type Task = {
   dueAt: Date;
   subTasks: SubTask[];
   tags: Tag[];
+  deletedAt: Date | null;
+  completedAt: Date | null;
 };
 
 type User = {

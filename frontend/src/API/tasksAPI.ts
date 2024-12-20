@@ -24,6 +24,9 @@ const convertTaskAPIData = (data: TaskAPIData) => {
       name: eachTag.name,
       sId: eachTag.s_id,
     })),
+    completedAt:
+      data.completed_at === null ? null : new Date(data.completed_at),
+    deletedAt: data.deleted_at === null ? null : new Date(data.deleted_at),
   };
   return apiTasksData;
 };
@@ -139,7 +142,7 @@ export const getTaskDetailsAPI = async (
     const { data } = await baseTokenfulAPI.get<GetTaskDetailResponse>(
       TASK_DETAILS_API_URL(taskId)
     );
-    return convertTaskAPIData(data)
+    return convertTaskAPIData(data);
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
