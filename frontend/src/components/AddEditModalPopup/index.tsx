@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { forwardRef, LegacyRef, useRef, useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { MdEditSquare } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
 import { FaHashtag } from "react-icons/fa6";
-import { FaSave } from "react-icons/fa";
+import { FaSave, FaCalendarCheck } from "react-icons/fa";
 
 import {
   SC_AddTagButton,
@@ -36,6 +36,11 @@ type ContentProps = CommonProps & {
   closeFn: () => void;
 };
 
+type DateDisplayProps = {
+  value?: string,
+  onClick?: () => void
+}
+
 const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -47,6 +52,18 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
       closeFn();
     }
   };
+
+  const DateDisplay = forwardRef(
+    (
+      { value, onClick }: DateDisplayProps,
+      ref: LegacyRef<HTMLButtonElement>
+    ) => (
+      <button onClick={onClick} ref={ref}>
+        <FaCalendarCheck style={STYLE_ICON_MARGINS} />
+        {value}
+      </button>
+    )
+  );
 
   return (
     <SC_OverlayBGContainer ref={contentRef} onClick={closeOnBgClick}>
@@ -130,12 +147,12 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
                 }
                 setDate(date);
               }}
-              showIcon
               toggleCalendarOnIconClick
               timeInputLabel="Time:"
               dateFormat="Pp"
               showTimeInput
               minDate={subDays(new Date(), 0)}
+              customInput={<DateDisplay />}
             />
           ) : (
             <></>
