@@ -166,13 +166,6 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
           ) : (
             <></>
           )}
-          {what === "TASK" ? (
-            <>
-              <p>Tag: </p>
-            </>
-          ) : (
-            <></>
-          )}
         </SC_DetailsInputContainer>
       </SC_PopupContentContainer>
     </SC_OverlayBGContainer>
