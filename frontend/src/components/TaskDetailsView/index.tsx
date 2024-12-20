@@ -50,7 +50,9 @@ import {
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import TaskDisplayCard from "../TaskDisplayCard";
 import isColorDark from "../../utils/isColorDark";
-import { DeletePopupButton, RestoreDeletePopupButton } from "../DeleteHandlerButtons";
+import {
+  DeleteRestorePopupButton,
+} from "../DeleteHandlerButtons";
 
 type Props = {
   taskId?: string;
@@ -189,8 +191,20 @@ const TaskDetailsView = ({ taskId }: Props) => {
             </SC_TopTextContainer>
             <SC_TopButtonsAlignmentContainer>
               {/* The line below is for showing restore button */}
-              {isDeleted ? <RestoreDeletePopupButton /> : <></>}
-              <DeletePopupButton />
+              {isDeleted ? (
+                <DeleteRestorePopupButton
+                  id={taskData.sId}
+                  what="TASK"
+                  mode="RESTORE"
+                />
+              ) : (
+                <></>
+              )}
+              <DeleteRestorePopupButton
+                id={taskData.sId}
+                what="TASK"
+                mode={isDeleted ? "PERMA_DELETE" : "DELETE"}
+              />
             </SC_TopButtonsAlignmentContainer>
           </SC_HeadContainer>
 
@@ -247,7 +261,11 @@ const TaskDetailsView = ({ taskId }: Props) => {
                       what="SUBTASK"
                       where={taskData}
                     />
-                    <DeletePopupButton />
+                    <DeleteRestorePopupButton
+                      id={each.sId}
+                      what="SUB_TASK"
+                      mode="DELETE"
+                    />
                   </SC_SubTaskListItemContainer>
                 ))}
               </SC_SubTasksListContainer>
