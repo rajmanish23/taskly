@@ -39,6 +39,23 @@ export const SC_RestoreButton = styled(SC_Button)`
 `;
 
 export const SC_Popup = styled(Popup)`
+  @keyframes anvil {
+    0% {
+      transform: scale(1) translateY(-10px);
+      opacity: 0;
+      box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+    1% {
+      transform: scale(0.96) translateY(-10px);
+      opacity: 0;
+      box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+    100% {
+      transform: scale(1) translateY(0px);
+      opacity: 1;
+      box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+    }
+  }
   &-content {
     background-color: ${STYLE_CARD_BACKGROUND_COLOR};
     padding: 15px;
@@ -46,6 +63,8 @@ export const SC_Popup = styled(Popup)`
     border-style: solid;
     border-color: ${STYLE_BUTTON_HOVER_HIGHLIGHT_COLOR};
     border-width: 2px;
+    animation: anvil ${STYLE_TRANSITION_TIME} cubic-bezier(0.38, 0.1, 0.36, 0.9)
+      forwards;
   }
   &-arrow {
     color: ${STYLE_CARD_BACKGROUND_COLOR};
@@ -56,8 +75,24 @@ export const SC_Popup = styled(Popup)`
   }
 `;
 
-export const SC_PopupFormText = styled.p``;
+export const SC_PopupFormText = styled.p`
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+`;
 
-export const SC_PopupButtonContainer = styled.div``;
+export const SC_PopupButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+`;
 
-export const SC_PopupActionButton = styled.button``;
+export const SC_PopupActionButton = styled(SC_Button)`
+  &:hover {
+    background-color: #827b7b;
+    border: 3px solid #cec3c3;
+  }
+  color: black;
+  background-color: #827b7b;
+`;
