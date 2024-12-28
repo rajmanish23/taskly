@@ -264,7 +264,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                     <DeleteRestorePopupButton
                       id={each.sId}
                       what="SUB_TASK"
-                      mode="DELETE"
+                      mode="PERMA_DELETE"
                     />
                   </SC_SubTaskListItemContainer>
                 ))}
