@@ -95,4 +95,5 @@ export const SC_PopupActionButton = styled(SC_Button)`
   }
   color: black;
   background-color: #827b7b;
+  margin-right: 10px;
 `;
