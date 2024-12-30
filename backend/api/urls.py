@@ -49,12 +49,12 @@ urlpatterns = [
         name="sub-task-list-create",
     ),
     path(
-        "tasks/<slug:p_task>/sub-tasks/<slug:pk>/",
+        "sub-tasks/<slug:pk>/",
         views.SubTaskRetrieveUpdateDeleteView.as_view(),
         name="sub-task-single-retrieve-update-delete",
     ),
     path(
-        "tasks/<slug:p_task>/sub-tasks/<slug:pk>/mark-complete/",
+        "sub-tasks/<slug:pk>/mark-complete/",
         views.SubTaskMarkComplete.as_view(),
         name="sub-task-mark-complete",
     ),

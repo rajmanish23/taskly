@@ -182,20 +182,15 @@ class SubTaskRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        s_p_task = self.kwargs["p_task"]
-        p_task = sqids.decode(s_p_task)[0]
-        return SubTask.objects.filter(parent_task=p_task)
-
-    def get_object(self):
         s_id = self.kwargs["pk"]
         self.kwargs["pk"] = sqids.decode(s_id)[0]
-        return super().get_object()
+        return SubTask.objects.filter(s_id=s_id)
 
 
 class SubTaskMarkComplete(APIView):
     permission_classes = [IsAuthenticated]
 
-    def put(self, request, p_task, pk):
+    def put(self, request, pk):
         sub_task_id = sqids.decode(pk)[0]
         sub_task = None
         try:
