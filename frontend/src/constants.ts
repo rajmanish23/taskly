@@ -22,35 +22,47 @@ export const DEVICE_WIDTH = {
   PC: "(min-width: 767px)",
 };
 
+// Login and Register APIs
 export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 export const LOGIN_API_URL = "/api/token/";
 export const TOKEN_REFRESH_API_URL = "/api/token/refresh/";
 export const REGISTER_API_URL = "/api/user/register/";
+
+// User APIs
 export const USER_API_URL = "/api/user/get/";
 export const USER_DELETE_API = "/api/user/delete/";
 export const UPDATE_NAME_API = "/api/user/update-name/";
 export const UPDATE_EMAIL_API = "/api/user/update-email/";
 export const UPDATE_PASSWORD_API = "/api/user/change-password/";
+
+// Tag APIs
 export const TAGS_LIST_API_URL = "/api/tags/";
 export const TAG_SINGLE_ITEM_API_URL = (tagId: string) => `/api/tags/${tagId}/`;
 export const TAG_MARK_DELETE = (tagId: string) =>
   `/api/tags/${tagId}/mark-delete/`;
 export const TAG_DELETE_RESTORE = (tagId: string) =>
   `/api/tags/${tagId}/delete-restore/`;
+
+// Task APIs
 export const TASK_SINGLE_ITEM_API_URL = (taskId: string) =>
   `/api/tasks/${taskId}/`;
 export const TASK_MARK_DELETE = (taskId: string) =>
   `/api/tasks/${taskId}/mark-delete/`;
 export const TASK_DELETE_RESTORE = (taskId: string) =>
   `/api/tasks/${taskId}/delete-restore/`;
-export const SUB_TASK_SINGLE_ITEM_API_URL = (
-  taskId: string,
-  subTaskId: string
-) => `/api/tasks/${taskId}/sub-tasks/${subTaskId}/`;
+export const TASK_MARK_COMPLETE = (taskId: string) =>
+  `/api/tasks/${taskId}/mark-complete/`;
 export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
 export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
 export const PREVIOUS_TASKS_LIST_API_URL = "/api/tasks/previous/";
 
+// Sub Task APIs
+export const SUB_TASK_SINGLE_ITEM_API_URL = (subTaskId: string) =>
+  `/api/sub-tasks/${subTaskId}/`;
+export const SUB_TASK_MARK_COMPLETE = (subTaskId: string) =>
+  `/api/sub-tasks/${subTaskId}/mark-complete/`;
+
+// Frontend URLs
 export const LOGIN_PAGE_URL = "/login";
 export const REGISTER_PAGE_URL = "/register";
 export const TODAY_PAGE_URL = "/";

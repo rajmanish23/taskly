@@ -2,14 +2,9 @@ import baseTokenfulAPI from "./baseAPI";
 import { SUB_TASK_SINGLE_ITEM_API_URL } from "../constants";
 import { isAxiosError } from "axios";
 
-export const permanentlyDeleteSubTask = async (
-  taskId: string,
-  subTaskId: string
-) => {
+export const permanentlyDeleteSubTask = async (taskId: string) => {
   try {
-    await baseTokenfulAPI.delete(
-      SUB_TASK_SINGLE_ITEM_API_URL(taskId, subTaskId)
-    );
+    await baseTokenfulAPI.delete(SUB_TASK_SINGLE_ITEM_API_URL(taskId));
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
