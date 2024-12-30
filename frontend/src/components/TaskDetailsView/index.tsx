@@ -196,6 +196,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                   id={taskData.sId}
                   what="TASK"
                   mode="RESTORE"
+                  resetFunc={getTaskData}
                 />
               ) : (
                 <></>
@@ -204,6 +205,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                 id={taskData.sId}
                 what="TASK"
                 mode={isDeleted ? "PERMA_DELETE" : "DELETE"}
+                resetFunc={getTaskData}
               />
             </SC_TopButtonsAlignmentContainer>
           </SC_HeadContainer>
@@ -265,6 +267,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                       id={each.sId}
                       what="SUB_TASK"
                       mode="PERMA_DELETE"
+                      resetFunc={getTaskData}
                     />
                   </SC_SubTaskListItemContainer>
                 ))}

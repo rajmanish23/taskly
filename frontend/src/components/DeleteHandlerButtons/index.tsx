@@ -9,37 +9,56 @@ import {
   SC_PopupFormText,
   SC_RestoreButton,
 } from "./styles";
-import { ReactNode } from "react";
-import { deleteTask, permanentlyDeleteTask, restoreTask } from "../../API/tasksAPI";
+import { ReactNode, useContext } from "react";
+import {
+  deleteTask,
+  permanentlyDeleteTask,
+  restoreTask,
+} from "../../API/tasksAPI";
 import { deleteTag, permanentlyDeleteTag, restoreTag } from "../../API/tagsAPI";
 import { permanentlyDeleteSubTask } from "../../API/subTasksAPI";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { PageContext, PageContextType } from "../../context/PageContext";
+import { TODAY_PAGE_URL } from "../../constants";
 
 type Props = {
   what: "TASK" | "TAG" | "SUB_TASK";
   id: string;
   mode: "DELETE" | "PERMA_DELETE" | "RESTORE";
+  resetFunc: () => void;
 };
 
-const initiateAPI = async ({ id, mode, what }: Props) => {
+const initiateAPI = async (
+  { id, mode, what, resetFunc }: Props,
+  navigate: NavigateFunction,
+  previousPage: string
+) => {
   if (what === "TASK") {
     if (mode === "DELETE") {
       await deleteTask(id);
+      navigate(previousPage);
     } else if (mode === "PERMA_DELETE") {
       await permanentlyDeleteTask(id);
+      navigate(previousPage);
     } else {
       await restoreTask(id);
+      resetFunc();
     }
   } else if (what === "TAG") {
     if (mode === "DELETE") {
       await deleteTag(id);
+      navigate(TODAY_PAGE_URL);
     } else if (mode === "PERMA_DELETE") {
       await permanentlyDeleteTag(id);
+      navigate(TODAY_PAGE_URL)
     } else {
       await restoreTag(id);
+      resetFunc();
     }
   } else {
     if (mode === "PERMA_DELETE") {
       await permanentlyDeleteSubTask(id);
+      resetFunc();
     } else {
       throw new Error(
         "Invalid mode for sub task! Only PERMA_DELETE is allowed."
@@ -52,11 +71,15 @@ const PopupForm = ({
   id,
   what,
   mode,
+  resetFunc,
   close,
 }: Props & { close: () => void }): ReactNode => {
+  const navigate = useNavigate();
+  const { previousPage } = useContext(PageContext) as PageContextType;
+
   const onClickInitiateAPI = async () => {
     try {
-      await initiateAPI({id, what, mode});
+      await initiateAPI({ id, what, mode, resetFunc }, navigate, previousPage);
     } catch (error) {
       console.error(error);
     }
@@ -108,7 +131,12 @@ const PopupForm = ({
   }
 };
 
-export const DeleteRestorePopupButton = ({ id, what, mode }: Props) => {
+export const DeleteRestorePopupButton = ({
+  id,
+  what,
+  mode,
+  resetFunc,
+}: Props) => {
   return (
     <SC_Popup
       trigger={() => {
@@ -136,7 +164,15 @@ export const DeleteRestorePopupButton = ({ id, what, mode }: Props) => {
         The code below WILL work just fine. But it will show a TS error.
           
         @ts-expect-error Added due to package not having valid declaration for functional props.*/}
-      {(close) => <PopupForm id={id} what={what} mode={mode} close={close} />}
+      {(close) => (
+        <PopupForm
+          id={id}
+          what={what}
+          mode={mode}
+          close={close}
+          resetFunc={resetFunc}
+        />
+      )}
     </SC_Popup>
   );
 };
