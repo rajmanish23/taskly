@@ -90,6 +90,32 @@ class TaskMarkDelete(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+class TaskRestoreDelete(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, pk):
+        task_id = sqids.decode(pk)[0]
+        task = None
+        try:
+            task = Task.objects.get(id=task_id)
+        except Task.DoesNotExist:
+            return Response(
+                {"detail": "Task not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if task.deleted_at is None:
+            return Response(
+                {"detail": "Task is not marked as deleted"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        task.deleted_at = None
+        task.save()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class TaskMarkComplete(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -337,6 +363,32 @@ class TagMarkDelete(APIView):
             )
 
         tag.deleted_at = make_aware(datetime.datetime.now())
+        tag.save()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TagRestoreDelete(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, pk):
+        tag_id = sqids.decode(pk)[0]
+        tag = None
+        try:
+            tag = Tag.objects.get(id=tag_id)
+        except Tag.DoesNotExist:
+            return Response(
+                {"detail": "Tag not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if tag.deleted_at is None:
+            return Response(
+                {"detail": "Tag is not marked as deleted"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        tag.deleted_at = None
         tag.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)

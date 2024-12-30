@@ -34,6 +34,11 @@ urlpatterns = [
         name="task-mark-delete",
     ),
     path(
+        "tasks/<slug:pk>/delete-restore/",
+        views.TaskRestoreDelete.as_view(),  # restore delete task
+        name="task-restore-temp-delete",
+    ),
+    path(
         "tasks/<slug:pk>/mark-complete/",
         views.TaskMarkComplete.as_view(),
         name="task-mark-complete",
@@ -72,6 +77,11 @@ urlpatterns = [
     path(
         "tags/<slug:pk>/mark-delete/",
         views.TagMarkDelete.as_view(),
-        name="tag-single-retrieve-update-delete",
+        name="tag-mark-delete",
+    ),
+    path(
+        "tags/<slug:pk>/delete-restore/",
+        views.TagRestoreDelete.as_view(),
+        name="tag-restore-temp-delete",
     ),
 ]
