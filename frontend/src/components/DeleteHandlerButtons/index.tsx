@@ -10,6 +10,9 @@ import {
   SC_RestoreButton,
 } from "./styles";
 import { ReactNode } from "react";
+import { deleteTask, permanentlyDeleteTask, restoreTask } from "../../API/tasksAPI";
+import { deleteTag, permanentlyDeleteTag, restoreTag } from "../../API/tagsAPI";
+import { permanentlyDeleteSubTask } from "../../API/subTasksAPI";
 
 type Props = {
   what: "TASK" | "TAG" | "SUB_TASK";

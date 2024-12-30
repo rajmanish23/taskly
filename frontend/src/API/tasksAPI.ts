@@ -1,8 +1,10 @@
 import baseTokenfulAPI from "./baseAPI";
 import {
   PREVIOUS_TASKS_LIST_API_URL,
-  TAGS_TASK_LIST_API_URL,
-  TASK_DETAILS_API_URL,
+  TAG_SINGLE_ITEM_API_URL,
+  TASK_DELETE_RESTORE,
+  TASK_SINGLE_ITEM_API_URL,
+  TASK_MARK_DELETE,
   TODAY_TASKS_LIST_API_URL,
   UPCOMING_TASKS_LIST_API_URL,
 } from "../constants";
@@ -121,7 +123,7 @@ export const getTagTasksAPI = async (
 ): Promise<TagAPIConvertedData | APIErrorMessage> => {
   try {
     const { data } = await baseTokenfulAPI.get<GetTagTasksResponse>(
-      TAGS_TASK_LIST_API_URL(tagId)
+      TAG_SINGLE_ITEM_API_URL(tagId)
     );
     return convertTagTasksAPIData(data);
   } catch (error) {
@@ -144,7 +146,7 @@ export const getTaskDetailsAPI = async (
 ): Promise<Task | APIErrorMessage> => {
   try {
     const { data } = await baseTokenfulAPI.get<GetTaskDetailResponse>(
-      TASK_DETAILS_API_URL(taskId)
+      TASK_SINGLE_ITEM_API_URL(taskId)
     );
     return convertTaskAPIData(data);
   } catch (error) {
@@ -155,6 +157,45 @@ export const getTaskDetailsAPI = async (
         detail: error.response.data.detail,
       };
       return err;
+    }
+    throw error;
+  }
+};
+
+export const deleteTask = async (taskId: string) => {
+  try {
+    await baseTokenfulAPI.delete(TASK_MARK_DELETE(taskId));
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      throw new Error(error.response.data.detail);
+    }
+    throw error;
+  }
+};
+
+export const permanentlyDeleteTask = async (taskId: string) => {
+  try {
+    await baseTokenfulAPI.delete(TASK_SINGLE_ITEM_API_URL(taskId));
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      throw new Error(error.response.data.detail);
+    }
+    throw error;
+  }
+};
+
+export const restoreTask = async (taskId: string) => {
+  try {
+    await baseTokenfulAPI.put(TASK_DELETE_RESTORE(taskId));
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      throw new Error(error.response.data.detail);
     }
     throw error;
   }

@@ -1,5 +1,6 @@
 import baseTokenfulAPI from "./baseAPI";
-import { TAGS_LIST_API_URL, LOCAL_TAGS_KEY } from "../constants";
+import { TAGS_LIST_API_URL, LOCAL_TAGS_KEY, TAG_MARK_DELETE, TAG_SINGLE_ITEM_API_URL, TAG_DELETE_RESTORE } from "../constants";
+import { isAxiosError } from "axios";
 
 export const getTagsAPI = async (): Promise<Tag[]> => {
   const localTagsData = sessionStorage.getItem(LOCAL_TAGS_KEY);
@@ -17,4 +18,43 @@ export const getTagsAPI = async (): Promise<Tag[]> => {
   });
   sessionStorage.setItem(LOCAL_TAGS_KEY, JSON.stringify(apiTagsData));
   return apiTagsData;
+};
+
+export const deleteTag = async (taskId: string) => {
+  try {
+    await baseTokenfulAPI.delete(TAG_MARK_DELETE(taskId));
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      throw new Error(error.response.data.detail);
+    }
+    throw error;
+  }
+};;
+
+export const permanentlyDeleteTag = async (taskId: string) => {
+  try {
+    await baseTokenfulAPI.delete(TAG_SINGLE_ITEM_API_URL(taskId));
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      throw new Error(error.response.data.detail);
+    }
+    throw error;
+  }
+};
+
+export const restoreTag = async (taskId: string) => {
+  try {
+    await baseTokenfulAPI.put(TAG_DELETE_RESTORE(taskId));
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      throw new Error(error.response.data.detail);
+    }
+    throw error;
+  }
 };

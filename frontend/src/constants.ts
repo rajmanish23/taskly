@@ -32,8 +32,21 @@ export const UPDATE_NAME_API = "/api/user/update-name/";
 export const UPDATE_EMAIL_API = "/api/user/update-email/";
 export const UPDATE_PASSWORD_API = "/api/user/change-password/";
 export const TAGS_LIST_API_URL = "/api/tags/";
-export const TAGS_TASK_LIST_API_URL = (tagId: string) => `/api/tags/${tagId}/`;
-export const TASK_DETAILS_API_URL = (taskId: string) => `/api/tasks/${taskId}/`;
+export const TAG_SINGLE_ITEM_API_URL = (tagId: string) => `/api/tags/${tagId}/`;
+export const TAG_MARK_DELETE = (tagId: string) =>
+  `/api/tags/${tagId}/mark-delete/`;
+export const TAG_DELETE_RESTORE = (tagId: string) =>
+  `/api/tags/${tagId}/delete-restore/`;
+export const TASK_SINGLE_ITEM_API_URL = (taskId: string) =>
+  `/api/tasks/${taskId}/`;
+export const TASK_MARK_DELETE = (taskId: string) =>
+  `/api/tasks/${taskId}/mark-delete/`;
+export const TASK_DELETE_RESTORE = (taskId: string) =>
+  `/api/tasks/${taskId}/delete-restore/`;
+export const SUB_TASK_SINGLE_ITEM_API_URL = (
+  taskId: string,
+  subTaskId: string
+) => `/api/tasks/${taskId}/sub-tasks/${subTaskId}/`;
 export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
 export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
 export const PREVIOUS_TASKS_LIST_API_URL = "/api/tasks/previous/";
