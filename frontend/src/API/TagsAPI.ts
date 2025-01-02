@@ -9,6 +9,10 @@ import {
 import { isAxiosError } from "axios";
 import { handleError } from "./utils";
 
+const clearLocalTags = () => {
+  sessionStorage.removeItem(LOCAL_TAGS_KEY);
+}
+
 export const getTagsAPI = async (): Promise<Tag[]> => {
   const localTagsData = sessionStorage.getItem(LOCAL_TAGS_KEY);
   if (localTagsData !== null) {
@@ -30,6 +34,7 @@ export const getTagsAPI = async (): Promise<Tag[]> => {
 export const deleteTag = async (taskId: string) => {
   try {
     await baseTokenfulAPI.delete(TAG_MARK_DELETE(taskId));
+    clearLocalTags();
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
@@ -43,6 +48,7 @@ export const deleteTag = async (taskId: string) => {
 export const permanentlyDeleteTag = async (taskId: string) => {
   try {
     await baseTokenfulAPI.delete(TAG_SINGLE_ITEM_API_URL(taskId));
+    clearLocalTags();
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
@@ -56,6 +62,7 @@ export const permanentlyDeleteTag = async (taskId: string) => {
 export const restoreTag = async (taskId: string) => {
   try {
     await baseTokenfulAPI.put(TAG_DELETE_RESTORE(taskId));
+    clearLocalTags();
   } catch (error) {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
@@ -80,6 +87,7 @@ export const createTag = async ({
       name,
       colorHex,
     });
+    clearLocalTags();
     return { detail: "Tag created successfully", isError: false };
   } catch (error) {
     return handleError(error);
@@ -100,6 +108,7 @@ export const updateTag = async (
       name,
       colorHex,
     });
+    clearLocalTags();
     return { detail: "Tag updated successfully", isError: false };
   } catch (error) {
     return handleError(error);
