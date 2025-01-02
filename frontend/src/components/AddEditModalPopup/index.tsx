@@ -75,7 +75,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
       return;
     }
     console.log("Submit clicked");
-  }
+  };
 
   const closeOnBgClick = (e: React.MouseEvent) => {
     if (contentRef.current === e.target) {
@@ -237,7 +237,15 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
           )}
           {errorMessage !== "" ? (
             <SC_ErrorMessageHolder>
-              <ErrorMessage errorMessage={errorMessage} />
+              <ErrorMessage
+                errorMessage={errorMessage}
+                show={errorMessage !== ""}
+                setShow={(show: boolean) => {
+                  if (!show) {
+                    setErrorMessage("");
+                  } else return;
+                }}
+              />
             </SC_ErrorMessageHolder>
           ) : (
             <></>

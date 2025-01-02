@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { IoIosWarning } from "react-icons/io";
 import {
   SC_ErrorMessageContainer,
@@ -8,11 +8,11 @@ import {
 
 type Props = {
   errorMessage: string;
+  show: boolean;
+  setShow: (show: boolean) => void;
 };
 
-const ErrorMessage = ({ errorMessage }: Props) => {
-  const [show, setShow] = useState(true);
-
+const ErrorMessage = ({ errorMessage, setShow, show }: Props) => {
   useEffect(() => {
     const timeId = setTimeout(() => {
       setShow(false);
@@ -20,7 +20,7 @@ const ErrorMessage = ({ errorMessage }: Props) => {
     return () => {
       clearTimeout(timeId)
     }
-  }, [])
+  }, [show, setShow])
 
   if (!show) return null;
 
