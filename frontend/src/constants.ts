@@ -36,7 +36,7 @@ export const UPDATE_EMAIL_API = "/api/user/update-email/";
 export const UPDATE_PASSWORD_API = "/api/user/change-password/";
 
 // Tag APIs
-export const TAGS_LIST_API_URL = "/api/tags/";
+export const TAGS_LIST_CREATE_API_URL = "/api/tags/";
 export const TAG_SINGLE_ITEM_API_URL = (tagId: string) => `/api/tags/${tagId}/`;
 export const TAG_MARK_DELETE = (tagId: string) =>
   `/api/tags/${tagId}/mark-delete/`;
@@ -62,6 +62,8 @@ export const SUB_TASK_SINGLE_ITEM_API_URL = (subTaskId: string) =>
   `/api/sub-tasks/${subTaskId}/`;
 export const SUB_TASK_MARK_COMPLETE = (subTaskId: string) =>
   `/api/sub-tasks/${subTaskId}/mark-complete/`;
+export const CREATE_SUB_TASK_API_URL = (parentTaskId: string) =>
+  `/api/tasks/${parentTaskId}/sub-tasks/`;
 
 // Frontend URLs
 export const LOGIN_PAGE_URL = "/login";

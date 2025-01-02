@@ -216,11 +216,11 @@ type CreateTaskData = {
   dueAt: Date;
 };
 
-export async function createTask({
+export const createTask = async ({
   name,
   description,
   dueAt,
-}: CreateTaskData): Promise<APIStatusMessage> {
+}: CreateTaskData): Promise<APIStatusMessage> => {
   try {
     await baseTokenfulAPI.post(CREATE_TASK_API_URL, {
       name,
@@ -232,3 +232,25 @@ export async function createTask({
     return handleError(error);
   }
 }
+
+type UpdateTaskData = {
+  name? : string;
+  description?: string;
+  dueAt?: Date;
+};
+
+export const updateTask = async (
+  id: string,
+  {name, description, dueAt}: UpdateTaskData
+): Promise<APIStatusMessage> => {
+  try {
+    await baseTokenfulAPI.put(TASK_SINGLE_ITEM_API_URL(id), {
+      name,
+      description,
+      dueAt: dueAt?.toISOString(),
+    });
+    return { detail: "Task updated successfully", isError: false };
+  } catch (error) {
+    return handleError(error);
+  }
+};
