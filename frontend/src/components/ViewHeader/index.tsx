@@ -13,13 +13,6 @@ import {
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import { PageContext, PageContextType } from "../../context/PageContext";
 
-type DataState = {
-  name?: string;
-  description?: string;
-  dueDate?: Date;
-  tagColor?: string;
-};
-
 type Props = {
   h1Text: string | ReactNode;
   h2Text?: string | ReactNode;

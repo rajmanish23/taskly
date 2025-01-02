@@ -38,13 +38,6 @@ import isColorDark from "../../utils/isColorDark";
 import "react-datepicker/dist/react-datepicker.css";
 import ErrorMessage from "../ErrorMessage";
 
-type DataState = {
-  name?: string;
-  description?: string;
-  dueDate?: Date | null;
-  colorHex?: string;
-};
-
 type CommonProps = {
   mode: "CREATE" | "EDIT";
   what: "TAG" | "TASK" | "SUBTASK";

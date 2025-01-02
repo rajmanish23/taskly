@@ -264,6 +264,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                       what="SUBTASK"
                       where={taskData}
                       data={{
+                        sId: each.sId,
                         name: each.name,
                         dueDate: each.dueAt,
                       }}

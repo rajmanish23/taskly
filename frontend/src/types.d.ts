@@ -7,7 +7,7 @@ type SubTaskAPIData = {
 
 type APIStatusMessage = {
   detail: string;
-  isError: boolean
+  isError: boolean;
 };
 
 type TaskAPIData = {
@@ -33,7 +33,7 @@ type Tag = {
   sId: string;
   name: string;
   colorHex: string;
-  deletedAt?: Date | null
+  deletedAt?: Date | null;
 };
 
 type TagAPIConvertedData = {
@@ -81,3 +81,11 @@ type SelectedView =
   | "PASS_EDIT"
   | "LOGOUT"
   | "DEL_ACC";
+
+type DataState = {
+  sId: string;
+  name: string;
+  description?: string;
+  dueDate?: Date | null;
+  colorHex?: string;
+};
