@@ -211,8 +211,7 @@ export const SC_SelectedColorDisplayWindow = styled.div<{ $color: string }>`
 `
 
 export const SC_ErrorMessageHolder = styled.div`
-  margin-top: 20px;
   & > div {
-    margin: 0;
+    margin-bottom: 0;
   }
 `;
