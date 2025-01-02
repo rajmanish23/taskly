@@ -1,9 +1,12 @@
-import { forwardRef, LegacyRef, useRef, useState } from "react";
+import { ChangeEvent, forwardRef, LegacyRef, useRef, useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { MdEditSquare } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
 import { FaHashtag } from "react-icons/fa6";
 import { FaSave, FaCalendarCheck } from "react-icons/fa";
+import { subDays } from "date-fns";
+import { HexColorPicker } from "react-colorful";
+import DatePicker from "react-datepicker";
 
 import {
   SC_ShowAddEditModalButton,
@@ -23,14 +26,17 @@ import {
   SC_TopWhatHeader,
   SC_ToggleButtonText,
   SC_TopWhereHeader,
+  SC_TagColorPickerContainer,
+  SC_SelectedColorDisplayContainer,
+  SC_SelectedColorDisplayHeader,
+  SC_ErrorMessageHolder,
 } from "./styles";
 import { STYLE_ICON_MARGINS } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
 import isColorDark from "../../utils/isColorDark";
-import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { subDays } from "date-fns";
+import ErrorMessage from "../ErrorMessage";
 
 type DataState = {
   name?: string;
@@ -66,6 +72,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   const [description, setDescription] = useState(data?.description ?? "");
   const [dueDate, setDueDate] = useState<Date>(data?.dueDate ?? new Date());
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
+  const [errorMessage, setErrorMessage] = useState("");
   const contentRef = useRef<HTMLDivElement>(null);
 
   const closeOnBgClick = (e: React.MouseEvent) => {
@@ -85,6 +92,15 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
       </SC_DateDisplayPickerButton>
     )
   );
+
+  const onChangeUpdateName = (e: ChangeEvent<HTMLInputElement>) => {
+    if (what === "TAG" && e.target.value.length > 20) {
+      setErrorMessage("Cannot enter more than 20 characters!");
+      return;
+    }
+    setErrorMessage("");
+    setName(e.target.value);
+  };
 
   return (
     <SC_OverlayBGContainer ref={contentRef} onClick={closeOnBgClick}>
@@ -159,7 +175,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
             name="nameInput"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={onChangeUpdateName}
             $isError={false}
           />
           {what === "TASK" ? (
@@ -193,6 +209,32 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
                 customInput={<DateDisplay />}
               />
             </SC_DatePickerContainer>
+          ) : (
+            <></>
+          )}
+          {what === "TAG" ? (
+            <SC_TagColorPickerContainer>
+              <HexColorPicker color={tagColor} onChange={setTagColor} />
+              <SC_SelectedColorDisplayContainer>
+                <SC_SelectedColorDisplayHeader>
+                  Selected color is
+                </SC_SelectedColorDisplayHeader>
+                <SC_ModalTagItemContainer
+                  $color={tagColor}
+                  $isColorDark={isColorDark(tagColor)}
+                >
+                  <FaHashtag style={STYLE_ICON_MARGINS} />
+                  {name.length === 0 ? "Enter a Name" : name}
+                </SC_ModalTagItemContainer>
+              </SC_SelectedColorDisplayContainer>
+            </SC_TagColorPickerContainer>
+          ) : (
+            <></>
+          )}
+          {errorMessage !== "" ? (
+            <SC_ErrorMessageHolder>
+              <ErrorMessage errorMessage={errorMessage} />
+            </SC_ErrorMessageHolder>
           ) : (
             <></>
           )}

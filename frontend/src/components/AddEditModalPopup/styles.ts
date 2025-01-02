@@ -182,3 +182,37 @@ export const SC_DateDisplayPickerButton = styled.button<{ $isError: boolean }>`
 export const SC_DatePickerContainer = styled.div`
   align-self: flex-start;
 `;
+
+export const SC_TagColorPickerContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-top: 20px;
+`
+
+export const SC_SelectedColorDisplayContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+`
+
+export const SC_SelectedColorDisplayHeader = styled.h1`
+  margin: 0 0 5px 5px;
+  font-size: 26px;
+`
+
+export const SC_SelectedColorDisplayWindow = styled.div<{ $color: string }>`
+  background-color: ${(props) => props.$color};
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  margin-top: 10px;
+`
+
+export const SC_ErrorMessageHolder = styled.div`
+  margin-top: 20px;
+  & > div {
+    margin: 0;
+  }
+`;
