@@ -22,6 +22,7 @@ import {
   SC_TopRowLeftContainer,
   SC_TopWhatHeader,
   SC_ToggleButtonText,
+  SC_TopWhereHeader,
 } from "./styles";
 import { STYLE_ICON_MARGINS } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
@@ -31,10 +32,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { subDays } from "date-fns";
 
+type DataState = {
+  name?: string;
+  description?: string;
+  dueDate?: Date | null;
+  tagColor?: string;
+};
+
 type CommonProps = {
   mode: "CREATE" | "EDIT";
   what: "TAG" | "TASK" | "SUBTASK";
   where?: Tag | Task;
+  data?: DataState;
 };
 
 type ContentProps = CommonProps & {
@@ -46,10 +55,17 @@ type DateDisplayProps = {
   onClick?: () => void;
 };
 
-const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState<Date>(new Date());
+const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
+  if (mode === "EDIT" && data === undefined) {
+    throw new Error(
+      "Current state for data to be edited is required for EDIT mode"
+    );
+  }
+
+  const [name, setName] = useState(data?.name ?? "");
+  const [description, setDescription] = useState(data?.description ?? "");
+  const [dueDate, setDueDate] = useState<Date>(data?.dueDate ?? new Date());
+  const [tagColor, setTagColor] = useState(data?.tagColor ?? "#b49393");
   const contentRef = useRef<HTMLDivElement>(null);
 
   const closeOnBgClick = (e: React.MouseEvent) => {
@@ -78,10 +94,10 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
             <SC_PopupCloseButton onClick={closeFn}>
               <IoCloseCircle />
             </SC_PopupCloseButton>
-            <SC_TopModeHeader className="top-header">
+            <SC_TopModeHeader>
               {mode === "CREATE" ? "Creating" : "Editing"}
             </SC_TopModeHeader>
-            <SC_TopWhatHeader className="top-what-header">
+            <SC_TopWhatHeader>
               {what === "SUBTASK"
                 ? "Sub-Task"
                 : what === "TAG"
@@ -93,7 +109,7 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
                 <></>
               ) : isTag(where) ? (
                 <>
-                  <SC_TopModeHeader className="top-header">in</SC_TopModeHeader>
+                  <SC_TopModeHeader>in</SC_TopModeHeader>
                   <SC_ModalTagItemContainer
                     key={where.sId}
                     $color={where.colorHex}
@@ -105,17 +121,17 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
                 </>
               ) : (
                 <>
-                  <SC_TopModeHeader className="top-header">in</SC_TopModeHeader>
-                  <SC_TopWhatHeader className="top-where-header">
+                  <SC_TopModeHeader>in</SC_TopModeHeader>
+                  <SC_TopWhereHeader>
                     {where.name}
-                  </SC_TopWhatHeader>
+                  </SC_TopWhereHeader>
                 </>
               )
             ) : (
               <></>
             )}
           </SC_TopRowLeftContainer>
-          <SC_SaveButton className="save-button">
+          <SC_SaveButton>
             <>
               <FaSave style={STYLE_ICON_MARGINS} />
               Save
@@ -123,7 +139,7 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
           </SC_SaveButton>
         </SC_TopHeaderRowContainer>
 
-        <SC_DetailsInputContainer className="details-input-container">
+        <SC_DetailsInputContainer>
           <SC_NameInput
             type="text"
             id="nameInput"
@@ -149,12 +165,12 @@ const AddEditForm = ({ closeFn, mode, what, where }: ContentProps) => {
           {what !== "TAG" ? (
             <SC_DatePickerContainer>
               <DatePicker
-                selected={date}
+                selected={dueDate}
                 onChange={(date) => {
                   if (date === null) {
                     return;
                   }
-                  setDate(date);
+                  setDueDate(date);
                 }}
                 toggleCalendarOnIconClick
                 timeInputLabel="Time:"
@@ -182,6 +198,7 @@ export const AddEditModalPopup = ({
   mode,
   what,
   where,
+  data,
 }: AddButtonProp) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -203,6 +220,7 @@ export const AddEditModalPopup = ({
           mode={mode}
           what={what}
           where={where}
+          data={data}
         />
       )}
     </>

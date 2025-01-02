@@ -128,6 +128,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
             addWhere={tag}
             editButtonText="Edit Tag"
             editWhat="TAG"
+            currentData={tag}
           />
         );
       case "PREVIOUS":

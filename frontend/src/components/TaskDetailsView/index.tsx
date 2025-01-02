@@ -151,6 +151,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
         editButtonText="Edit Task"
         editWhat="TASK"
         hasBackButton
+        currentData={taskData}
       />
       {isLoading ? (
         <SC_CentralNoDataContainer>
@@ -262,6 +263,10 @@ const TaskDetailsView = ({ taskId }: Props) => {
                       text=""
                       what="SUBTASK"
                       where={taskData}
+                      data={{
+                        name: each.name,
+                        dueDate: each.dueAt,
+                      }}
                     />
                     <DeleteRestorePopupButton
                       id={each.sId}

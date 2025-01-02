@@ -13,6 +13,13 @@ import {
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import { PageContext, PageContextType } from "../../context/PageContext";
 
+type DataState = {
+  name?: string;
+  description?: string;
+  dueDate?: Date;
+  tagColor?: string;
+};
+
 type Props = {
   h1Text: string | ReactNode;
   h2Text?: string | ReactNode;
@@ -23,6 +30,7 @@ type Props = {
   addWhat?: "TAG" | "TASK" | "SUBTASK";
   addWhere?: Tag | Task;
   editWhat?: "TAG" | "TASK" | "SUBTASK";
+  currentData?: DataState;
 };
 
 const ViewHeader = ({
@@ -34,6 +42,7 @@ const ViewHeader = ({
   addWhat,
   addWhere,
   editWhat,
+  currentData
 }: Props) => {
   const { previousPage } = useContext(
     PageContext
@@ -61,7 +70,7 @@ const ViewHeader = ({
         {editButtonText === undefined || editWhat === undefined ? (
           <></>
         ) : (
-          <AddEditModalPopup text={editButtonText} mode="EDIT" what={editWhat} />
+          <AddEditModalPopup text={editButtonText} mode="EDIT" what={editWhat} data={currentData} />
         )}
       </SC_ButtonContainer>
     </SC_HeaderContainer>

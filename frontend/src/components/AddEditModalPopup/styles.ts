@@ -96,6 +96,8 @@ export const SC_TopRowLeftContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-right: 10px;
+  min-width: 0;
 `;
 
 export const SC_TopModeHeader = styled.h1`
@@ -110,6 +112,14 @@ export const SC_TopWhatHeader = styled.h1`
   padding: 5px 10px 5px 10px;
   border-radius: 7px;
   font-weight: normal;
+  min-width: fit-content;
+`;
+
+export const SC_TopWhereHeader = styled(SC_TopWhatHeader)`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 `;
 
 export const SC_ModalTagItemContainer = styled(SC_TagItemContainer)`
