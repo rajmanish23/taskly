@@ -95,7 +95,9 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
 
   const onChangeUpdateName = (e: ChangeEvent<HTMLInputElement>) => {
     if (what === "TAG" && e.target.value.length > TAG_NAME_CHAR_LIMIT) {
-      setErrorMessage("Cannot enter more than 20 characters!");
+      setErrorMessage(
+        `Cannot enter more than ${TAG_NAME_CHAR_LIMIT} characters!`
+      );
       return;
     }
     setErrorMessage("");
