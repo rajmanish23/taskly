@@ -1,3 +1,7 @@
+export function isAPIStatusMessage(obj: unknown): obj is APIStatusMessage {
+  return (obj as APIStatusMessage).detail !== undefined;
+}
+
 export function isTagAPIConvertedData(
   obj: unknown
 ): obj is TagAPIConvertedData {

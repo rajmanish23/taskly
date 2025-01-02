@@ -16,7 +16,7 @@ import {
   getUpcomingTasksAPI,
 } from "../../API/tasksAPI";
 import {
-  isAPIErrorMessage,
+  isAPIStatusMessage,
   isTagAPIConvertedData,
 } from "../../utils/objectTypeCheckers";
 import ViewHeader from "../ViewHeader";
@@ -54,7 +54,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       } else {
         throw Error("Settings View is used for Task listing component!");
       }
-      if (isAPIErrorMessage(data)) {
+      if (isAPIStatusMessage(data)) {
         setTasks([]);
         setErrorMessage(data.detail);
       } else if (isTagAPIConvertedData(data)) {

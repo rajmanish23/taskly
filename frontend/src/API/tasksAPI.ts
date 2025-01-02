@@ -9,7 +9,7 @@ import {
   UPCOMING_TASKS_LIST_API_URL,
   CREATE_TASK_API_URL,
 } from "../constants";
-import { AxiosError, isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import { handleError } from "./utils";
 
 const convertTaskAPIData = (data: TaskAPIData) => {
@@ -57,6 +57,7 @@ export const getTodayTasksAPI = async (): Promise<
     if (error.response.status === 404) {
       const err: APIStatusMessage = {
         detail: error.response.data.detail,
+        isError: true,
       };
       return err;
     }
@@ -80,6 +81,7 @@ export const getPreviousTasksAPI = async (): Promise<
     if (error.response.status === 404) {
       const err: APIStatusMessage = {
         detail: error.response.data.detail,
+        isError: true,
       };
       return err;
     }
@@ -103,6 +105,7 @@ export const getUpcomingTasksAPI = async (): Promise<
     if (error.response.status === 404) {
       const err: APIStatusMessage = {
         detail: error.response.data.detail,
+        isError: true,
       };
       return err;
     }
@@ -136,6 +139,7 @@ export const getTagTasksAPI = async (
     if (error.response.status === 404) {
       const err: APIStatusMessage = {
         detail: error.response.data.detail,
+        isError: true,
       };
       return err;
     }
@@ -159,6 +163,7 @@ export const getTaskDetailsAPI = async (
     if (error.response.status === 404) {
       const err: APIStatusMessage = {
         detail: error.response.data.detail,
+        isError: true,
       };
       return err;
     }

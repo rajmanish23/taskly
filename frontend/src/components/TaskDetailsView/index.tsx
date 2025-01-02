@@ -26,7 +26,7 @@ import {
   TAG_PAGE_URL_NO_PARAM,
 } from "../../constants";
 import { getTaskDetailsAPI } from "../../API/tasksAPI";
-import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
+import { isAPIStatusMessage } from "../../utils/objectTypeCheckers";
 import ErrorMessage from "../ErrorMessage";
 import {
   SC_BaseParagraph,
@@ -125,7 +125,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
       throw Error("!! Need to pass task ID to this component !!");
     try {
       const data = await getTaskDetailsAPI(taskId);
-      if (isAPIErrorMessage(data)) {
+      if (isAPIStatusMessage(data)) {
         setErrorMessage(data.detail);
       } else {
         setTaskData(data);
