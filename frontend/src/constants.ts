@@ -3,6 +3,7 @@ export const REFRESH_KEY = "refresh";
 export const LOCAL_TAGS_KEY = "tag-data";
 export const LOCAL_USER_KEY = "user-data";
 
+// Styling constants
 export const STYLE_TEXT_COLOR = "#f3adad";
 export const STYLE_BUTTON_HIGHLIGHT_COLOR = "#854a4a";
 export const STYLE_NON_BUTTON_HOVER_HIGHLIGHT_COLOR = "#363333";
@@ -16,7 +17,6 @@ export const STYLE_ICON_MARGINS = {
 };
 export const BAR_LOADER_HEIGHT = 3;
 export const BAR_LOADER_WIDTH = 150;
-
 export const DEVICE_WIDTH = {
   MOBILE: "(max-width: 767px)",
   PC: "(min-width: 767px)",
@@ -83,4 +83,8 @@ export const SETTING_EDIT_NAME_URL = "/settings/edit-name";
 export const SETTING_LOGOUT_URL = "/settings/logout";
 export const SETTING_RESTORE_URL = "/settings/restore";
 
+// Input constants
 export const DELETE_CHALLENGE_TEXT = "I want to permanently delete my account";
+export const TAG_NAME_CHAR_LIMIT = 20
+export const TASK_NAME_CHAR_LIMIT = 100
+export const SUB_TASK_CHAR_LIMIT = 100
