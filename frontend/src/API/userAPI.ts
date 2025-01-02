@@ -15,6 +15,7 @@ import {
   UPDATE_PASSWORD_API,
 } from "../constants";
 import { baseTokenlessAPI } from "./isAuthorizedAPI";
+import { handleError } from "./utils";
 
 export async function loginAPI(
   email: string,
@@ -118,18 +119,12 @@ export async function getUserAPI(): Promise<User> {
   return apiUserData;
 }
 
-export async function deleteUserAPI(): Promise<string> {
+export async function deleteUserAPI(): Promise<APIStatusMessage> {
   try {
     await baseTokenfulAPI.delete(USER_DELETE_API);
-    return "";
+    return { detail: "User deleted successfully", isError: false };
   } catch (err) {
-    if (err instanceof AxiosError) {
-      console.error(err);
-      return err.response?.data.detail;
-    } else {
-      console.error(err);
-      return "Unknown error occured";
-    }
+    return handleError(err);
   }
 }
 
@@ -137,69 +132,45 @@ export async function updateNameAPI(
   firstName: string,
   lastName: string,
   password: string
-): Promise<APIErrorMessage | number> {
+): Promise<APIStatusMessage> {
   try {
     await baseTokenfulAPI.put(UPDATE_NAME_API, {
       firstName,
       lastName,
       password,
     });
-    return 0;
+    return { detail: "Name updated successfully", isError: false };
   } catch (err) {
-    if (err instanceof AxiosError) {
-      console.error(err);
-      return err.response?.data.detail;
-    } else {
-      console.error(err);
-      return {
-        detail: "Unkown error occured",
-      };
-    }
+    return handleError(err);
   }
 }
 
 export async function updateEmailAPI(
   newEmail: string,
   password: string
-): Promise<APIErrorMessage | number> {
+): Promise<APIStatusMessage> {
   try {
     await baseTokenfulAPI.put(UPDATE_EMAIL_API, {
       newEmail,
       password,
     });
-    return 0;
+    return { detail: "Email updated successfully", isError: false };
   } catch (err) {
-    if (err instanceof AxiosError) {
-      console.error(err);
-      return err.response?.data.detail;
-    } else {
-      console.error(err);
-      return {
-        detail: "Unkown error occured",
-      };
-    }
+    return handleError(err);
   }
 }
 
 export async function updatePasswordAPI(
   oldPassword: string,
   newPassword: string
-): Promise<APIErrorMessage | number> {
+): Promise<APIStatusMessage> {
   try {
     await baseTokenfulAPI.put(UPDATE_PASSWORD_API, {
       oldPassword,
       newPassword,
     });
-    return 0;
+    return { detail: "Password updated successfully", isError: false };
   } catch (err) {
-    if (err instanceof AxiosError) {
-      console.error(err);
-      return err.response?.data.detail;
-    } else {
-      console.error(err);
-      return {
-        detail: "Unkown error occured",
-      };
-    }
+    return handleError(err);
   }
 }

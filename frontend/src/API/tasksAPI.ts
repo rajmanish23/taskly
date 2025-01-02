@@ -10,6 +10,7 @@ import {
   CREATE_TASK_API_URL,
 } from "../constants";
 import { AxiosError, isAxiosError } from "axios";
+import { handleError } from "./utils";
 
 const convertTaskAPIData = (data: TaskAPIData) => {
   const apiTasksData: Task = {
@@ -40,7 +41,9 @@ const convertTaskAPIData = (data: TaskAPIData) => {
 
 type GetTaskResponse = TaskAPIData[];
 
-export const getTodayTasksAPI = async (): Promise<Task[] | APIErrorMessage> => {
+export const getTodayTasksAPI = async (): Promise<
+  Task[] | APIStatusMessage
+> => {
   try {
     const now = new Date();
     const { data } = await baseTokenfulAPI.get<GetTaskResponse>(
@@ -52,7 +55,7 @@ export const getTodayTasksAPI = async (): Promise<Task[] | APIErrorMessage> => {
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
     if (error.response.status === 404) {
-      const err: APIErrorMessage = {
+      const err: APIStatusMessage = {
         detail: error.response.data.detail,
       };
       return err;
@@ -62,7 +65,7 @@ export const getTodayTasksAPI = async (): Promise<Task[] | APIErrorMessage> => {
 };
 
 export const getPreviousTasksAPI = async (): Promise<
-  Task[] | APIErrorMessage
+  Task[] | APIStatusMessage
 > => {
   try {
     const now = new Date();
@@ -75,7 +78,7 @@ export const getPreviousTasksAPI = async (): Promise<
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
     if (error.response.status === 404) {
-      const err: APIErrorMessage = {
+      const err: APIStatusMessage = {
         detail: error.response.data.detail,
       };
       return err;
@@ -85,7 +88,7 @@ export const getPreviousTasksAPI = async (): Promise<
 };
 
 export const getUpcomingTasksAPI = async (): Promise<
-  Task[] | APIErrorMessage
+  Task[] | APIStatusMessage
 > => {
   try {
     const now = new Date();
@@ -98,7 +101,7 @@ export const getUpcomingTasksAPI = async (): Promise<
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
     if (error.response.status === 404) {
-      const err: APIErrorMessage = {
+      const err: APIStatusMessage = {
         detail: error.response.data.detail,
       };
       return err;
@@ -121,7 +124,7 @@ const convertTagTasksAPIData = (data: TagAPIData) => {
 
 export const getTagTasksAPI = async (
   tagId: string
-): Promise<TagAPIConvertedData | APIErrorMessage> => {
+): Promise<TagAPIConvertedData | APIStatusMessage> => {
   try {
     const { data } = await baseTokenfulAPI.get<GetTagTasksResponse>(
       TAG_SINGLE_ITEM_API_URL(tagId)
@@ -131,7 +134,7 @@ export const getTagTasksAPI = async (
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
     if (error.response.status === 404) {
-      const err: APIErrorMessage = {
+      const err: APIStatusMessage = {
         detail: error.response.data.detail,
       };
       return err;
@@ -144,7 +147,7 @@ type GetTaskDetailResponse = TaskAPIData;
 
 export const getTaskDetailsAPI = async (
   taskId: string
-): Promise<Task | APIErrorMessage> => {
+): Promise<Task | APIStatusMessage> => {
   try {
     const { data } = await baseTokenfulAPI.get<GetTaskDetailResponse>(
       TASK_SINGLE_ITEM_API_URL(taskId)
@@ -154,7 +157,7 @@ export const getTaskDetailsAPI = async (
     if (!isAxiosError(error)) throw error;
     if (error.response === undefined) throw error;
     if (error.response.status === 404) {
-      const err: APIErrorMessage = {
+      const err: APIStatusMessage = {
         detail: error.response.data.detail,
       };
       return err;
@@ -212,18 +215,15 @@ export async function createTask({
   name,
   description,
   dueAt,
-}: CreateTaskData): Promise<[isSuccess: boolean, errorMsg: string]> {
+}: CreateTaskData): Promise<APIStatusMessage> {
   try {
-    const res = await baseTokenfulAPI.post(CREATE_TASK_API_URL, {
+    await baseTokenfulAPI.post(CREATE_TASK_API_URL, {
       name,
       description,
       dueAt: dueAt.toISOString(),
     });
-    if (res.status === 201) {
-      return [true, ""];
-    }
+    return { detail: "Task created successfully", isError: false };
   } catch (error) {
-    handleError(error);
+    return handleError(error);
   }
-  return [false, "!!Some edge case has occured that needs resolving!!"];
 }

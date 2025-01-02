@@ -19,10 +19,7 @@ import {
   STYLE_TEXT_COLOR,
 } from "../../constants";
 import ErrorMessage from "../ErrorMessage";
-import {
-  SC_DeleteButton,
-  SC_DeleteTextChallenge,
-} from "./styles";
+import { SC_DeleteButton, SC_DeleteTextChallenge } from "./styles";
 import { MdDelete } from "react-icons/md";
 import { deleteUserAPI } from "../../API/userAPI";
 import { useNavigate } from "react-router-dom";
@@ -50,14 +47,14 @@ const SettingsDeleteView = () => {
     setIsLoading(true);
     try {
       const status = await deleteUserAPI();
-      if (status === "") {
-        sessionStorage.clear();
-        Cookies.remove(ACCESS_KEY);
-        Cookies.remove(REFRESH_KEY);
-        navigate(LOGIN_PAGE_URL);
+      if (status.isError) {
+        setErrorMessage(status.detail);
         return;
       }
-      setErrorMessage(status);
+      sessionStorage.clear();
+      Cookies.remove(ACCESS_KEY);
+      Cookies.remove(REFRESH_KEY);
+      navigate(LOGIN_PAGE_URL);
     } catch (err) {
       console.log(err);
     } finally {

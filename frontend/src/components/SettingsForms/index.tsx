@@ -24,7 +24,6 @@ import {
   updatePasswordAPI,
 } from "../../API/userAPI";
 import ErrorMessage from "../ErrorMessage";
-import { isAPIErrorMessage } from "../../utils/objectTypeCheckers";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type Props = {
@@ -113,7 +112,7 @@ const SettingsForms = ({ mode }: Props) => {
           }`
         );
       }
-      let res: APIErrorMessage | number;
+      let status: APIStatusMessage;
       // TODO: Make the states refresh without reloading the entire page after updation
       switch (mode) {
         case "EDIT_NAME":
@@ -122,9 +121,9 @@ const SettingsForms = ({ mode }: Props) => {
             setLastNameError(lastNameValidityError);
             return;
           }
-          res = await updateNameAPI(firstName, lastName, oldPassword);
-          if (isAPIErrorMessage(res)) {
-            setApiError(res.detail);
+          status = await updateNameAPI(firstName, lastName, oldPassword);
+          if (status.isError) {
+            setApiError(status.detail);
             return;
           }
           alert("Updated your name");
@@ -134,9 +133,9 @@ const SettingsForms = ({ mode }: Props) => {
             setNewEmailError(emailValidityError);
             return;
           }
-          res = await updateEmailAPI(newEmail, oldPassword);
-          if (isAPIErrorMessage(res)) {
-            setApiError(res.detail);
+          status = await updateEmailAPI(newEmail, oldPassword);
+          if (status.isError) {
+            setApiError(status.detail);
             return;
           }
           alert("Updated your email");
@@ -147,9 +146,9 @@ const SettingsForms = ({ mode }: Props) => {
             setReNewPasswordError(rePasswordValidityError);
             return;
           }
-          res = await updatePasswordAPI(oldPassword, newPassword);
-          if (isAPIErrorMessage(res)) {
-            setApiError(res.detail);
+          status = await updatePasswordAPI(oldPassword, newPassword);
+          if (status.isError) {
+            setApiError(status.detail);
             return;
           }
           alert("Updated your password");

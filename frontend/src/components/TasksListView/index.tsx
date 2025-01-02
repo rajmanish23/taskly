@@ -41,7 +41,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   const getTasks = useCallback(async () => {
     setIsLoading(true);
     try {
-      let data: Task[] | TagAPIConvertedData | APIErrorMessage;
+      let data: Task[] | TagAPIConvertedData | APIStatusMessage;
       if (mode === "TODAY") {
         data = await getTodayTasksAPI();
       } else if (mode === "UPCOMING") {

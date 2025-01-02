@@ -5,8 +5,9 @@ type SubTaskAPIData = {
   completed_at: string;
 };
 
-type APIErrorMessage = {
+type APIStatusMessage = {
   detail: string;
+  isError: boolean
 };
 
 type TaskAPIData = {
