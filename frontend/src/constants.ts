@@ -52,6 +52,7 @@ export const TASK_DELETE_RESTORE = (taskId: string) =>
   `/api/tasks/${taskId}/delete-restore/`;
 export const TASK_MARK_COMPLETE = (taskId: string) =>
   `/api/tasks/${taskId}/mark-complete/`;
+export const CREATE_TASK_API_URL = "/api/tasks/";
 export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
 export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
 export const PREVIOUS_TASKS_LIST_API_URL = "/api/tasks/previous/";

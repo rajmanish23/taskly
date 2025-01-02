@@ -7,8 +7,9 @@ import {
   TASK_MARK_DELETE,
   TODAY_TASKS_LIST_API_URL,
   UPCOMING_TASKS_LIST_API_URL,
+  CREATE_TASK_API_URL,
 } from "../constants";
-import { isAxiosError } from "axios";
+import { AxiosError, isAxiosError } from "axios";
 
 const convertTaskAPIData = (data: TaskAPIData) => {
   const apiTasksData: Task = {
@@ -200,3 +201,29 @@ export const restoreTask = async (taskId: string) => {
     throw error;
   }
 };
+
+type CreateTaskData = {
+  name: string;
+  description?: string;
+  dueAt: Date;
+};
+
+export async function createTask({
+  name,
+  description,
+  dueAt,
+}: CreateTaskData): Promise<[isSuccess: boolean, errorMsg: string]> {
+  try {
+    const res = await baseTokenfulAPI.post(CREATE_TASK_API_URL, {
+      name,
+      description,
+      dueAt: dueAt.toISOString(),
+    });
+    if (res.status === 201) {
+      return [true, ""];
+    }
+  } catch (error) {
+    handleError(error);
+  }
+  return [false, "!!Some edge case has occured that needs resolving!!"];
+}
