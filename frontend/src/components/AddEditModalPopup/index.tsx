@@ -66,7 +66,16 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   const [dueDate, setDueDate] = useState<Date>(data?.dueDate ?? new Date());
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
+
   const contentRef = useRef<HTMLDivElement>(null);
+
+  const onClickSubmit = () => {
+    if (name.length === 0) {
+      setErrorMessage("Please enter a name!");
+      return;
+    }
+    console.log("Submit clicked");
+  }
 
   const closeOnBgClick = (e: React.MouseEvent) => {
     if (contentRef.current === e.target) {
@@ -155,7 +164,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
               </>
             )}
           </SC_TopRowLeftContainer>
-          <SC_SaveButton>
+          <SC_SaveButton onClick={onClickSubmit}>
             <>
               <FaSave style={STYLE_ICON_MARGINS} />
               Save
