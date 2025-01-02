@@ -31,7 +31,7 @@ import {
   SC_SelectedColorDisplayHeader,
   SC_ErrorMessageHolder,
 } from "./styles";
-import { STYLE_ICON_MARGINS } from "../../constants";
+import { STYLE_ICON_MARGINS, TAG_NAME_CHAR_LIMIT } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
 import isColorDark from "../../utils/isColorDark";
 
@@ -94,7 +94,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   );
 
   const onChangeUpdateName = (e: ChangeEvent<HTMLInputElement>) => {
-    if (what === "TAG" && e.target.value.length > 20) {
+    if (what === "TAG" && e.target.value.length > TAG_NAME_CHAR_LIMIT) {
       setErrorMessage("Cannot enter more than 20 characters!");
       return;
     }
