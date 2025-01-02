@@ -125,12 +125,15 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
           throw Error("Pass the tag ID for the side bar button function!");
         navigate(TAG_PAGE_URL_NO_PARAM + tagId);
         return;
-      case "PROFILE":
+      case "SETTINGS":
         if (mode === "SETTINGS") {
           navigate(previousPage);
         } else {
           navigate(SETTING_PROFILE_URL);
         }
+        return;
+      case "PROFILE":
+        navigate(SETTING_PROFILE_URL);
         return;
       case "NAME_EDIT":
         navigate(SETTING_EDIT_NAME_URL);
@@ -322,7 +325,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
       </SC_ContentContainer>
       <SC_ProfileContainer
         title="Profile Settings"
-        onClick={() => navigateToViewsPage("PROFILE")}
+        onClick={() => navigateToViewsPage("SETTINGS")}
         $isActive={mode === "SETTINGS"}
       >
         <SC_ProfileImage src={profileImg} />

@@ -74,6 +74,7 @@ type SelectedView =
   | "PREVIOUS"
   | "TAG"
   | "TASK"
+  | "SETTINGS"
   | "PROFILE"
   | "RESTORE"
   | "NAME_EDIT"
