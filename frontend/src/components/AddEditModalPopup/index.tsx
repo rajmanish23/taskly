@@ -36,7 +36,7 @@ type DataState = {
   name?: string;
   description?: string;
   dueDate?: Date | null;
-  tagColor?: string;
+  colorHex?: string;
 };
 
 type CommonProps = {
@@ -65,7 +65,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   const [name, setName] = useState(data?.name ?? "");
   const [description, setDescription] = useState(data?.description ?? "");
   const [dueDate, setDueDate] = useState<Date>(data?.dueDate ?? new Date());
-  const [tagColor, setTagColor] = useState(data?.tagColor ?? "#b49393");
+  const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const contentRef = useRef<HTMLDivElement>(null);
 
   const closeOnBgClick = (e: React.MouseEvent) => {
@@ -97,38 +97,51 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
             <SC_TopModeHeader>
               {mode === "CREATE" ? "Creating" : "Editing"}
             </SC_TopModeHeader>
-            <SC_TopWhatHeader>
-              {what === "SUBTASK"
-                ? "Sub-Task"
-                : what === "TAG"
-                ? "Tag"
-                : "Task"}
-            </SC_TopWhatHeader>
             {mode === "CREATE" ? (
-              where === undefined ? (
-                <></>
-              ) : isTag(where) ? (
-                <>
-                  <SC_TopModeHeader>in</SC_TopModeHeader>
+              <>
+                <SC_TopWhatHeader>
+                  {what === "SUBTASK"
+                    ? "Sub-Task"
+                    : what === "TAG"
+                    ? "Tag"
+                    : "Task"}
+                </SC_TopWhatHeader>
+                {where === undefined ? (
+                  <></>
+                ) : isTag(where) ? (
+                  <>
+                    <SC_TopModeHeader>in</SC_TopModeHeader>
+                    <SC_ModalTagItemContainer
+                      $color={where.colorHex}
+                      $isColorDark={isColorDark(where.colorHex)}
+                    >
+                      <FaHashtag style={STYLE_ICON_MARGINS} />
+                      {where.name}
+                    </SC_ModalTagItemContainer>
+                  </>
+                ) : (
+                  <>
+                    <SC_TopModeHeader>in</SC_TopModeHeader>
+                    <SC_TopWhereHeader>{where.name}</SC_TopWhereHeader>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                {data === undefined ? (
+                  <></>
+                ) : data.colorHex === undefined ? (
+                  <SC_TopWhereHeader>{data?.name}</SC_TopWhereHeader>
+                ) : (
                   <SC_ModalTagItemContainer
-                    key={where.sId}
-                    $color={where.colorHex}
-                    $isColorDark={isColorDark(where.colorHex)}
+                    $color={data.colorHex}
+                    $isColorDark={isColorDark(data.colorHex)}
                   >
                     <FaHashtag style={STYLE_ICON_MARGINS} />
-                    {where.name}
+                    {data.name}
                   </SC_ModalTagItemContainer>
-                </>
-              ) : (
-                <>
-                  <SC_TopModeHeader>in</SC_TopModeHeader>
-                  <SC_TopWhereHeader>
-                    {where.name}
-                  </SC_TopWhereHeader>
-                </>
-              )
-            ) : (
-              <></>
+                )}
+              </>
             )}
           </SC_TopRowLeftContainer>
           <SC_SaveButton>
