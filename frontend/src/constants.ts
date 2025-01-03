@@ -52,6 +52,8 @@ export const TASK_DELETE_RESTORE = (taskId: string) =>
   `/api/tasks/${taskId}/delete-restore/`;
 export const TASK_MARK_COMPLETE = (taskId: string) =>
   `/api/tasks/${taskId}/mark-complete/`;
+export const TASK_UNMARK_COMPLETE = (taskId: string) =>
+  `/api/tasks/${taskId}/unmark-complete/`;
 export const CREATE_TASK_API_URL = "/api/tasks/";
 export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
 export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
@@ -62,6 +64,8 @@ export const SUB_TASK_SINGLE_ITEM_API_URL = (subTaskId: string) =>
   `/api/sub-tasks/${subTaskId}/`;
 export const SUB_TASK_MARK_COMPLETE = (subTaskId: string) =>
   `/api/sub-tasks/${subTaskId}/mark-complete/`;
+export const SUB_TASK_UNMARK_COMPLETE = (subTaskId: string) =>
+  `/api/sub-tasks/${subTaskId}/unmark-complete/`;
 export const CREATE_SUB_TASK_API_URL = (parentTaskId: string) =>
   `/api/tasks/${parentTaskId}/sub-tasks/`;
 

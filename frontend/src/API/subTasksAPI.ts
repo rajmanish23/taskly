@@ -1,7 +1,9 @@
 import baseTokenfulAPI from "./baseAPI";
 import {
   CREATE_SUB_TASK_API_URL,
+  SUB_TASK_MARK_COMPLETE,
   SUB_TASK_SINGLE_ITEM_API_URL,
+  SUB_TASK_UNMARK_COMPLETE,
 } from "../constants";
 import { isAxiosError } from "axios";
 import { handleError } from "./utils";
@@ -66,4 +68,24 @@ export const updateSubTask = async (
   }
 };
 
-export const markCompleteSubTask = async (subTaskId: string) => {};
+export const markCompleteSubTask = async (
+  subTaskId: string
+): Promise<APIStatusMessage> => {
+  try {
+    await baseTokenfulAPI.put(SUB_TASK_MARK_COMPLETE(subTaskId));
+    return { detail: "Sub Task marked as completed", isError: false };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const unmarkCompleteSubTask = async (
+  subTaskId: string
+): Promise<APIStatusMessage> => {
+  try {
+    await baseTokenfulAPI.put(SUB_TASK_UNMARK_COMPLETE(subTaskId));
+    return { detail: "Sub Task unmarked as completed", isError: false };
+  } catch (error) {
+    return handleError(error);
+  }
+};

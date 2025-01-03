@@ -52,6 +52,7 @@ import TaskDisplayCard from "../TaskDisplayCard";
 import isColorDark from "../../utils/isColorDark";
 import { DeleteRestorePopupButton } from "../DeleteHandlerButtons";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
+import useToggleComplete from "../../hooks/useToggleComplete";
 
 type Props = {
   taskId?: string;
@@ -114,9 +115,12 @@ const TaskDetailsView = ({ taskId }: Props) => {
   );
   const [isLoading, setIsLoading] = useState(true);
 
+  const toggleComplete = useToggleComplete();
   const navigate = useNavigate();
 
-  const { updateState: updateCounter } = useContext(UpdateContext) as UpdateContextType;
+  const { updateState: updateCounter } = useContext(
+    UpdateContext
+  ) as UpdateContextType;
 
   const isCompleted = taskData?.completedAt !== null;
   const isDeleted = taskData?.deletedAt !== null;
@@ -184,7 +188,12 @@ const TaskDetailsView = ({ taskId }: Props) => {
               {/* TODO: Add completeRestore function which accepts isCompleted 
               and marks as completed if isComplete is false, 
               otherwise unmarks it as completed. */}
-              <SC_Button $isCompleted={isCompleted}>
+              <SC_Button
+                $isCompleted={isCompleted}
+                onClick={() =>
+                  toggleComplete(taskData.sId, isCompleted, "TASK")
+                }
+              >
                 {!isCompleted ? (
                   <FaCheckCircle />
                 ) : (

@@ -8,6 +8,8 @@ import {
   TODAY_TASKS_LIST_API_URL,
   UPCOMING_TASKS_LIST_API_URL,
   CREATE_TASK_API_URL,
+  TASK_MARK_COMPLETE,
+  TASK_UNMARK_COMPLETE,
 } from "../constants";
 import { isAxiosError } from "axios";
 import { handleError } from "./utils";
@@ -259,4 +261,24 @@ export const updateTask = async (
   }
 };
 
-export const markCompleteTask = async (taskId: string) => {};
+export const markCompleteTask = async (
+  taskId: string
+): Promise<APIStatusMessage> => {
+  try {
+    await baseTokenfulAPI.put(TASK_MARK_COMPLETE(taskId));
+    return { detail: "Task marked as completed", isError: false };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const unmarkCompleteTask = async (
+  taskId: string
+): Promise<APIStatusMessage> => {
+  try {
+    await baseTokenfulAPI.put(TASK_UNMARK_COMPLETE(taskId));
+    return { detail: "Task unmarked as completed", isError: false };
+  } catch (error) {
+    return handleError(error);
+  }
+};

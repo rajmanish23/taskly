@@ -23,6 +23,7 @@ import { isTask } from "../../utils/objectTypeCheckers";
 import { STYLE_ICON_MARGINS, TASK_PAGE_URL_NO_PARAM } from "../../constants";
 import { SC_DateContainer, SC_TagItemContainer } from "../commonStyles";
 import isColorDark from "../../utils/isColorDark";
+import useToggleComplete from "../../hooks/useToggleComplete";
 
 type TaskDisplayCardProps = {
   data: Task | SubTask;
@@ -68,6 +69,7 @@ const displayDate = (
 };
 
 const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
+  const toggleComplete = useToggleComplete();
   const navigate = useNavigate();
   const isCompleted = data.completedAt !== null;
 
@@ -77,7 +79,10 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
         {/* TODO: Add completeRestore function which accepts isCompleted 
         and marks as completed if isComplete is false, 
         otherwise unmarks it as completed. */}
-        <SC_TaskCompleteButton $isCompleted={isCompleted}>
+        <SC_TaskCompleteButton
+          $isCompleted={isCompleted}
+          onClick={() => toggleComplete(data.sId, isCompleted, "TASK")}
+        >
           {!isCompleted ? <FaCheckCircle /> : <MdOutlineRadioButtonUnchecked />}
         </SC_TaskCompleteButton>
         <SC_DataContainer
@@ -148,7 +153,10 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
   } else {
     return (
       <SC_TaskListItemContainer>
-        <SC_TaskCompleteButton $isCompleted={isCompleted}>
+        <SC_TaskCompleteButton
+          $isCompleted={isCompleted}
+          onClick={() => toggleComplete(data.sId, isCompleted, "SUB_TASK")}
+        >
           {!isCompleted ? <FaCheckCircle /> : <MdOutlineRadioButtonUnchecked />}
         </SC_TaskCompleteButton>
         <SC_DataContainer $isClickable={false}>
