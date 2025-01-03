@@ -7,7 +7,7 @@ import { PiRewindFill } from "react-icons/pi";
 import { MdUpcoming } from "react-icons/md";
 import { FaCircleInfo } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import { FaUserEdit } from "react-icons/fa";
+import { FaCheckCircle, FaUserEdit } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { PiPasswordFill } from "react-icons/pi";
 import { RiLogoutBoxRFill } from "react-icons/ri";
@@ -37,6 +37,7 @@ import {
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
+  COMPLETED_PAGE_URL,
   PREVIOUS_PAGE_URL,
   SETTING_CHANGE_PASSWORD_URL,
   SETTING_DELETE_ACCOUNT_URL,
@@ -69,7 +70,9 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   const { previousPage, setPreviousPage } = useContext(
     PageContext
   ) as PageContextType;
-  const { updateState: updateCounter } = useContext(UpdateContext) as UpdateContextType;
+  const { updateState: updateCounter } = useContext(
+    UpdateContext
+  ) as UpdateContextType;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -119,6 +122,9 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
         return;
       case "PREVIOUS":
         navigate(PREVIOUS_PAGE_URL);
+        return;
+      case "COMPLETED":
+        navigate(COMPLETED_PAGE_URL);
         return;
       case "TAG":
         if (tagId === undefined)
@@ -208,6 +214,14 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                 $isColorDark={true}
               >
                 <PiRewindFill style={STYLE_ICON_MARGINS} /> Previous
+              </SC_Button>
+              <SC_Button
+                title="View Completed"
+                onClick={() => navigateToViewsPage("COMPLETED")}
+                $isActive={getSelectedNormalView() === "COMPLETED"}
+                $isColorDark={true}
+              >
+                <FaCheckCircle style={STYLE_ICON_MARGINS} /> Completed
               </SC_Button>
             </SC_OptionsContainer>
             <SC_OptionsContainer $isTagContainer={true}>

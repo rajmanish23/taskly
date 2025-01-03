@@ -5,6 +5,7 @@ import { BarLoader } from "react-spinners";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
+  COMPLETED_PAGE_URL,
   LOGIN_PAGE_URL,
   PREVIOUS_PAGE_URL,
   REGISTER_PAGE_URL,
@@ -41,6 +42,7 @@ import { PageContextProvider } from "./context/PageContext";
 import RestoreDeleted from "./pages/settings/RestoreDeleted";
 import { UpdateContextProvider } from "./context/UpdateContext";
 import TaskDetails from "./pages/TaskDetails";
+import Completed from "./pages/Completed";
 
 function App() {
   const [isAPIAlive, setIsAPIAlive] = useState<null | boolean>(null);
@@ -105,6 +107,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Previous />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={COMPLETED_PAGE_URL}
+            element={
+              <ProtectedRoute>
+                <Completed />
               </ProtectedRoute>
             }
           />

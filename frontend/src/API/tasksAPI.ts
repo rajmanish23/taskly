@@ -10,6 +10,7 @@ import {
   CREATE_TASK_API_URL,
   TASK_MARK_COMPLETE,
   TASK_UNMARK_COMPLETE,
+  COMPLETED_TASKS_LIST_API_URL,
 } from "../constants";
 import { isAxiosError } from "axios";
 import { handleError } from "./utils";
@@ -99,6 +100,28 @@ export const getUpcomingTasksAPI = async (): Promise<
     const { data } = await baseTokenfulAPI.get<GetTaskResponse>(
       UPCOMING_TASKS_LIST_API_URL,
       { params: { date: now.toISOString().slice(0, 10) } }
+    );
+    return data.map((each) => convertTaskAPIData(each));
+  } catch (error) {
+    if (!isAxiosError(error)) throw error;
+    if (error.response === undefined) throw error;
+    if (error.response.status === 404) {
+      const err: APIStatusMessage = {
+        detail: error.response.data.detail,
+        isError: true,
+      };
+      return err;
+    }
+    throw error;
+  }
+};
+
+export const getCompletedTasksAPI = async (): Promise<
+  Task[] | APIStatusMessage
+> => {
+  try {
+    const { data } = await baseTokenfulAPI.get<GetTaskResponse>(
+      COMPLETED_TASKS_LIST_API_URL
     );
     return data.map((each) => convertTaskAPIData(each));
   } catch (error) {

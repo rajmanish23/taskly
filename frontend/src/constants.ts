@@ -58,6 +58,7 @@ export const CREATE_TASK_API_URL = "/api/tasks/";
 export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
 export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
 export const PREVIOUS_TASKS_LIST_API_URL = "/api/tasks/previous/";
+export const COMPLETED_TASKS_LIST_API_URL = "/api/tasks/completed/";
 
 // Sub Task APIs
 export const SUB_TASK_SINGLE_ITEM_API_URL = (subTaskId: string) =>
@@ -75,6 +76,7 @@ export const REGISTER_PAGE_URL = "/register";
 export const TODAY_PAGE_URL = "/";
 export const PREVIOUS_PAGE_URL = "/previous";
 export const UPCOMING_PAGE_URL = "/upcoming";
+export const COMPLETED_PAGE_URL = "/completed";
 export const TAG_PAGE_URL_WITH_PARAM = "/tag/:tagId";
 export const TAG_PAGE_URL_NO_PARAM = "/tag/";
 export const TASK_PAGE_URL_WITH_PARAM = "/task/:taskId";

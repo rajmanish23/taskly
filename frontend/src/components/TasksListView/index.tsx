@@ -10,6 +10,7 @@ import {
 } from "../../constants";
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import {
+  getCompletedTasksAPI,
   getPreviousTasksAPI,
   getTagTasksAPI,
   getTodayTasksAPI,
@@ -53,6 +54,8 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       } else if (mode === "TAG") {
         if (tagId === undefined) throw Error("Tag ID not passed!");
         data = await getTagTasksAPI(tagId);
+      } else if (mode === "COMPLETED") {
+        data = await getCompletedTasksAPI();
       } else {
         throw Error("Settings View is used for Task listing component!");
       }
@@ -90,6 +93,8 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
         return "You do not have any pending tasks! Enjoy a peaceful day!";
       case "TAG":
         return "There are no tasks in with this tag";
+      case "COMPLETED":
+        return "You have not completed any tasks yet!";
     }
   };
 
@@ -137,6 +142,10 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       case "PREVIOUS":
         return (
           <ViewHeader h1Text="Previous" addButtonText="Create a new Task" addWhat="TASK" />
+        );
+      case "COMPLETED":
+        return (
+          <ViewHeader h1Text="Completed" addButtonText="Create a new Task" addWhat="TASK" />
         );
     }
   };
