@@ -26,7 +26,7 @@ type Props = {
   id: string;
   mode: "DELETE" | "PERMA_DELETE" | "RESTORE";
   buttonText?: string;
-  resetFunc: () => void;
+  resetFunc?: () => void;
 };
 
 const initiateAPI = async (
@@ -43,7 +43,7 @@ const initiateAPI = async (
       navigate(previousPage);
     } else {
       await restoreTask(id);
-      resetFunc();
+      if (resetFunc) resetFunc();
     }
   } else if (what === "TAG") {
     if (mode === "DELETE") {
@@ -54,12 +54,12 @@ const initiateAPI = async (
       navigate(TODAY_PAGE_URL)
     } else {
       await restoreTag(id);
-      resetFunc();
+      if (resetFunc) resetFunc();
     }
   } else {
     if (mode === "PERMA_DELETE") {
       await permanentlyDeleteSubTask(id);
-      resetFunc();
+      if (resetFunc) resetFunc();
     } else {
       throw new Error(
         "Invalid mode for sub task! Only PERMA_DELETE is allowed."
@@ -151,7 +151,7 @@ export const DeleteRestorePopupButton = ({
         } else {
           return (
             <SC_DeleteButton>
-              <MdDelete style={STYLE_ICON_MARGINS} />
+              <MdDelete style={buttonText === undefined ? undefined : STYLE_ICON_MARGINS} />
               {buttonText}
             </SC_DeleteButton>
           );
