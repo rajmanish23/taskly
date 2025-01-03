@@ -129,6 +129,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
             editButtonText="Edit Tag"
             editWhat="TAG"
             currentData={tag}
+            resetState={getTasks}
           />
         );
       case "PREVIOUS":
