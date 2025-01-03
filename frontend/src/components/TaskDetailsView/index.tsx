@@ -113,14 +113,13 @@ const TaskDetailsView = ({ taskId }: Props) => {
     "Could not load data of this Task"
   );
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const navigate = useNavigate();
-  
+
   const { updateCounter } = useContext(UpdateContext) as UpdateContextType;
 
   const isCompleted = taskData?.completedAt !== null;
   const isDeleted = taskData?.deletedAt !== null;
-
 
   const getTaskData = useCallback(async () => {
     setIsLoading(true);
@@ -166,10 +165,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
         </SC_CentralNoDataContainer>
       ) : taskData === undefined ? (
         <SC_CentralNoDataContainer>
-          <ErrorMessage
-            errorMessage={errorMessage}
-            isDismissable={false}
-          />
+          <ErrorMessage errorMessage={errorMessage} isDismissable={false} />
         </SC_CentralNoDataContainer>
       ) : (
         <SC_LeftAlignedViewBackgroundContainer>
