@@ -26,7 +26,6 @@ type Props = {
   editWhat?: "TAG" | "TASK" | "SUBTASK";
   currentData?: DataState;
   deleteItemText?: string;
-  resetState?: () => void;
 };
 
 const ViewHeader = ({
@@ -40,7 +39,6 @@ const ViewHeader = ({
   editWhat,
   currentData,
   deleteItemText,
-  resetState,
 }: Props) => {
   const { previousPage } = useContext(PageContext) as PageContextType;
   const navigate = useNavigate();
@@ -66,7 +64,6 @@ const ViewHeader = ({
             mode="CREATE"
             what={addWhat}
             where={addWhere}
-            resetState={resetState}
           />
         )}
         {editButtonText === undefined || editWhat === undefined ? (
@@ -77,7 +74,6 @@ const ViewHeader = ({
             mode="EDIT"
             what={editWhat}
             data={currentData}
-            resetState={resetState}
           />
         )}
         {deleteItemText === undefined || currentData === undefined ? (
@@ -87,7 +83,6 @@ const ViewHeader = ({
             id={currentData.sId}
             mode="DELETE"
             what="TAG"
-            resetFunc={resetState}
             buttonText={deleteItemText}
           />
         )}

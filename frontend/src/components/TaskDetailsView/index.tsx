@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCheckCircle, FaHashtag } from "react-icons/fa";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
@@ -51,6 +51,7 @@ import { AddEditModalPopup } from "../AddEditModalPopup";
 import TaskDisplayCard from "../TaskDisplayCard";
 import isColorDark from "../../utils/isColorDark";
 import { DeleteRestorePopupButton } from "../DeleteHandlerButtons";
+import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type Props = {
   taskId?: string;
@@ -112,10 +113,14 @@ const TaskDetailsView = ({ taskId }: Props) => {
     "Could not load data of this Task"
   );
   const [isLoading, setIsLoading] = useState(true);
+  
+  const navigate = useNavigate();
+  
+  const { updateCounter } = useContext(UpdateContext) as UpdateContextType;
+
   const isCompleted = taskData?.completedAt !== null;
   const isDeleted = taskData?.deletedAt !== null;
 
-  const navigate = useNavigate();
 
   const getTaskData = useCallback(async () => {
     setIsLoading(true);
@@ -140,7 +145,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
       console.error(e);
       setIsLoading(false);
     });
-  }, [getTaskData]);
+  }, [getTaskData, updateCounter]);
 
   return (
     <SC_BackgroundContainer>
@@ -150,7 +155,6 @@ const TaskDetailsView = ({ taskId }: Props) => {
         editWhat="TASK"
         hasBackButton
         currentData={taskData}
-        resetState={getTaskData}
       />
       {isLoading ? (
         <SC_CentralNoDataContainer>
@@ -199,7 +203,6 @@ const TaskDetailsView = ({ taskId }: Props) => {
                   id={taskData.sId}
                   what="TASK"
                   mode="RESTORE"
-                  resetFunc={getTaskData}
                 />
               ) : (
                 <></>
@@ -208,7 +211,6 @@ const TaskDetailsView = ({ taskId }: Props) => {
                 id={taskData.sId}
                 what="TASK"
                 mode={isDeleted ? "PERMA_DELETE" : "DELETE"}
-                resetFunc={getTaskData}
               />
             </SC_TopButtonsAlignmentContainer>
           </SC_HeadContainer>
@@ -253,7 +255,6 @@ const TaskDetailsView = ({ taskId }: Props) => {
                 text="Create a Sub task"
                 what="SUBTASK"
                 where={taskData}
-                resetState={getTaskData}
               />
             </SC_SubTaskHeadingContainer>
             {taskData.subTasks.length !== 0 ? (
@@ -271,13 +272,11 @@ const TaskDetailsView = ({ taskId }: Props) => {
                         name: each.name,
                         dueAt: each.dueAt,
                       }}
-                      resetState={getTaskData}
                     />
                     <DeleteRestorePopupButton
                       id={each.sId}
                       what="SUB_TASK"
                       mode="PERMA_DELETE"
-                      resetFunc={getTaskData}
                     />
                   </SC_SubTaskListItemContainer>
                 ))}
@@ -294,7 +293,6 @@ const TaskDetailsView = ({ taskId }: Props) => {
                     mode="CREATE"
                     what="SUBTASK"
                     where={taskData}
-                    resetState={getTaskData}
                   />
                 </>
               </SC_CentralNoDataContainer>

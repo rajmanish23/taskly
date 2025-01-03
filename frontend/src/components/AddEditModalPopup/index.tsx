@@ -1,4 +1,4 @@
-import { ChangeEvent, forwardRef, LegacyRef, useRef, useState } from "react";
+import { ChangeEvent, forwardRef, LegacyRef, useContext, useRef, useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { MdEditSquare } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
@@ -46,13 +46,13 @@ import isColorDark from "../../utils/isColorDark";
 import ErrorMessage from "../ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
   what: "TAG" | "TASK" | "SUBTASK";
   where?: Tag | Task;
   data?: DataState;
-  resetState?: () => void;
 };
 
 type ContentProps = CommonProps & {
@@ -65,7 +65,6 @@ type DateDisplayProps = {
 };
 
 const AddEditForm = ({
-  resetState,
   closeFn,
   mode,
   what,
@@ -86,6 +85,8 @@ const AddEditForm = ({
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const { incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
+
   const navigate = useNavigate();
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -96,16 +97,13 @@ const AddEditForm = ({
     }
     if (mode === "CREATE") {
       if (what === "TAG") {
-        if (resetState === undefined) {
-          throw new Error("resetState is required for tag creation");
-        }
         const status = await createTag({ name, colorHex: tagColor });
         if (status.isError) {
           setErrorMessage(status.detail);
           return;
         }
         closeFn();
-        resetState();
+        incrementUpdate();
         navigate(TAG_PAGE_URL_NO_PARAM + status.sId);
       } else if (what === "TASK") {
         if (dueDate === null) {
@@ -129,20 +127,13 @@ const AddEditForm = ({
           return;
         }
         closeFn();
-        if (resetState !== undefined) {
-          resetState();
-        } else {
-          throw new Error("resetState is required for subtask creation");
-        }
+        incrementUpdate();
       } else {
         throw new Error("Invalid what");
       }
     } else if (mode === "EDIT") {
       if (data === undefined) {
         throw new Error("Data is required for EDIT mode");
-      }
-      if (resetState === undefined) {
-        throw new Error("resetState is required for EDIT mode");
       }
       if (what === "TASK") {
         if (dueDate === null) {
@@ -159,7 +150,7 @@ const AddEditForm = ({
           return;
         }
         closeFn();
-        resetState();
+        incrementUpdate();
       } else if (what === "SUBTASK") {
         if (where === undefined || isTag(where)) {
           throw new Error("Invalid where for subtask");
@@ -170,7 +161,7 @@ const AddEditForm = ({
           return;
         }
         closeFn();
-        resetState();
+        incrementUpdate();
       } else if (what === "TAG") {
         console.log(
           `tag ID is ${data.sId} with update data ${name} and ${tagColor}`
@@ -181,8 +172,7 @@ const AddEditForm = ({
           return;
         }
         closeFn();
-        resetState();
-        // window.location.reload();
+        incrementUpdate();
       } else {
         throw new Error("Invalid what");
       }
@@ -379,7 +369,6 @@ export const AddEditModalPopup = ({
   what,
   where,
   data,
-  resetState,
 }: AddButtonProp) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -402,7 +391,6 @@ export const AddEditModalPopup = ({
           what={what}
           where={where}
           data={data}
-          resetState={resetState}
         />
       )}
     </>

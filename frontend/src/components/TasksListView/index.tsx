@@ -38,7 +38,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   const [tag, setTag] = useState<Tag>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { updateCounter, incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
+  const { updateCounter } = useContext(UpdateContext) as UpdateContextType;
 
   const getTasks = useCallback(async () => {
     setIsLoading(true);
@@ -131,7 +131,6 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
             editButtonText="Edit Tag"
             editWhat="TAG"
             currentData={tag}
-            resetState={incrementUpdate}
             deleteItemText="Delete Tag"
           />
         );

@@ -20,19 +20,21 @@ import { permanentlyDeleteSubTask } from "../../API/subTasksAPI";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { PageContext, PageContextType } from "../../context/PageContext";
 import { STYLE_ICON_MARGINS, TODAY_PAGE_URL } from "../../constants";
+import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type Props = {
   what: "TASK" | "TAG" | "SUB_TASK";
   id: string;
   mode: "DELETE" | "PERMA_DELETE" | "RESTORE";
   buttonText?: string;
-  resetFunc?: () => void;
+  // resetFunc?: () => void;
 };
 
 const initiateAPI = async (
-  { id, mode, what, resetFunc }: Props,
+  { id, mode, what }: Props,
   navigate: NavigateFunction,
-  previousPage: string
+  previousPage: string,
+  incrementUpdate: () => void
 ) => {
   if (what === "TASK") {
     if (mode === "DELETE") {
@@ -43,7 +45,7 @@ const initiateAPI = async (
       navigate(previousPage);
     } else {
       await restoreTask(id);
-      if (resetFunc) resetFunc();
+      incrementUpdate();
     }
   } else if (what === "TAG") {
     if (mode === "DELETE") {
@@ -54,12 +56,12 @@ const initiateAPI = async (
       navigate(TODAY_PAGE_URL)
     } else {
       await restoreTag(id);
-      if (resetFunc) resetFunc();
+      incrementUpdate();
     }
   } else {
     if (mode === "PERMA_DELETE") {
       await permanentlyDeleteSubTask(id);
-      if (resetFunc) resetFunc();
+      incrementUpdate();
     } else {
       throw new Error(
         "Invalid mode for sub task! Only PERMA_DELETE is allowed."
@@ -72,15 +74,20 @@ const PopupForm = ({
   id,
   what,
   mode,
-  resetFunc,
   close,
 }: Props & { close: () => void }): ReactNode => {
   const navigate = useNavigate();
   const { previousPage } = useContext(PageContext) as PageContextType;
+  const { incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
 
   const onClickInitiateAPI = async () => {
     try {
-      await initiateAPI({ id, what, mode, resetFunc }, navigate, previousPage);
+      await initiateAPI(
+        { id, what, mode },
+        navigate,
+        previousPage,
+        incrementUpdate
+      );
     } catch (error) {
       console.error(error);
     }
@@ -137,7 +144,6 @@ export const DeleteRestorePopupButton = ({
   what,
   mode,
   buttonText,
-  resetFunc,
 }: Props) => {
   return (
     <SC_Popup
@@ -173,7 +179,6 @@ export const DeleteRestorePopupButton = ({
           what={what}
           mode={mode}
           close={close}
-          resetFunc={resetFunc}
         />
       )}
     </SC_Popup>
