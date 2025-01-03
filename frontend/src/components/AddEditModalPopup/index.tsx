@@ -1,4 +1,11 @@
-import { ChangeEvent, forwardRef, LegacyRef, useContext, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  forwardRef,
+  LegacyRef,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { MdEditSquare } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
@@ -42,11 +49,11 @@ import { isTag } from "../../utils/objectTypeCheckers";
 import { createTag, updateTag } from "../../API/tagsAPI";
 import { createTask, updateTask } from "../../API/tasksAPI";
 import { createSubTask, updateSubTask } from "../../API/subTasksAPI";
+import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 import isColorDark from "../../utils/isColorDark";
 import ErrorMessage from "../ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
@@ -64,23 +71,19 @@ type DateDisplayProps = {
   onClick?: () => void;
 };
 
-const AddEditForm = ({
-  closeFn,
-  mode,
-  what,
-  where,
-  data,
-}: ContentProps) => {
+const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   if (mode === "EDIT" && data === undefined) {
     throw new Error(
       "Current state for data to be edited is required for EDIT mode"
     );
   }
 
+  console.log(data);
+
   const [name, setName] = useState(data?.name ?? "");
   const [description, setDescription] = useState(data?.description ?? "");
   const [dueDate, setDueDate] = useState<Date | null>(
-    data?.dueAt ?? new Date()
+    data !== undefined && data.dueAt !== undefined ? data.dueAt : new Date()
   );
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
@@ -163,9 +166,6 @@ const AddEditForm = ({
         closeFn();
         incrementUpdate();
       } else if (what === "TAG") {
-        console.log(
-          `tag ID is ${data.sId} with update data ${name} and ${tagColor}`
-        );
         const status = await updateTag(data.sId, { name, colorHex: tagColor });
         if (status.isError) {
           setErrorMessage(status.detail);
