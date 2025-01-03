@@ -40,12 +40,12 @@ import {
 } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
 import { createTag } from "../../API/tagsAPI";
+import { createTask, updateTask } from "../../API/tasksAPI";
+import { createSubTask, updateSubTask } from "../../API/subTasksAPI";
 import isColorDark from "../../utils/isColorDark";
 import ErrorMessage from "../ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { createTask } from "../../API/tasksAPI";
-import { createSubTask } from "../../API/subTasksAPI";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
@@ -80,7 +80,9 @@ const AddEditForm = ({
 
   const [name, setName] = useState(data?.name ?? "");
   const [description, setDescription] = useState(data?.description ?? "");
-  const [dueDate, setDueDate] = useState<Date | null>(data?.dueDate ?? new Date());
+  const [dueDate, setDueDate] = useState<Date | null>(
+    data?.dueAt ?? new Date()
+  );
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -132,9 +134,39 @@ const AddEditForm = ({
         throw new Error("Invalid what");
       }
     } else if (mode === "EDIT") {
-      // call edit APIs for each type
-      // and reset the state of the resource
-      // (for tag, it's better to just reload the page lol)
+      if (data === undefined) {
+        throw new Error("Data is required for EDIT mode");
+      }
+      if (resetState === undefined) {
+        throw new Error("resetState is required for EDIT mode");
+      }
+      if (what === "TASK") {
+        if (dueDate === null) {
+          setErrorMessage("Please enter a due date!");
+          return;
+        }
+        const status = await updateTask(data.sId, { name, description, dueAt: dueDate });
+        if (status.isError) {
+          setErrorMessage(status.detail);
+          return;
+        }
+        closeFn();
+        resetState();
+      } else if (what === "SUBTASK") {
+        if (where === undefined || isTag(where)) {
+          throw new Error("Invalid where for subtask");
+        }
+        console.log(
+          `Edit called with subtask id ${data.sId} with state {${name}, ${dueDate}}`
+        );
+        const status = await updateSubTask(data.sId, { name, dueAt: dueDate });
+        if (status.isError) {
+          setErrorMessage(status.detail);
+          return;
+        }
+        closeFn();
+        resetState();
+      }
     } else {
       throw new Error("Invalid mode");
     }
