@@ -96,12 +96,16 @@ const AddEditForm = ({
     }
     if (mode === "CREATE") {
       if (what === "TAG") {
+        if (resetState === undefined) {
+          throw new Error("resetState is required for tag creation");
+        }
         const status = await createTag({ name, colorHex: tagColor });
         if (status.isError) {
           setErrorMessage(status.detail);
           return;
         }
         closeFn();
+        resetState();
         navigate(TAG_PAGE_URL_NO_PARAM + status.sId);
       } else if (what === "TASK") {
         if (dueDate === null) {

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 
 import TaskDisplayCard from "../TaskDisplayCard";
@@ -26,6 +26,7 @@ import {
   SC_EmptyDisplayHeader,
 } from "../commonStyles";
 import ErrorMessage from "../ErrorMessage";
+import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type TaskListViewProps = {
   mode: SelectedView;
@@ -37,6 +38,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   const [tag, setTag] = useState<Tag>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { updateCounter, incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
 
   const getTasks = useCallback(async () => {
     setIsLoading(true);
@@ -76,7 +78,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
 
   useEffect(() => {
     getTasks().catch((e) => console.log(e));
-  }, [getTasks]);
+  }, [getTasks, updateCounter]);
 
   const getEmptyDisplayText = () => {
     switch (mode) {
@@ -129,7 +131,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
             editButtonText="Edit Tag"
             editWhat="TAG"
             currentData={tag}
-            resetState={getTasks}
+            resetState={incrementUpdate}
           />
         );
       case "PREVIOUS":

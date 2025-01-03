@@ -236,6 +236,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
                     text="Create a new Tag"
                     mode="CREATE"
                     what="TAG"
+                    resetState={getTags}
                   />
                 </SC_TagListContaier>
               )}
