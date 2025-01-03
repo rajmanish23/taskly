@@ -127,6 +127,7 @@ const SettingsForms = ({ mode }: Props) => {
             return;
           }
           // alert("Updated your name");
+          resetInputStates();
           break;
         case "EDIT_EMAIL":
           if (isEmailInvalid) {
@@ -139,6 +140,7 @@ const SettingsForms = ({ mode }: Props) => {
             return;
           }
           // alert("Updated your email");
+          resetInputStates();
           break;
         case "EDIT_PASSWORD":
           if (isNewPasswordInvalid) {
@@ -152,13 +154,13 @@ const SettingsForms = ({ mode }: Props) => {
             return;
           }
           // alert("Updated your password");
+          resetInputStates();
           break;
       }
     } catch (error) {
       console.error(error);
     } finally {
       sessionStorage.clear();
-      resetInputStates();
       incrementUpdate();
       setIsLoading(false);
     }
