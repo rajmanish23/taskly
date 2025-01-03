@@ -275,6 +275,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                         name: each.name,
                         dueDate: each.dueAt,
                       }}
+                      resetState={getTaskData}
                     />
                     <DeleteRestorePopupButton
                       id={each.sId}
@@ -297,6 +298,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                     mode="CREATE"
                     what="SUBTASK"
                     where={taskData}
+                    resetState={getTaskData}
                   />
                 </>
               </SC_CentralNoDataContainer>

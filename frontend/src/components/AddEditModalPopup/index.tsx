@@ -110,7 +110,7 @@ const AddEditForm = ({
         closeFn();
         navigate(TASK_PAGE_URL_NO_PARAM + status.sId);
       } else if (what === "SUBTASK") {
-        if (where === undefined || !isTag(where)) {
+        if (where === undefined || isTag(where)) {
           throw new Error("Invalid where for subtask");
         }
         const status = await createSubTask(where.sId, { name, dueAt: dueDate });
@@ -325,6 +325,7 @@ export const AddEditModalPopup = ({
   what,
   where,
   data,
+  resetState
 }: AddButtonProp) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -347,6 +348,7 @@ export const AddEditModalPopup = ({
           what={what}
           where={where}
           data={data}
+          resetState={resetState}
         />
       )}
     </>
