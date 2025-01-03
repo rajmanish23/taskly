@@ -48,7 +48,7 @@ const SettingsForms = ({ mode }: Props) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
+  const { triggerUpdate: incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
 
   const getHeaderText = () => {
     switch (mode) {

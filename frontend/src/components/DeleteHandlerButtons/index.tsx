@@ -78,7 +78,7 @@ const PopupForm = ({
 }: Props & { close: () => void }): ReactNode => {
   const navigate = useNavigate();
   const { previousPage } = useContext(PageContext) as PageContextType;
-  const { incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
+  const { triggerUpdate: incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
 
   const onClickInitiateAPI = async () => {
     try {

@@ -2,8 +2,8 @@
 import { createContext, PropsWithChildren, useState } from "react";
 
 export type UpdateContextType = {
-  updateCounter: number;
-  incrementUpdate: () => void;
+  updateState: number;
+  triggerUpdate: () => void;
 };
 
 export const UpdateContext = createContext<UpdateContextType | null>(null);
@@ -18,8 +18,8 @@ export const UpdateContextProvider = ({ children }: PropsWithChildren) => {
   return (
     <UpdateContext.Provider
       value={{
-        updateCounter: updateCounterState,
-        incrementUpdate,
+        updateState: updateCounterState,
+        triggerUpdate: incrementUpdate,
       }}
     >
       {children}

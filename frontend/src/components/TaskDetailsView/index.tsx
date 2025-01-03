@@ -116,7 +116,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
 
   const navigate = useNavigate();
 
-  const { updateCounter } = useContext(UpdateContext) as UpdateContextType;
+  const { updateState: updateCounter } = useContext(UpdateContext) as UpdateContextType;
 
   const isCompleted = taskData?.completedAt !== null;
   const isDeleted = taskData?.deletedAt !== null;

@@ -69,7 +69,7 @@ const SideBar = ({ mode, selectedView, selectedTag }: SideBarProps) => {
   const { previousPage, setPreviousPage } = useContext(
     PageContext
   ) as PageContextType;
-  const { updateCounter } = useContext(UpdateContext) as UpdateContextType;
+  const { updateState: updateCounter } = useContext(UpdateContext) as UpdateContextType;
   const location = useLocation();
   const navigate = useNavigate();
 

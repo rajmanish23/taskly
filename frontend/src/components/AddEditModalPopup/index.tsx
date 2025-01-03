@@ -88,7 +88,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
+  const { triggerUpdate: incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
 
   const navigate = useNavigate();
   const contentRef = useRef<HTMLDivElement>(null);

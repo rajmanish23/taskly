@@ -38,7 +38,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   const [tag, setTag] = useState<Tag>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { updateCounter } = useContext(UpdateContext) as UpdateContextType;
+  const { updateState: updateCounter } = useContext(UpdateContext) as UpdateContextType;
 
   const getTasks = useCallback(async () => {
     setIsLoading(true);
