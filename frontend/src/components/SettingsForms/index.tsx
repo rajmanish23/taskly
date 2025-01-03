@@ -113,7 +113,7 @@ const SettingsForms = ({ mode }: Props) => {
         );
       }
       let status: APIStatusMessage;
-      // TODO: Make the states refresh without reloading the entire page after updation
+      // TODO: Add Toasts instead of alerts
       switch (mode) {
         case "EDIT_NAME":
           if (isNameInvalid) {
@@ -126,7 +126,7 @@ const SettingsForms = ({ mode }: Props) => {
             setApiError(status.detail);
             return;
           }
-          alert("Updated your name");
+          // alert("Updated your name");
           break;
         case "EDIT_EMAIL":
           if (isEmailInvalid) {
@@ -138,7 +138,7 @@ const SettingsForms = ({ mode }: Props) => {
             setApiError(status.detail);
             return;
           }
-          alert("Updated your email");
+          // alert("Updated your email");
           break;
         case "EDIT_PASSWORD":
           if (isNewPasswordInvalid) {
@@ -151,7 +151,7 @@ const SettingsForms = ({ mode }: Props) => {
             setApiError(status.detail);
             return;
           }
-          alert("Updated your password");
+          // alert("Updated your password");
           break;
       }
     } catch (error) {
