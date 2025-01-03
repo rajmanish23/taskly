@@ -222,7 +222,7 @@ export const createTask = async ({
   dueAt,
 }: CreateTaskData): Promise<APIStatusMessage> => {
   try {
-    const data: TaskAPIData = await baseTokenfulAPI.post(CREATE_TASK_API_URL, {
+    const res = await baseTokenfulAPI.post(CREATE_TASK_API_URL, {
       name,
       description,
       dueAt: dueAt.toISOString(),
@@ -230,7 +230,7 @@ export const createTask = async ({
     return {
       detail: "Task created successfully",
       isError: false,
-      sId: data.s_id,
+      sId: res.data.s_id,
     };
   } catch (error) {
     return handleError(error);

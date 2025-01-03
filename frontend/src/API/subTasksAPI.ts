@@ -29,7 +29,7 @@ export const createSubTask = async (
   { name, dueAt }: CreateSubTaskData
 ): Promise<APIStatusMessage> => {
   try {
-    const data: SubTaskAPIData = await baseTokenfulAPI.post(
+    const res = await baseTokenfulAPI.post(
       CREATE_SUB_TASK_API_URL(parentTaskId),
       {
         name,
@@ -39,7 +39,7 @@ export const createSubTask = async (
     return {
       detail: "Sub Task created successfully",
       isError: false,
-      sId: data.s_id,
+      sId: res.data.s_id,
     };
   } catch (error) {
     return handleError(error);

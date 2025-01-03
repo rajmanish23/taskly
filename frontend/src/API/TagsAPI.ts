@@ -83,7 +83,7 @@ export const createTag = async ({
   colorHex,
 }: CreateTagData): Promise<APIStatusMessage> => {
   try {
-    const data: TagAPIData = await baseTokenfulAPI.post(
+    const res = await baseTokenfulAPI.post(
       TAGS_LIST_CREATE_API_URL,
       {
         name,
@@ -94,7 +94,7 @@ export const createTag = async ({
     return {
       detail: "Tag created successfully",
       isError: false,
-      sId: data.s_id,
+      sId: res.data.s_id,
     };
   } catch (error) {
     return handleError(error);
