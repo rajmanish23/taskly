@@ -48,7 +48,7 @@ export const createSubTask = async (
 
 type UpdateSubTaskData = {
   name?: string;
-  dueAt?: Date;
+  dueAt?: Date | null;
 };
 
 export const updateSubTask = async (
