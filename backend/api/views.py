@@ -336,6 +336,11 @@ class TagRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         self.kwargs["pk"] = sqids.decode(s_id)[0]
         return super().get_object()
 
+    def get_serializer_class(self):
+        if self.request.method == "PUT":
+            return TagListSerializer
+        return super().get_serializer_class()
+
 
 class TagMarkDelete(APIView):
     permission_classes = [IsAuthenticated]
