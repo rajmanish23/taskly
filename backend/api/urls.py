@@ -44,6 +44,11 @@ urlpatterns = [
         name="task-mark-complete",
     ),
     path(
+        "tasks/<slug:pk>/unmark-complete/",
+        views.TaskUnMarkComplete.as_view(),
+        name="task-unmark-complete",
+    ),
+    path(
         "tasks/<slug:p_task>/sub-tasks/",
         views.SubTaskListCreateView.as_view(),
         name="sub-task-list-create",
@@ -57,6 +62,11 @@ urlpatterns = [
         "sub-tasks/<slug:pk>/mark-complete/",
         views.SubTaskMarkComplete.as_view(),
         name="sub-task-mark-complete",
+    ),
+    path(
+        "sub-tasks/<slug:pk>/unmark-complete/",
+        views.SubTaskUnMarkComplete.as_view(),
+        name="sub-task-unmark-complete",
     ),
     path(
         "tasks/<slug:task_id>/add-tag/",

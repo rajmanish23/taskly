@@ -142,6 +142,32 @@ class TaskMarkComplete(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+class TaskUnMarkComplete(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, pk):
+        task_id = sqids.decode(pk)[0]
+        task = None
+        try:
+            task = Task.objects.get(id=task_id)
+        except Task.DoesNotExist:
+            return Response(
+                {"detail": "Task not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if task.completed_at is None:
+            return Response(
+                {"detail": "Task is not marked as completed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        task.completed_at = None
+        task.save()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class SubTaskListCreateView(generics.ListCreateAPIView):
     serializer_class = SubTaskSerializer
     permission_classes = [IsAuthenticated]
@@ -203,11 +229,39 @@ class SubTaskMarkComplete(APIView):
 
         if sub_task.completed_at is not None:
             return Response(
-                {"detail": "Sub Task is already marked as deleted"},
+                {"detail": "Sub Task is already marked as completed"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         sub_task.completed_at = make_aware(datetime.datetime.now())
+        sub_task.save()
+
+        return Response(
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+class SubTaskUnMarkComplete(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, pk):
+        sub_task_id = sqids.decode(pk)[0]
+        sub_task = None
+        try:
+            sub_task = SubTask.objects.get(id=sub_task_id)
+        except SubTask.DoesNotExist:
+            return Response(
+                {"detail": "Sub Task not found or invalid ID"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if sub_task.completed_at is None:
+            return Response(
+                {"detail": "Sub Task is not marked as completed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        sub_task.completed_at = None
         sub_task.save()
 
         return Response(
