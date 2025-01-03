@@ -88,6 +88,6 @@ type DataState = {
   sId: string;
   name: string;
   description?: string;
-  dueDate?: Date | null;
+  dueAt?: Date | null;
   colorHex?: string;
 };
