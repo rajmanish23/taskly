@@ -11,7 +11,7 @@ import { handleError } from "./utils";
 
 const clearLocalTags = () => {
   sessionStorage.removeItem(LOCAL_TAGS_KEY);
-}
+};
 
 export const getTagsAPI = async (): Promise<Tag[]> => {
   const localTagsData = sessionStorage.getItem(LOCAL_TAGS_KEY);
@@ -83,12 +83,19 @@ export const createTag = async ({
   colorHex,
 }: CreateTagData): Promise<APIStatusMessage> => {
   try {
-    await baseTokenfulAPI.post(TAGS_LIST_CREATE_API_URL, {
-      name,
-      colorHex,
-    });
+    const data: TagAPIData = await baseTokenfulAPI.post(
+      TAGS_LIST_CREATE_API_URL,
+      {
+        name,
+        colorHex,
+      }
+    );
     clearLocalTags();
-    return { detail: "Tag created successfully", isError: false };
+    return {
+      detail: "Tag created successfully",
+      isError: false,
+      sId: data.s_id,
+    };
   } catch (error) {
     return handleError(error);
   }

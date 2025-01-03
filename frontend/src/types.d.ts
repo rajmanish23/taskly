@@ -8,6 +8,7 @@ type SubTaskAPIData = {
 type APIStatusMessage = {
   detail: string;
   isError: boolean;
+  sId?: string;
 };
 
 type TaskAPIData = {

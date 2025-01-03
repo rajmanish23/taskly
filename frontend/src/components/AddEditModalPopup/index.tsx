@@ -6,6 +6,7 @@ import { FaHashtag } from "react-icons/fa6";
 import { FaSave, FaCalendarCheck } from "react-icons/fa";
 import { subDays } from "date-fns";
 import { HexColorPicker } from "react-colorful";
+import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 
 import {
@@ -31,12 +32,19 @@ import {
   SC_SelectedColorDisplayHeader,
   SC_ErrorMessageHolder,
 } from "./styles";
-import { STYLE_ICON_MARGINS, TAG_NAME_CHAR_LIMIT } from "../../constants";
+import {
+  STYLE_ICON_MARGINS,
+  TAG_NAME_CHAR_LIMIT,
+  TAG_PAGE_URL_NO_PARAM,
+  TASK_PAGE_URL_NO_PARAM,
+} from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
+import { createTag } from "../../API/tagsAPI";
 import isColorDark from "../../utils/isColorDark";
+import ErrorMessage from "../ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
-import ErrorMessage from "../ErrorMessage";
+import { createTask } from "../../API/tasksAPI";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
@@ -67,14 +75,60 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const navigate = useNavigate();
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const onClickSubmit = () => {
+  const onClickSubmit = async () => {
     if (name.length === 0) {
       setErrorMessage("Please enter a name!");
       return;
     }
-    console.log("Submit clicked");
+    if (mode === "CREATE") {
+      // call create APIs for each type
+      // and redirect to new resource if successful
+      if (what === "TAG") {
+        const status = await createTag({ name, colorHex: tagColor });
+        if (status.isError) {
+          setErrorMessage(status.detail);
+          return;
+        }
+        closeFn();
+        navigate(TAG_PAGE_URL_NO_PARAM + status.sId);
+      } else if (what === "TASK") {
+        if (isTag(where)) {
+          // TODO: Add tag ID here along with rest of the data
+          const status = await createTask({
+            name,
+            description,
+            dueAt: dueDate,
+          });
+          if (status.isError) {
+            setErrorMessage(status.detail);
+            return;
+          }
+          closeFn();
+          navigate(TASK_PAGE_URL_NO_PARAM + status.sId);
+        } else { 
+          const status = await createTask({name, description, dueAt: dueDate});
+          if (status.isError) {
+            setErrorMessage(status.detail);
+            return;
+          }
+          closeFn();
+          navigate(TASK_PAGE_URL_NO_PARAM + status.sId);
+        }
+      } else if (what === "SUBTASK") {
+        // create subtask
+      } else {
+        throw new Error("Invalid what");
+      }
+    } else if (mode === "EDIT") {
+      // call edit APIs for each type
+      // and reset the state of the resource
+      // (for tag, it's better to just reload the page lol)
+    } else {
+      throw new Error("Invalid mode");
+    }
   };
 
   const closeOnBgClick = (e: React.MouseEvent) => {

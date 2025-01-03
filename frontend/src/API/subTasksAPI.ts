@@ -1,5 +1,8 @@
 import baseTokenfulAPI from "./baseAPI";
-import { CREATE_SUB_TASK_API_URL, SUB_TASK_SINGLE_ITEM_API_URL } from "../constants";
+import {
+  CREATE_SUB_TASK_API_URL,
+  SUB_TASK_SINGLE_ITEM_API_URL,
+} from "../constants";
 import { isAxiosError } from "axios";
 import { handleError } from "./utils";
 
@@ -21,16 +24,23 @@ type CreateSubTaskData = {
   dueAt?: Date;
 };
 
-export const createSubTask = async (parentTaskId: string, {
-  name,
-  dueAt,
-}: CreateSubTaskData): Promise<APIStatusMessage> => {
+export const createSubTask = async (
+  parentTaskId: string,
+  { name, dueAt }: CreateSubTaskData
+): Promise<APIStatusMessage> => {
   try {
-    await baseTokenfulAPI.post(CREATE_SUB_TASK_API_URL(parentTaskId), {
-      name,
-      dueAt: dueAt?.toISOString(),
-    });
-    return { detail: "Sub Task created successfully", isError: false };
+    const data: SubTaskAPIData = await baseTokenfulAPI.post(
+      CREATE_SUB_TASK_API_URL(parentTaskId),
+      {
+        name,
+        dueAt: dueAt?.toISOString(),
+      }
+    );
+    return {
+      detail: "Sub Task created successfully",
+      isError: false,
+      sId: data.s_id,
+    };
   } catch (error) {
     return handleError(error);
   }
