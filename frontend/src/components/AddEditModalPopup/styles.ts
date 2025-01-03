@@ -168,7 +168,7 @@ export const SC_DateDisplayPickerButton = styled.button<{ $isError: boolean }>`
   border-width: 2px;
   border-color: ${(props) => (props.$isError ? "red" : "#d67373")};
   border-radius: 10px;
-  padding: 10px 5px 10px 5px;
+  padding: 10px 8px 10px 8px;
   font-size: 16px;
   background-color: #111111;
   color: #ecc4c4;

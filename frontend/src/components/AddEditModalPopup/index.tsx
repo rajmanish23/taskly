@@ -270,7 +270,7 @@ const AddEditForm = ({
                 dateFormat="Pp"
                 showTimeInput
                 minDate={subDays(new Date(), 0)}
-                isClearable
+                isClearable={what === "SUBTASK"}
                 customInput={<DateDisplay />}
               />
             </SC_DatePickerContainer>
