@@ -39,7 +39,7 @@ import {
   TASK_PAGE_URL_NO_PARAM,
 } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
-import { createTag } from "../../API/tagsAPI";
+import { createTag, updateTag } from "../../API/tagsAPI";
 import { createTask, updateTask } from "../../API/tasksAPI";
 import { createSubTask, updateSubTask } from "../../API/subTasksAPI";
 import isColorDark from "../../utils/isColorDark";
@@ -145,7 +145,11 @@ const AddEditForm = ({
           setErrorMessage("Please enter a due date!");
           return;
         }
-        const status = await updateTask(data.sId, { name, description, dueAt: dueDate });
+        const status = await updateTask(data.sId, {
+          name,
+          description,
+          dueAt: dueDate,
+        });
         if (status.isError) {
           setErrorMessage(status.detail);
           return;
@@ -156,9 +160,6 @@ const AddEditForm = ({
         if (where === undefined || isTag(where)) {
           throw new Error("Invalid where for subtask");
         }
-        console.log(
-          `Edit called with subtask id ${data.sId} with state {${name}, ${dueDate}}`
-        );
         const status = await updateSubTask(data.sId, { name, dueAt: dueDate });
         if (status.isError) {
           setErrorMessage(status.detail);
@@ -166,6 +167,20 @@ const AddEditForm = ({
         }
         closeFn();
         resetState();
+      } else if (what === "TAG") {
+        console.log(
+          `tag ID is ${data.sId} with update data ${name} and ${tagColor}`
+        );
+        const status = await updateTag(data.sId, { name, colorHex: tagColor });
+        if (status.isError) {
+          setErrorMessage(status.detail);
+          return;
+        }
+        closeFn();
+        resetState();
+        // window.location.reload();
+      } else {
+        throw new Error("Invalid what");
       }
     } else {
       throw new Error("Invalid mode");
