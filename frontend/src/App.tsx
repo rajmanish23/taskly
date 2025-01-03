@@ -26,7 +26,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Today from "./pages/Today";
 import ProtectedRoute from "./components/ProtectedRoute";
-import NotFound from "./pages/NotFound";
+import ErrorPage from "./pages/ErrorPage";
 import pingAPI from "./API/pingAPI";
 import Upcoming from "./pages/Upcoming";
 import Previous from "./pages/Previous";
@@ -77,8 +77,7 @@ function App() {
   }
 
   if (!isAPIAlive) {
-    // TODO: Replace this with a nicer looking page
-    return <div>Backend is dead!!!</div>;
+    return <ErrorPage />;
   }
 
   return (
@@ -183,7 +182,7 @@ function App() {
           />
           <Route path={LOGIN_PAGE_URL} element={<Login />} />
           <Route path={REGISTER_PAGE_URL} element={<Register />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </UpdateContextProvider>
     </PageContextProvider>
