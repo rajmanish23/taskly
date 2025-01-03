@@ -50,9 +50,7 @@ import {
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import TaskDisplayCard from "../TaskDisplayCard";
 import isColorDark from "../../utils/isColorDark";
-import {
-  DeleteRestorePopupButton,
-} from "../DeleteHandlerButtons";
+import { DeleteRestorePopupButton } from "../DeleteHandlerButtons";
 
 type Props = {
   taskId?: string;
@@ -163,7 +161,15 @@ const TaskDetailsView = ({ taskId }: Props) => {
         </SC_CentralNoDataContainer>
       ) : taskData === undefined ? (
         <SC_CentralNoDataContainer>
-          <ErrorMessage errorMessage={errorMessage} />
+          <ErrorMessage
+            errorMessage={errorMessage}
+            show={errorMessage !== ""}
+            setShow={(show: boolean) => {
+              if (!show) {
+                setErrorMessage("");
+              } else return;
+            }}
+          />
         </SC_CentralNoDataContainer>
       ) : (
         <SC_LeftAlignedViewBackgroundContainer>
@@ -251,6 +257,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                 text="Create a Sub task"
                 what="SUBTASK"
                 where={taskData}
+                resetState={getTaskData}
               />
             </SC_SubTaskHeadingContainer>
             {taskData.subTasks.length !== 0 ? (

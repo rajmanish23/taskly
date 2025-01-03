@@ -45,12 +45,14 @@ import ErrorMessage from "../ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { createTask } from "../../API/tasksAPI";
+import { createSubTask } from "../../API/subTasksAPI";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
   what: "TAG" | "TASK" | "SUBTASK";
   where?: Tag | Task;
   data?: DataState;
+  resetState?: () => void;
 };
 
 type ContentProps = CommonProps & {
@@ -62,7 +64,14 @@ type DateDisplayProps = {
   onClick?: () => void;
 };
 
-const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
+const AddEditForm = ({
+  resetState,
+  closeFn,
+  mode,
+  what,
+  where,
+  data,
+}: ContentProps) => {
   if (mode === "EDIT" && data === undefined) {
     throw new Error(
       "Current state for data to be edited is required for EDIT mode"
@@ -84,8 +93,6 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
       return;
     }
     if (mode === "CREATE") {
-      // call create APIs for each type
-      // and redirect to new resource if successful
       if (what === "TAG") {
         const status = await createTag({ name, colorHex: tagColor });
         if (status.isError) {
@@ -95,30 +102,28 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
         closeFn();
         navigate(TAG_PAGE_URL_NO_PARAM + status.sId);
       } else if (what === "TASK") {
-        if (isTag(where)) {
-          // TODO: Add tag ID here along with rest of the data
-          const status = await createTask({
-            name,
-            description,
-            dueAt: dueDate,
-          });
-          if (status.isError) {
-            setErrorMessage(status.detail);
-            return;
-          }
-          closeFn();
-          navigate(TASK_PAGE_URL_NO_PARAM + status.sId);
-        } else { 
-          const status = await createTask({name, description, dueAt: dueDate});
-          if (status.isError) {
-            setErrorMessage(status.detail);
-            return;
-          }
-          closeFn();
-          navigate(TASK_PAGE_URL_NO_PARAM + status.sId);
+        const status = await createTask({ name, description, dueAt: dueDate });
+        if (status.isError) {
+          setErrorMessage(status.detail);
+          return;
         }
+        closeFn();
+        navigate(TASK_PAGE_URL_NO_PARAM + status.sId);
       } else if (what === "SUBTASK") {
-        // create subtask
+        if (where === undefined || !isTag(where)) {
+          throw new Error("Invalid where for subtask");
+        }
+        const status = await createSubTask(where.sId, { name, dueAt: dueDate });
+        if (status.isError) {
+          setErrorMessage(status.detail);
+          return;
+        }
+        closeFn();
+        if (resetState !== undefined) {
+          resetState();
+        } else {
+          throw new Error("resetState is required for subtask creation");
+        }
       } else {
         throw new Error("Invalid what");
       }
