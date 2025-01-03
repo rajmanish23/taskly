@@ -80,7 +80,7 @@ const AddEditForm = ({
 
   const [name, setName] = useState(data?.name ?? "");
   const [description, setDescription] = useState(data?.description ?? "");
-  const [dueDate, setDueDate] = useState<Date>(data?.dueDate ?? new Date());
+  const [dueDate, setDueDate] = useState<Date | null>(data?.dueDate ?? new Date());
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -102,6 +102,10 @@ const AddEditForm = ({
         closeFn();
         navigate(TAG_PAGE_URL_NO_PARAM + status.sId);
       } else if (what === "TASK") {
+        if (dueDate === null) {
+          setErrorMessage("Please enter a due date!");
+          return;
+        }
         const status = await createTask({ name, description, dueAt: dueDate });
         if (status.isError) {
           setErrorMessage(status.detail);
@@ -259,9 +263,6 @@ const AddEditForm = ({
               <DatePicker
                 selected={dueDate}
                 onChange={(date) => {
-                  if (date === null) {
-                    return;
-                  }
                   setDueDate(date);
                 }}
                 toggleCalendarOnIconClick
@@ -269,6 +270,7 @@ const AddEditForm = ({
                 dateFormat="Pp"
                 showTimeInput
                 minDate={subDays(new Date(), 0)}
+                isClearable
                 customInput={<DateDisplay />}
               />
             </SC_DatePickerContainer>
@@ -325,7 +327,7 @@ export const AddEditModalPopup = ({
   what,
   where,
   data,
-  resetState
+  resetState,
 }: AddButtonProp) => {
   const [showModal, setShowModal] = useState(false);
 

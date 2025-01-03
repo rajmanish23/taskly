@@ -162,25 +162,27 @@ export const SC_DescriptionInput = styled.textarea<{ $isError: boolean }>`
 `;
 
 export const SC_DateDisplayPickerButton = styled.button<{ $isError: boolean }>`
+  width: 230px;
+  height: 45px;
   border-style: solid;
   border-width: 2px;
   border-color: ${(props) => (props.$isError ? "red" : "#d67373")};
   border-radius: 10px;
-  padding: 10px;
+  padding: 10px 5px 10px 5px;
   font-size: 16px;
   background-color: #111111;
   color: #ecc4c4;
-  margin-top: 10px;
   font-family: "Noto Sans", sans-serif;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
 `;
 
 export const SC_DatePickerContainer = styled.div`
   align-self: flex-start;
+  margin-top: 10px;
 `;
 
 export const SC_TagColorPickerContainer = styled.div`
@@ -188,19 +190,19 @@ export const SC_TagColorPickerContainer = styled.div`
   flex-direction: row;
   align-items: flex-start;
   margin-top: 20px;
-`
+`;
 
 export const SC_SelectedColorDisplayContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 20px;
-`
+`;
 
 export const SC_SelectedColorDisplayHeader = styled.h1`
   margin: 0 0 5px 5px;
   font-size: 26px;
-`
+`;
 
 export const SC_SelectedColorDisplayWindow = styled.div<{ $color: string }>`
   background-color: ${(props) => props.$color};
@@ -208,7 +210,7 @@ export const SC_SelectedColorDisplayWindow = styled.div<{ $color: string }>`
   height: 50px;
   border-radius: 10px;
   margin-top: 10px;
-`
+`;
 
 export const SC_ErrorMessageHolder = styled.div`
   & > div {
