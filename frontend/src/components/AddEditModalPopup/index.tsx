@@ -78,8 +78,6 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
     );
   }
 
-  console.log(data);
-
   const [name, setName] = useState(data?.name ?? "");
   const [description, setDescription] = useState(data?.description ?? "");
   const [dueDate, setDueDate] = useState<Date | null>(
