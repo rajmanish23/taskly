@@ -258,3 +258,5 @@ export const updateTask = async (
     return handleError(error);
   }
 };
+
+export const markCompleteTask = async (taskId: string) => {};

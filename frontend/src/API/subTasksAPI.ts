@@ -58,10 +58,12 @@ export const updateSubTask = async (
   try {
     await baseTokenfulAPI.put(SUB_TASK_SINGLE_ITEM_API_URL(subTaskId), {
       name,
-      dueAt: dueAt?.toISOString(),
+      dueAt: dueAt === undefined || dueAt === null ? null : dueAt.toISOString(),
     });
     return { detail: "Sub Task updated successfully", isError: false };
   } catch (error) {
     return handleError(error);
   }
 };
+
+export const markCompleteSubTask = async (subTaskId: string) => {};
