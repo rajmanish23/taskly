@@ -21,7 +21,7 @@ export const permanentlyDeleteSubTask = async (taskId: string) => {
 
 type CreateSubTaskData = {
   name: string;
-  dueAt?: Date;
+  dueAt?: Date | null;
 };
 
 export const createSubTask = async (
