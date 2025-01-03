@@ -150,6 +150,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
         editWhat="TASK"
         hasBackButton
         currentData={taskData}
+        resetState={getTaskData}
       />
       {isLoading ? (
         <SC_CentralNoDataContainer>
@@ -163,12 +164,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
         <SC_CentralNoDataContainer>
           <ErrorMessage
             errorMessage={errorMessage}
-            show={errorMessage !== ""}
-            setShow={(show: boolean) => {
-              if (!show) {
-                setErrorMessage("");
-              } else return;
-            }}
+            isDismissable={false}
           />
         </SC_CentralNoDataContainer>
       ) : (
@@ -273,7 +269,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
                       data={{
                         sId: each.sId,
                         name: each.name,
-                        dueDate: each.dueAt,
+                        dueAt: each.dueAt,
                       }}
                       resetState={getTaskData}
                     />

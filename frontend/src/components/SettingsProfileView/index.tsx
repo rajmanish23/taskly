@@ -57,7 +57,10 @@ const SettingsProfileView = () => {
         </SC_CentralNoDataContainer>
       ) : userDetails === undefined ? (
         <SC_CentralNoDataContainer>
-          <ErrorMessage errorMessage="We could not fetch your profile details. Please try again later." />
+          <ErrorMessage
+            errorMessage="We could not fetch your profile details. Please try again later."
+            isDismissable={false}
+          />
         </SC_CentralNoDataContainer>
       ) : (
         <SC_LeftAlignedViewBackgroundContainer>

@@ -145,7 +145,18 @@ const UserForm = ({ method }: FormProps) => {
     <SC_BackgroundContainer>
       <SC_FormCardContainer>
         <SC_LogoImg src={logoImg} />
-        {errorMsg === "" ? null : <ErrorMessage errorMessage={errorMsg} />}
+        {errorMsg === "" ? null : (
+          <ErrorMessage
+            errorMessage={errorMsg}
+            isDismissable
+            show={errorMsg === ""}
+            setShow={(show: boolean) => {
+              if (!show) {
+                setErrorMsg("");
+              } else return;
+            }}
+          />
+        )}
         <SC_FormInputContainer onSubmit={handleSubmit}>
           <FormInput
             changeEventHandler={(e) => setEmail(e.target.value)}

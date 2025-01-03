@@ -152,13 +152,20 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       ) : tasks.length === 0 ? (
         <SC_CentralNoDataContainer>
           {errorMessage !== undefined ? (
-            <ErrorMessage errorMessage={errorMessage} />
+            <ErrorMessage
+              errorMessage={errorMessage}
+              isDismissable={false}
+            />
           ) : (
             <>
               <SC_EmptyDisplayHeader>
                 {getEmptyDisplayText()}
               </SC_EmptyDisplayHeader>
-              <AddEditModalPopup text="Create a new Task" mode="CREATE" what="TASK" />
+              <AddEditModalPopup
+                text="Create a new Task"
+                mode="CREATE"
+                what="TASK"
+              />
             </>
           )}
         </SC_CentralNoDataContainer>

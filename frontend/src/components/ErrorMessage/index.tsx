@@ -8,19 +8,28 @@ import {
 
 type Props = {
   errorMessage: string;
-  show: boolean;
-  setShow: (show: boolean) => void;
+  isDismissable: boolean;
+  show?: boolean;
+  setShow?: (show: boolean) => void;
 };
 
-const ErrorMessage = ({ errorMessage, setShow, show }: Props) => {
+const ErrorMessage = ({
+  isDismissable,
+  errorMessage,
+  setShow,
+  show,
+}: Props) => {
   useEffect(() => {
+    if (!isDismissable) return;
+    if (show === undefined || setShow === undefined)
+      throw new Error("show and setShow must be defined for auto dismiss");
     const timeId = setTimeout(() => {
       setShow(false);
-    }, 3000)
+    }, 3000);
     return () => {
-      clearTimeout(timeId)
-    }
-  }, [show, setShow])
+      clearTimeout(timeId);
+    };
+  }, [show, setShow, isDismissable]);
 
   if (!show) return null;
 

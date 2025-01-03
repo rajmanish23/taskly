@@ -185,7 +185,11 @@ const SettingsForms = ({ mode }: Props) => {
     <SC_BackgroundContainer>
       <ViewHeader h1Text={getHeaderText()} />
       <SC_LeftAlignedViewBackgroundContainer>
-        {apiError === "" ? <></> : <ErrorMessage errorMessage="" />}
+        {apiError === "" ? (
+          <></>
+        ) : (
+          <ErrorMessage errorMessage={apiError} isDismissable={false} />
+        )}
         <SC_FormContainer onSubmit={handleSubmit}>
           {mode === "EDIT_NAME" ? (
             <>

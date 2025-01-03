@@ -24,6 +24,7 @@ type Props = {
   addWhere?: Tag | Task;
   editWhat?: "TAG" | "TASK" | "SUBTASK";
   currentData?: DataState;
+  resetState?: () => void;
 };
 
 const ViewHeader = ({
@@ -35,11 +36,10 @@ const ViewHeader = ({
   addWhat,
   addWhere,
   editWhat,
-  currentData
+  currentData,
+  resetState,
 }: Props) => {
-  const { previousPage } = useContext(
-    PageContext
-  ) as PageContextType;
+  const { previousPage } = useContext(PageContext) as PageContextType;
   const navigate = useNavigate();
   return (
     <SC_HeaderContainer>
@@ -58,12 +58,24 @@ const ViewHeader = ({
         {addButtonText === undefined || addWhat === undefined ? (
           <></>
         ) : (
-          <AddEditModalPopup text={addButtonText} mode="CREATE" what={addWhat} where={addWhere} />
+          <AddEditModalPopup
+            text={addButtonText}
+            mode="CREATE"
+            what={addWhat}
+            where={addWhere}
+            resetState={resetState}
+          />
         )}
         {editButtonText === undefined || editWhat === undefined ? (
           <></>
         ) : (
-          <AddEditModalPopup text={editButtonText} mode="EDIT" what={editWhat} data={currentData} />
+          <AddEditModalPopup
+            text={editButtonText}
+            mode="EDIT"
+            what={editWhat}
+            data={currentData}
+            resetState={resetState}
+          />
         )}
       </SC_ButtonContainer>
     </SC_HeaderContainer>

@@ -332,6 +332,7 @@ const AddEditForm = ({
             <SC_ErrorMessageHolder>
               <ErrorMessage
                 errorMessage={errorMessage}
+                isDismissable={true}
                 show={errorMessage !== ""}
                 setShow={(show: boolean) => {
                   if (!show) {

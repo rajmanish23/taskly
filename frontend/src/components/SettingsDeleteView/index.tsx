@@ -67,7 +67,7 @@ const SettingsDeleteView = () => {
       <ViewHeader h1Text="Delete your account?" />
       <SC_LeftAlignedViewBackgroundContainer>
         {errorMessage !== "" ? (
-          <ErrorMessage errorMessage={errorMessage} />
+          <ErrorMessage errorMessage={errorMessage} isDismissable={false} />
         ) : (
           <></>
         )}
