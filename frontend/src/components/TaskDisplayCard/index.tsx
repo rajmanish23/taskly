@@ -93,7 +93,9 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
             <SC_TaskNameHeading $isCompleted={isCompleted}>
               {data.name}
             </SC_TaskNameHeading>
-            {displayDate(data.dueAt, mode)}
+            {isCompleted
+              ? displayDate(data.completedAt, mode, isCompleted)
+              : displayDate(data.dueAt, mode)}
           </SC_TaskItemHeaderContainer>
 
           {data.tags.length !== 0 ? (
