@@ -12,6 +12,7 @@ import {
 } from "./styles";
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import { PageContext, PageContextType } from "../../context/PageContext";
+import { DeleteRestorePopupButton } from "../DeleteHandlerButtons";
 
 type Props = {
   h1Text: string | ReactNode;
@@ -24,6 +25,7 @@ type Props = {
   addWhere?: Tag | Task;
   editWhat?: "TAG" | "TASK" | "SUBTASK";
   currentData?: DataState;
+  deleteItemText?: string;
   resetState?: () => void;
 };
 
@@ -37,6 +39,7 @@ const ViewHeader = ({
   addWhere,
   editWhat,
   currentData,
+  deleteItemText,
   resetState,
 }: Props) => {
   const { previousPage } = useContext(PageContext) as PageContextType;
@@ -75,6 +78,17 @@ const ViewHeader = ({
             what={editWhat}
             data={currentData}
             resetState={resetState}
+          />
+        )}
+        {deleteItemText === undefined || currentData === undefined ? (
+          <></>
+        ) : (
+          <DeleteRestorePopupButton
+            id={currentData.sId}
+            mode="DELETE"
+            what="TAG"
+            resetFunc={resetState}
+            buttonText={deleteItemText}
           />
         )}
       </SC_ButtonContainer>

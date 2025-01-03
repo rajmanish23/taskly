@@ -132,6 +132,7 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
             editWhat="TAG"
             currentData={tag}
             resetState={incrementUpdate}
+            deleteItemText="Delete Tag"
           />
         );
       case "PREVIOUS":

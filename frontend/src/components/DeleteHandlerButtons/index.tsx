@@ -19,12 +19,13 @@ import { deleteTag, permanentlyDeleteTag, restoreTag } from "../../API/tagsAPI";
 import { permanentlyDeleteSubTask } from "../../API/subTasksAPI";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { PageContext, PageContextType } from "../../context/PageContext";
-import { TODAY_PAGE_URL } from "../../constants";
+import { STYLE_ICON_MARGINS, TODAY_PAGE_URL } from "../../constants";
 
 type Props = {
   what: "TASK" | "TAG" | "SUB_TASK";
   id: string;
   mode: "DELETE" | "PERMA_DELETE" | "RESTORE";
+  buttonText?: string;
   resetFunc: () => void;
 };
 
@@ -135,6 +136,7 @@ export const DeleteRestorePopupButton = ({
   id,
   what,
   mode,
+  buttonText,
   resetFunc,
 }: Props) => {
   return (
@@ -149,7 +151,8 @@ export const DeleteRestorePopupButton = ({
         } else {
           return (
             <SC_DeleteButton>
-              <MdDelete />
+              <MdDelete style={STYLE_ICON_MARGINS} />
+              {buttonText}
             </SC_DeleteButton>
           );
         }
