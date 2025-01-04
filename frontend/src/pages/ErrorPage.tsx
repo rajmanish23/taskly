@@ -1,11 +1,24 @@
+import BackendUnreachableErrorView from "../components/BackendUnreachableErrorView";
+import PageNotFoundErrorView from "../components/PageNotFoundErrorView";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import { SC_MainViewContainer } from "./styles";
 
-// TODO: Implement views for both "not found" and "backend unreachable" errors
+type Props = {
+  errorMode: "NOT_FOUND" | "SERVER_UNREACHABLE";
+}
 
-const ErrorPage = () => {
+const ErrorPage = ({errorMode}: Props) => {
   useDocumentTitle("Not Found");
 
-  return <div>NotFound</div>;
+  return (
+    <SC_MainViewContainer>
+      {errorMode === "NOT_FOUND" ? (
+        <PageNotFoundErrorView />
+      ) : (
+        <BackendUnreachableErrorView />
+      )}
+    </SC_MainViewContainer>
+  );
 };
 
 export default ErrorPage;

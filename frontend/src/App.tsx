@@ -81,7 +81,7 @@ function App() {
   }
 
   if (!isAPIAlive) {
-    return <ErrorPage />;
+    return <ErrorPage errorMode="SERVER_UNREACHABLE" />;
   }
 
   return (
@@ -202,7 +202,7 @@ function App() {
           />
           <Route path={LOGIN_PAGE_URL} element={<Login />} />
           <Route path={REGISTER_PAGE_URL} element={<Register />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="*" element={<ErrorPage errorMode="NOT_FOUND" />} />
         </Routes>
       </UpdateContextProvider>
     </PageContextProvider>
