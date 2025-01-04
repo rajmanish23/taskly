@@ -23,7 +23,7 @@ import { STYLE_ICON_MARGINS, TODAY_PAGE_URL } from "../../constants";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 
 type Props = {
-  what: "TASK" | "TAG" | "SUB_TASK";
+  what: "TASK" | "TAG" | "SUB_TASK" | "TASK_LIST";
   id: string;
   mode: "DELETE" | "PERMA_DELETE" | "RESTORE";
   buttonText?: string;
@@ -34,7 +34,7 @@ const initiateAPI = async (
   { id, mode, what }: Props,
   navigate: NavigateFunction,
   previousPage: string,
-  incrementUpdate: () => void
+  triggerUpdate: () => void
 ) => {
   if (what === "TASK") {
     if (mode === "DELETE") {
@@ -45,7 +45,7 @@ const initiateAPI = async (
       navigate(previousPage);
     } else {
       await restoreTask(id);
-      incrementUpdate();
+      triggerUpdate();
     }
   } else if (what === "TAG") {
     if (mode === "DELETE") {
@@ -53,15 +53,26 @@ const initiateAPI = async (
       navigate(TODAY_PAGE_URL);
     } else if (mode === "PERMA_DELETE") {
       await permanentlyDeleteTag(id);
-      navigate(TODAY_PAGE_URL)
+      navigate(TODAY_PAGE_URL);
     } else {
       await restoreTag(id);
-      incrementUpdate();
+      triggerUpdate();
+    }
+  } else if (what === "TASK_LIST") {
+    if (mode === "PERMA_DELETE") {
+      await permanentlyDeleteTask(id);
+      triggerUpdate();
+    } else if (mode === "RESTORE") {
+      await restoreTask(id);
+      triggerUpdate();
+    } else {
+      await deleteTask(id);
+      triggerUpdate()
     }
   } else {
     if (mode === "PERMA_DELETE") {
       await permanentlyDeleteSubTask(id);
-      incrementUpdate();
+      triggerUpdate();
     } else {
       throw new Error(
         "Invalid mode for sub task! Only PERMA_DELETE is allowed."
@@ -78,7 +89,9 @@ const PopupForm = ({
 }: Props & { close: () => void }): ReactNode => {
   const navigate = useNavigate();
   const { previousPage } = useContext(PageContext) as PageContextType;
-  const { triggerUpdate: incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
+  const { triggerUpdate } = useContext(
+    UpdateContext
+  ) as UpdateContextType;
 
   const onClickInitiateAPI = async () => {
     try {
@@ -86,7 +99,7 @@ const PopupForm = ({
         { id, what, mode },
         navigate,
         previousPage,
-        incrementUpdate
+        triggerUpdate
       );
     } catch (error) {
       console.error(error);
@@ -157,7 +170,11 @@ export const DeleteRestorePopupButton = ({
         } else {
           return (
             <SC_DeleteButton>
-              <MdDelete style={buttonText === undefined ? undefined : STYLE_ICON_MARGINS} />
+              <MdDelete
+                style={
+                  buttonText === undefined ? undefined : STYLE_ICON_MARGINS
+                }
+              />
               {buttonText}
             </SC_DeleteButton>
           );
@@ -173,14 +190,7 @@ export const DeleteRestorePopupButton = ({
         The code below WILL work just fine. But it will show a TS error.
           
         @ts-expect-error Added due to package not having valid declaration for functional props.*/}
-      {(close) => (
-        <PopupForm
-          id={id}
-          what={what}
-          mode={mode}
-          close={close}
-        />
-      )}
+      {(close) => <PopupForm id={id} what={what} mode={mode} close={close} />}
     </SC_Popup>
   );
 };

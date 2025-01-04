@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 
 import TaskDisplayCard from "../TaskDisplayCard";
-import { SC_TaskListContainer } from "./styles";
+import { SC_TaskCardContainer, SC_TaskListContainer } from "./styles";
 import {
   BAR_LOADER_HEIGHT,
   BAR_LOADER_WIDTH,
@@ -29,6 +29,7 @@ import {
 } from "../commonStyles";
 import ErrorMessage from "../ErrorMessage";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
+import { DeleteRestorePopupButton } from "../DeleteHandlerButtons";
 
 type TaskListViewProps = {
   mode: SelectedView;
@@ -40,7 +41,9 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
   const [tag, setTag] = useState<Tag>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { updateState: updateCounter } = useContext(UpdateContext) as UpdateContextType;
+  const { updateState: updateCounter } = useContext(
+    UpdateContext
+  ) as UpdateContextType;
 
   const getTasks = useCallback(async () => {
     setIsLoading(true);
@@ -119,7 +122,11 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
         );
       case "UPCOMING":
         return (
-          <ViewHeader h1Text="Upcoming" addButtonText="Create a new Task" addWhat="TASK" />
+          <ViewHeader
+            h1Text="Upcoming"
+            addButtonText="Create a new Task"
+            addWhat="TASK"
+          />
         );
       case "TAG":
         return (
@@ -146,16 +153,22 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
         );
       case "PREVIOUS":
         return (
-          <ViewHeader h1Text="Previous" addButtonText="Create a new Task" addWhat="TASK" />
+          <ViewHeader
+            h1Text="Previous"
+            addButtonText="Create a new Task"
+            addWhat="TASK"
+          />
         );
       case "COMPLETED":
         return (
-          <ViewHeader h1Text="Completed" addButtonText="Create a new Task" addWhat="TASK" />
+          <ViewHeader
+            h1Text="Completed"
+            addButtonText="Create a new Task"
+            addWhat="TASK"
+          />
         );
       case "RESTORE":
-        return (
-          <ViewHeader h1Text="Restore Deleted Tasks"/>
-        );
+        return <ViewHeader h1Text="Restore Deleted Tasks" />;
     }
   };
 
@@ -173,27 +186,49 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       ) : tasks.length === 0 ? (
         <SC_CentralNoDataContainer>
           {errorMessage !== undefined ? (
-            <ErrorMessage
-              errorMessage={errorMessage}
-              isDismissable={false}
-            />
+            <ErrorMessage errorMessage={errorMessage} isDismissable={false} />
           ) : (
             <>
               <SC_EmptyDisplayHeader>
                 {getEmptyDisplayText()}
               </SC_EmptyDisplayHeader>
-              {mode !== "RESTORE" && <AddEditModalPopup
-                text="Create a new Task"
-                mode="CREATE"
-                what="TASK"
-              />}
+              {mode !== "RESTORE" && (
+                <AddEditModalPopup
+                  text="Create a new Task"
+                  mode="CREATE"
+                  what="TASK"
+                />
+              )}
             </>
           )}
         </SC_CentralNoDataContainer>
       ) : (
         <SC_TaskListContainer>
           {tasks?.map((each) => (
-            <TaskDisplayCard key={each.sId} data={each} mode={mode} />
+            <SC_TaskCardContainer key={each.sId}>
+              <TaskDisplayCard key={each.sId} data={each} mode={mode} />
+              {mode === "COMPLETED" && (
+                <DeleteRestorePopupButton
+                  id={each.sId}
+                  what="TASK_LIST"
+                  mode="DELETE"
+                />
+              )}
+              {mode === "RESTORE" && (
+                <DeleteRestorePopupButton
+                  id={each.sId}
+                  what="TASK_LIST"
+                  mode="PERMA_DELETE"
+                />
+              )}
+              {mode === "RESTORE" && (
+                <DeleteRestorePopupButton
+                  id={each.sId}
+                  what="TASK_LIST"
+                  mode="RESTORE"
+                />
+              )}
+            </SC_TaskCardContainer>
           ))}
         </SC_TaskListContainer>
       )}
