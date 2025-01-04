@@ -60,6 +60,7 @@ export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
 export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
 export const PREVIOUS_TASKS_LIST_API_URL = "/api/tasks/previous/";
 export const COMPLETED_TASKS_LIST_API_URL = "/api/tasks/completed/";
+export const DELETED_TASKS_LIST_API_URL = "/api/tasks/deleted/";
 
 // Sub Task APIs
 export const SUB_TASK_SINGLE_ITEM_API_URL = (subTaskId: string) =>

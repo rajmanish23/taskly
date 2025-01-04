@@ -74,6 +74,7 @@ type SelectedView =
   | "UPCOMING"
   | "PREVIOUS"
   | "COMPLETED"
+  | "DELETED"
   | "TAG"
   | "TASK"
   | "SETTINGS"

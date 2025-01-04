@@ -11,6 +11,7 @@ import {
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import {
   getCompletedTasksAPI,
+  getDeletedTasksAPI,
   getPreviousTasksAPI,
   getTagTasksAPI,
   getTodayTasksAPI,
@@ -56,6 +57,8 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
         data = await getTagTasksAPI(tagId);
       } else if (mode === "COMPLETED") {
         data = await getCompletedTasksAPI();
+      } else if (mode === "DELETED") {
+        data = await getDeletedTasksAPI();
       } else {
         throw Error("Settings View is used for Task listing component!");
       }
@@ -94,7 +97,9 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       case "TAG":
         return "There are no tasks in with this tag";
       case "COMPLETED":
-        return "You have not completed any tasks yet!";
+        return "You have not completed any tasks yet.";
+      case "DELETED":
+        return "You have not deleted any tasks yet.";
     }
   };
 
@@ -146,6 +151,10 @@ const TasksListView = ({ mode, tagId }: TaskListViewProps) => {
       case "COMPLETED":
         return (
           <ViewHeader h1Text="Completed" addButtonText="Create a new Task" addWhat="TASK" />
+        );
+      case "DELETED":
+        return (
+          <ViewHeader h1Text="Restore Deleted Tasks"/>
         );
     }
   };
