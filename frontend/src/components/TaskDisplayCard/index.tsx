@@ -76,9 +76,6 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
   if (isTask(data)) {
     return (
       <SC_TaskListItemContainer>
-        {/* TODO: Add completeRestore function which accepts isCompleted 
-        and marks as completed if isComplete is false, 
-        otherwise unmarks it as completed. */}
         <SC_TaskCompleteButton
           $isCompleted={isCompleted}
           onClick={() => toggleComplete(data.sId, isCompleted, "TASK")}

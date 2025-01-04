@@ -187,9 +187,6 @@ const TaskDetailsView = ({ taskId, previousPage }: Props) => {
 
           <SC_HeadContainer>
             <SC_TopTextContainer>
-              {/* TODO: Add completeRestore function which accepts isCompleted 
-              and marks as completed if isComplete is false, 
-              otherwise unmarks it as completed. */}
               <SC_Button
                 $isCompleted={isCompleted}
                 onClick={() =>
