@@ -6,6 +6,8 @@ import TasksListView from "../TasksListView";
 const RestoreDeletedView = () => {
   const [viewMode, setViewMode] = useState<"TASK" | "TAGS">("TASK");
 
+  console.log(window.location.pathname);
+
   return (
     <SC_PositioningContainer>
       <SC_ViewModeSelectorContainer>

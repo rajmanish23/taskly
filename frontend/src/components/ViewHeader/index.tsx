@@ -26,6 +26,7 @@ type Props = {
   editWhat?: "TAG" | "TASK" | "SUBTASK";
   currentData?: DataState;
   deleteItemText?: string;
+  previousPage_manual?: string;
 };
 
 const ViewHeader = ({
@@ -39,6 +40,7 @@ const ViewHeader = ({
   editWhat,
   currentData,
   deleteItemText,
+  previousPage_manual,
 }: Props) => {
   const { previousPage } = useContext(PageContext) as PageContextType;
   const navigate = useNavigate();
@@ -46,7 +48,15 @@ const ViewHeader = ({
     <SC_HeaderContainer>
       <SC_HeaderTextContainer>
         {hasBackButton ? (
-          <SC_BackButton onClick={() => navigate(previousPage)}>
+          <SC_BackButton
+            onClick={() =>
+              navigate(
+                previousPage_manual !== undefined
+                  ? previousPage_manual
+                  : previousPage
+              )
+            }
+          >
             <IoArrowBackSharp />
           </SC_BackButton>
         ) : (

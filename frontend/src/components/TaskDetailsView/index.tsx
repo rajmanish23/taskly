@@ -56,6 +56,7 @@ import useToggleComplete from "../../hooks/useToggleComplete";
 
 type Props = {
   taskId?: string;
+  previousPage?: string;
 };
 
 const displayDate = (date: Date | null, isCompleted?: boolean) => {
@@ -108,7 +109,7 @@ const displayDate = (date: Date | null, isCompleted?: boolean) => {
   );
 };
 
-const TaskDetailsView = ({ taskId }: Props) => {
+const TaskDetailsView = ({ taskId, previousPage }: Props) => {
   const [taskData, setTaskData] = useState<Task>();
   const [errorMessage, setErrorMessage] = useState(
     "Could not load data of this Task"
@@ -158,6 +159,7 @@ const TaskDetailsView = ({ taskId }: Props) => {
         editWhat="TASK"
         hasBackButton
         currentData={taskData}
+        previousPage_manual={previousPage}
       />
       {isLoading ? (
         <SC_CentralNoDataContainer>
