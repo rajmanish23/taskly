@@ -22,7 +22,7 @@ const RestoreDeletedView = () => {
           Tags
         </SC_ViewModeSelector>
       </SC_ViewModeSelectorContainer>
-      {viewMode === "TASK" ? <TasksListView mode="DELETED" /> : <div>Tags</div>}
+      {viewMode === "TASK" ? <TasksListView mode="RESTORE" /> : <div>Tags</div>}
     </SC_PositioningContainer>
   );
 };
