@@ -15,6 +15,7 @@ import { subDays } from "date-fns";
 import { HexColorPicker } from "react-colorful";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+import BeatLoader from "react-spinners/BeatLoader";
 
 import {
   SC_ShowAddEditModalButton,
@@ -47,7 +48,7 @@ import {
 } from "../../constants";
 import { isTag } from "../../utils/objectTypeCheckers";
 import { createTag, updateTag } from "../../API/tagsAPI";
-import { createTask, updateTask } from "../../API/tasksAPI";
+import { addTagToTask, createTask, updateTask } from "../../API/tasksAPI";
 import { createSubTask, updateSubTask } from "../../API/subTasksAPI";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 import isColorDark from "../../utils/isColorDark";
@@ -85,13 +86,17 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   );
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { triggerUpdate: incrementUpdate } = useContext(UpdateContext) as UpdateContextType;
+  const { triggerUpdate: incrementUpdate } = useContext(
+    UpdateContext
+  ) as UpdateContextType;
 
   const navigate = useNavigate();
   const contentRef = useRef<HTMLDivElement>(null);
 
   const onClickSubmit = async () => {
+    setIsLoading(true);
     if (name.length === 0) {
       setErrorMessage("Please enter a name!");
       return;
@@ -115,6 +120,17 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
         if (status.isError) {
           setErrorMessage(status.detail);
           return;
+        }
+        if (isTag(where)) {
+          if (status.sId === undefined) {
+            setErrorMessage("Task creation failed");
+            return;
+          }
+          const tagStatus = await addTagToTask(status.sId, [where.sId]);
+          if (tagStatus.isError) {
+            setErrorMessage(tagStatus.detail);
+            return;
+          }
         }
         closeFn();
         navigate(TASK_PAGE_URL_NO_PARAM + status.sId);
@@ -177,6 +193,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
     } else {
       throw new Error("Invalid mode");
     }
+    setIsLoading(false);
   };
 
   const closeOnBgClick = (e: React.MouseEvent) => {
@@ -267,10 +284,14 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
             )}
           </SC_TopRowLeftContainer>
           <SC_SaveButton onClick={onClickSubmit}>
-            <>
-              <FaSave style={STYLE_ICON_MARGINS} />
-              Save
-            </>
+            {isLoading ? (
+              <BeatLoader size={10} />
+            ) : (
+              <>
+                <FaSave style={STYLE_ICON_MARGINS} />
+                Save
+              </>
+            )}
           </SC_SaveButton>
         </SC_TopHeaderRowContainer>
 

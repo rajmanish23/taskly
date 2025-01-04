@@ -83,6 +83,7 @@ export const SC_SaveButton = styled(SC_CommonButton)`
   }
   background-color: #3cb371;
   color: #013220;
+  width: 100px;
 `;
 
 export const SC_TopHeaderRowContainer = styled.div`

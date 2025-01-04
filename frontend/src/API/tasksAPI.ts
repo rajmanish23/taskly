@@ -11,6 +11,7 @@ import {
   TASK_MARK_COMPLETE,
   TASK_UNMARK_COMPLETE,
   COMPLETED_TASKS_LIST_API_URL,
+  TASK_ADD_TAG,
 } from "../constants";
 import { isAxiosError } from "axios";
 import { handleError } from "./utils";
@@ -301,6 +302,18 @@ export const unmarkCompleteTask = async (
   try {
     await baseTokenfulAPI.put(TASK_UNMARK_COMPLETE(taskId));
     return { detail: "Task unmarked as completed", isError: false };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const addTagToTask = async (
+  taskId: string,
+  tagIds: string[]
+): Promise<APIStatusMessage> => {
+  try {
+    await baseTokenfulAPI.put(TASK_ADD_TAG(taskId), { tagIds });
+    return { detail: "Tag added to task", isError: false };
   } catch (error) {
     return handleError(error);
   }
