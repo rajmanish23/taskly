@@ -15,6 +15,7 @@ import {
   SETTING_EDIT_NAME_URL,
   SETTING_LOGOUT_URL,
   SETTING_PROFILE_URL,
+  SETTING_RESTORE_TASK_URL_WITH_PARAM,
   SETTING_RESTORE_URL,
   STYLE_TEXT_COLOR,
   TAG_PAGE_URL_WITH_PARAM,
@@ -43,6 +44,7 @@ import RestoreDeleted from "./pages/settings/RestoreDeleted";
 import { UpdateContextProvider } from "./context/UpdateContext";
 import TaskDetails from "./pages/TaskDetails";
 import Completed from "./pages/Completed";
+import TaskDetails_FromRestore from "./pages/settings/TaskDetails_FromRestore";
 
 function App() {
   const [isAPIAlive, setIsAPIAlive] = useState<null | boolean>(null);
@@ -187,6 +189,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <RestoreDeleted />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path={SETTING_RESTORE_TASK_URL_WITH_PARAM}
+            element={
+              <ProtectedRoute>
+                <TaskDetails_FromRestore />
               </ProtectedRoute>
             }
           />

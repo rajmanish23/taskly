@@ -90,6 +90,8 @@ export const SETTING_EDIT_EMAIL_URL = "/settings/edit-email";
 export const SETTING_EDIT_NAME_URL = "/settings/edit-name";
 export const SETTING_LOGOUT_URL = "/settings/logout";
 export const SETTING_RESTORE_URL = "/settings/restore";
+export const SETTING_RESTORE_TASK_URL_NO_PARAM = "/settings/restore/task/";
+export const SETTING_RESTORE_TASK_URL_WITH_PARAM = "/settings/restore/task/:taskId";
 
 // Input constants
 export const DELETE_CHALLENGE_TEXT = "I want to permanently delete my account";

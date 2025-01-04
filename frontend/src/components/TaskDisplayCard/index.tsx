@@ -20,7 +20,7 @@ import {
   SC_MoreSubTasksNumber,
 } from "./styles";
 import { isTask } from "../../utils/objectTypeCheckers";
-import { STYLE_ICON_MARGINS, TASK_PAGE_URL_NO_PARAM } from "../../constants";
+import { SETTING_RESTORE_TASK_URL_NO_PARAM, STYLE_ICON_MARGINS, TASK_PAGE_URL_NO_PARAM } from "../../constants";
 import { SC_DateContainer, SC_TagItemContainer } from "../commonStyles";
 import isColorDark from "../../utils/isColorDark";
 import useToggleComplete from "../../hooks/useToggleComplete";
@@ -86,7 +86,12 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
           {!isCompleted ? <FaCheckCircle /> : <MdOutlineRadioButtonUnchecked />}
         </SC_TaskCompleteButton>
         <SC_DataContainer
-          onClick={() => navigate(TASK_PAGE_URL_NO_PARAM + data.sId)}
+          onClick={() => {
+            if (mode === "RESTORE") {
+              return navigate(SETTING_RESTORE_TASK_URL_NO_PARAM + data.sId);
+            }
+            return navigate(TASK_PAGE_URL_NO_PARAM + data.sId);
+          }}
           $isClickable={true}
         >
           <SC_TaskItemHeaderContainer>
