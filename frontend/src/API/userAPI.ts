@@ -13,8 +13,9 @@ import {
   UPDATE_NAME_API,
   UPDATE_EMAIL_API,
   UPDATE_PASSWORD_API,
+  TOKEN_REFRESH_API_URL,
 } from "../constants";
-import { baseTokenlessAPI } from "./isAuthorizedAPI";
+import { baseTokenlessAPI } from "./baseAPI";
 import { handleError } from "./utils";
 
 export async function loginAPI(
@@ -102,6 +103,26 @@ export async function registerAPI(
   }
   return [false, "!!Some edge case has occured that needs resolving!!"];
 }
+
+export const refreshSession = async () => {
+  const refreshToken = Cookies.get(REFRESH_KEY);
+  if (refreshToken === undefined) {
+    throw new Error("Refresh Token is undefined!");
+  }
+  const res = await baseTokenlessAPI.post(TOKEN_REFRESH_API_URL, {
+    refresh: refreshToken,
+  });
+  if (res.status === 200) {
+    Cookies.set(ACCESS_KEY, res.data.access, {
+      sameSite: "Strict",
+      secure: true,
+    });
+    return res.data.access;
+  } else {
+    throw new Error("API threw some other non-error status code");
+  }
+};
+
 
 export async function getUserAPI(): Promise<User> {
   const localUserData = sessionStorage.getItem(LOCAL_USER_KEY);

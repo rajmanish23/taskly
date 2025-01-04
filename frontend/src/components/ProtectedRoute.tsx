@@ -8,7 +8,7 @@ import {
   LOGIN_PAGE_URL,
   STYLE_TEXT_COLOR,
 } from "../constants";
-import { refreshSession } from "../API/isAuthorizedAPI";
+import { refreshSession } from "../API/userAPI";
 import {
   areTokensValid,
   isAccessTokenExpired,

@@ -8,9 +8,19 @@ import {
   isAccessTokenExpired,
   isRefreshTokenExpired,
 } from "../utils/tokenValidator";
-import { refreshSession } from "./isAuthorizedAPI";
+import { refreshSession } from "./userAPI";
 
 const baseTokenfulAPI = axios.create({
+  baseURL: BASE_API_URL,
+  transformRequest: [
+    (data, headers) => {
+      headers["Content-Type"] = "application/json";
+      return JSON.stringify(decamelizeKeys(data));
+    },
+  ],
+});
+
+export const baseTokenlessAPI = axios.create({
   baseURL: BASE_API_URL,
   transformRequest: [
     (data, headers) => {
