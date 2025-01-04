@@ -3,7 +3,6 @@ import {
   STYLE_CARD_BACKGROUND_COLOR,
   STYLE_TRANSITION_TIME,
 } from "../../constants";
-import { SC_TagItemContainer } from "../commonStyles";
 
 const SC_CommonButton = styled.button`
   padding: 8px 16px 8px 16px;
@@ -121,11 +120,6 @@ export const SC_TopWhereHeader = styled(SC_TopWhatHeader)`
   text-overflow: ellipsis;
   white-space: nowrap;
   min-width: 0;
-`;
-
-export const SC_ModalTagItemContainer = styled(SC_TagItemContainer)`
-  font-size: 24px;
-  margin: 0 5px 0 5px;
 `;
 
 export const SC_DetailsInputContainer = styled.div`

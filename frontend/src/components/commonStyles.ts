@@ -73,21 +73,6 @@ export const SC_EmptyDisplayHeader = styled.h1`
   font-weight: normal;
 `;
 
-export const SC_TagItemContainer = styled.li<{
-  $color: string;
-  $isColorDark: boolean;
-}>`
-  background-color: ${(props) => props.$color};
-  padding: 5px 10px 5px 10px;
-  border-radius: 7px;
-  margin: 10px 10px 5px 0;
-  font-size: 16px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: ${(props) => props.$isColorDark ? "white" : "black"};
-`;
-
 export const SC_DateContainer = styled.div<{
   $isOverDue: boolean;
   $isNull: boolean;

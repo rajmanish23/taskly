@@ -1,4 +1,4 @@
-import { FaCheckCircle, FaHashtag } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import { MdAccessTimeFilled } from "react-icons/md";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
@@ -20,10 +20,14 @@ import {
   SC_MoreSubTasksNumber,
 } from "./styles";
 import { isTask } from "../../utils/objectTypeCheckers";
-import { SETTING_RESTORE_TASK_URL_NO_PARAM, STYLE_ICON_MARGINS, TASK_PAGE_URL_NO_PARAM } from "../../constants";
-import { SC_DateContainer, SC_TagItemContainer } from "../commonStyles";
-import isColorDark from "../../utils/isColorDark";
+import {
+  SETTING_RESTORE_TASK_URL_NO_PARAM,
+  STYLE_ICON_MARGINS,
+  TASK_PAGE_URL_NO_PARAM,
+} from "../../constants";
+import { SC_DateContainer } from "../commonStyles";
 import useToggleComplete from "../../hooks/useToggleComplete";
+import TagChipItem from "../TagChipItem";
 
 type TaskDisplayCardProps = {
   data: Task | SubTask;
@@ -103,14 +107,12 @@ const TaskDisplayCard = ({ data, mode }: TaskDisplayCardProps) => {
           {data.tags.length !== 0 ? (
             <SC_TagListContainer>
               {data.tags.map((each) => (
-                <SC_TagItemContainer
+                <TagChipItem
                   key={each.sId}
-                  $color={each.colorHex}
-                  $isColorDark={isColorDark(each.colorHex)}
-                >
-                  <FaHashtag style={STYLE_ICON_MARGINS} />
-                  {each.name}
-                </SC_TagItemContainer>
+                  data={each}
+                  isClickable={false}
+                  isBigDisplay={false}
+                />
               ))}
             </SC_TagListContainer>
           ) : (

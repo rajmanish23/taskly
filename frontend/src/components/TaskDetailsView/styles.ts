@@ -92,21 +92,11 @@ export const SC_SubHeading = styled.h1`
 `;
 
 export const SC_TagsListContainer = styled.ul`
-  padding: 0;
+  padding: 0 0 0 10px;
   margin: 0;
   list-style: none;
   display: flex;
   flex-direction: row;
-  li {
-    padding: 10px;
-    margin: 0 0 0 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: filter ${STYLE_TRANSITION_TIME};
-  }
-  li:hover {
-    filter: brightness(125%);
-  }
 `;
 
 export const SC_SubTaskContainer = styled.div`

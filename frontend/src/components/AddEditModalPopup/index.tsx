@@ -9,7 +9,6 @@ import {
 import { AiFillPlusCircle } from "react-icons/ai";
 import { MdEditSquare } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
-import { FaHashtag } from "react-icons/fa6";
 import { FaSave, FaCalendarCheck } from "react-icons/fa";
 import { subDays } from "date-fns";
 import { HexColorPicker } from "react-colorful";
@@ -23,7 +22,6 @@ import {
   SC_DatePickerContainer,
   SC_DescriptionInput,
   SC_DetailsInputContainer,
-  SC_ModalTagItemContainer,
   SC_NameInput,
   SC_OverlayBGContainer,
   SC_PopupCloseButton,
@@ -51,10 +49,10 @@ import { createTag, updateTag } from "../../API/tagsAPI";
 import { addTagToTask, createTask, updateTask } from "../../API/tasksAPI";
 import { createSubTask, updateSubTask } from "../../API/subTasksAPI";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
-import isColorDark from "../../utils/isColorDark";
 import ErrorMessage from "../ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
+import TagChipItem from "../TagChipItem";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
@@ -250,13 +248,11 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
                 ) : isTag(where) ? (
                   <>
                     <SC_TopModeHeader>in</SC_TopModeHeader>
-                    <SC_ModalTagItemContainer
-                      $color={where.colorHex}
-                      $isColorDark={isColorDark(where.colorHex)}
-                    >
-                      <FaHashtag style={STYLE_ICON_MARGINS} />
-                      {where.name}
-                    </SC_ModalTagItemContainer>
+                    <TagChipItem
+                      data={where}
+                      isClickable={false}
+                      isBigDisplay={true}
+                    />
                   </>
                 ) : (
                   <>
@@ -272,13 +268,11 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
                 ) : data.colorHex === undefined ? (
                   <SC_TopWhereHeader>{data?.name}</SC_TopWhereHeader>
                 ) : (
-                  <SC_ModalTagItemContainer
-                    $color={data.colorHex}
-                    $isColorDark={isColorDark(data.colorHex)}
-                  >
-                    <FaHashtag style={STYLE_ICON_MARGINS} />
-                    {data.name}
-                  </SC_ModalTagItemContainer>
+                  <TagChipItem
+                    data={data as Tag}
+                    isClickable={false}
+                    isBigDisplay={true}
+                  />
                 )}
               </>
             )}
@@ -344,13 +338,11 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
                 <SC_SelectedColorDisplayHeader>
                   Selected color is
                 </SC_SelectedColorDisplayHeader>
-                <SC_ModalTagItemContainer
-                  $color={tagColor}
-                  $isColorDark={isColorDark(tagColor)}
-                >
-                  <FaHashtag style={STYLE_ICON_MARGINS} />
-                  {name.length === 0 ? "Enter a Name" : name}
-                </SC_ModalTagItemContainer>
+                <TagChipItem
+                  data={{name, colorHex: tagColor}}
+                  isClickable={false}
+                  isBigDisplay={true}
+                />
               </SC_SelectedColorDisplayContainer>
             </SC_TagColorPickerContainer>
           ) : (

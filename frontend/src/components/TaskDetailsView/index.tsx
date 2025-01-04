@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaCheckCircle, FaHashtag } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { PiWarningCircleFill } from "react-icons/pi";
 import {
@@ -15,7 +15,6 @@ import {
   SC_DateContainer,
   SC_EmptyDisplayHeader,
   SC_LeftAlignedViewBackgroundContainer,
-  SC_TagItemContainer,
 } from "../commonStyles";
 import ViewHeader from "../ViewHeader";
 import {
@@ -49,10 +48,10 @@ import {
 } from "./styles";
 import { AddEditModalPopup } from "../AddEditModalPopup";
 import TaskDisplayCard from "../TaskDisplayCard";
-import isColorDark from "../../utils/isColorDark";
 import { DeleteRestorePopupButton } from "../DeleteHandlerButtons";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 import useToggleComplete from "../../hooks/useToggleComplete";
+import TagChipItem from "../TagChipItem";
 
 type Props = {
   taskId?: string;
@@ -237,17 +236,15 @@ const TaskDetailsView = ({ taskId, previousPage }: Props) => {
             <SC_SubHeading>Tags:</SC_SubHeading>
             <SC_TagsListContainer>
               {taskData.tags.map((each) => (
-                <SC_TagItemContainer
+                <TagChipItem
                   key={each.sId}
-                  $color={each.colorHex}
-                  $isColorDark={isColorDark(each.colorHex)}
-                  onClick={() => {
+                  data={each}
+                  isClickable
+                  isBigDisplay={false}
+                  clickFn={() => {
                     navigate(TAG_PAGE_URL_NO_PARAM + each.sId);
                   }}
-                >
-                  <FaHashtag style={STYLE_ICON_MARGINS} />
-                  {each.name}
-                </SC_TagItemContainer>
+                />
               ))}
             </SC_TagsListContainer>
             {/* TODO: Add a proper popup for just adding a tag using reactjs-popup */}
