@@ -51,7 +51,6 @@ import { addTagToTask, createTask, updateTask } from "../../API/tasksAPI";
 import { createSubTask, updateSubTask } from "../../API/subTasksAPI";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 import ErrorMessage from "../ErrorMessage";
-import TagChipItem from "../TagChipItem";
 
 import "react-datepicker/dist/react-datepicker.css";
 import isColorDark from "../../utils/isColorDark";
@@ -250,11 +249,13 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
                 ) : isTag(where) ? (
                   <>
                     <SC_TopModeHeader>in</SC_TopModeHeader>
-                    <TagChipItem
-                      data={where}
-                      isClickable={false}
-                      isBigDisplay={true}
-                    />
+                    <SC_ModalTagItemContainer
+                      $bgColor={where.colorHex}
+                      $fgIsDark={isColorDark(where.colorHex)}
+                    >
+                      <FaHashtag style={STYLE_ICON_MARGINS} />
+                      {where.name}
+                    </SC_ModalTagItemContainer>
                   </>
                 ) : (
                   <>
@@ -270,11 +271,13 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
                 ) : data.colorHex === undefined ? (
                   <SC_TopWhereHeader>{data?.name}</SC_TopWhereHeader>
                 ) : (
-                  <TagChipItem
-                    data={data as Tag}
-                    isClickable={false}
-                    isBigDisplay={true}
-                  />
+                  <SC_ModalTagItemContainer
+                    $bgColor={data.colorHex}
+                    $fgIsDark={isColorDark(data.colorHex)}
+                  >
+                    <FaHashtag style={STYLE_ICON_MARGINS} />
+                    {data.name}
+                  </SC_ModalTagItemContainer>
                 )}
               </>
             )}
