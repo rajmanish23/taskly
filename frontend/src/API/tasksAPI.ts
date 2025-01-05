@@ -13,6 +13,7 @@ import {
   COMPLETED_TASKS_LIST_API_URL,
   TASK_ADD_TAG,
   DELETED_TASKS_LIST_API_URL,
+  TASK_REMOVE_TAG,
 } from "../constants";
 import { isAxiosError } from "axios";
 import { handleError } from "./utils";
@@ -140,7 +141,9 @@ export const getCompletedTasksAPI = async (): Promise<
   }
 };
 
-export const getDeletedTasksAPI = async (): Promise<Task[] | APIStatusMessage> => {
+export const getDeletedTasksAPI = async (): Promise<
+  Task[] | APIStatusMessage
+> => {
   try {
     const { data } = await baseTokenfulAPI.get<GetTaskResponse>(
       DELETED_TASKS_LIST_API_URL
@@ -335,6 +338,18 @@ export const addTagToTask = async (
   try {
     await baseTokenfulAPI.put(TASK_ADD_TAG(taskId), { tagIds });
     return { detail: "Tag added to task", isError: false };
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const removeTagFromTask = async (
+  taskId: string,
+  tagId: string
+): Promise<APIStatusMessage> => {
+  try {
+    await baseTokenfulAPI.delete(TASK_REMOVE_TAG(taskId, tagId));
+    return { detail: "Tag removed from task", isError: false };
   } catch (error) {
     return handleError(error);
   }
