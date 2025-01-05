@@ -77,7 +77,7 @@ export const SC_TagsContainer = styled.div`
   align-items: center;
   border-top: 1px solid ${STYLE_BORDER_COLOR};
   width: 100%;
-  padding: 15px 10px 15px 10px;
+  padding: 10px 10px 15px 10px;
   box-sizing: border-box;
 `;
 
