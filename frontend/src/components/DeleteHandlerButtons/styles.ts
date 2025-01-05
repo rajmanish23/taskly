@@ -38,6 +38,25 @@ export const SC_RestoreButton = styled(SC_Button)`
   background-color: #3cb371;
 `;
 
+export const SC_TagRemoveButton = styled.button`
+  font-size: 20px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  color: inherit;
+  transition: background-color ${STYLE_TRANSITION_TIME},
+    color ${STYLE_TRANSITION_TIME};
+  &:hover {
+    background-color: #b20000;
+    color: white;
+  }
+`;
+
 export const SC_Popup = styled(Popup)`
   @keyframes anvil {
     0% {

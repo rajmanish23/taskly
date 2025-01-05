@@ -8,11 +8,13 @@ import {
   SC_PopupButtonContainer,
   SC_PopupFormText,
   SC_RestoreButton,
+  SC_TagRemoveButton,
 } from "./styles";
 import { ReactNode, useContext } from "react";
 import {
   deleteTask,
   permanentlyDeleteTask,
+  removeTagFromTask,
   restoreTask,
 } from "../../API/tasksAPI";
 import { deleteTag, permanentlyDeleteTag, restoreTag } from "../../API/tagsAPI";
@@ -21,17 +23,18 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { PageContext, PageContextType } from "../../context/PageContext";
 import { STYLE_ICON_MARGINS, TODAY_PAGE_URL } from "../../constants";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
+import { IoCloseCircle } from "react-icons/io5";
 
 type Props = {
-  what: "TASK" | "TAG" | "SUB_TASK" | "TASK_LIST";
+  what: "TASK" | "TAG" | "SUB_TASK" | "TASK_LIST" | "TAG_REMOVE";
   id: string;
-  mode: "DELETE" | "PERMA_DELETE" | "RESTORE";
+  mode: "DELETE" | "PERMA_DELETE" | "RESTORE" | "TAG_REMOVE";
   buttonText?: string;
-  // resetFunc?: () => void;
+  parentId?: string;
 };
 
 const initiateAPI = async (
-  { id, mode, what }: Props,
+  { id, mode, what, parentId }: Props,
   navigate: NavigateFunction,
   previousPage: string,
   triggerUpdate: () => void
@@ -67,7 +70,18 @@ const initiateAPI = async (
       triggerUpdate();
     } else {
       await deleteTask(id);
-      triggerUpdate()
+      triggerUpdate();
+    }
+  } else if (what === "TAG_REMOVE") {
+    if (mode === "TAG_REMOVE") {
+      if (parentId === undefined)
+        throw new Error("Tag removal NEEDS associated tag ID!");
+      await removeTagFromTask(parentId, id);
+      triggerUpdate();
+    } else {
+      throw new Error(
+        "Invalid mode for tag removal! Only TAG_REMOVE is allowed."
+      );
     }
   } else {
     if (mode === "PERMA_DELETE") {
@@ -83,20 +97,19 @@ const initiateAPI = async (
 
 const PopupForm = ({
   id,
+  parentId,
   what,
   mode,
   close,
 }: Props & { close: () => void }): ReactNode => {
   const navigate = useNavigate();
   const { previousPage } = useContext(PageContext) as PageContextType;
-  const { triggerUpdate } = useContext(
-    UpdateContext
-  ) as UpdateContextType;
+  const { triggerUpdate } = useContext(UpdateContext) as UpdateContextType;
 
   const onClickInitiateAPI = async () => {
     try {
       await initiateAPI(
-        { id, what, mode },
+        { id, parentId, what, mode },
         navigate,
         previousPage,
         triggerUpdate
@@ -112,7 +125,7 @@ const PopupForm = ({
         <SC_PopupFormText>Do you want to delete this?</SC_PopupFormText>
         <SC_PopupButtonContainer>
           <SC_DeleteButton onClick={onClickInitiateAPI}>
-            <MdDelete />
+            <MdDelete style={STYLE_ICON_MARGINS} />
             Delete
           </SC_DeleteButton>
           <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
@@ -128,7 +141,7 @@ const PopupForm = ({
         </SC_PopupFormText>
         <SC_PopupButtonContainer>
           <SC_DeleteButton onClick={onClickInitiateAPI}>
-            <MdDelete />
+            <MdDelete style={STYLE_ICON_MARGINS} />
             Delete
           </SC_DeleteButton>
           <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
@@ -142,8 +155,22 @@ const PopupForm = ({
         <SC_PopupFormText>Do you want to restore this?</SC_PopupFormText>
         <SC_PopupButtonContainer>
           <SC_RestoreButton onClick={onClickInitiateAPI}>
-            <FaTrashRestoreAlt />
+            <FaTrashRestoreAlt style={STYLE_ICON_MARGINS} />
             Restore
+          </SC_RestoreButton>
+          <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
+        </SC_PopupButtonContainer>
+      </>
+    );
+  }
+  if (mode === "TAG_REMOVE") {
+    return (
+      <>
+        <SC_PopupFormText>Do you want to remove this tag?</SC_PopupFormText>
+        <SC_PopupButtonContainer>
+          <SC_RestoreButton onClick={onClickInitiateAPI}>
+            <IoCloseCircle style={STYLE_ICON_MARGINS} />
+            Remove
           </SC_RestoreButton>
           <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
         </SC_PopupButtonContainer>
@@ -157,6 +184,7 @@ export const DeleteRestorePopupButton = ({
   what,
   mode,
   buttonText,
+  parentId,
 }: Props) => {
   return (
     <SC_Popup
@@ -166,6 +194,12 @@ export const DeleteRestorePopupButton = ({
             <SC_RestoreButton>
               <FaTrashRestoreAlt />
             </SC_RestoreButton>
+          );
+        } else if (mode === "TAG_REMOVE") {
+          return (
+            <SC_TagRemoveButton>
+              <IoCloseCircle />
+            </SC_TagRemoveButton>
           );
         } else {
           return (
@@ -190,7 +224,15 @@ export const DeleteRestorePopupButton = ({
         The code below WILL work just fine. But it will show a TS error.
           
         @ts-expect-error Added due to package not having valid declaration for functional props.*/}
-      {(close) => <PopupForm id={id} what={what} mode={mode} close={close} />}
+      {(close) => (
+        <PopupForm
+          id={id}
+          what={what}
+          mode={mode}
+          close={close}
+          parentId={parentId}
+        />
+      )}
     </SC_Popup>
   );
 };
