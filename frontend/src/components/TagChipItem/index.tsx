@@ -2,18 +2,30 @@ import { FaHashtag } from "react-icons/fa6";
 import { STYLE_ICON_MARGINS } from "../../constants";
 import isColorDark from "../../utils/isColorDark";
 import { SC_TagItemContainer } from "./styles";
+import { removeTagFromTask } from "../../API/tasksAPI";
 
 type Props = {
-  data: {
-    name: string;
-    colorHex: string;
-  };
+  data: Tag;
+  taskId?: string;
   isClickable: boolean;
   isBigDisplay: boolean;
   clickFn?: () => void;
-}
+  removeFn?: () => void;
+};
 
-const TagChipItem = ({data, isClickable, isBigDisplay, clickFn}: Props) => {
+const initiateRemoveTagAPI = async (taskId: string, tagId: string) => {
+  try {
+    const res = await removeTagFromTask(taskId, tagId);
+    if (res.isError) {
+      console.log(res.detail);
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const TagChipItem = ({ data, isClickable, isBigDisplay, clickFn }: Props) => {
   return (
     <SC_TagItemContainer
       $color={data.colorHex}
@@ -26,6 +38,6 @@ const TagChipItem = ({data, isClickable, isBigDisplay, clickFn}: Props) => {
       {data.name}
     </SC_TagItemContainer>
   );
-}
+};
 
-export default TagChipItem
+export default TagChipItem;

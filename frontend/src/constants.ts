@@ -55,6 +55,8 @@ export const TASK_MARK_COMPLETE = (taskId: string) =>
 export const TASK_UNMARK_COMPLETE = (taskId: string) =>
   `/api/tasks/${taskId}/unmark-complete/`;
 export const TASK_ADD_TAG = (taskId: string) => `/api/tasks/${taskId}/add-tag/`;
+export const TASK_REMOVE_TAG = (taskId: string, tagId: string) =>
+  `/api/tasks/${taskId}/remove-tag/${tagId}/`;
 export const CREATE_TASK_API_URL = "/api/tasks/";
 export const TODAY_TASKS_LIST_API_URL = "/api/tasks/today/";
 export const UPCOMING_TASKS_LIST_API_URL = "/api/tasks/upcoming/";
@@ -91,7 +93,8 @@ export const SETTING_EDIT_NAME_URL = "/settings/edit-name";
 export const SETTING_LOGOUT_URL = "/settings/logout";
 export const SETTING_RESTORE_URL = "/settings/restore";
 export const SETTING_RESTORE_TASK_URL_NO_PARAM = "/settings/restore/task/";
-export const SETTING_RESTORE_TASK_URL_WITH_PARAM = "/settings/restore/task/:taskId";
+export const SETTING_RESTORE_TASK_URL_WITH_PARAM =
+  "/settings/restore/task/:taskId";
 
 // Input constants
 export const DELETE_CHALLENGE_TEXT = "I want to permanently delete my account";
