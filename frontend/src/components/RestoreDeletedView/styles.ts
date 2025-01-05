@@ -27,6 +27,9 @@ export const SC_ViewModeSelectorContainer = styled.div`
 `;
 
 export const SC_ViewModeSelector = styled.button<{ $selected: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 8px 16px;
   margin: 0 5px 0 5px;
   font-size: 16px;
