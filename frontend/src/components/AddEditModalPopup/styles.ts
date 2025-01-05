@@ -228,3 +228,35 @@ export const SC_ModalTagItemContainer = styled.div<{
   color: ${(props) => (props.$fgIsDark ? "white" : "black")};
   height: 32px;
 `;
+
+export const SC_TagsContainer = styled.div`
+  height: 55px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 0 0 5px 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 2px;
+  background-color: #111111;
+  border-color: #d67373;
+`;
+
+export const SC_TagsListContainer = styled.ul`
+  padding: 0 0 0 10px;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const SC_TagHeading = styled.h1`
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  color: #ecc4c4;
+  font-size: 22px;
+`;

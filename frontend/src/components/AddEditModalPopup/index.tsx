@@ -38,6 +38,9 @@ import {
   SC_SelectedColorDisplayHeader,
   SC_ErrorMessageHolder,
   SC_ModalTagItemContainer,
+  SC_TagsContainer,
+  SC_TagHeading,
+  SC_TagsListContainer,
 } from "./styles";
 import {
   STYLE_ICON_MARGINS,
@@ -54,6 +57,7 @@ import ErrorMessage from "../ErrorMessage";
 
 import "react-datepicker/dist/react-datepicker.css";
 import isColorDark from "../../utils/isColorDark";
+import TagChipItem from "../TagChipItem";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
@@ -86,8 +90,11 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [tagList, setTagList] = useState<string[]>(
+  const [tagIDList, setTagIDList] = useState<string[]>(
     where !== undefined && isTag(where) ? [where.sId] : []
+  );
+  const [tagList, setTagList] = useState<Tag[]>(
+    where !== undefined && isTag(where) ? [where] : []
   );
 
   const { triggerUpdate: incrementUpdate } = useContext(
@@ -123,12 +130,12 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
           setErrorMessage(status.detail);
           return;
         }
-        if (isTag(where)) {
+        if (tagIDList.length !== 0) {
           if (status.sId === undefined) {
             setErrorMessage("Task creation failed");
             return;
           }
-          const tagStatus = await addTagToTask(status.sId, tagList);
+          const tagStatus = await addTagToTask(status.sId, tagIDList);
           if (tagStatus.isError) {
             setErrorMessage(tagStatus.detail);
             return;
@@ -202,6 +209,13 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
     if (contentRef.current === e.target) {
       closeFn();
     }
+  };
+
+  const removeTag = (id: string) => {
+    const newTagList = tagList.filter((eachTag) => eachTag.sId !== id);
+    const newTagIDList = tagIDList.filter((eachId) => eachId !== id);
+    setTagList(newTagList);
+    setTagIDList(newTagIDList);
   };
 
   const DateDisplay = forwardRef(
@@ -308,15 +322,34 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
             $isError={false}
           />
           {what === "TASK" ? (
-            <SC_DescriptionInput
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              name="descriptionInput"
-              id="descriptionInput"
-              placeholder="Description"
-              $isError={false}
-              rows={5}
-            />
+            <>
+              <SC_DescriptionInput
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                name="descriptionInput"
+                id="descriptionInput"
+                placeholder="Description"
+                $isError={false}
+                rows={5}
+              />
+              <SC_TagsContainer>
+                <SC_TagHeading>Tags:</SC_TagHeading>
+                <SC_TagsListContainer>
+                  {tagList.map((each) => (
+                    <TagChipItem
+                      key={each.sId}
+                      data={each}
+                      isClickable
+                      hasCustomRemove
+                      removeFn={() => removeTag(each.sId)}
+                      isBigDisplay={false}
+                    />
+                  ))}
+                </SC_TagsListContainer>
+                {/* TODO: Add a proper popup for just adding a tag using reactjs-popup */}
+                {/* <AddEditModalPopup mode="CREATE" text="Add a tag" /> */}
+              </SC_TagsContainer>
+            </>
           ) : (
             <></>
           )}
