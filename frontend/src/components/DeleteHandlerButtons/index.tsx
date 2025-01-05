@@ -168,10 +168,10 @@ const PopupForm = ({
       <>
         <SC_PopupFormText>Do you want to remove this tag?</SC_PopupFormText>
         <SC_PopupButtonContainer>
-          <SC_RestoreButton onClick={onClickInitiateAPI}>
+          <SC_DeleteButton onClick={onClickInitiateAPI}>
             <IoCloseCircle style={STYLE_ICON_MARGINS} />
             Remove
-          </SC_RestoreButton>
+          </SC_DeleteButton>
           <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
         </SC_PopupButtonContainer>
       </>
