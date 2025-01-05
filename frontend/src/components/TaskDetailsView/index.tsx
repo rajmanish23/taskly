@@ -239,6 +239,7 @@ const TaskDetailsView = ({ taskId, previousPage }: Props) => {
                 <TagChipItem
                   key={each.sId}
                   data={each}
+                  taskId={taskData.sId}
                   isClickable
                   isBigDisplay={false}
                   clickFn={() => {
