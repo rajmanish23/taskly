@@ -86,6 +86,9 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
   const [tagColor, setTagColor] = useState(data?.colorHex ?? "#b49393");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [tagList, setTagList] = useState<string[]>(
+    where !== undefined && isTag(where) ? [where.sId] : []
+  );
 
   const { triggerUpdate: incrementUpdate } = useContext(
     UpdateContext
@@ -125,7 +128,7 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
             setErrorMessage("Task creation failed");
             return;
           }
-          const tagStatus = await addTagToTask(status.sId, [where.sId]);
+          const tagStatus = await addTagToTask(status.sId, tagList);
           if (tagStatus.isError) {
             setErrorMessage(tagStatus.detail);
             return;
