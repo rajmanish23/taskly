@@ -212,3 +212,19 @@ export const SC_ErrorMessageHolder = styled.div`
     margin-bottom: 0;
   }
 `;
+
+export const SC_ModalTagItemContainer = styled.div<{
+  $bgColor: string;
+  $fgIsDark: boolean;
+}>`
+  background-color: ${(props) => props.$bgColor};
+  padding: 5px 10px 5px 10px;
+  border-radius: 7px;
+  font-size: 24px;
+  margin: 0 5px 0 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: ${(props) => (props.$fgIsDark ? "white" : "black")};
+  height: 32px;
+`;

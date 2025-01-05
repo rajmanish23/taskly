@@ -9,7 +9,7 @@ import {
 import { AiFillPlusCircle } from "react-icons/ai";
 import { MdEditSquare } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
-import { FaSave, FaCalendarCheck } from "react-icons/fa";
+import { FaSave, FaCalendarCheck, FaHashtag } from "react-icons/fa";
 import { subDays } from "date-fns";
 import { HexColorPicker } from "react-colorful";
 import { useNavigate } from "react-router-dom";
@@ -37,6 +37,7 @@ import {
   SC_SelectedColorDisplayContainer,
   SC_SelectedColorDisplayHeader,
   SC_ErrorMessageHolder,
+  SC_ModalTagItemContainer,
 } from "./styles";
 import {
   STYLE_ICON_MARGINS,
@@ -50,9 +51,10 @@ import { addTagToTask, createTask, updateTask } from "../../API/tasksAPI";
 import { createSubTask, updateSubTask } from "../../API/subTasksAPI";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
 import ErrorMessage from "../ErrorMessage";
+import TagChipItem from "../TagChipItem";
 
 import "react-datepicker/dist/react-datepicker.css";
-import TagChipItem from "../TagChipItem";
+import isColorDark from "../../utils/isColorDark";
 
 type CommonProps = {
   mode: "CREATE" | "EDIT";
@@ -338,11 +340,13 @@ const AddEditForm = ({ closeFn, mode, what, where, data }: ContentProps) => {
                 <SC_SelectedColorDisplayHeader>
                   Selected color is
                 </SC_SelectedColorDisplayHeader>
-                <TagChipItem
-                  data={{name, colorHex: tagColor}}
-                  isClickable={false}
-                  isBigDisplay={true}
-                />
+                <SC_ModalTagItemContainer
+                  $bgColor={tagColor}
+                  $fgIsDark={isColorDark(tagColor)}
+                >
+                  <FaHashtag style={STYLE_ICON_MARGINS} />
+                  {name}
+                </SC_ModalTagItemContainer>
               </SC_SelectedColorDisplayContainer>
             </SC_TagColorPickerContainer>
           ) : (
