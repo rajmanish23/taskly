@@ -79,9 +79,6 @@ export const SC_TagsContainer = styled.div`
   width: 100%;
   padding: 15px 10px 15px 10px;
   box-sizing: border-box;
-  button {
-    margin: 0 0 0 20px;
-  }
 `;
 
 export const SC_SubHeading = styled.h1`
