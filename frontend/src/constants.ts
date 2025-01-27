@@ -1,3 +1,4 @@
+// Local Storage keys (Cookies, SessionStorage, LocalStorage)
 export const ACCESS_KEY = "access";
 export const REFRESH_KEY = "refresh";
 export const LOCAL_TAGS_KEY = "tag-data";
