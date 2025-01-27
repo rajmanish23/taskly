@@ -3,15 +3,28 @@ todo-env/
 
 .VSCodeCounter
 
-# If you are using Visual Studio Code # 
-.vscode/* 
-!.vscode/settings.json 
-!.vscode/tasks.json 
-!.vscode/launch.json 
-!.vscode/extensions.json 
+# Zed stuff
+.ropeproject
+.zed
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# If you are using Visual Studio Code #
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .history
 
-# If you are using PyCharm # 
+# If you are using PyCharm #
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -47,19 +60,19 @@ out/
 # JIRA plugin
 atlassian-ide-plugin.xml
 
-# If you are using Sublime Text # 
-*.tmlanguage.cache 
-*.tmPreferences.cache 
-*.stTheme.cache 
-*.sublime-workspace 
-*.sublime-project 
+# If you are using Sublime Text #
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
 
-# sftp configuration file 
-sftp-config.json 
+# sftp configuration file
+sftp-config.json
 
-# Package control specific files Package 
-Control.last-run 
-Control.ca-list 
-Control.ca-bundle 
-Control.system-ca-bundle 
-GitHub.sublime-settings 
+# Package control specific files Package
+Control.last-run
+Control.ca-list
+Control.ca-bundle
+Control.system-ca-bundle
+GitHub.sublime-settings
