@@ -467,7 +467,7 @@ class AddTagsToTaskView(APIView):
                 {"detail": "Task not found or invalid ID"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        
+
         existing_task_tags = task.tags.all()
         for tag_qs in existing_task_tags:
             tags.append(Tag.objects.get(id=tag_qs.id))
@@ -476,7 +476,8 @@ class AddTagsToTaskView(APIView):
             for tag_id in tag_ids:
                 tag_id = sqids.decode(tag_id)[0]
                 tagObj = Tag.objects.get(id=tag_id)
-                if tagObj in tags: continue
+                if tagObj in tags:
+                    continue
                 tags.append(tagObj)
         except Tag.DoesNotExist:
             return Response(
