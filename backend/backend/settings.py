@@ -45,12 +45,22 @@ REST_FRAMEWORK = {
 }
 
 # Simple JWT settings
+
+access_lifetime = os.getenv("JWT_ACCESS_LIFETIME_MINUTES")
+refresh_lifetime = os.getenv("JWT_REFRESH_LIFETIME_DAYS")
+
+if (access_lifetime is None):
+    raise Exception("'JWT_ACCESS_LIFETIME_MINUTES' is not defined in .env!")
+
+if (refresh_lifetime is None):
+    raise Exception("'JWT_REFRESH_LIFETIME_DAYS' is not defined in .env!")
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(
-        minutes=int(os.getenv("JWT_ACCESS_LIFETIME_MINUTES"))
+        minutes=int(access_lifetime)
     ),
     "REFRESH_TOKEN_LIFETIME": timedelta(
-        days=int(os.getenv("JWT_REFRESH_LIFETIME_DAYS"))
+        days=int(refresh_lifetime)
     ),
 }
 
