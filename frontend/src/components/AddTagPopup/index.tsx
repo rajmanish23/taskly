@@ -1,96 +1,66 @@
 import { IoCloseCircle } from "react-icons/io5";
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useState } from "react";
 
 import { SC_Popup, SC_TagAddButton } from "./styles";
 import { UpdateContext, UpdateContextType } from "../../context/UpdateContext";
+import { addTagToTask } from "../../API/tasksAPI";
 
 type Props = {
-  taskId?: string;
+  taskId: string;
   hasCustomAdd?: boolean;
-  tagListState?: Tag[];
-  addToTagList?: () => void;
+  customAddFn?: (tagList: string[]) => void;
 };
 
+const initiateAPI = async (
+  taskId: string,
+  tagList: string[],
+  triggerUpdate: () => void
+) => {
+  await addTagToTask(taskId, tagList);
+  triggerUpdate();
+};
+
+// Has list of tags to add internally. No need to rely on other component state.
+// Custom add function itself will and should take care of state changes and not this component.
 const PopupForm = ({
   taskId,
-  tagListState,
   hasCustomAdd,
-  addToTagList,
+  customAddFn,
   close,
 }: Props & { close: () => void }): ReactNode => {
+  const [tagList, setTagList] = useState<string[]>([]);
   const { triggerUpdate } = useContext(UpdateContext) as UpdateContextType;
 
   const onClickInitiateAPI = async () => {
     try {
-      await initiateAPI(
-        triggerUpdate
-      );
+      if (hasCustomAdd && customAddFn !== undefined) {
+        customAddFn(tagList);
+      } else {
+        await initiateAPI(taskId, tagList, triggerUpdate);
+      }
     } catch (error) {
       console.error(error);
     }
   };
-
-  if (mode === "DELETE") {
-    return (
-      <>
-        <SC_PopupFormText>Do you want to delete this?</SC_PopupFormText>
-        <SC_PopupButtonContainer>
-          <SC_DeleteButton onClick={onClickInitiateAPI}>
-            <MdDelete style={STYLE_ICON_MARGINS} />
-            Delete
-          </SC_DeleteButton>
-          <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
-        </SC_PopupButtonContainer>
-      </>
-    );
-  }
-  if (mode === "PERMA_DELETE") {
-    return (
-      <>
-        <SC_PopupFormText>
-          Do you want to permanently delete this?
-        </SC_PopupFormText>
-        <SC_PopupButtonContainer>
-          <SC_DeleteButton onClick={onClickInitiateAPI}>
-            <MdDelete style={STYLE_ICON_MARGINS} />
-            Delete
-          </SC_DeleteButton>
-          <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
-        </SC_PopupButtonContainer>
-      </>
-    );
-  }
-  if (mode === "RESTORE") {
-    return (
-      <>
-        <SC_PopupFormText>Do you want to restore this?</SC_PopupFormText>
-        <SC_PopupButtonContainer>
-          <SC_RestoreButton onClick={onClickInitiateAPI}>
-            <FaTrashRestoreAlt style={STYLE_ICON_MARGINS} />
-            Restore
-          </SC_RestoreButton>
-          <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
-        </SC_PopupButtonContainer>
-      </>
-    );
-  }
-  if (mode === "TAG_REMOVE") {
-    return (
-      <>
-        <SC_PopupFormText>Do you want to remove this tag?</SC_PopupFormText>
-        <SC_PopupButtonContainer>
-          <SC_DeleteButton onClick={onClickInitiateAPI}>
-            <IoCloseCircle style={STYLE_ICON_MARGINS} />
-            Remove
-          </SC_DeleteButton>
-          <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
-        </SC_PopupButtonContainer>
-      </>
-    );
-  }
+  return (
+    <>
+      <SC_PopupFormText>Do you want to remove this tag?</SC_PopupFormText>
+      <SC_PopupButtonContainer>
+        <SC_DeleteButton onClick={onClickInitiateAPI}>
+          <IoCloseCircle style={STYLE_ICON_MARGINS} />
+          Remove
+        </SC_DeleteButton>
+        <SC_PopupActionButton onClick={close}>Cancel</SC_PopupActionButton>
+      </SC_PopupButtonContainer>
+    </>
+  );
 };
 
-export const DeleteRestorePopupButton = ({ taskId, addToTagList, hasCustomAdd, tagListState }: Props) => {
+export const AddTagPopupButton = ({
+  taskId,
+  customAddFn,
+  hasCustomAdd,
+}: Props) => {
   return (
     <SC_Popup
       trigger={() => (
@@ -111,9 +81,8 @@ export const DeleteRestorePopupButton = ({ taskId, addToTagList, hasCustomAdd, t
       {(close) => (
         <PopupForm
           taskId={taskId}
-          addToTagList={addToTagList}
+          customAddFn={customAddFn}
           hasCustomAdd={hasCustomAdd}
-          tagListState={tagListState}
           close={close}
         />
       )}
