@@ -9,7 +9,6 @@ load_dotenv()
 sqids = Sqids(
     min_length=16,
     alphabet=os.getenv("SQIDS_ALPHABET"),
-    blocklist=os.getenv("SQIDS_BLOCKLIST"),
 )
 
 # Here, the "s_id" is the hashed/jumbledified string
