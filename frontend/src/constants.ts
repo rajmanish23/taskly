@@ -22,6 +22,9 @@ export const DEVICE_WIDTH = {
   PC: "(min-width: 767px)",
 };
 
+// Default window title text
+export const SITE_DEAULT_TITLE = import.meta.env.VITE_SITE_DEAULT_TITLE;
+
 // Login and Register APIs
 export const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 export const LOGIN_API_URL = "/api/token/";
